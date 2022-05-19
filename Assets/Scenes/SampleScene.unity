@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -207,6 +208,20 @@ Transform:
   m_Father: {fileID: 779500395}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -115.56, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attenuationObject: {fileID: 519420028}
+  ListenerNumber: -1
 --- !u!1 &779500389
 GameObject:
   m_ObjectHideFlags: 0
@@ -338,9 +353,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51392d1aaec271d4facf584e0a35c3f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rayDistance: 3
   stepDistance: 3
-  materialParameterName: 
-  materialTypes: []
+  footstepsEventPath:
+    Guid:
+      Data1: -1983454767
+      Data2: 1259743441
+      Data3: -78690909
+      Data4: -1281460983
+    Path: event:/footsteps
+  materialParameterName: Material
+  materialTypes:
+  - wood
+  - rug
   defaultMaterialValue: 0
   walkSpeed: 6
   moveSmoothTime: 0.3
@@ -356,6 +381,7 @@ GameObject:
   - component: {fileID: 852904328}
   - component: {fileID: 852904327}
   - component: {fileID: 852904326}
+  - component: {fileID: 852904325}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -363,6 +389,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &852904325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 852904324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77bf19a728ee0b242b5f986b8be5a7e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  materialValue: 0
 --- !u!65 &852904326
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -396,7 +435,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 15303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 3a76f5f7f9a7b404ba8dd4f8b9d59850, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -1,16 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-// using FMODUnity;
-// using FMOD.Studio;
+using FMODUnity;
+using FMOD.Studio;
 
 public class PlayerController : MonoBehaviour
 {
     //Footstep variables
     private RaycastHit foot;
-    // [SerializeField] private float rayDistance = 3.0f;
+    [SerializeField] private float rayDistance = 3.0f;
     [SerializeField] private float stepDistance = 3.0f;
-    // [SerializeField] private EventReference footstepsEventPath;
+    [SerializeField] private EventReference footstepsEventPath;
     [SerializeField] private string materialParameterName;
     public string[] materialTypes;
     private int F_materialValue;
@@ -46,8 +46,8 @@ public class PlayerController : MonoBehaviour
         distanceTravelled += (transform.position - prevPos).magnitude;
         if(distanceTravelled >= stepDistance + stepRandom)
         {
-            //MaterialCheck();
-            //PlayFootsteps();
+            MaterialCheck();
+            PlayFootsteps();
             stepRandom = Random.Range(0f, 0.5f);
             distanceTravelled = 0f;
         }
@@ -67,36 +67,36 @@ public class PlayerController : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
     }
 
-    // void MaterialCheck()
-    // {
-    //     if(Physics.Raycast(transform.position, Vector3.down, out foot, rayDistance))
-    //     {
-    //         Debug.Log(foot.collider.gameObject.GetComponent<MaterialSetter>().materialValue);
-    //         if(foot.collider.gameObject.GetComponent<MaterialSetter>().materialValue == 1)
-    //         {
-    //             F_materialValue = foot.collider.gameObject.GetComponent<MaterialSetter>().materialValue;
-    //         }
-    //         else if(foot.collider.gameObject.GetComponent<MaterialSetter>().materialValue == 2)
-    //         {
-    //             F_materialValue = foot.collider.gameObject.GetComponent<MaterialSetter>().materialValue;
-    //         }
-    //         else
-    //         {
-    //             F_materialValue = defaultMaterialValue;
-    //         }
-    //     }
-    //     else
-    //     {
-    //         F_materialValue = defaultMaterialValue;
-    //     }
-    // }
+    void MaterialCheck()
+    {
+        if(Physics.Raycast(transform.position, Vector3.down, out foot, rayDistance))
+        {
+            Debug.Log(foot.collider.gameObject.GetComponent<MaterialSetter>().materialValue);
+            if(foot.collider.gameObject.GetComponent<MaterialSetter>().materialValue == 1)
+            {
+                F_materialValue = foot.collider.gameObject.GetComponent<MaterialSetter>().materialValue;
+            }
+            else if(foot.collider.gameObject.GetComponent<MaterialSetter>().materialValue == 2)
+            {
+                F_materialValue = foot.collider.gameObject.GetComponent<MaterialSetter>().materialValue;
+            }
+            else
+            {
+                F_materialValue = defaultMaterialValue;
+            }
+        }
+        else
+        {
+            F_materialValue = defaultMaterialValue;
+        }
+    }
 
-    // void PlayFootsteps()
-    // {
-    //     EventInstance footsteps = RuntimeManager.CreateInstance(footstepsEventPath);
-    //     RuntimeManager.AttachInstanceToGameObject(footsteps, transform, GetComponent<Rigidbody>());
-    //     footsteps.setParameterByName(materialParameterName, F_materialValue);
-    //     footsteps.start();
-    //     footsteps.release();
-    // }
+    void PlayFootsteps()
+    {
+        EventInstance footsteps = RuntimeManager.CreateInstance(footstepsEventPath);
+        RuntimeManager.AttachInstanceToGameObject(footsteps, transform, GetComponent<Rigidbody>());
+        footsteps.setParameterByName(materialParameterName, F_materialValue);
+        footsteps.start();
+        footsteps.release();
+    }
 }
