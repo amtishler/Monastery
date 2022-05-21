@@ -57,12 +57,12 @@ public class PlayerController : MonoBehaviour
 
     void UpdateMovement()
     {
-        Vector2 targetDir = new Vector2(Input.GetAxisRaw("Horizontal"), -Input.GetAxisRaw("Vertical"));
+        Vector2 targetDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         targetDir.Normalize();
 
         currentDir = Vector2.SmoothDamp(currentDir, targetDir, ref currentDirVelocity, moveSmoothTime);
 
-        Vector3 velocity = (transform.forward * currentDir.y + transform.right * currentDir.x) * walkSpeed;
+        Vector3 velocity = (transform.up * currentDir.y + transform.right * currentDir.x) * walkSpeed;
         
         controller.Move(velocity * Time.deltaTime);
     }
