@@ -13,8 +13,8 @@ public class SnapToGrid : MonoBehaviour
     //Works while the grid is visible
     private void OnDrawGizmos()
     {
-        if (!Application.isPlaying && enableSnapping && snapY) GridSnapY();
-        if (!Application.isPlaying && enableSnapping && snapX) GridSnapY();
+        if (!Application.isPlaying && enableSnapping && snapY && !snapX) GridSnapY();
+        if (!Application.isPlaying && enableSnapping && snapX && !snapY) GridSnapX();
         if (!Application.isPlaying && enableSnapping && snapX && snapY) GridSnapXY();
     }
 
