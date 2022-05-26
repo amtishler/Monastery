@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour {
     private CircleCollider2D playerCollider;
     private SpriteRenderer spriteRenderer;
     private Dictionary<int, string> spriteDict;
+    [SerializeField] private Sprite[] spriteList = new Sprite[4];
     private Camera mainCamera;
 
     // Movement variables
@@ -21,8 +22,8 @@ public class PlayerController : MonoBehaviour {
 
     // Tongue variables
     public TongueController tongue;
-    [SerializeField][Range(0.0f, 5.0f)] float tongueSpeed = 1.0f;
-    [SerializeField][Range(0.0f, 5.0f)] float tongueLength = 0.1f;
+    [SerializeField] float tongueLength = 0.1f;
+    [SerializeField] float tongueSpeed = 1.0f;
     private Vector3 currentTongueTarget;
     private bool tongueOut = false;
 
@@ -32,10 +33,6 @@ public class PlayerController : MonoBehaviour {
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteDict = new Dictionary<int, string>();
         mainCamera = Camera.main;
-        spriteDict[0] = "temp/frog-right";
-        spriteDict[1] = "temp/frog-up";
-        spriteDict[2] = "temp/frog-left";
-        spriteDict[3] = "temp/frog-down";
     }
 
 
@@ -43,7 +40,7 @@ public class PlayerController : MonoBehaviour {
     void Update() {
         if (!tongueOut) {
             UpdateMovement();
-            if (Input.GetMouseButtonDown(0)) ShootTongue();
+            if (Input.GetMouseButtonDown(1)) ShootTongue();
         }
     }
 
@@ -53,6 +50,7 @@ public class PlayerController : MonoBehaviour {
         float x = Input.GetAxisRaw("Horizontal");
         float y = Input.GetAxisRaw("Vertical");
         Vector3 targetDir = new Vector3(x,y,0);
+        if (targetDir == Vector3.zero) return;
         targetDir.Normalize();
 
         // moving
@@ -63,8 +61,7 @@ public class PlayerController : MonoBehaviour {
         // update sprite
         int angle = (int)Vector3.Angle(targetDir, Vector3.right)/90;
         if (angle == 1 && targetDir.y < 0) angle = 3;
-        Debug.Log(spriteDict[2]);
-        spriteRenderer.sprite = Resources.Load<Sprite>(spriteDict[angle]);
+        spriteRenderer.sprite = spriteList[angle];
         
     }
 

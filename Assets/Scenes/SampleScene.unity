@@ -168,7 +168,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 2.59
+  orthographic size: 7
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -306,11 +306,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51392d1aaec271d4facf584e0a35c3f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteList:
+  - {fileID: 21300000, guid: 75cd55c0fc79ec64f9b6fb545d8eebbf, type: 3}
+  - {fileID: 21300000, guid: a2e775c2e56b11b498ae4ef0bf4611b0, type: 3}
+  - {fileID: 21300000, guid: 09ca06a018005f84a93ef7cce0e5c9b9, type: 3}
+  - {fileID: 21300000, guid: 1c02df577cef2114f87643cbf8608cef, type: 3}
   walkSpeed: 3
   moveSmoothTime: 0.1
   tongue: {fileID: 5154543685771436477, guid: 23bd3efd438384c4a808b3b86569ebe3, type: 3}
-  tongueSpeed: 3.4
-  tongueLength: 0.8
+  tongueLength: 2
+  tongueSpeed: 10
 --- !u!212 &1409145008
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -392,9 +397,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.2}
+  m_Offset: {x: 0, y: -0.66}
   serializedVersion: 2
-  m_Radius: 0.12
+  m_Radius: 0.33
 --- !u!114 &1409145011
 MonoBehaviour:
   m_ObjectHideFlags: 0
