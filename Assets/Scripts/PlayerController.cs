@@ -5,7 +5,7 @@ using FMODUnity;
 using FMOD.Studio;
 
 public class PlayerController : MonoBehaviour {
-
+    
     // Base variables
     private CircleCollider2D playerCollider;
     private SpriteRenderer spriteRenderer;
@@ -22,8 +22,8 @@ public class PlayerController : MonoBehaviour {
 
     // Tongue variables
     public TongueController tongue;
-    [SerializeField] float tongueLength = 0.1f;
-    [SerializeField] float tongueSpeed = 1.0f;
+    [SerializeField] float tongueTime = 1.0f;
+    [SerializeField] float tongueDist = 1.0f;
     private Vector3 currentTongueTarget;
     private bool tongueOut = false;
 
@@ -68,6 +68,7 @@ public class PlayerController : MonoBehaviour {
 
     // Deploys tongue.
     void ShootTongue() {
+
         tongueOut = true;
         Vector3 mouse = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         mouse.z = 0;
@@ -75,7 +76,7 @@ public class PlayerController : MonoBehaviour {
         direction.Normalize();
 
         TongueController deployedTongue = Instantiate(tongue, transform.position, Quaternion.identity);
-        deployedTongue.setFields(direction, tongueSpeed, tongueLength);
+        deployedTongue.setFields(direction, tongueTime, tongueDist);
     }
 
 
