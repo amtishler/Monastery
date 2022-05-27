@@ -5,7 +5,7 @@ using FMODUnity;
 using FMOD.Studio;
 
 public class PlayerController : MonoBehaviour {
-    
+
     // Base variables
     private CircleCollider2D playerCollider;
     private SpriteRenderer spriteRenderer;
@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] float tongueDist = 1.0f;
     private Vector3 currentTongueTarget;
     private bool tongueOut = false;
+
 
     // Start method, called before the first frame update.
     void Start() {   

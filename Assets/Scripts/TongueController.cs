@@ -25,6 +25,7 @@ public class TongueController : MonoBehaviour {
         startTime = Time.time;
     }
 
+
     // Update method. Moves tongue.
     void Update() {
 
@@ -48,16 +49,7 @@ public class TongueController : MonoBehaviour {
     }
 
 
-    // Method called by the PlayerController to set the tongue's fields.
-    // direction: Vector3 tells us where we're going.
-    // speed: float tells us how fast tongue shoots.
-    // distance: float tells us how far tongue goes.
-    // public void setFields(Vector3 direction, float speed, float distance) {
-    //     this.direction = direction;
-    //     this.speed = speed;
-    //     this.maxDistance = distance;
-    // }
-
+    // Sets distance, amplitude, period of tongue tip motion. Should be called only once.
     public void setFields(Vector3 tongueDirection, float tongueTime, float tongueDist) {
         direction = tongueDirection;
         period = Mathf.PI/tongueTime;
