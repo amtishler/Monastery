@@ -6,16 +6,12 @@ public class TongueController : MonoBehaviour {
 
     private CircleCollider2D tongueCollider;
     private Vector3 direction = Vector3.zero;
-    // private float speed = 0.0f;
-    // private float maxDistance;
     private float amplitude;
     private float period;
     private float startTime;
-    private float currentDistance = 0;
     private bool returned = false;
 
     public PlayerController player;
-    
 
 
     // Start method, called once per frame.
@@ -42,7 +38,6 @@ public class TongueController : MonoBehaviour {
             transform.position = transform.position + deltaDist;
             if (sin < 0) {
                 player.ReturnTongue();
-                Debug.Log(Time.time - startTime);
                 Destroy(gameObject);
             }
         }
@@ -54,6 +49,5 @@ public class TongueController : MonoBehaviour {
         direction = tongueDirection;
         period = Mathf.PI/tongueTime;
         amplitude = tongueDist / ( (1/period)*Mathf.Sin( tongueTime*period/2 ) );
-        Debug.Log(amplitude);
     }
 }

@@ -51,7 +51,6 @@ public class PlayerController : MonoBehaviour {
         float x = Input.GetAxisRaw("Horizontal");
         float y = Input.GetAxisRaw("Vertical");
         Vector3 targetDir = new Vector3(x,y,0);
-        if (targetDir == Vector3.zero) return;
         targetDir.Normalize();
 
         // moving
@@ -60,6 +59,7 @@ public class PlayerController : MonoBehaviour {
         transform.Translate(velocity * Time.deltaTime);
 
         // update sprite
+        if (targetDir == Vector3.zero) return;
         int angle = (int)Vector3.Angle(targetDir, Vector3.right)/90;
         if (angle == 1 && targetDir.y < 0) angle = 3;
         spriteRenderer.sprite = spriteList[angle];
@@ -70,7 +70,10 @@ public class PlayerController : MonoBehaviour {
     // Deploys tongue.
     void ShootTongue() {
 
+
         tongueOut = true;
+        currentDir = Vector3.zero;
+
         Vector3 mouse = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         mouse.z = 0;
         Vector3 direction = mouse - transform.position;
