@@ -114,4 +114,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1b52d316ab70f345a3cf38eb0268ad2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TongueBody: {fileID: 0}
+  rotValue: 0
   player: {fileID: 0}

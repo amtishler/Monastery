@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour {
 
     // Tongue variables
     public TongueController tongue;
+    public GameObject tongueBody;
+    public GameObject tongueSpawnPoint;
     [SerializeField] float tongueTime = 1.0f;
     [SerializeField] float tongueDist = 1.0f;
     private Vector3 currentTongueTarget;
@@ -77,15 +79,37 @@ public class PlayerController : MonoBehaviour {
         Vector3 mouse = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         mouse.z = 0;
         Vector3 direction = mouse - transform.position;
+        Vector3 Unnormalized = direction;
         direction.Normalize();
 
-        TongueController deployedTongue = Instantiate(tongue, transform.position, Quaternion.identity);
+        TongueController deployedTongue = Instantiate(tongue, tongueSpawnPoint.transform.position, Quaternion.identity);
         deployedTongue.setFields(direction, tongueTime, tongueDist);
+
+        tongueBody.SetActive(true);
+
+        int multiplier = 1;
+        if (direction.y < tongueSpawnPoint.transform.position.y)
+            multiplier = -1;
+
+        Debug.Log("Tongue Spawn Point: " + tongueSpawnPoint.transform.position.ToString());
+        Debug.Log("Unnormalized Mouse Vector: " + Unnormalized.ToString());
+        Debug.Log("Normalized Mouse Vector: " + direction.ToString());
+        Debug.Log("Unadjusted Angle: " + Vector3.Angle(tongueSpawnPoint.transform.position, Unnormalized));
+        //Vector3 point = tongueSpawnPoint.transform.position - Unnormalized;
+        //tongueBody.transform.rotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(point.x, point.y) * Mathf.Rad2Deg);
+        //tongueBody.transform.rotation = Quaternion.Euler(0f, 0f, (multiplier * (180 - Mathf.Abs(Vector3.Angle(tongueSpawnPoint.transform.position, Unnormalized)))) - 12);
+        Debug.Log("Adjusted Angle: " + tongueBody.transform.rotation.eulerAngles.z);
     }
 
 
     // Alerts us when the tongue is back in.
     public void ReturnTongue() {
         tongueOut = false;
+        tongueBody.SetActive(false);
+    }
+
+    public float GetTongueDist()
+    {
+        return tongueDist;
     }
 }

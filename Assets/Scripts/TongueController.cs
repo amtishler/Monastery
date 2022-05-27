@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class TongueController : MonoBehaviour {
 
+    public GameObject TongueBody;
+
     private CircleCollider2D tongueCollider;
     private Vector3 direction = Vector3.zero;
     private float amplitude;
     private float period;
     private float startTime;
+    private float maxLength;
     private bool returned = false;
 
     public PlayerController player;
@@ -18,6 +21,7 @@ public class TongueController : MonoBehaviour {
     void Start() {
         tongueCollider = gameObject.GetComponent<CircleCollider2D>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        TongueBody = GameObject.Find("TongueBody");
         startTime = Time.time;
     }
 
@@ -41,6 +45,8 @@ public class TongueController : MonoBehaviour {
                 Destroy(gameObject);
             }
         }
+
+        resizeTongueBody();
     }
 
 
@@ -49,5 +55,14 @@ public class TongueController : MonoBehaviour {
         direction = tongueDirection;
         period = Mathf.PI/tongueTime;
         amplitude = tongueDist / ( (1/period)*Mathf.Sin( tongueTime*period/2 ) );
+        maxLength = tongueDist;
     }
+
+    public void resizeTongueBody()
+    {
+        TongueBody.transform.position = (transform.position + player.tongueSpawnPoint.transform.position) / 2;
+        //TongueBody.transform.rotation = Quaternion.Euler(0f, 0f, 180 - Vector3.Angle(transform.position, player.tongueSpawnPoint.transform.position));
+        TongueBody.transform.localScale = new Vector3(Vector3.Distance(transform.position, player.tongueSpawnPoint.transform.position), .12f - .06f * (TongueBody.transform.localScale.x / maxLength), transform.localScale.z);
+    }
+
 }
