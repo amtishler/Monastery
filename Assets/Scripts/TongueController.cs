@@ -34,16 +34,16 @@ public class TongueController : MonoBehaviour {
         Vector3 deltaDist = direction*cos*Time.deltaTime;
 
         if (!returned) {
-            transform.position = transform.position - deltaDist;
             if (cos < 0 || sin > 0) {
                 returned = true;
             }
+            transform.position = transform.position - deltaDist;
         } else {
-            transform.position = transform.position + deltaDist;
             if (sin < 0) {
                 player.ReturnTongue();
                 Destroy(gameObject);
             }
+            transform.position = transform.position + deltaDist;
         }
 
         resizeTongueBody();
@@ -61,7 +61,6 @@ public class TongueController : MonoBehaviour {
     public void resizeTongueBody()
     {
         TongueBody.transform.position = (transform.position + player.tongueSpawnPoint.transform.position) / 2;
-        //TongueBody.transform.rotation = Quaternion.Euler(0f, 0f, 180 - Vector3.Angle(transform.position, player.tongueSpawnPoint.transform.position));
         TongueBody.transform.localScale = new Vector3(Vector3.Distance(transform.position, player.tongueSpawnPoint.transform.position), .12f - .06f * (TongueBody.transform.localScale.x / maxLength), transform.localScale.z);
     }
 

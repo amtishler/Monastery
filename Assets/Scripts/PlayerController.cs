@@ -72,33 +72,24 @@ public class PlayerController : MonoBehaviour {
     // Deploys tongue.
     void ShootTongue() {
 
-
         tongueOut = true;
         currentDir = Vector3.zero;
 
         Vector3 mouse = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         mouse.z = 0;
-        Vector3 direction = mouse - transform.position;
-        Vector3 Unnormalized = direction;
+        Vector3 direction = mouse - tongueSpawnPoint.transform.position;
         direction.Normalize();
 
         TongueController deployedTongue = Instantiate(tongue, tongueSpawnPoint.transform.position, Quaternion.identity);
         deployedTongue.setFields(direction, tongueTime, tongueDist);
+        Debug.Log(direction);
+
+        tongueBody.transform.rotation = Quaternion.identity;
+        float angle = Vector3.Angle(direction, Vector3.right);
+        if (direction.y < 0) angle = -angle;
+        tongueBody.transform.Rotate(0f, 0f, angle);
 
         tongueBody.SetActive(true);
-
-        int multiplier = 1;
-        if (direction.y < tongueSpawnPoint.transform.position.y)
-            multiplier = -1;
-
-        Debug.Log("Tongue Spawn Point: " + tongueSpawnPoint.transform.position.ToString());
-        Debug.Log("Unnormalized Mouse Vector: " + Unnormalized.ToString());
-        Debug.Log("Normalized Mouse Vector: " + direction.ToString());
-        Debug.Log("Unadjusted Angle: " + Vector3.Angle(tongueSpawnPoint.transform.position, Unnormalized));
-        //Vector3 point = tongueSpawnPoint.transform.position - Unnormalized;
-        //tongueBody.transform.rotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(point.x, point.y) * Mathf.Rad2Deg);
-        //tongueBody.transform.rotation = Quaternion.Euler(0f, 0f, (multiplier * (180 - Mathf.Abs(Vector3.Angle(tongueSpawnPoint.transform.position, Unnormalized)))) - 12);
-        Debug.Log("Adjusted Angle: " + tongueBody.transform.rotation.eulerAngles.z);
     }
 
 
