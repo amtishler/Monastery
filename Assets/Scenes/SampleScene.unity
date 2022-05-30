@@ -431,8 +431,8 @@ MonoBehaviour:
   tongue: {fileID: 5154543685771436477, guid: 23bd3efd438384c4a808b3b86569ebe3, type: 3}
   tongueBody: {fileID: 343579116}
   tongueSpawnPoint: {fileID: 660757557}
-  tongueTime: 0.7
-  tongueDist: 4.5
+  tongueTime: 0.65
+  tongueDist: 6
 --- !u!212 &1409145008
 SpriteRenderer:
   m_ObjectHideFlags: 0

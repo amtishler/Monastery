@@ -82,7 +82,6 @@ public class PlayerController : MonoBehaviour {
 
         TongueController deployedTongue = Instantiate(tongue, tongueSpawnPoint.transform.position, Quaternion.identity);
         deployedTongue.setFields(direction, tongueTime, tongueDist);
-        Debug.Log(direction);
 
         tongueBody.transform.rotation = Quaternion.identity;
         float angle = Vector3.Angle(direction, Vector3.right);

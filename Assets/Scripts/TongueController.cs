@@ -10,7 +10,7 @@ public class TongueController : MonoBehaviour {
     private Vector3 direction = Vector3.zero;
     private float amplitude;
     private float period;
-    private float startTime;
+    private float totalTime;
     private float maxLength;
     private bool returned = false;
 
@@ -22,30 +22,28 @@ public class TongueController : MonoBehaviour {
         tongueCollider = gameObject.GetComponent<CircleCollider2D>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         TongueBody = GameObject.Find("TongueBody");
-        startTime = Time.time;
+        totalTime = 0f;
     }
 
 
     // Update method. Moves tongue.
     void Update() {
 
-        float cos = amplitude * Mathf.Cos(period*(Time.time - startTime));
-        float sin = amplitude * Mathf.Sin(period*(Time.time - startTime));
+        float cos = amplitude * Mathf.Cos(period*totalTime);
+        float sin = amplitude * Mathf.Sin(period*totalTime);
         Vector3 deltaDist = direction*cos*Time.deltaTime;
+        totalTime += Time.deltaTime;
 
-        if (!returned) {
-            if (cos < 0 || sin > 0) {
-                returned = true;
-            }
-            transform.position = transform.position - deltaDist;
-        } else {
-            if (sin < 0) {
-                player.ReturnTongue();
-                Destroy(gameObject);
-            }
-            transform.position = transform.position + deltaDist;
+        if (cos > 0 && !Input.GetMouseButton(1)) {
+            totalTime = Mathf.PI/period - totalTime;
+        }
+        
+        if (sin < 0 && cos < 0) {
+            player.ReturnTongue();
+            Destroy(gameObject);
         }
 
+        transform.position = transform.position + deltaDist;
         resizeTongueBody();
     }
 
