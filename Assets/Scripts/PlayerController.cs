@@ -17,8 +17,13 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] float minimumSpeed = 3.0f;
     [SerializeField] float acceleration = 0.1f;
     [SerializeField] float deacceleration = 0.1f;
-    private Vector3 velocity = Vector3.zero;
-    private float speed = 0f;
+    [SerializeField] float jumpMaximumSpeed = 12.0f;
+    [SerializeField] float jumpMinimumSpeed = 6.0f;
+    [SerializeField] float jumpAcceleration = 0.5f;
+    [SerializeField] float jumpDeacceleration = 0.5f;
+    [SerializeField] float jumpTime = 1.0f;
+    [SerializeField] private Vector3 velocity = Vector3.zero;
+    [SerializeField] private float speed = 0f;
 
     // Weapon variables
     private bool busy = false;
@@ -43,6 +48,7 @@ public class PlayerController : MonoBehaviour {
             UpdateMovement();
             if (Input.GetMouseButtonDown(1)) ShootTongue();
             if (Input.GetMouseButtonDown(0)) SwingStaff();
+            if (Input.GetKeyDown("space")) StartCoroutine(Jump());
         }
     }
 
@@ -114,5 +120,40 @@ public class PlayerController : MonoBehaviour {
         busy = false;
         staff.SetActive(false);
         velocity = Vector3.zero;
+    }
+
+
+    // Jumps.
+    IEnumerator Jump()
+    {
+        busy = true;
+        while(Input.GetKey("space")) yield return null;
+
+        float currentTime = jumpTime;
+        Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mouse.z = 0f;
+        Vector3 direction = mouse - transform.position;
+        direction.Normalize();
+
+        while(currentTime > 0)
+        {
+            if (speed < jumpMinimumSpeed) speed = jumpMinimumSpeed;
+            if (speed < jumpMaximumSpeed) speed = speed + jumpAcceleration;
+            velocity = speed*direction;
+            transform.Translate(velocity * Time.deltaTime);
+            currentTime = currentTime - Time.deltaTime;
+            yield return null;
+        }
+        while(speed >= jumpMinimumSpeed)
+        {
+            speed = speed - jumpDeacceleration;
+            velocity = speed*direction;
+            transform.Translate(velocity * Time.deltaTime);
+            yield return null;
+        }
+        Debug.Log("here");
+        speed = 0f;
+        velocity = Vector3.zero;
+        busy = false;
     }
 }
