@@ -4,62 +4,94 @@ using UnityEngine;
 
 public class TongueController : MonoBehaviour {
 
-    public GameObject TongueBody;
-
     private CircleCollider2D tongueCollider;
-    private Vector3 direction = Vector3.zero;
+    public PlayerController player;
+    public GameObject tongueBody;
+
+    [SerializeField] float travelTime;
+    [SerializeField] float tongueLength;
+    private Vector3 direction;
+    private Vector3 tongueSpawnPoint;
     private float amplitude;
     private float period;
-    private float totalTime;
+    private float extendPeriod;
+    private float extendAmplitude;
+    private float retractPeriod;
+    private float retractAmplitude;
+    private float totalTime = 0f;
     private float maxLength;
-    private bool returned = false;
-
-    public PlayerController player;
 
 
     // Start method, called once per frame.
-    void Start() {
+    void Start()
+    {
         tongueCollider = gameObject.GetComponent<CircleCollider2D>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        TongueBody = GameObject.Find("TongueBody");
+        tongueBody = GameObject.Find("TongueBody");
+    }
+
+
+    // Enable method, called every time the tongue is enabled.
+    public void OnEnable() 
+    {
+        // Direction of tongue
+        tongueSpawnPoint = player.transform.position;
+        tongueSpawnPoint.y = tongueSpawnPoint.y + 0.11f;
+        Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mouse.z = 0;
+        direction = mouse - tongueSpawnPoint;
+        direction.Normalize();
+
+        // Internal settings
+        transform.position = tongueSpawnPoint;
+        transform.rotation = Quaternion.identity;
         totalTime = 0f;
+        period = Mathf.PI/(travelTime);
+        amplitude = tongueLength / ( (1/period)*Mathf.Sin( travelTime*period/2) );
+
+
+        // Tongue body
+        tongueBody.transform.rotation = Quaternion.identity;
+        float angle = Vector3.Angle(direction, Vector3.right);
+        if (direction.y < 0) angle = -angle;
+        tongueBody.transform.Rotate(0f,0f,angle);
+        tongueBody.SetActive(true);
     }
 
 
     // Update method. Moves tongue.
-    void Update() {
-
+    void Update()
+    {
         float cos = amplitude * Mathf.Cos(period*totalTime);
         float sin = amplitude * Mathf.Sin(period*totalTime);
         Vector3 deltaDist = direction*cos*Time.deltaTime;
         totalTime += Time.deltaTime;
 
-        if (cos > 0 && !Input.GetMouseButton(1)) {
-            totalTime = Mathf.PI/period - totalTime;
+        if (cos > 0 && !Input.GetMouseButton(1))
+        {
+            totalTime = travelTime - totalTime;
+            Debug.Log(totalTime);
         }
-        
-        if (sin < 0 && cos < 0) {
-            player.ReturnTongue();
-            Destroy(gameObject);
-        }
+        if (sin < 0 && cos < 0) player.ReturnTongue();
 
         transform.position = transform.position + deltaDist;
-        resizeTongueBody();
+        ResizeTongueBody();
     }
 
 
-    // Sets distance, amplitude, period of tongue tip motion. Should be called only once.
-    public void setFields(Vector3 tongueDirection, float tongueTime, float tongueDist) {
-        direction = tongueDirection;
-        period = Mathf.PI/tongueTime;
-        amplitude = tongueDist / ( (1/period)*Mathf.Sin( tongueTime*period/2 ) );
-        maxLength = tongueDist;
-    }
-
-    public void resizeTongueBody()
+    // Disable method, called every time the tongue is disabled.
+    public void OnDisable()
     {
-        TongueBody.transform.position = (transform.position + player.tongueSpawnPoint.transform.position) / 2;
-        TongueBody.transform.localScale = new Vector3(Vector3.Distance(transform.position, player.tongueSpawnPoint.transform.position), .12f - .06f * (TongueBody.transform.localScale.x / maxLength), transform.localScale.z);
+        tongueBody.SetActive(false);
+    }
+
+
+    // Resizes the tongue's width and everything.
+    public void ResizeTongueBody()
+    {
+        tongueBody.transform.position = (transform.position + tongueSpawnPoint) / 2;
+        float currentLength = Vector3.Distance(transform.position, tongueSpawnPoint);
+        tongueBody.transform.localScale = new Vector3(currentLength*5, 5*(.12f - .06f * (tongueBody.transform.localScale.x / (5*tongueLength))), transform.localScale.z);
     }
 
 }
