@@ -21,9 +21,9 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] float jumpMinimumSpeed = 6.0f;
     [SerializeField] float jumpAcceleration = 0.5f;
     [SerializeField] float jumpDeacceleration = 0.5f;
-    [SerializeField] float jumpTime = 1.0f;
-    [SerializeField] private Vector3 velocity = Vector3.zero;
-    [SerializeField] private float speed = 0f;
+    [SerializeField] float jumpMaximumTime = 1.0f;
+    private Vector3 velocity = Vector3.zero;
+    private float speed = 0f;
 
     // Weapon variables
     private bool busy = false;
@@ -127,9 +127,14 @@ public class PlayerController : MonoBehaviour {
     IEnumerator Jump()
     {
         busy = true;
-        while(Input.GetKey("space")) yield return null;
+        float currentTime = 0f;
+        while(Input.GetKey("space"))
+        {
+            currentTime = currentTime + Time.deltaTime;
+            yield return null;
+        }
 
-        float currentTime = jumpTime;
+        if (currentTime > jumpMaximumTime) currentTime = jumpMaximumTime;
         Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mouse.z = 0f;
         Vector3 direction = mouse - transform.position;
@@ -151,7 +156,6 @@ public class PlayerController : MonoBehaviour {
             transform.Translate(velocity * Time.deltaTime);
             yield return null;
         }
-        Debug.Log("here");
         speed = 0f;
         velocity = Vector3.zero;
         busy = false;
