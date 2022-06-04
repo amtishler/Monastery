@@ -346,8 +346,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1409145005}
   staffSwingTime: 0.18
-  staffWidth: 3
-  staffHeight: 1.5
+  staffWidth: 4
+  staffHeight: 2
 --- !u!61 &851345931
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -474,8 +474,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1409145005}
   tongueBody: {fileID: 545398668}
-  tongueTravelTime: 0.75
-  tongueLength: 8
+  travelTime: 0.66
+  tongueLength: 7
 --- !u!4 &905933741
 Transform:
   m_ObjectHideFlags: 0
@@ -646,6 +646,11 @@ MonoBehaviour:
   minimumSpeed: 2
   acceleration: 0.05
   deacceleration: 0.05
+  jumpMaximumSpeed: 25
+  jumpMinimumSpeed: 1
+  jumpAcceleration: 0.8
+  jumpDeacceleration: 0.2
+  jumpMaximumTime: 1.5
   tongue: {fileID: 905933739}
   staff: {fileID: 851345929}
 --- !u!212 &1409145008

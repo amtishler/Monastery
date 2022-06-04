@@ -8,8 +8,8 @@ public class TongueController : MonoBehaviour {
     public PlayerController player;
     public GameObject tongueBody;
 
-    [SerializeField] float travelTime;
-    [SerializeField] float tongueLength;
+    [SerializeField] float travelTime = 1.0f;
+    [SerializeField] float tongueLength = 5.0f;
     private Vector3 direction;
     private Vector3 tongueSpawnPoint;
     private float amplitude;
