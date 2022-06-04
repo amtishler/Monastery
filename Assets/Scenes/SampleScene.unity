@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &545398669
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -178,8 +178,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1909071963
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -345,6 +345,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1409145005}
+  staffCollider: {fileID: 851345931}
   staffSwingTime: 0.18
   staffWidth: 4
   staffHeight: 2
@@ -355,7 +356,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 851345929}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -412,8 +413,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1909071963
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.49056602, g: 0.49056602, b: 0.49056602, a: 1}
@@ -472,10 +473,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1b52d316ab70f345a3cf38eb0268ad2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tongueCollider: {fileID: 905933742}
   player: {fileID: 1409145005}
   tongueBody: {fileID: 545398668}
-  travelTime: 0.66
-  tongueLength: 7
+  timeToExtend: 0.3
+  tongueLength: 8
+  retractionAccelerateFactor: 0.9
+  autoRetractionAngle: 90
+  objectSpeedReduction: 2
+  buttonSpeedReduction: 0.8
+  playerMoveSpeed: 3
+  playerMoveSpeedHeavy: 2
 --- !u!4 &905933741
 Transform:
   m_ObjectHideFlags: 0
@@ -499,7 +507,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 905933739}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -546,8 +554,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1909071963
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
@@ -650,7 +658,7 @@ MonoBehaviour:
   jumpMinimumSpeed: 1
   jumpAcceleration: 0.8
   jumpDeacceleration: 0.2
-  jumpMaximumTime: 1.5
+  jumpMaximumTime: 1.25
   tongue: {fileID: 905933739}
   staff: {fileID: 851345929}
 --- !u!212 &1409145008

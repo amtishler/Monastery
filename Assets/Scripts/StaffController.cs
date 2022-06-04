@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class StaffController : MonoBehaviour {
     
-    public PlayerController player;
-    private BoxCollider2D staffCollider;
+    [SerializeField] PlayerController player;
+    [SerializeField] BoxCollider2D staffCollider;
 
     [SerializeField] float staffSwingTime;
     [SerializeField] float staffWidth;
@@ -18,8 +18,6 @@ public class StaffController : MonoBehaviour {
     // Start is called before the first frame update
     void Awake()
     {
-        staffCollider = gameObject.GetComponent<BoxCollider2D>();
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         directionList[0] = new int[] {1,0};
         directionList[1] = new int[] {0,1};
         directionList[2] = new int[] {-1,0};
@@ -45,6 +43,7 @@ public class StaffController : MonoBehaviour {
             angle = 180 + (int)Vector3.Angle(direction, Vector3.left);
         angle = (angle+45)/90;
         if (angle > 3) angle = 0;
+        player.RotateSprite(direction);
 
         // Resetting staff position/rotation
         int[] key = directionList[angle];
@@ -53,12 +52,14 @@ public class StaffController : MonoBehaviour {
         if (angle == 3) y = y-0.5f;
         transform.Rotate(0f,0f,(angle)*90);
         transform.position = new Vector3(x,y,0f);
+        staffCollider.enabled = true;
     }
 
     void OnDisable()
     {
         timeUp = 0f;
         transform.rotation = Quaternion.identity;
+        staffCollider.enabled = false;
     }
 
 

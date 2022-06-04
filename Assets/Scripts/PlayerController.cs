@@ -81,10 +81,18 @@ public class PlayerController : MonoBehaviour {
 
         // update sprite
         if (targetDir == Vector3.zero) return;
+        RotateSprite(targetDir);
+    }
+
+
+    // Changes player's sprite to one of the four directions.
+    public void RotateSprite(Vector3 targetDir)
+    {
         int angle = (int)Vector3.Angle(targetDir, Vector3.right);
         if (targetDir.y < 0)
             angle = 180 + (int)Vector3.Angle(targetDir, Vector3.left);
-        angle = angle/90;
+        angle = (angle+45)/90;
+        if (angle > 3) angle = 0;
         spriteRenderer.sprite = spriteList[angle];
     }
 
