@@ -4,19 +4,23 @@ using UnityEngine;
 
 public class TongueController : MonoBehaviour {
 
+    // Serialized Fields
+    [Header("Refernces")]
     [SerializeField] private CircleCollider2D tongueCollider;
-    [SerializeField] PlayerController player;
+    [SerializeField] PlayerConfig player;
     [SerializeField] GameObject tongueBody;
-    private Vector3 tongueSpawnPoint;
-
+    [Header("Tongue Variables")]
     [SerializeField] float timeToExtend = 0.5f;
     [SerializeField] float tongueLength = 8f;
     [SerializeField] float retractionAccelerateFactor = 1f;
     [SerializeField] float autoRetractionAngle = 90f;
+    [Header("Object Interactions")]
     [SerializeField] float objectSpeedReduction = 0.8f;
     [SerializeField] float buttonSpeedReduction = 0.8f;
     [SerializeField] float playerMoveSpeed = 3f;
     [SerializeField] float playerMoveSpeedHeavy = 2f;
+
+    private Vector3 tongueSpawnPoint;
     private float deacceleration;
     private float speed;
     private Vector3 velocity;
@@ -26,20 +30,16 @@ public class TongueController : MonoBehaviour {
     private bool extending;
 
 
-    void Update()
-    {
+    public void UpdateTongue() {
         // Checking if tongue is still going out
-        if (extending)
-        {
-            if (!Input.GetMouseButton(1))
-            {
+        if (extending) {
+            if (!Input.GetMouseButton(1)) {
                 speed = deacceleration*Time.deltaTime;
                 extending = false;
                 deacceleration = deacceleration*retractionAccelerateFactor*buttonSpeedReduction;
                 speed = deacceleration*Time.deltaTime;
             }
-            if (speed <= 0)
-            {
+            if (speed <= 0) {
                 extending = false;
                 deacceleration = deacceleration*retractionAccelerateFactor;
             }
@@ -49,15 +49,14 @@ public class TongueController : MonoBehaviour {
         distTraveled = distTraveled+speed*Time.deltaTime;
         speed = speed - deacceleration*Time.deltaTime;
 
-        if (distTraveled <= 0) player.ReturnTongue();
+        // if (distTraveled <= 0) player.ReturnTongue();
         transform.position = transform.position + velocity*Time.deltaTime;
         ResizeTongueBody();
     }
 
 
     // Enable method, called every time the tongue is enabled.
-    public void OnEnable() 
-    {
+    public void OnEnable() {
         // Direction of tongue
         tongueSpawnPoint = player.transform.position;
         tongueSpawnPoint.y = tongueSpawnPoint.y + 0.11f;
@@ -88,26 +87,23 @@ public class TongueController : MonoBehaviour {
 
 
     // Disable method, called every time the tongue is disabled.
-    void OnDisable()
-    {
+    void OnDisable() {
         tongueBody.SetActive(false);
         tongueCollider.enabled = false;
     }
 
 
     // Resizes the tongue's width and everything.
-    private void ResizeTongueBody()
-    {
+    private void ResizeTongueBody() {
         tongueBody.transform.position = (transform.position + tongueSpawnPoint) / 2;
         float currentLength = Vector3.Distance(transform.position, tongueSpawnPoint);
         tongueBody.transform.localScale = new Vector3(currentLength*5, 5*(.12f - .06f * (tongueBody.transform.localScale.x / (5*tongueLength))), transform.localScale.z);
     }
 
 
-    // Recalculates internal speed fields when tongue is prematurely meddled with.
-    private void CalculateAcceleration()
-    {
-        return;
+    // Checks whether or not tongue is finished.
+    public bool Done() {
+        return distTraveled <= 0 && !extending;
     }
 
     

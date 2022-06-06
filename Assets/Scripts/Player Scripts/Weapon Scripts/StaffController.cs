@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StaffController : MonoBehaviour {
     
-    [SerializeField] PlayerController player;
+    [SerializeField] PlayerConfig player;
     [SerializeField] BoxCollider2D staffCollider;
 
     [SerializeField] float staffSwingTime;
@@ -15,21 +15,17 @@ public class StaffController : MonoBehaviour {
     private float timeUp = 0f;
 
 
-    // Start is called before the first frame update
-    void Awake()
-    {
+    // Awake is called before the first frame update
+    void Awake() {
         directionList[0] = new int[] {1,0};
         directionList[1] = new int[] {0,1};
         directionList[2] = new int[] {-1,0};
         directionList[3] = new int[] {0,-1};
         transform.localScale = new Vector3(staffHeight, staffWidth, transform.localScale.z);
-
     }
 
-
     // Enable method, called every time player swings staff.
-    void OnEnable()
-    {
+    void OnEnable() {
         // Mouse direction calculation
         transform.position = player.transform.position;
         Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -43,7 +39,6 @@ public class StaffController : MonoBehaviour {
             angle = 180 + (int)Vector3.Angle(direction, Vector3.left);
         angle = (angle+45)/90;
         if (angle > 3) angle = 0;
-        player.RotateSprite(direction);
 
         // Resetting staff position/rotation
         int[] key = directionList[angle];
@@ -55,8 +50,8 @@ public class StaffController : MonoBehaviour {
         staffCollider.enabled = true;
     }
 
-    void OnDisable()
-    {
+    // Disable method, called when staff is disabled.
+    void OnDisable() {
         timeUp = 0f;
         transform.rotation = Quaternion.identity;
         staffCollider.enabled = false;
@@ -64,9 +59,12 @@ public class StaffController : MonoBehaviour {
 
 
     // Update is called once per frame
-    void Update()
-    {
-        if (timeUp < staffSwingTime) timeUp = timeUp + Time.deltaTime;
-        else player.ReturnStaff();
+    public void UpdateStaff() {
+        timeUp = timeUp + Time.deltaTime;
+    }
+
+    // Whether or not staff is done
+    public bool Done() {
+        return timeUp >= staffSwingTime;
     }
 }
