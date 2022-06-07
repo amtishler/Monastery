@@ -2,21 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class State
-{
+public abstract class State {
 
     protected StateMachine ctx;
 
 
     // Constructor
-    public State(StateMachine currentContext)
-    {
+    public State(StateMachine currentContext) {
         ctx = currentContext;
     }
 
     // Switches to new state
-    protected void SwitchStates(State newState)
-    {
+    protected void SwitchStates(State newState) {
         ExitState();
         newState.EnterState();
         ctx.currentState = newState;
@@ -30,8 +27,4 @@ public abstract class State
     public abstract void ExitState();
     public abstract void CheckSwitchStates();
     public abstract void InitializeSubState();
-
-
-
-
 }

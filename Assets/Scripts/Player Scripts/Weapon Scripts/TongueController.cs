@@ -105,7 +105,4 @@ public class TongueController : MonoBehaviour {
     public bool Done() {
         return distTraveled <= 0 && !extending;
     }
-
-    
-
 }

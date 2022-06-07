@@ -128,7 +128,6 @@ public class PlayerTongueState : PlayerState {
     }
 
     public override void ExitState() {
-        Debug.Log("Here");
         config.tongue.SetActive(false);
     }
 
