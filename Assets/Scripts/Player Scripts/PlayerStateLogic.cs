@@ -128,11 +128,12 @@ public class PlayerTongueState : PlayerState {
     }
 
     public override void ExitState() {
-        config.tongue.SetActive(false);
+        if(tongue.Done()) config.tongue.SetActive(false);
     }
 
     public override void CheckSwitchStates() {
         if (tongue.Done()) SwitchStates(factory.Idle());
+        else if (tongue.grabbed) SwitchStates(factory.Grabbing());
     }
 
     public override void InitializeSubState() {}
@@ -141,16 +142,63 @@ public class PlayerTongueState : PlayerState {
 
 // Grabbing (with tongue)
 public class PlayerGrabbingState : PlayerState {
+
+    TongueController tongue;
+
     public PlayerGrabbingState(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
     : base(config, currentContext, stateFactory){}
 
-    public override void EnterState(){}
+    public override void EnterState(){
+        tongue = config.tongue.GetComponent<TongueController>();
+        Move();
+    }
+
     public override void UpdateState() {
+        Move();
+        tongue.SetSpawn(config.transform.position);
+        tongue.ResizeTongueBody();
         CheckSwitchStates();
     }
-    public override void ExitState(){}
-    public override void CheckSwitchStates(){}
+
+    public override void ExitState() {
+        tongue.UnGrab();
+    }
+    public override void CheckSwitchStates() {
+        if (!Input.GetMouseButton(1)){
+            SwitchStates(factory.Tongue());
+        }
+    }
     public override void InitializeSubState(){}
+
+    // Helper function
+    public void Move() {
+
+        // finding direction
+        float x = Input.GetAxisRaw("Horizontal");
+        float y = Input.GetAxisRaw("Vertical");
+        Vector3 targetDir = new Vector3(x,y,0);
+        targetDir.Normalize();
+
+        // moving
+        if (targetDir == Vector3.zero) {
+            config.Speed = config.Speed - config.Deacceleration;
+            if (config.Speed <= config.MinimumSpeed) config.Speed = 0;
+            targetDir = config.Velocity;
+            targetDir.Normalize();
+            config.Velocity = targetDir*config.Speed;
+        } else {
+            if (config.Speed < config.MinimumSpeed) config.Speed = config.MinimumSpeed;
+            config.Speed = config.Speed + config.Acceleration;
+            if (config.Speed > config.MaximumSpeed) config.Speed = config.MaximumSpeed;
+            config.Velocity = targetDir*config.Speed;
+        }
+        config.Step();
+
+        // update sprite
+        if (targetDir == Vector3.zero) return;
+        config.RotateSprite(targetDir);
+    }
+
 }
 
 
