@@ -164,7 +164,7 @@ public class PlayerGrabbingState : PlayerState {
         tongue.UnGrab();
     }
     public override void CheckSwitchStates() {
-        if (!Input.GetMouseButton(1)){
+        if (!Input.GetMouseButton(1) || tongue.autoRetract){
             SwitchStates(factory.Tongue());
         }
     }
@@ -179,7 +179,7 @@ public class PlayerGrabbingState : PlayerState {
         Vector3 targetDir = new Vector3(x,y,0);
         targetDir.Normalize();
 
-        // moving
+        // Tongue Moving, slower and no sprite update
         if (targetDir == Vector3.zero) {
             config.Speed = config.Speed - config.Deacceleration;
             if (config.Speed <= config.MinimumSpeed) config.Speed = 0;
@@ -189,14 +189,10 @@ public class PlayerGrabbingState : PlayerState {
         } else {
             if (config.Speed < config.MinimumSpeed) config.Speed = config.MinimumSpeed;
             config.Speed = config.Speed + config.Acceleration;
-            if (config.Speed > config.MaximumSpeed) config.Speed = config.MaximumSpeed;
+            if (config.Speed > tongue.PlayerMoveSpeed) config.Speed = tongue.PlayerMoveSpeed;
             config.Velocity = targetDir*config.Speed;
         }
         config.Step();
-
-        // update sprite
-        if (targetDir == Vector3.zero) return;
-        config.RotateSprite(targetDir);
     }
 
 }

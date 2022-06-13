@@ -25,15 +25,21 @@ public class TongueController : MonoBehaviour {
     private float speed;
     private Vector3 velocity;
     private Vector3 direction;
+    private Vector3 tongueAxis;
     private float distTraveled;
     private float totalTime = 0f;
     private bool extending;
 
     public bool grabbed;
+    public bool autoRetract;
 
     // Need bool to check that the tongue can only grab once per instance.
     private bool grabUsed;
 
+    // GameObject containing grabbed object
+    private GameObject grabbedObject;
+     
+    public float PlayerMoveSpeed {get {return playerMoveSpeed;}}
 
     public void UpdateTongue() {
         // Checking if tongue is still going out
@@ -68,11 +74,22 @@ public class TongueController : MonoBehaviour {
 
         RaycastHit2D[] hits = Physics2D.LinecastAll(start, end, mask);
         if (hits.Length != 0) {
-            grabbed = true;
-            grabUsed = true;
-            speed = 0f;
-            velocity = Vector3.zero;
-            gameObject.transform.SetParent(hits[0].transform.gameObject.transform);
+
+            string objectType = hits[0].transform.gameObject.tag;
+
+            if(objectType == "Large Object")
+            {
+                grabbed = true;
+                grabUsed = true;
+                speed = 0f;
+                velocity = Vector3.zero;
+                gameObject.transform.SetParent(hits[0].transform.gameObject.transform);
+            }
+            if(objectType == "Small Object")
+            {
+                grabbedObject = hits[0].transform.gameObject;
+                grabbedObject.transform.SetParent(gameObject.transform);
+            }
         }
     }
 
@@ -100,6 +117,9 @@ public class TongueController : MonoBehaviour {
         direction = mouse - tongueSpawnPoint;
         direction.Normalize();
 
+        // Save axis to base rotatin on
+        tongueAxis = GetAxis(player.GetAngle(direction));
+
         // Internal settings
         transform.position = tongueSpawnPoint;
         transform.rotation = Quaternion.identity;
@@ -119,6 +139,9 @@ public class TongueController : MonoBehaviour {
 
         // Rotate player
         player.RotateSprite(direction);
+
+        //
+        autoRetract = false;
     }
 
 
@@ -141,6 +164,11 @@ public class TongueController : MonoBehaviour {
             float angle = Vector3.Angle(direction, Vector3.right);
             if (direction.y < 0) angle = -angle;
             tongueBody.transform.Rotate(0f,0f,angle);
+
+            if(Vector3.Angle(direction, tongueAxis) > autoRetractionAngle)
+            {
+                autoRetract = true;
+            };
         }
 
         float currentLength = Vector3.Distance(transform.position, tongueSpawnPoint);
@@ -151,5 +179,23 @@ public class TongueController : MonoBehaviour {
     // Checks whether or not tongue is finished.
     public bool Done() {
         return distTraveled <= 0 && !extending;
+    }
+
+    // Gets axis of tongue for angle purposes (+x, -x, +y, -y)
+    private Vector3 GetAxis(int dir)
+    {
+        switch(dir)
+        {
+            case 0:
+                return Vector3.right;
+            case 1:
+                return Vector3.up;
+            case 2:
+                return Vector3.left;
+            case 3:
+                return Vector3.down;
+            default:
+                return Vector3.zero;
+        }
     }
 }

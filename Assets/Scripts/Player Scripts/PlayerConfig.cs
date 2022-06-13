@@ -22,6 +22,7 @@ public class PlayerConfig : CharacterConfig {
     [SerializeField] float minimumSpeed = 3.0f;
     [SerializeField] float acceleration = 0.1f;
     [SerializeField] float deacceleration = 0.1f;
+    [SerializeField] float tonguemaximumSpeed = 6.0f;
     [Header("Jump Mechanics")]
     [SerializeField] float jumpMaximumSpeed = 12.0f;
     [SerializeField] float jumpMinimumSpeed = 6.0f;
@@ -40,6 +41,7 @@ public class PlayerConfig : CharacterConfig {
     public float MinimumSpeed {get {return minimumSpeed;}}
     public float Acceleration {get {return acceleration;}}
     public float Deacceleration {get {return deacceleration;}}
+    public float TongueMaximumSpeed {get {return tonguemaximumSpeed;}}
     public float JumpMaximumSpeed {get {return jumpMaximumSpeed;}}
     public float JumpMinimumSpeed {get {return jumpMinimumSpeed;}}
     public float JumpAcceleration {get {return jumpAcceleration;}}
@@ -74,15 +76,19 @@ public class PlayerConfig : CharacterConfig {
         return direction;
     }
 
-
     // Changes player's sprite to one of the four directions.
-    public void RotateSprite(Vector3 targetDir)
-    {
+    public void RotateSprite(Vector3 targetDir) {
+        int angle = GetAngle(targetDir);
+        spriteRenderer.sprite = moveSpriteList[angle];
+    }
+
+    public int GetAngle(Vector3 targetDir) {
         int angle = (int)Vector3.Angle(targetDir, Vector3.right);
         if (targetDir.y < 0)
             angle = 180 + (int)Vector3.Angle(targetDir, Vector3.left);
         angle = (angle+45)/90;
         if (angle > 3) angle = 0;
-        spriteRenderer.sprite = moveSpriteList[angle];
+
+        return angle;
     }
 }

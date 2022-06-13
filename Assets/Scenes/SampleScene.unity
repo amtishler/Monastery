@@ -305,7 +305,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7777778, y: 1}
+    m_SensorSize: {x: 1.7762831, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -929,12 +929,13 @@ MonoBehaviour:
   timeToExtend: 0.3
   tongueLength: 8
   retractionAccelerateFactor: 0.9
-  autoRetractionAngle: 90
+  autoRetractionAngle: 60
   objectSpeedReduction: 2
   buttonSpeedReduction: 0.8
   playerMoveSpeed: 3
   playerMoveSpeedHeavy: 2
   grabbed: 0
+  autoRetract: 0
 --- !u!4 &905933741
 Transform:
   m_ObjectHideFlags: 0
@@ -1128,6 +1129,7 @@ MonoBehaviour:
   minimumSpeed: 2
   acceleration: 0.05
   deacceleration: 0.05
+  tonguemaximumSpeed: 0.5
   jumpMaximumSpeed: 25
   jumpMinimumSpeed: 1
   jumpAcceleration: 0.8
@@ -1846,7 +1848,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2141509320
 Transform:
   m_ObjectHideFlags: 0
@@ -1912,7 +1914,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7777778, y: 1}
+    m_SensorSize: {x: 1.7784616, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
