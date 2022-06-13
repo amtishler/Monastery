@@ -1,0 +1,10 @@
+{7431a13c-9b40-48c9-b5b9-715a224d4397} bank:/Master
+{ec2c81e8-ea3b-048b-33f0-fba4d3be450f} bank:/Master.strings
+{c146d2d0-9429-486d-a173-a59e22c75666} bus:/
+{250552ec-31f2-4930-adb0-0ac1e54b6df5} bus:/Reverb
+{5f77e579-f7f1-4751-a5b9-09da6a26b3a2} event:/Forest
+{830841d8-d1bb-4fba-ba57-24f4b14acf18} parameter:/Track1Vol
+{e1993222-b228-46af-8e39-44d91516621c} parameter:/Track2Vol
+{9903b2b8-f5d0-4257-b0ff-408b988d4a74} parameter:/Track3Vol
+{e8ff490b-e52a-489f-b408-8f4a9183bf7f} parameter:/Track4Vol
+{a4e64b7e-1ff0-456e-9fa4-63c9f1ec4817} parameter:/Track5Vol
