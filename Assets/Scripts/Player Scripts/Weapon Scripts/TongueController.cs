@@ -10,12 +10,13 @@ public class TongueController : MonoBehaviour {
     [SerializeField] PlayerConfig player;
     [SerializeField] GameObject tongueBody;
     [Header("Tongue Variables")]
+    [SerializeField] float chargeTime = 1f;
     [SerializeField] float timeToExtend = 0.5f;
     [SerializeField] float tongueLength = 8f;
-    [SerializeField] float retractionAccelerateFactor = 1f;
+    [SerializeField] float retractAccelFactor = 1f;
     [SerializeField] float autoRetractionAngle = 90f;
     [Header("Object Interactions")]
-    [SerializeField] float objectResidualspeed = 0.6f;
+    [SerializeField] float objectResidualSpeed = 0.6f;
     [SerializeField] float buttonSpeedReduction = 0.8f;
     [SerializeField] float playerMoveSpeed = 3f;
     [SerializeField] float playerMoveSpeedHeavy = 2f;
@@ -27,6 +28,7 @@ public class TongueController : MonoBehaviour {
     private Vector3 direction;
     private Vector3 tongueAxis;
     private float distTraveled;
+    private float lengthReached;
     private float totalTime = 0f;
     private bool extending;
 
@@ -42,21 +44,22 @@ public class TongueController : MonoBehaviour {
     private GameObject heldObject;
      
     public float PlayerMoveSpeed {get {return playerMoveSpeed;}}
+    public float ChargeTime {get {return chargeTime;}}
 
     public void UpdateTongue() {
 
-        Debug.Log(speed);
         // Checking if tongue is still going out
         if (extending) {
             if (!Input.GetMouseButton(1)) {
                 speed = deacceleration*Time.deltaTime;
-                extending = false;
-                deacceleration = deacceleration*retractionAccelerateFactor*buttonSpeedReduction;
+                StopExtending();
+                // retractAccelFactor
+                deacceleration = deacceleration*retractAccelFactor*buttonSpeedReduction;
                 speed = deacceleration*Time.deltaTime;
             }
             if (speed <= 0) {
-                extending = false;
-                deacceleration = deacceleration*retractionAccelerateFactor;
+                StopExtending();
+                deacceleration = deacceleration*retractAccelFactor;
             }
         }
 
@@ -103,7 +106,7 @@ public class TongueController : MonoBehaviour {
                 heldObject.transform.SetParent(gameObject.transform);
 
                 //Lose some of the speed when hitting object
-                speed = speed*objectResidualspeed;
+                speed = speed*objectResidualSpeed;
             }
         }
     }
@@ -139,6 +142,8 @@ public class TongueController : MonoBehaviour {
         transform.position = tongueSpawnPoint;
         transform.rotation = Quaternion.identity;
         totalTime = 0f;
+        distTraveled = 0f;     // DistTraveled is reset once at enable and once when the tongue reaches it's max
+        lengthReached = 0f;
         extending = true;
         grabUsed = false;
         deacceleration = 2*tongueLength/Mathf.Pow(timeToExtend,2);
@@ -191,9 +196,17 @@ public class TongueController : MonoBehaviour {
     }
 
 
+    // Stops tongue extending
+    private void StopExtending() {
+        extending = false;
+        lengthReached = distTraveled;
+        distTraveled = 0f;
+    }
+
+
     // Checks whether or not tongue is finished.
     public bool Done() {
-        return distTraveled <= 0 && !extending;
+        return -distTraveled >= lengthReached && !extending;
     }
 
     // Gets axis of tongue for angle purposes (+x, -x, +y, -y)

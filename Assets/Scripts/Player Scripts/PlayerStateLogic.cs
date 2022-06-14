@@ -38,8 +38,9 @@ public class PlayerIdleState : PlayerState {
     public override void ExitState() {}
 
     public override void CheckSwitchStates() {
-        if (Input.GetMouseButtonDown(1)) SwitchStates(factory.Tongue());
-        else if (Input.GetMouseButtonDown(0)) SwitchStates(factory.Attacking());
+        if (Input.GetMouseButtonDown(1)) SwitchStates(factory.TongueCharge());
+        else if (Input.GetMouseButtonDown(0)) SwitchStates(factory.Staff());
+        else if (Input.GetKeyDown("f")) SwitchStates(factory.Kick());
         else if (Input.GetKeyDown("space")) SwitchStates(factory.JumpCharge());
         else if (Input.GetAxisRaw("Horizontal")!=0 || Input.GetAxisRaw("Vertical")!=0) SwitchStates(factory.Running());
     }
@@ -55,22 +56,23 @@ public class PlayerRunningState : PlayerState {
     : base(config, currentContext, stateFactory){}
 
     public override void EnterState() {
-        Move();
+        config.Move();
     }
     
     public override void UpdateState() {
-        Move();
+        config.Move();
         CheckSwitchStates();
     }
 
     public override void ExitState() {
-        config.Speed = 0f;
-        config.Velocity = Vector3.zero;
+        // config.Speed = 0f;
+        // config.Velocity = Vector3.zero;
     }
 
     public override void CheckSwitchStates() {
-        if (Input.GetMouseButtonDown(1)) SwitchStates(factory.Tongue());
-        else if (Input.GetMouseButtonDown(0)) SwitchStates(factory.Attacking());
+        if (Input.GetMouseButtonDown(1)) SwitchStates(factory.TongueCharge());
+        else if (Input.GetMouseButtonDown(0)) SwitchStates(factory.Staff());
+        else if (Input.GetKeyDown("f")) SwitchStates(factory.Kick());
         else if (Input.GetKeyDown("space")) SwitchStates(factory.JumpCharge());
         else if (config.Speed == 0) SwitchStates(factory.Idle());
     }
@@ -107,6 +109,38 @@ public class PlayerRunningState : PlayerState {
     }
 }
 
+// Tongue charge
+public class PlayerTongueChargeState : PlayerState {
+
+    float totalChargeTime;
+    float chargeTime;
+
+    public PlayerTongueChargeState(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
+    : base(config, currentContext, stateFactory){
+    }
+
+    public override void EnterState() {
+        config.SlowDown(config.Deacceleration*2.5f);
+        totalChargeTime = config.tongue.GetComponent<TongueController>().ChargeTime;
+        chargeTime = 0f;
+    }
+
+    public override void UpdateState() {
+        config.SlowDown(config.Deacceleration);
+        chargeTime = chargeTime + Time.deltaTime;
+        CheckSwitchStates();
+    }
+
+    public override void ExitState() {}
+
+    public override void CheckSwitchStates() {
+        if (chargeTime >= totalChargeTime) {Debug.Log("here"); SwitchStates(factory.Tongue());}
+    }
+
+    public override void InitializeSubState() {}
+
+
+}
 
 // Tongue shooting
 public class PlayerTongueState : PlayerState {
@@ -198,12 +232,12 @@ public class PlayerGrabbingState : PlayerState {
 }
 
 
-// Attacking (staff)
-public class PlayerAttackingState : PlayerState {
+// Staff swinging
+public class PlayerStaffState : PlayerState {
 
     StaffController staff;
 
-    public PlayerAttackingState(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
+    public PlayerStaffState(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
     : base(config, currentContext, stateFactory){}
 
     public override void EnterState() {
@@ -213,6 +247,7 @@ public class PlayerAttackingState : PlayerState {
     }
 
     public override void UpdateState() {
+        config.SlowDown(config.Deacceleration*2);
         staff.UpdateStaff();
         CheckSwitchStates();
     }
@@ -229,6 +264,38 @@ public class PlayerAttackingState : PlayerState {
 }
 
 
+// Kicking
+public class PlayerKickState : PlayerState {
+
+    KickController kick;
+    
+    public PlayerKickState(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
+    : base(config, currentContext, stateFactory){}
+
+    public override void EnterState() {
+        config.Move();
+        kick = config.kick.GetComponent<KickController>();
+        config.kick.SetActive(true);
+    }
+
+    public override void UpdateState() {
+        config.Move();
+        kick.UpdateKick();
+        CheckSwitchStates();
+    }
+
+    public override void ExitState() {
+        config.kick.SetActive(false);
+    }
+
+    public override void CheckSwitchStates() {
+        if (kick.Done()) SwitchStates(factory.Idle());
+    }
+
+    public override void InitializeSubState() {}
+}
+
+
 // Jump (charging)
 public class PlayerJumpChargeState : PlayerState {
     
@@ -238,10 +305,12 @@ public class PlayerJumpChargeState : PlayerState {
     : base(config, currentContext, stateFactory){}
 
     public override void EnterState() {
+        config.SlowDown(config.Deacceleration*2);
         chargeTime = 0f;
     }
 
     public override void UpdateState() {
+        config.SlowDown(config.Deacceleration*2);
         chargeTime = chargeTime + Time.deltaTime;
         CheckSwitchStates();
     }

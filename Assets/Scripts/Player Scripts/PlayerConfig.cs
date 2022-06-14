@@ -22,7 +22,7 @@ public class PlayerConfig : CharacterConfig {
     [SerializeField] float minimumSpeed = 3.0f;
     [SerializeField] float acceleration = 0.1f;
     [SerializeField] float deacceleration = 0.1f;
-    [SerializeField] float tonguemaximumSpeed = 6.0f;
+    [SerializeField] float tongueMaxSpeed = 6.0f;
     [Header("Jump Mechanics")]
     [SerializeField] float jumpMaximumSpeed = 12.0f;
     [SerializeField] float jumpMinimumSpeed = 6.0f;
@@ -33,6 +33,7 @@ public class PlayerConfig : CharacterConfig {
     [Header("Weapons")]
     [SerializeField] public GameObject tongue;
     [SerializeField] public GameObject staff;
+    [SerializeField] public GameObject kick;
 
     // Getters & Setters
     public Vector3 Velocity {get {return velocity;} set {velocity = value;}}
@@ -41,7 +42,7 @@ public class PlayerConfig : CharacterConfig {
     public float MinimumSpeed {get {return minimumSpeed;}}
     public float Acceleration {get {return acceleration;}}
     public float Deacceleration {get {return deacceleration;}}
-    public float TongueMaximumSpeed {get {return tonguemaximumSpeed;}}
+    public float TongueMaxSpeed {get {return tongueMaxSpeed;}}
     public float JumpMaximumSpeed {get {return jumpMaximumSpeed;}}
     public float JumpMinimumSpeed {get {return jumpMinimumSpeed;}}
     public float JumpAcceleration {get {return jumpAcceleration;}}
@@ -58,6 +59,43 @@ public class PlayerConfig : CharacterConfig {
         spriteRenderer = GetComponent<SpriteRenderer>();
         stateManager = GetComponent<PlayerStateMachine>();
         mainCamera = Camera.main;
+    }
+
+
+    // Moves according to controls
+    public void Move() {
+
+        // finding direction
+        float x = Input.GetAxisRaw("Horizontal");
+        float y = Input.GetAxisRaw("Vertical");
+        Vector3 targetDir = new Vector3(x,y,0);
+        targetDir.Normalize();
+
+        // moving
+        if (targetDir == Vector3.zero) {
+            SlowDown(deacceleration);
+        } else {
+            if (speed < minimumSpeed) speed = minimumSpeed;
+            speed = speed + acceleration;
+            if (speed > maximumSpeed) speed = maximumSpeed;
+            velocity = targetDir*speed;
+            Step();
+        }
+
+        // update sprite
+        if (targetDir == Vector3.zero) return;
+        RotateSprite(targetDir);
+    }
+
+
+    // Moves without player input
+    public void SlowDown(float dampening) {
+        speed = speed - dampening;
+        if (speed <= minimumSpeed) speed = 0;
+        Vector3 targetDir = velocity;
+        targetDir.Normalize();
+        velocity = targetDir*speed;
+        Step();
     }
 
 

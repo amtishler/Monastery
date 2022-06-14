@@ -16,14 +16,20 @@ public class PlayerStateFactory : StateFactory {
     public State Running() {
         return new PlayerRunningState(config, context, this);
     }
+    public State TongueCharge() {
+        return new PlayerTongueChargeState(config, context, this);
+    }
     public State Tongue() {
         return new PlayerTongueState(config, context, this);
     }
     public State Grabbing() {
         return new PlayerGrabbingState(config, context, this);
     }
-    public State Attacking() {
-        return new PlayerAttackingState(config, context, this);
+    public State Staff() {
+        return new PlayerStaffState(config, context, this);
+    }
+    public State Kick() {
+        return new PlayerKickState(config, context, this);
     }
     public State JumpCharge() {
         return new PlayerJumpChargeState(config, context, this);
