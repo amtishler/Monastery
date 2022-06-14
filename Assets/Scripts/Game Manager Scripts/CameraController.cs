@@ -44,7 +44,7 @@ public class CameraController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Trigger detected");
+        //Debug.Log("Trigger detected");
         if (other.gameObject.CompareTag("Player"))
         {
             Debug.Log("Player detected");

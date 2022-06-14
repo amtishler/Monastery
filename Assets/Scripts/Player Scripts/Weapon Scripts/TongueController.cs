@@ -15,7 +15,7 @@ public class TongueController : MonoBehaviour {
     [SerializeField] float retractionAccelerateFactor = 1f;
     [SerializeField] float autoRetractionAngle = 90f;
     [Header("Object Interactions")]
-    [SerializeField] float objectSpeedReduction = 0.8f;
+    [SerializeField] float objectResidualspeed = 0.6f;
     [SerializeField] float buttonSpeedReduction = 0.8f;
     [SerializeField] float playerMoveSpeed = 3f;
     [SerializeField] float playerMoveSpeedHeavy = 2f;
@@ -30,18 +30,22 @@ public class TongueController : MonoBehaviour {
     private float totalTime = 0f;
     private bool extending;
 
+    //"grabbed" signifies sticking onto a large object
     public bool grabbed;
     public bool autoRetract;
+    public bool holdingObject;
 
     // Need bool to check that the tongue can only grab once per instance.
     private bool grabUsed;
 
     // GameObject containing grabbed object
-    private GameObject grabbedObject;
+    private GameObject heldObject;
      
     public float PlayerMoveSpeed {get {return playerMoveSpeed;}}
 
     public void UpdateTongue() {
+
+        Debug.Log(speed);
         // Checking if tongue is still going out
         if (extending) {
             if (!Input.GetMouseButton(1)) {
@@ -81,14 +85,25 @@ public class TongueController : MonoBehaviour {
             {
                 grabbed = true;
                 grabUsed = true;
+                extending = false;
+
+                //Freeze tongue movement. Set to be child of object it is grabbed to so it moves with it
                 speed = 0f;
                 velocity = Vector3.zero;
                 gameObject.transform.SetParent(hits[0].transform.gameObject.transform);
             }
             if(objectType == "Small Object")
             {
-                grabbedObject = hits[0].transform.gameObject;
-                grabbedObject.transform.SetParent(gameObject.transform);
+                grabUsed = true;
+                extending = false;
+
+                //Let object it has grabbed become a child so it follows it to frog.
+                heldObject = hits[0].transform.gameObject;
+                heldObject.transform.position = transform.position;
+                heldObject.transform.SetParent(gameObject.transform);
+
+                //Lose some of the speed when hitting object
+                speed = speed*objectResidualspeed;
             }
         }
     }
