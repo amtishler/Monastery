@@ -20,6 +20,8 @@ public class TongueController : MonoBehaviour {
     [SerializeField] float buttonSpeedReduction = 0.8f;
     [SerializeField] float playerMoveSpeed = 3f;
     [SerializeField] float playerMoveSpeedHeavy = 2f;
+    [SerializeField] int criticalFrameWindow = 10;
+    [SerializeField] float criticalMultiplier = 2f;
 
     private Vector3 tongueSpawnPoint;
     private float deacceleration;
@@ -42,7 +44,11 @@ public class TongueController : MonoBehaviour {
 
     // GameObject containing grabbed object
     private GameObject heldObject;
-     
+
+    //Timer for critical window
+    private int criticalTimer;
+    private bool criticalUsed;
+
     public float PlayerMoveSpeed {get {return playerMoveSpeed;}}
     public float ChargeTime {get {return chargeTime;}}
 
@@ -61,6 +67,14 @@ public class TongueController : MonoBehaviour {
                 deacceleration = deacceleration*retractAccelFactor;
             }
         }
+
+        criticalTimer++;
+        if(!criticalUsed && criticalTimer < criticalFrameWindow && !Input.GetMouseButton(1))
+        {
+            Debug.Log("Critical");
+            criticalUsed = true;
+            deacceleration = deacceleration * criticalMultiplier;
+        };
 
         velocity = direction*speed;
         distTraveled = distTraveled+speed*Time.deltaTime;
@@ -99,7 +113,7 @@ public class TongueController : MonoBehaviour {
             {
                 grabbed = true;
                 grabUsed = true;
-                extending = false;
+                StopExtending();
 
                 //Freeze tongue movement. Set to be child of object it is grabbed to so it moves with it
                 speed = 0f;
@@ -109,7 +123,8 @@ public class TongueController : MonoBehaviour {
             if(objectType == "Small Object")
             {
                 grabUsed = true;
-                extending = false;
+                StopExtending();
+
                 //Let object it has grabbed become a child so it follows it to frog.
                 heldObject = hits[0].transform.gameObject;
                 heldObject.transform.position = transform.position;
@@ -117,6 +132,10 @@ public class TongueController : MonoBehaviour {
 
                 //Lose some of the speed when hitting object
                 speed = speed*objectResidualSpeed;
+
+                //Start timer
+                criticalTimer = 0;
+                criticalUsed = false;
             }
         }
     }

@@ -305,7 +305,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7777778, y: 1}
+    m_SensorSize: {x: 1.7783735, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -840,7 +840,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7777778, y: 1}
+    m_SensorSize: {x: 1.7783735, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1077,6 +1077,8 @@ MonoBehaviour:
   buttonSpeedReduction: 0.8
   playerMoveSpeed: 3
   playerMoveSpeedHeavy: 2
+  criticalFrameWindow: 10
+  criticalMultiplier: 3
   grabbed: 0
   autoRetract: 0
   holdingObject: 0
