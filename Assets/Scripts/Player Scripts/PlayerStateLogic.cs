@@ -38,7 +38,7 @@ public class PlayerIdleState : PlayerState {
     public override void ExitState() {}
 
     public override void CheckSwitchStates() {
-        if (Input.GetMouseButtonDown(1)) SwitchStates(factory.TongueCharge());
+        if (Input.GetMouseButtonDown(1))SwitchStates(factory.TongueCharge());
         else if (Input.GetMouseButtonDown(0)) SwitchStates(factory.Staff());
         else if (Input.GetKeyDown("f")) SwitchStates(factory.Kick());
         else if (Input.GetKeyDown("space")) SwitchStates(factory.JumpCharge());
@@ -153,11 +153,14 @@ public class PlayerTongueState : PlayerState {
     public override void EnterState() {
         tongue = config.tongue.GetComponent<TongueController>();
         config.RotateSprite(config.GetMouseDirection());
-        config.tongue.SetActive(true);
+
+        if(!tongue.holdingObject) config.tongue.SetActive(true);
     }
 
     public override void UpdateState() {
-        tongue.UpdateTongue();
+
+        if(!tongue.holdingObject) tongue.UpdateTongue();
+        else tongue.spitObject();
         CheckSwitchStates();
     }
 

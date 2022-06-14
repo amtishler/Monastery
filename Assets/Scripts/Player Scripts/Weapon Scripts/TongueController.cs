@@ -47,7 +47,6 @@ public class TongueController : MonoBehaviour {
     public float ChargeTime {get {return chargeTime;}}
 
     public void UpdateTongue() {
-
         // Checking if tongue is still going out
         if (extending) {
             if (!Input.GetMouseButton(1)) {
@@ -76,6 +75,18 @@ public class TongueController : MonoBehaviour {
         ResizeTongueBody();
     }
 
+    public void spitObject() {
+        //Should have object to spit
+        if(!holdingObject || heldObject == null)
+        {
+            Debug.Log("Trying to spit out object that doesn't exist");
+        }
+        heldObject.transform.SetParent(null);
+        heldObject.SetActive(true);
+        heldObject = null;
+        holdingObject = false;
+    }
+
     private void CheckCollision(Vector3 start, Vector3 end) {
         LayerMask mask = LayerMask.GetMask("Object Hitbox");
 
@@ -99,7 +110,6 @@ public class TongueController : MonoBehaviour {
             {
                 grabUsed = true;
                 extending = false;
-
                 //Let object it has grabbed become a child so it follows it to frog.
                 heldObject = hits[0].transform.gameObject;
                 heldObject.transform.position = transform.position;
@@ -170,6 +180,8 @@ public class TongueController : MonoBehaviour {
         tongueBody.SetActive(false);
         grabUsed = false;
         tongueCollider.enabled = false;
+
+        if(heldObject != null) holdingObject = true;
     }
 
 
