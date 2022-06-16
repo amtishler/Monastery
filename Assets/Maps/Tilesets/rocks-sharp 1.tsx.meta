@@ -9,7 +9,7 @@ ScriptedImporter:
   assetBundleVariant: 
   script: {fileID: 11500000, guid: cc34d0f3dc257a442819830b408c5322, type: 3}
   missingFiles:
-  - Assets/Maps/rocks-sharp.png
+  - Assets/Maps/Tilesets/rocks-sharp.png
   errors:
   - 'Missing texture asset: rocks-sharp.png'
   warnings: []

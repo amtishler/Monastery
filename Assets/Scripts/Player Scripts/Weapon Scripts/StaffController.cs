@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StaffController : MonoBehaviour {
+public class StaffController : Attack {
     
     [SerializeField] PlayerConfig player;
     [SerializeField] BoxCollider2D staffCollider;

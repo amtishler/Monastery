@@ -77,4 +77,8 @@ public abstract class CharacterConfig : MonoBehaviour
         transform.Translate(velocity*Time.deltaTime);
     }
 
+    public void Hit(float damage, Vector2 knockback)
+    {
+        // put stuff
+    }
 }
