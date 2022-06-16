@@ -19,6 +19,10 @@ public abstract class CharacterConfig : MonoBehaviour
     [SerializeField] protected float acceleration = 0.1f;
     [SerializeField] protected float deacceleration = 0.1f;
 
+    [Header("Damage")]
+    [SerializeField] protected int hurtiframes = 60;
+    [SerializeField] protected float knockbackmultiplier = 60;
+
     // Serialized Fields
     [Header("Sprites")]
     [SerializeField] protected Sprite[] moveSpriteList = new Sprite[4];
@@ -55,5 +59,26 @@ public abstract class CharacterConfig : MonoBehaviour
         if (angle > 3) angle = 0;
 
         return angle;
+    }
+
+    // Moves without player input
+    public void SlowDown(float dampening) {
+        speed = speed - dampening;
+        if (speed <= minimumSpeed) speed = 0;
+        Vector3 targetDir = velocity;
+        targetDir.Normalize();
+        velocity = targetDir*speed;
+        Step();
+    }
+
+
+    // Steps in direction according to current velocity
+    public void Step() {
+        transform.Translate(velocity*Time.deltaTime);
+    }
+
+    public void Hit(float damage, Vector2 knockback)
+    {
+        // put stuff
     }
 }

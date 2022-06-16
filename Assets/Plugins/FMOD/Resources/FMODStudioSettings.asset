@@ -280,11 +280,11 @@ MonoBehaviour:
   SwitchSettingsMigration: 1
   HasSourceProject: 1
   HasPlatforms: 1
-  sourceProjectPath: Assets/FMOD/MonasteryMusic/MonasteryFMOD.fspro
-  sourceBankPath: Assets/FMOD/MonasteryMusic/Build
+  sourceProjectPath: 11.4-12.37-FMOD/11.4-12.37-FMOD.fspro
+  sourceBankPath: 11.4-12.37-FMOD/Build
   SourceBankPathUnformatted: 
-  BankRefreshCooldown: 1
-  ShowBankRefreshWindow: 0
+  BankRefreshCooldown: 5
+  ShowBankRefreshWindow: 1
   AutomaticEventLoading: 1
   BankLoadType: 0
   AutomaticSampleLoading: 0
@@ -305,7 +305,8 @@ MonoBehaviour:
   Plugins: []
   MasterBanks:
   - Master
-  Banks: []
+  Banks:
+  - LivingRoomBank
   BanksToLoad: []
   LiveUpdatePort: 9264
   EnableMemoryTracking: 0
@@ -318,7 +319,7 @@ MonoBehaviour:
   SharedLibraryTimeSinceStart: 0
   CurrentVersion: 131588
   HideSetupWizard: 1
-  LastEventReferenceScanVersion: 131588
+  LastEventReferenceScanVersion: 0
   Platforms:
   - {fileID: -6166250969002310446}
   - {fileID: -4634380556224093393}

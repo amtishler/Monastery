@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KickController : MonoBehaviour {
+public class KickController : Attack {
     
     [SerializeField] PlayerConfig player;
     [SerializeField] BoxCollider2D kickCollider;

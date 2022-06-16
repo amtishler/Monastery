@@ -26,4 +26,9 @@ public class GameManager : MonoBehaviour
     {
         
     }
+
+    public void DamageCharacter(CharacterConfig character, float damage, Vector2 knockback)
+    {
+        character.Hit(damage, knockback);
+    }
 }
