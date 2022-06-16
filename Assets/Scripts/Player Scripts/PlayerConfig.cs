@@ -67,24 +67,6 @@ public class PlayerConfig : CharacterConfig {
         RotateSprite(targetDir);
     }
 
-
-    // Moves without player input
-    public void SlowDown(float dampening) {
-        speed = speed - dampening;
-        if (speed <= minimumSpeed) speed = 0;
-        Vector3 targetDir = velocity;
-        targetDir.Normalize();
-        velocity = targetDir*speed;
-        Step();
-    }
-
-
-    // Steps in direction according to current velocity
-    public void Step() {
-        transform.Translate(velocity*Time.deltaTime);
-    }
-
-
     // Gets vector in direction of mouse
     public Vector3 GetMouseDirection() {
         Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
