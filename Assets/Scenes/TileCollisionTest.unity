@@ -1415,6 +1415,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -2436462247017898507, guid: e534100c659bce14b8e44e2b12a50235, type: 3}
+      propertyPath: m_Properties.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -778164254067503411, guid: e534100c659bce14b8e44e2b12a50235, type: 3}
       propertyPath: m_Name
       value: forest-demo
