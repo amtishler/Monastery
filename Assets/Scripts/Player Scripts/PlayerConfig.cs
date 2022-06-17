@@ -42,30 +42,30 @@ public class PlayerConfig : CharacterConfig {
     }
 
 
-    // Moves according to controls
-    public void Move() {
+    // // Moves according to controls
+    // public void Move() {
 
-        // finding direction
-        float x = Input.GetAxisRaw("Horizontal");
-        float y = Input.GetAxisRaw("Vertical");
-        Vector3 targetDir = new Vector3(x,y,0);
-        targetDir.Normalize();
+    //     // finding direction
+    //     float x = Input.GetAxisRaw("Horizontal");
+    //     float y = Input.GetAxisRaw("Vertical");
+    //     Vector3 targetDir = new Vector3(x,y,0);
+    //     targetDir.Normalize();
 
-        // Moving
-        if (targetDir == Vector3.zero) {
-            SlowDown(deacceleration);
-        } else {
-            if (speed < minimumSpeed) speed = minimumSpeed;
-            speed = speed + acceleration;
-            if (speed > maximumSpeed) speed = maximumSpeed;
-            velocity = targetDir*speed;
-            Step();
-        }
+    //     // Moving
+    //     if (targetDir == Vector3.zero) {
+    //         SlowDown(deacceleration);
+    //     } else {
+    //         if (speed < minimumSpeed) speed = minimumSpeed;
+    //         speed = speed + acceleration;
+    //         if (speed > maximumSpeed) speed = maximumSpeed;
+    //         velocity = targetDir*speed;
+    //         ResetVelocity();
+    //     }
 
-        // Update sprite
-        if (targetDir == Vector3.zero) return;
-        RotateSprite(targetDir);
-    }
+    //     // Update sprite
+    //     if (targetDir == Vector3.zero) return;
+    //     RotateSprite(targetDir);
+    // }
 
 
     // Changes player's sprite to one of the four directions.

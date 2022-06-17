@@ -24,8 +24,7 @@ public class EnemyConfig : CharacterConfig {
             if (speed < minimumSpeed) speed = minimumSpeed;
             speed = speed + acceleration;
             if (speed > maximumSpeed) speed = maximumSpeed;
-            velocity = targetDir*speed;
-            Step();
+            Velocity = targetDir*speed;
         }
 
         // Update sprite TODO

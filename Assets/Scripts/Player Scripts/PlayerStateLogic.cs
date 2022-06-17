@@ -44,8 +44,6 @@ public class PlayerIdleState : PlayerState {
         else if (Input.GetKeyDown("space")) SwitchStates(factory.JumpCharge());
         else if (Input.GetAxisRaw("Horizontal")!=0 || Input.GetAxisRaw("Vertical")!=0) SwitchStates(factory.Running());
     }
-
-    public override void InitializeSubState() {}
 }
 
 
@@ -56,11 +54,11 @@ public class PlayerRunningState : PlayerState {
     : base(config, currentContext, stateFactory){}
 
     public override void EnterState() {
-        config.Move();
+        Move();
     }
     
     public override void UpdateState() {
-        config.Move();
+        Move();
         CheckSwitchStates();
     }
 
@@ -76,8 +74,6 @@ public class PlayerRunningState : PlayerState {
         else if (Input.GetKeyDown("space")) SwitchStates(factory.JumpCharge());
         else if (config.Speed == 0) SwitchStates(factory.Idle());
     }
-
-    public override void InitializeSubState(){}
 
     // Helper function
     public void Move() {
@@ -101,7 +97,6 @@ public class PlayerRunningState : PlayerState {
             if (config.Speed > config.MaximumSpeed) config.Speed = config.MaximumSpeed;
             config.Velocity = targetDir*config.Speed;
         }
-        config.Step();
 
         // update sprite
         if (targetDir == Vector3.zero) return;
@@ -131,15 +126,13 @@ public class PlayerTongueChargeState : PlayerState {
         CheckSwitchStates();
     }
 
-    public override void ExitState() {}
-
-    public override void CheckSwitchStates() {
-        if (chargeTime >= totalChargeTime) {Debug.Log("here"); SwitchStates(factory.Tongue());}
+    public override void ExitState() {
+        config.Velocity = Vector3.zero;
     }
 
-    public override void InitializeSubState() {}
-
-
+    public override void CheckSwitchStates() {
+        if (chargeTime >= totalChargeTime) SwitchStates(factory.Tongue());
+    }
 }
 
 // Tongue shooting
@@ -158,22 +151,19 @@ public class PlayerTongueState : PlayerState {
     }
 
     public override void UpdateState() {
-
         if(!tongue.holdingObject) tongue.UpdateTongue();
         else tongue.spitObject();
         CheckSwitchStates();
     }
 
     public override void ExitState() {
-        if(tongue.Done()) config.tongue.SetActive(false);
+        config.tongue.SetActive(false);
     }
 
     public override void CheckSwitchStates() {
-        if (tongue.Done()) SwitchStates(factory.Idle());
+        if (tongue.CheckIfFinished()) SwitchStates(factory.Idle());
         else if (tongue.grabbed) SwitchStates(factory.Grabbing());
     }
-
-    public override void InitializeSubState() {}
 }
 
 
@@ -205,7 +195,6 @@ public class PlayerGrabbingState : PlayerState {
             SwitchStates(factory.Tongue());
         }
     }
-    public override void InitializeSubState(){}
 
     // Helper function
     public void Move() {
@@ -232,9 +221,7 @@ public class PlayerGrabbingState : PlayerState {
             if (config.Speed > tongue.PlayerMoveSpeed) config.Speed = tongue.PlayerMoveSpeed;
             config.Velocity = targetDir*config.Speed;
         }
-        config.Step();
     }
-
 }
 
 
@@ -265,8 +252,6 @@ public class PlayerStaffState : PlayerState {
     public override void CheckSwitchStates() {
         if (staff.Done()) SwitchStates(factory.Idle());
     }
-
-    public override void InitializeSubState(){}
 }
 
 
@@ -279,13 +264,13 @@ public class PlayerKickState : PlayerState {
     : base(config, currentContext, stateFactory){}
 
     public override void EnterState() {
-        config.Move();
+        config.SlowDown(config.Deacceleration);
         kick = config.kick.GetComponent<KickController>();
         config.kick.SetActive(true);
     }
 
     public override void UpdateState() {
-        config.Move();
+        config.SlowDown(config.Deacceleration);
         kick.UpdateKick();
         CheckSwitchStates();
     }
@@ -297,8 +282,6 @@ public class PlayerKickState : PlayerState {
     public override void CheckSwitchStates() {
         if (kick.Done()) SwitchStates(factory.Idle());
     }
-
-    public override void InitializeSubState() {}
 }
 
 
@@ -329,8 +312,6 @@ public class PlayerJumpChargeState : PlayerState {
             else SwitchStates(factory.Jumping());
         }
     }
-
-    public override void InitializeSubState(){}
 }
 
 
@@ -368,19 +349,15 @@ public class PlayerJumpingState : PlayerState {
         if (finished) SwitchStates(factory.Idle());
     }
 
-    public override void InitializeSubState() {}
-
     public void Move() {
         if (currentDist < totalDist) {
             if (config.Speed < config.JumpMinimumSpeed) config.Speed = config.JumpMinimumSpeed;
             if (config.Speed < config.JumpMaximumSpeed) config.Speed = config.Speed + config.JumpAcceleration;
             config.Velocity = config.Speed*direction;
-            config.Step();
             currentDist = currentDist + config.Speed*Time.deltaTime;
         } else {
             config.Speed = config.Speed - config.JumpDeacceleration;
             config.Velocity = config.Speed*direction;
-            config.Step();
             if(config.Speed < config.JumpMinimumSpeed) finished = true;
         }
     }
@@ -393,20 +370,17 @@ public class PlayerHurtState : PlayerState
     public PlayerHurtState(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
     : base(config, currentContext, stateFactory){}
 
-    public override void EnterState(){
-        config.Step();
-    }
+    public override void EnterState(){}
 
     public override void UpdateState()
     {
-        config.SlowDown(config.Recoverydeaccel);
+        config.SlowDown(config.RecoveryDeaccel);
         CheckSwitchStates();
     }
     public override void ExitState(){}
     public override void CheckSwitchStates(){
         if(config.Speed == 0) SwitchStates(factory.Idle());
     }
-    public override void InitializeSubState(){}
 }
 
 
@@ -423,7 +397,6 @@ public class PlayerDeadState : PlayerState
     }
     public override void ExitState(){}
     public override void CheckSwitchStates(){}
-    public override void InitializeSubState(){}
 }
 
 
@@ -440,7 +413,6 @@ public class PlayerMapOpenState : PlayerState
     }
     public override void ExitState(){}
     public override void CheckSwitchStates(){}
-    public override void InitializeSubState(){}
 }
 
 
@@ -457,7 +429,6 @@ public class PlayerTeleportingState : PlayerState
     }
     public override void ExitState(){}
     public override void CheckSwitchStates(){}
-    public override void InitializeSubState(){}
 }
 
 
@@ -474,5 +445,4 @@ public class PlayerCutsceneState : PlayerState
     }
     public override void ExitState(){}
     public override void CheckSwitchStates(){}
-    public override void InitializeSubState(){}
 }

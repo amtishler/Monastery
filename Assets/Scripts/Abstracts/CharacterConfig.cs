@@ -13,14 +13,13 @@ public abstract class CharacterConfig : MonoBehaviour
     protected StateMachine stateManager;
 
     [SerializeField] protected float speed = 0f;
-    protected Vector3 velocity = Vector3.zero;
 
     [Header("Movement")]
     [SerializeField] protected float maximumSpeed = 6.0f;
     [SerializeField] protected float minimumSpeed = 3.0f;
     [SerializeField] protected float acceleration = 0.1f;
     [SerializeField] protected float deacceleration = 0.1f;
-    [SerializeField] protected float recoverydeaccel = 0.5f;
+    [SerializeField] protected float recoveryDeaccel = 0.5f;
 
     [Header("Damage")]
     [SerializeField] protected float invincibletimer = 1.5f;
@@ -34,16 +33,15 @@ public abstract class CharacterConfig : MonoBehaviour
     //For any additional start elements.
     protected abstract void _Start();
 
-    public Vector3 Velocity {get {return velocity;} set {velocity = value;}}
+    public Vector3 Velocity {get {return rigidBody.velocity;} set {rigidBody.velocity = value;}}
     public float Speed {get {return speed;} set {speed = value;}}
     public float MaximumSpeed {get {return maximumSpeed;}}
     public float MinimumSpeed {get {return minimumSpeed;}}
     public float Acceleration {get {return acceleration;}}
     public float Deacceleration {get {return deacceleration;}}
-    public float Recoverydeaccel {get {return recoverydeaccel;}}
+    public float RecoveryDeaccel {get {return recoveryDeaccel;}}
 
-    void Start()
-    {
+    void Start() {
         characterCollider = GetComponent<CircleCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         stateManager = GetComponent<StateMachine>();
@@ -55,17 +53,9 @@ public abstract class CharacterConfig : MonoBehaviour
     public void SlowDown(float dampening) {
         speed = speed - dampening;
         if (speed <= minimumSpeed) speed = 0;
-        Vector3 targetDir = velocity;
+        Vector3 targetDir = Velocity;
         targetDir.Normalize();
-        velocity = targetDir*speed;
-        Step();
-    }
-
-
-    // Steps in direction according to current velocity
-    public void Step() {
-        // transform.Translate(velocity*Time.deltaTime);
-        rigidBody.velocity = velocity;
+        Velocity = targetDir*speed;
     }
 
     public void Hit(float damage, Vector3 knockback, float magnitude)
@@ -74,7 +64,7 @@ public abstract class CharacterConfig : MonoBehaviour
         {
             stateManager.ForceHurt();
             speed = magnitude * knockbackmultiplier;
-            velocity = knockback;
+            Velocity = knockback;
         }
     }
 

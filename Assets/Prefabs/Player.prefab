@@ -851,7 +851,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7786459, y: 1}
+    m_SensorSize: {x: 1.7784201, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1156,7 +1156,7 @@ MonoBehaviour:
   minimumSpeed: 1
   acceleration: 0.12
   deacceleration: 0.12
-  recoverydeaccel: 0.5
+  recoveryDeaccel: 0.5
   invincibletimer: 1.5
   knockbackmultiplier: 60
   moveSpriteList:

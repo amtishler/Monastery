@@ -43,8 +43,6 @@ public class EnemyIdleState : EnemyState {
         if(CheckVision()) SwitchStates(factory.Aggressive());
     }
 
-    public override void InitializeSubState() {}
-
     private bool CheckVision()
     {
         Collider2D collider = Physics2D.OverlapCircle(config.transform.position, config.detectionradius, LayerMask.GetMask("Player Hitbox"));
@@ -73,8 +71,6 @@ public class EnemyAggressiveState : EnemyState {
     public override void ExitState() {}
 
     public override void CheckSwitchStates() {}
-
-    public override void InitializeSubState() {}
 }
 
 // Hurt
@@ -88,13 +84,13 @@ public class EnemyHurtState : EnemyState {
     : base(config, currentContext, stateFactory){}
 
     public override void EnterState() {
-        deacceleration = config.Recoverydeaccel;
+        deacceleration = config.RecoveryDeaccel;
         config.SlowDown(deacceleration);
     }
 
     public override void UpdateState()
     {
-        deacceleration += config.Recoverydeaccel * Time.deltaTime;
+        deacceleration += config.RecoveryDeaccel * Time.deltaTime;
         config.SlowDown(deacceleration);
         CheckSwitchStates();
     }
@@ -104,7 +100,5 @@ public class EnemyHurtState : EnemyState {
     public override void CheckSwitchStates(){
         if(config.Speed == 0) SwitchStates(currentContext.previousState);
     }
-
-    public override void InitializeSubState() {}
 }
 
