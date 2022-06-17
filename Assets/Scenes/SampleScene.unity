@@ -440,16 +440,17 @@ MonoBehaviour:
   minimumSpeed: 3
   acceleration: 0.1
   deacceleration: 0.1
-  recoverydeaccel: 0.75
-  hurtiframes: 60
+  recoveryDeaccel: 0.5
+  invincibletimer: 1.5
   knockbackmultiplier: 1
   moveSpriteList:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  recovering: 0
+  invincible: 0
   detectionradius: 5
+  target: {fileID: 0}
 --- !u!114 &1498259642
 MonoBehaviour:
   m_ObjectHideFlags: 0
