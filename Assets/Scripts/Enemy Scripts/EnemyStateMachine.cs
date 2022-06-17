@@ -16,6 +16,7 @@ public class EnemyStateMachine : StateMachine
 
     public override void ForceHurt()
     {
+        previousState = currentState;
         currentState.SwitchStates(states.Hurt());
     }
 }

@@ -21,13 +21,13 @@ public abstract class CharacterConfig : MonoBehaviour
     [SerializeField] protected float recoverydeaccel = 0.5f;
 
     [Header("Damage")]
-    [SerializeField] protected int hurtiframes = 60;
-    [SerializeField] protected float knockbackmultiplier = 1;
+    [SerializeField] protected float invincibletimer = 1.5f;
+    [SerializeField] protected float knockbackmultiplier = 1f;
 
     [Header("Sprites")]
     [SerializeField] protected Sprite[] moveSpriteList = new Sprite[4];
 
-    public bool recovering;
+    public bool invincible;
 
     //For any additional start elements.
     protected abstract void _Start();
@@ -66,10 +66,12 @@ public abstract class CharacterConfig : MonoBehaviour
 
     public void Hit(float damage, Vector3 knockback, float magnitude)
     {
-        stateManager.ForceHurt();
-        recovering = true;
-        speed = magnitude * knockbackmultiplier;
-        velocity = knockback;
+        if(!invincible)
+        {
+            stateManager.ForceHurt();
+            speed = magnitude * knockbackmultiplier;
+            velocity = knockback;
+        }
     }
 
     public int GetAngle(Vector3 targetDir) {
