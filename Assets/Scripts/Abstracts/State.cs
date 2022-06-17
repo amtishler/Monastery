@@ -13,7 +13,7 @@ public abstract class State {
     }
 
     // Switches to new state
-    protected void SwitchStates(State newState) {
+    public void SwitchStates(State newState) {
         ExitState();
         newState.EnterState();
         ctx.currentState = newState;

@@ -33,7 +33,7 @@ public class PlayerConfig : CharacterConfig {
     public float JumpChargeTime {get {return jumpChargeTime;}}
     public float JumpTotalDist {get {return jumpTotalDist;}}
 
-
+    public int currentdir;
 
     // Start method, called before the first frame update.
     protected override void _Start()
@@ -66,6 +66,15 @@ public class PlayerConfig : CharacterConfig {
         if (targetDir == Vector3.zero) return;
         RotateSprite(targetDir);
     }
+
+
+    // Changes player's sprite to one of the four directions.
+    public void RotateSprite(Vector3 targetDir) {
+        int angle = GetAngle(targetDir);
+        spriteRenderer.sprite = moveSpriteList[angle];
+        currentdir = angle;
+    }
+
 
     // Gets vector in direction of mouse
     public Vector3 GetMouseDirection() {

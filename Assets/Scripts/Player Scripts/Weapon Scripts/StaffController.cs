@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class StaffController : Attack {
     
-    [SerializeField] PlayerConfig player;
     [SerializeField] BoxCollider2D staffCollider;
 
     [SerializeField] float staffSwingTime;
@@ -27,7 +26,7 @@ public class StaffController : Attack {
     // Enable method, called every time player swings staff.
     void OnEnable() {
         // Mouse direction calculation
-        transform.position = player.transform.position;
+        transform.position = playerconf.transform.position;
         Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mouse.z = 0f;
         direction = mouse - transform.position;

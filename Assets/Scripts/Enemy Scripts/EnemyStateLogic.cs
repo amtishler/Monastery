@@ -32,7 +32,6 @@ public class EnemyIdleState : EnemyState {
     public override void EnterState() {}
 
     public override void UpdateState() {
-        //Debug.Log("Idling");
         CheckSwitchStates();
     }
 
@@ -63,16 +62,28 @@ public class EnemyAggressiveState : EnemyState {
 // Hurt
 public class EnemyHurtState : EnemyState {
 
+    private float deacceleration;
+
     public EnemyHurtState(EnemyConfig config, StateMachine currentContext, EnemyStateFactory stateFactory)
     : base(config, currentContext, stateFactory){}
 
-    public override void EnterState() {}
+    public override void EnterState() {
+        deacceleration = config.Recoverydeaccel;
+        config.SlowDown(deacceleration);
+    }
 
-    public override void UpdateState() {}
+    public override void UpdateState()
+    {
+        deacceleration += config.Recoverydeaccel * Time.deltaTime;
+        config.SlowDown(deacceleration);
+        CheckSwitchStates();
+    }
 
     public override void ExitState() {}
 
-    public override void CheckSwitchStates() {}
+    public override void CheckSwitchStates(){
+        if(config.Speed == 0) SwitchStates(factory.Idle());
+    }
 
     public override void InitializeSubState() {}
 }

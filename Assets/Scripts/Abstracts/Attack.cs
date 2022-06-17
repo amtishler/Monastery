@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class Attack : MonoBehaviour
 {
+    [SerializeField] protected PlayerConfig playerconf;
     [SerializeField] protected float damage, knockback;
+    [SerializeField] protected float knockbacknormalization = 0.5f;
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -12,8 +15,32 @@ public class Attack : MonoBehaviour
         if (d != null)
         {
             // put knockback calculations here or something
+            Vector3 knockbackdir = collision.transform.position - playerconf.transform.position;
+            Vector3 facingdir = GetAxis(playerconf.currentdir);
+            knockbackdir.Normalize();
+            facingdir.Normalize();
 
-            GameManager.Instance.DamageCharacter(d, damage, Vector2.right * knockback);
+            Vector3 finaldir = (knockbackdir * (1 - knockbacknormalization)) + (facingdir * knockbacknormalization);
+
+
+            GameManager.Instance.DamageCharacter(d, damage, finaldir, knockback);
+        }
+    }
+
+    private Vector3 GetAxis(int dir)
+    {
+        switch(dir)
+        {
+            case 0:
+                return Vector3.right;
+            case 1:
+                return Vector3.up;
+            case 2:
+                return Vector3.left;
+            case 3:
+                return Vector3.down;
+            default:
+                return Vector3.zero;
         }
     }
 }

@@ -27,8 +27,8 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public void DamageCharacter(CharacterConfig character, float damage, Vector2 knockback)
+    public void DamageCharacter(CharacterConfig character, float damage, Vector3 knockbackdir, float knockbackmag)
     {
-        character.Hit(damage, knockback);
+        character.Hit(damage, knockbackdir, knockbackmag);
     }
 }

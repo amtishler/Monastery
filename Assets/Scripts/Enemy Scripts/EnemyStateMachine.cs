@@ -13,4 +13,9 @@ public class EnemyStateMachine : StateMachine
         currentState = states.Idle();
         currentState.EnterState();
     }
+
+    public override void ForceHurt()
+    {
+        currentState.SwitchStates(states.Hurt());
+    }
 }

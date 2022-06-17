@@ -8,7 +8,7 @@ public abstract class CharacterConfig : MonoBehaviour
     [System.NonSerialized]
     protected CircleCollider2D characterCollider;
     protected SpriteRenderer spriteRenderer;
-    protected PlayerStateMachine stateManager;
+    protected StateMachine stateManager;
 
     [SerializeField] protected float speed = 0f;
     protected Vector3 velocity = Vector3.zero;
@@ -18,14 +18,16 @@ public abstract class CharacterConfig : MonoBehaviour
     [SerializeField] protected float minimumSpeed = 3.0f;
     [SerializeField] protected float acceleration = 0.1f;
     [SerializeField] protected float deacceleration = 0.1f;
+    [SerializeField] protected float recoverydeaccel = 0.5f;
 
     [Header("Damage")]
     [SerializeField] protected int hurtiframes = 60;
-    [SerializeField] protected float knockbackmultiplier = 60;
+    [SerializeField] protected float knockbackmultiplier = 1;
 
-    // Serialized Fields
     [Header("Sprites")]
     [SerializeField] protected Sprite[] moveSpriteList = new Sprite[4];
+
+    public bool recovering;
 
     //For any additional start elements.
     protected abstract void _Start();
@@ -36,29 +38,14 @@ public abstract class CharacterConfig : MonoBehaviour
     public float MinimumSpeed {get {return minimumSpeed;}}
     public float Acceleration {get {return acceleration;}}
     public float Deacceleration {get {return deacceleration;}}
+    public float Recoverydeaccel {get {return recoverydeaccel;}}
 
     void Start()
     {
         characterCollider = GetComponent<CircleCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        stateManager = GetComponent<PlayerStateMachine>();
+        stateManager = GetComponent<StateMachine>();
         _Start();
-    }
-
-    // Changes player's sprite to one of the four directions.
-    public void RotateSprite(Vector3 targetDir) {
-        int angle = GetAngle(targetDir);
-        spriteRenderer.sprite = moveSpriteList[angle];
-    }
-
-    public int GetAngle(Vector3 targetDir) {
-        int angle = (int)Vector3.Angle(targetDir, Vector3.right);
-        if (targetDir.y < 0)
-            angle = 180 + (int)Vector3.Angle(targetDir, Vector3.left);
-        angle = (angle+45)/90;
-        if (angle > 3) angle = 0;
-
-        return angle;
     }
 
     // Moves without player input
@@ -77,8 +64,21 @@ public abstract class CharacterConfig : MonoBehaviour
         transform.Translate(velocity*Time.deltaTime);
     }
 
-    public void Hit(float damage, Vector2 knockback)
+    public void Hit(float damage, Vector3 knockback, float magnitude)
     {
-        // put stuff
+        stateManager.ForceHurt();
+        recovering = true;
+        speed = magnitude * knockbackmultiplier;
+        velocity = knockback;
+    }
+
+    public int GetAngle(Vector3 targetDir) {
+        int angle = (int)Vector3.Angle(targetDir, Vector3.right);
+        if (targetDir.y < 0)
+            angle = 180 + (int)Vector3.Angle(targetDir, Vector3.left);
+        angle = (angle+45)/90;
+        if (angle > 3) angle = 0;
+
+        return angle;
     }
 }

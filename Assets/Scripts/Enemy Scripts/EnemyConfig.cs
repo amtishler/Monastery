@@ -8,9 +8,7 @@ public class EnemyConfig : CharacterConfig {
         return;
     }
 
-    public void Knockback(Vector3 direction, float magnitude)
-    {
-
-    }
+    public void Move()
+    {}
 
 }

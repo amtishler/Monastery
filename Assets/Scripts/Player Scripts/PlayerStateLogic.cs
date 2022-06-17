@@ -216,6 +216,9 @@ public class PlayerGrabbingState : PlayerState {
         Vector3 targetDir = new Vector3(x,y,0);
         targetDir.Normalize();
 
+
+        float distancetoobj = Vector3.Distance(tongue.transform.position, config.transform.position);
+
         // Tongue Moving, slower and no sprite update
         if (targetDir == Vector3.zero) {
             config.Speed = config.Speed - config.Deacceleration;
@@ -390,13 +393,19 @@ public class PlayerHurtState : PlayerState
     public PlayerHurtState(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
     : base(config, currentContext, stateFactory){}
 
-    public override void EnterState(){}
+    public override void EnterState(){
+        config.Step();
+    }
+
     public override void UpdateState()
     {
+        config.SlowDown(config.Recoverydeaccel);
         CheckSwitchStates();
     }
     public override void ExitState(){}
-    public override void CheckSwitchStates(){}
+    public override void CheckSwitchStates(){
+        if(config.Speed == 0) SwitchStates(factory.Idle());
+    }
     public override void InitializeSubState(){}
 }
 

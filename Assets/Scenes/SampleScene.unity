@@ -300,6 +300,8 @@ GameObject:
   - component: {fileID: 1498259639}
   - component: {fileID: 1498259638}
   - component: {fileID: 1498259637}
+  - component: {fileID: 1498259642}
+  - component: {fileID: 1498259641}
   m_Layer: 7
   m_Name: Small Object Test
   m_TagString: Small Object
@@ -322,7 +324,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -421,6 +423,44 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1498259641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1498259636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9297143049c4c9f4981371f62891de42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0
+  maximumSpeed: 6
+  minimumSpeed: 3
+  acceleration: 0.1
+  deacceleration: 0.1
+  recoverydeaccel: 0.75
+  hurtiframes: 60
+  knockbackmultiplier: 1
+  moveSpriteList:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  recovering: 0
+--- !u!114 &1498259642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1498259636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a116e2be176bcb45ab8ae34746e288f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1594907903
 GameObject:
   m_ObjectHideFlags: 0
@@ -669,6 +709,30 @@ PrefabInstance:
     - target: {fileID: 2705515589199267942, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2705515589359950220, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2705515589359950221, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
+      propertyPath: knockback
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2705515589359950222, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2705515590406865729, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2705515590991708970, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
+      propertyPath: recoverydeaccel
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2705515590991708970, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
+      propertyPath: knockbackmultiplier
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2705515590991708971, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
       propertyPath: m_Name
