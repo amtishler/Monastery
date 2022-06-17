@@ -5,6 +5,8 @@ using UnityEngine;
 public class EnemyConfig : CharacterConfig {
 
     public float detectionradius = 10f;
+    public float collisiondamage = 0f;
+    public float collisionknockback = 10f;
     public GameObject target;
 
     protected override void _Start()
@@ -28,6 +30,7 @@ public class EnemyConfig : CharacterConfig {
         }
 
         // Update sprite TODO
+        RotateSprite(targetDir);
     }
 
     //Added to visualize radius
@@ -35,6 +38,22 @@ public class EnemyConfig : CharacterConfig {
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, detectionradius);
+    }
+
+
+    public void RotateSprite(Vector3 targetDir) {
+        int angle = GetAngle(targetDir);
+        switch(angle){
+            case 0:
+                spriteRenderer.sprite = moveSpriteList[0];
+                break;
+            case 2:
+                spriteRenderer.sprite = moveSpriteList[1];
+                break;
+            default:
+                break;
+        }
+        currentdir = angle;
     }
 
 }

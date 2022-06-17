@@ -10,15 +10,15 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Player Hitbox
+  - Player Hurtbox
   - Water
   - UI
   - Tongue Hitbox
-  - Object Hitbox
+  - Object Hurtbox
   - Camera Hitbox
   - Wall Collision
-  - 
-  - 
+  - Attack Hitbox
+  - Enemy Hitbox
   - 
   - 
   - 

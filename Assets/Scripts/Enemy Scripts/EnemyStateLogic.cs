@@ -45,7 +45,7 @@ public class EnemyIdleState : EnemyState {
 
     private bool CheckVision()
     {
-        Collider2D collider = Physics2D.OverlapCircle(config.transform.position, config.detectionradius, LayerMask.GetMask("Player Hitbox"));
+        Collider2D collider = Physics2D.OverlapCircle(config.transform.position, config.detectionradius, LayerMask.GetMask("Player Hurtbox"));
         if(collider == null) return false;
         else{
             config.target = collider.gameObject;
@@ -66,6 +66,7 @@ public class EnemyAggressiveState : EnemyState {
 
     public override void UpdateState() {
         config.MoveTowards(config.target);
+        CheckSwitchStates();
     }
 
     public override void ExitState() {}

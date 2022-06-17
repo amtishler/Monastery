@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Attack : MonoBehaviour
 {
-    [SerializeField] protected PlayerConfig playerconf;
+    [SerializeField] protected CharacterConfig playerconf;
     [SerializeField] protected float damage, knockback;
     [SerializeField] protected float knockbacknormalization = 0.5f;
 

@@ -29,7 +29,7 @@ public abstract class CharacterConfig : MonoBehaviour
     [SerializeField] protected Sprite[] moveSpriteList = new Sprite[4];
 
     public bool invincible;
-
+    public int currentdir;
     //For any additional start elements.
     protected abstract void _Start();
 
@@ -63,9 +63,14 @@ public abstract class CharacterConfig : MonoBehaviour
         if(!invincible)
         {
             stateManager.ForceHurt();
-            speed = magnitude * knockbackmultiplier;
-            Velocity = knockback;
+            ApplyKnockback(knockback, magnitude);
         }
+    }
+
+    public void ApplyKnockback(Vector3 dir, float mag)
+    {
+        speed = mag * knockbackmultiplier;
+        Velocity = dir;
     }
 
     public int GetAngle(Vector3 targetDir) {

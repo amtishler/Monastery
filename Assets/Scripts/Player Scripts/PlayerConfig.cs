@@ -12,6 +12,7 @@ public class PlayerConfig : CharacterConfig {
     // Serialized Fields
     [Header("Tongue")]
     [SerializeField] float tongueMaxSpeed = 6.0f;
+
     [Header("Jump Mechanics")]
     [SerializeField] float jumpMaximumSpeed = 12.0f;
     [SerializeField] float jumpMinimumSpeed = 6.0f;
@@ -19,6 +20,7 @@ public class PlayerConfig : CharacterConfig {
     [SerializeField] float jumpDeacceleration = 0.5f;
     [SerializeField] float jumpChargeTime = 1.0f;
     [SerializeField] float jumpTotalDist = 8.0f;
+    
     [Header("Weapons")]
     [SerializeField] public GameObject tongue;
     [SerializeField] public GameObject staff;
@@ -33,7 +35,7 @@ public class PlayerConfig : CharacterConfig {
     public float JumpChargeTime {get {return jumpChargeTime;}}
     public float JumpTotalDist {get {return jumpTotalDist;}}
 
-    public int currentdir;
+    //public int currentdir;
 
     // Start method, called before the first frame update.
     protected override void _Start()
