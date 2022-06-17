@@ -86,11 +86,9 @@ public class TongueController : MonoBehaviour {
             deacceleration = deacceleration * criticalMultiplier;
         };
 
-        if (!paused) {
-            velocity = direction*speed;
-            distTraveled = distTraveled+speed*Time.deltaTime;
-            speed = speed - deacceleration*Time.deltaTime;
-        }
+        velocity = direction*speed;
+        distTraveled = distTraveled+speed*Time.deltaTime;
+        speed = speed - deacceleration*Time.deltaTime;
 
         Vector3 nextpos = transform.position + velocity*Time.deltaTime;
 
@@ -250,14 +248,6 @@ public class TongueController : MonoBehaviour {
         lengthReached = distTraveled;
         finalPos = transform.position;
         distTraveled = 0f;
-    }
-
-
-    // Pause
-    public void Pause() {
-        speed = 0f;
-        velocity = Vector3.zero;
-        paused = true;
     }
 
 

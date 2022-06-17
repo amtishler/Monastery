@@ -156,12 +156,13 @@ public class PlayerTongueState : PlayerState {
         CheckSwitchStates();
     }
 
-    public override void ExitState() {
-        config.tongue.SetActive(false);
-    }
+    public override void ExitState() {}
 
     public override void CheckSwitchStates() {
-        if (tongue.CheckIfFinished()) SwitchStates(factory.Idle());
+        if (tongue.CheckIfFinished()) {
+            SwitchStates(factory.Idle());
+            config.tongue.SetActive(false);
+        }
         else if (tongue.grabbed) SwitchStates(factory.Grabbing());
     }
 }
