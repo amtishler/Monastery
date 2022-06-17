@@ -16,8 +16,8 @@ TagManager:
   - Tongue Hitbox
   - Object Hitbox
   - Camera Hitbox
-  - Weapon Hitbox
-  - Enemy Hitbox
+  - Wall Collision
+  - 
   - 
   - 
   - 

@@ -7,6 +7,8 @@ public abstract class CharacterConfig : MonoBehaviour
     // Base variables
     [System.NonSerialized]
     protected CircleCollider2D characterCollider;
+
+    protected Rigidbody2D rigidBody;
     protected SpriteRenderer spriteRenderer;
     protected StateMachine stateManager;
 
@@ -45,6 +47,7 @@ public abstract class CharacterConfig : MonoBehaviour
         characterCollider = GetComponent<CircleCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         stateManager = GetComponent<StateMachine>();
+        rigidBody = GetComponent<Rigidbody2D>();
         _Start();
     }
 
@@ -61,7 +64,8 @@ public abstract class CharacterConfig : MonoBehaviour
 
     // Steps in direction according to current velocity
     public void Step() {
-        transform.Translate(velocity*Time.deltaTime);
+        // transform.Translate(velocity*Time.deltaTime);
+        rigidBody.velocity = velocity;
     }
 
     public void Hit(float damage, Vector3 knockback, float magnitude)
