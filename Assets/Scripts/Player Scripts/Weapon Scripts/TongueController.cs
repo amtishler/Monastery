@@ -159,6 +159,12 @@ public class TongueController : MonoBehaviour {
         tongueOrigin = position;
     }
 
+    
+    // Also will continually have to change the endpoint
+    public void SetEndpoint() {
+        finalPos = transform.position;
+    }
+
 
     // If player lets go tongue must retract
     public void UnGrab() {
@@ -246,7 +252,7 @@ public class TongueController : MonoBehaviour {
     private void StopExtending() {
         extending = false;
         lengthReached = distTraveled;
-        finalPos = transform.position;
+        SetEndpoint();
         distTraveled = 0f;
     }
 

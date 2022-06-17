@@ -184,6 +184,7 @@ public class PlayerGrabbingState : PlayerState {
     public override void UpdateState() {
         Move();
         tongue.SetSpawn(config.transform.position);
+        tongue.SetEndpoint();
         tongue.ResizeTongueBody();
         CheckSwitchStates();
     }
