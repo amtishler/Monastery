@@ -29,6 +29,8 @@ public abstract class CharacterConfig : MonoBehaviour
     [SerializeField] protected Sprite[] moveSpriteList = new Sprite[4];
 
     public bool invincible;
+    public bool stunned;
+    public bool grabbed;
     public int currentdir;
     //For any additional start elements.
     protected abstract void _Start();

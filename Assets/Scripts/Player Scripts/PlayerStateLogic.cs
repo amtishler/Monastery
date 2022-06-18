@@ -369,10 +369,17 @@ public class PlayerJumpingState : PlayerState {
 // Hurt (invicibility)
 public class PlayerHurtState : PlayerState
 {
+
+    TongueController tongue;
+
     public PlayerHurtState(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
     : base(config, currentContext, stateFactory){}
 
-    public override void EnterState(){}
+    public override void EnterState(){
+        tongue = config.tongue.GetComponent<TongueController>();
+        if(tongue.grabbed) tongue.UnGrab();
+        config.tongue.SetActive(false);
+    }
 
     public override void UpdateState()
     {

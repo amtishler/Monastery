@@ -22,6 +22,7 @@ public class TongueController : MonoBehaviour {
     [SerializeField] float playerMoveSpeedHeavy = 2f;
     [SerializeField] int criticalFrameWindow = 10;
     [SerializeField] float criticalMultiplier = 2f;
+    [SerializeField] float spitknockback = 20f;
 
     private float deacceleration;
     private float speed;
@@ -46,6 +47,7 @@ public class TongueController : MonoBehaviour {
 
     // GameObject containing grabbed object
     private GameObject heldObject;
+    private CharacterConfig heldconf;
 
     //Timer for critical window
     private int criticalTimer;
@@ -109,6 +111,17 @@ public class TongueController : MonoBehaviour {
         }
         heldObject.transform.SetParent(null);
         heldObject.SetActive(true);
+
+        if(heldconf != null)
+        {
+            Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mouse.z = 0;
+            direction = mouse - player.transform.position;
+            direction.Normalize();
+            heldconf.ApplyKnockback(direction, spitknockback);
+            heldconf.stunned = true;
+        }
+
         heldObject = null;
         holdingObject = false;
     }
@@ -139,8 +152,16 @@ public class TongueController : MonoBehaviour {
 
                 //Let object it has grabbed become a child so it follows it to frog.
                 heldObject = hits[0].transform.gameObject;
+                heldconf = heldObject.transform.root.GetComponent<CharacterConfig>();
+
                 heldObject.transform.position = transform.position;
                 heldObject.transform.SetParent(gameObject.transform);
+
+                if(heldconf != null)
+                {
+                    heldconf.invincible = true;
+                    heldconf.grabbed = true;
+                }
 
                 //Lose some of the speed when hitting object
                 speed = speed*objectResidualSpeed;

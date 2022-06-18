@@ -7,6 +7,7 @@ public class EnemyConfig : CharacterConfig {
     public float detectionradius = 10f;
     public float collisiondamage = 0f;
     public float collisionknockback = 10f;
+    public float projectileslowdown = 0.1f;
     public GameObject target;
 
     protected override void _Start()

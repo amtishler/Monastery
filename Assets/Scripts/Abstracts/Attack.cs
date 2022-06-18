@@ -27,7 +27,7 @@ public class Attack : MonoBehaviour
         }
     }
 
-    private Vector3 GetAxis(int dir)
+    protected Vector3 GetAxis(int dir)
     {
         switch(dir)
         {
