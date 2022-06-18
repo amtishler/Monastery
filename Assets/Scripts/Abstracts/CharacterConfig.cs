@@ -32,6 +32,7 @@ public abstract class CharacterConfig : MonoBehaviour
     public bool stunned;
     public bool grabbed;
     public int currentdir;
+    public Vector3[] directionMap = new Vector3[4];
     //For any additional start elements.
     protected abstract void _Start();
 
@@ -48,6 +49,10 @@ public abstract class CharacterConfig : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         stateManager = GetComponent<StateMachine>();
         rigidBody = GetComponent<Rigidbody2D>();
+        directionMap[0] = Vector3.right;
+        directionMap[1] = Vector3.up;
+        directionMap[2] = Vector3.left;
+        directionMap[3] = Vector3.down;
         _Start();
     }
 

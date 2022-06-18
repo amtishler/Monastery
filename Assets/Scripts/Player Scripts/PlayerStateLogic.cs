@@ -38,11 +38,11 @@ public class PlayerIdleState : PlayerState {
     public override void ExitState() {}
 
     public override void CheckSwitchStates() {
-        if (Input.GetMouseButtonDown(1))SwitchStates(factory.TongueCharge());
-        else if (Input.GetMouseButtonDown(0)) SwitchStates(factory.Staff());
-        else if (Input.GetKeyDown("f")) SwitchStates(factory.Kick());
-        else if (Input.GetKeyDown("space")) SwitchStates(factory.JumpCharge());
-        else if (Input.GetAxisRaw("Horizontal")!=0 || Input.GetAxisRaw("Vertical")!=0) SwitchStates(factory.Running());
+        if (InputHandler.Tongue()) SwitchStates(factory.TongueCharge());
+        else if (InputHandler.Staff()) SwitchStates(factory.Staff());
+        else if (InputHandler.Kick()) SwitchStates(factory.Kick());
+        else if (InputHandler.JumpCharge()) SwitchStates(factory.JumpCharge());
+        else if (InputHandler.GetMoveDirection() != Vector3.zero) SwitchStates(factory.Running());
     }
 }
 
@@ -68,10 +68,10 @@ public class PlayerRunningState : PlayerState {
     }
 
     public override void CheckSwitchStates() {
-        if (Input.GetMouseButtonDown(1)) SwitchStates(factory.TongueCharge());
-        else if (Input.GetMouseButtonDown(0)) SwitchStates(factory.Staff());
-        else if (Input.GetKeyDown("f")) SwitchStates(factory.Kick());
-        else if (Input.GetKeyDown("space")) SwitchStates(factory.JumpCharge());
+        if (InputHandler.Tongue()) SwitchStates(factory.TongueCharge());
+        else if (InputHandler.Staff()) SwitchStates(factory.Staff());
+        else if (InputHandler.Kick()) SwitchStates(factory.Kick());
+        else if (InputHandler.JumpCharge()) SwitchStates(factory.JumpCharge());
         else if (config.Speed == 0) SwitchStates(factory.Idle());
     }
 
@@ -79,10 +79,7 @@ public class PlayerRunningState : PlayerState {
     public void Move() {
 
         // finding direction
-        float x = Input.GetAxisRaw("Horizontal");
-        float y = Input.GetAxisRaw("Vertical");
-        Vector3 targetDir = new Vector3(x,y,0);
-        targetDir.Normalize();
+        Vector3 targetDir = InputHandler.GetMoveDirection();
 
         // moving
         if (targetDir == Vector3.zero) {
@@ -145,7 +142,8 @@ public class PlayerTongueState : PlayerState {
 
     public override void EnterState() {
         tongue = config.tongue.GetComponent<TongueController>();
-        config.RotateSprite(config.GetMouseDirection());
+        Vector3 direction = InputHandler.GetTongueDirection();
+        config.RotateSprite(direction);
 
         if(!tongue.holdingObject) config.tongue.SetActive(true);
     }
@@ -193,7 +191,7 @@ public class PlayerGrabbingState : PlayerState {
         tongue.UnGrab();
     }
     public override void CheckSwitchStates() {
-        if (!Input.GetMouseButton(1) || tongue.autoRetract){
+        if (InputHandler.TongueRelease() || tongue.autoRetract){
             SwitchStates(factory.Tongue());
         }
     }
@@ -202,11 +200,7 @@ public class PlayerGrabbingState : PlayerState {
     public void Move() {
 
         // finding direction
-        float x = Input.GetAxisRaw("Horizontal");
-        float y = Input.GetAxisRaw("Vertical");
-        Vector3 targetDir = new Vector3(x,y,0);
-        targetDir.Normalize();
-
+        Vector3 targetDir = InputHandler.GetMoveDirection();
 
         float distancetoobj = Vector3.Distance(tongue.transform.position, config.transform.position);
 
@@ -236,7 +230,8 @@ public class PlayerStaffState : PlayerState {
     : base(config, currentContext, stateFactory){}
 
     public override void EnterState() {
-        config.RotateSprite(config.GetMouseDirection());
+        Vector3 direction = InputHandler.GetTongueDirection();
+        config.RotateSprite(direction);
         staff = config.staff.GetComponent<StaffController>();
         config.staff.SetActive(true);
     }
@@ -289,7 +284,7 @@ public class PlayerKickState : PlayerState {
 
 // Jump (charging)
 public class PlayerJumpChargeState : PlayerState {
-    
+
     float chargeTime;
 
     public PlayerJumpChargeState(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
@@ -309,7 +304,7 @@ public class PlayerJumpChargeState : PlayerState {
     public override void ExitState(){}
 
     public override void CheckSwitchStates() {
-        if (!Input.GetKey("space")) {
+        if (InputHandler.JumpRelease()) {
             if (chargeTime < config.JumpChargeTime) SwitchStates(factory.Idle());
             else SwitchStates(factory.Jumping());
         }
@@ -332,7 +327,7 @@ public class PlayerJumpingState : PlayerState {
         finished = false;
         totalDist = config.JumpTotalDist;
         currentDist = 0f;
-        direction = config.GetMouseDirection();
+        direction = InputHandler.GetTongueDirection();
         config.RotateSprite(direction);
         Move();
     }

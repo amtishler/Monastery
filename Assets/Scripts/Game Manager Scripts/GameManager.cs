@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+
     //GameManager.Instance.whatever
     private static GameManager _instance;
     public static GameManager Instance //Singleton Stuff

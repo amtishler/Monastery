@@ -35,39 +35,11 @@ public class PlayerConfig : CharacterConfig {
     public float JumpChargeTime {get {return jumpChargeTime;}}
     public float JumpTotalDist {get {return jumpTotalDist;}}
 
-    //public int currentdir;
 
     // Start method, called before the first frame update.
-    protected override void _Start()
-    {   
+    protected override void _Start() {   
         mainCamera = Camera.main;
     }
-
-
-    // // Moves according to controls
-    // public void Move() {
-
-    //     // finding direction
-    //     float x = Input.GetAxisRaw("Horizontal");
-    //     float y = Input.GetAxisRaw("Vertical");
-    //     Vector3 targetDir = new Vector3(x,y,0);
-    //     targetDir.Normalize();
-
-    //     // Moving
-    //     if (targetDir == Vector3.zero) {
-    //         SlowDown(deacceleration);
-    //     } else {
-    //         if (speed < minimumSpeed) speed = minimumSpeed;
-    //         speed = speed + acceleration;
-    //         if (speed > maximumSpeed) speed = maximumSpeed;
-    //         velocity = targetDir*speed;
-    //         ResetVelocity();
-    //     }
-
-    //     // Update sprite
-    //     if (targetDir == Vector3.zero) return;
-    //     RotateSprite(targetDir);
-    // }
 
 
     // Changes player's sprite to one of the four directions.
@@ -78,8 +50,10 @@ public class PlayerConfig : CharacterConfig {
     }
 
 
+
     // Gets vector in direction of mouse
     public Vector3 GetMouseDirection() {
+        Debug.Log(Input.GetJoystickNames().Length);
         Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mouse.z = 0f;
         Vector3 direction = mouse - transform.position;

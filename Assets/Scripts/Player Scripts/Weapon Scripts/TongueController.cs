@@ -67,7 +67,7 @@ public class TongueController : MonoBehaviour {
 
         // Checking if tongue is still going out
         if (extending) {
-            if (!Input.GetMouseButton(1)) {
+            if (InputHandler.TongueRelease()) {
                 speed = deacceleration*Time.deltaTime;
                 StopExtending();
                 // retractAccelFactor
@@ -81,7 +81,7 @@ public class TongueController : MonoBehaviour {
         }
 
         criticalTimer++;
-        if(!criticalUsed && criticalTimer < criticalFrameWindow && !Input.GetMouseButton(1))
+        if(!criticalUsed && criticalTimer < criticalFrameWindow && InputHandler.TongueRelease())
         {
             Debug.Log("Critical");
             criticalUsed = true;
@@ -114,10 +114,7 @@ public class TongueController : MonoBehaviour {
 
         if(heldconf != null)
         {
-            Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mouse.z = 0;
-            direction = mouse - player.transform.position;
-            direction.Normalize();
+            direction = InputHandler.GetTongueDirection();
             heldconf.ApplyKnockback(direction, spitknockback);
             heldconf.stunned = true;
         }
@@ -198,13 +195,10 @@ public class TongueController : MonoBehaviour {
 
     // Enable method, called every time the tongue is enabled.
     public void OnEnable() {
-        // Direction of tongue
-        Vector3 pos = player.transform.position;
-        SetSpawn(pos);
-        Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mouse.z = 0;
-        direction = mouse - tongueOrigin;
-        direction.Normalize();
+
+        // Direction & position of tongue
+        SetSpawn(player.transform.position);
+        direction = InputHandler.GetTongueDirection();
 
         // Save axis to base rotatin on
         tongueAxis = GetAxis(player.GetAngle(direction));
