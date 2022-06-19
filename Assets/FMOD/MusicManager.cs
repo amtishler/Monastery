@@ -15,66 +15,151 @@ public class MusicManager : MonoBehaviour
      */
 
     // VERY IMPORTANT to make sure the order stays consistent so that it matches up with the area enum
-    [SerializeField]
-    private FMOD.Studio.EventInstance[] FMODEvents;
+    private List<FMOD.Studio.EventInstance> areaEvents = new List<FMOD.Studio.EventInstance>();
 
     [SerializeField]
-    private string[] ubiqTrackParamNames;
+    private string[] variantVolParamNames;
     [SerializeField]
-    private string ubiqMasterVolParam;
+    private string masterVolParamName;
 
+    // Need to store old and current so we can fade in / out songs at the same time
     private FMOD.Studio.EventInstance currentEvent;
     private FMOD.Studio.EventInstance oldEvent;
+
     private Area currentArea;
     private Area oldArea;
-    private int currentVariation;
-    private LinkedList<bool[]> trackOnOffInfo;
-
-    private float currentMasterVolume;
-    private float oldMasterVolume;
-    private float[] currentTrackVolumes;
-    private float currentTrackIncrement;
 
     [SerializeField]
-    private float defaultTrackIncrement;
+    private int currentVariant;
     [SerializeField]
-    private float defaultMasterIncrement;
+    private int oldVariant;
 
-    private bool oldMasterFading;
-    private bool newMasterFading;
+    // Master volume here refers to the master volumes of both the ambient and melodic tracks. They should ALWAYS be adjusted together
+    private float currentAreaMasterVolume;
+    private float oldAreaMasterVolume;
+
+    [SerializeField]
+    private float currentVariantVolume;
+    [SerializeField]
+    private float oldVariantVolume;
+    private float currentVariantIncrement;
+
+    private float currentMasterIncrement;
+
+    [SerializeField]
+    private bool areaTransitioning;
+    [SerializeField]
+    private bool variantTransitioning;
 
 
-    // Could make ^^ change based on music trigger but it seems kind of unneccesary for now
+
+    float counter = 0;
+
+
+
+    private static MusicManager _instance;
+    public static MusicManager Instance //Singleton Stuff
+    {
+        get
+        {
+            return _instance;
+        }
+    }
+
+    private void Awake()
+    {
+        _instance = this;
+    }
 
     private void Start()
     {
-        oldMasterFading = false;
-        newMasterFading = false;
+        // TO DO: When implementing a new area, add its ambient and melodic tracks here, in the right order
+        areaEvents.Add(FMODUnity.RuntimeManager.CreateInstance("event:/Forest"));
+        currentArea = Area.None;
+        areaTransitioning = false;
+        variantTransitioning = false;
+
+        oldVariant = -1;
+
     }
 
 
     private void Update()
     {
-        if (oldMasterFading)
+
+        if (areaTransitioning)
         {
-            if (oldMasterVolume > 0)
+            bool continueAreaTransition = false;
+
+            if (currentAreaMasterVolume < 1)
             {
-                oldMasterVolume -= (defaultMasterIncrement * Time.deltaTime);
-                oldEvent.setParameterByName(ubiqMasterVolParam, oldMasterVolume);
+                currentAreaMasterVolume += currentMasterIncrement * Time.deltaTime;
+                currentEvent.setParameterByName(masterVolParamName, currentAreaMasterVolume);
+                continueAreaTransition = true;
             }
 
-            if (oldMasterVolume < 0)
+            if (oldAreaMasterVolume > 0 && !Object.ReferenceEquals(oldEvent, null))
             {
-                oldMasterFading = false;
-                ;
-
+                oldAreaMasterVolume -= currentMasterIncrement * Time.deltaTime;
+                oldEvent.setParameterByName(masterVolParamName, oldAreaMasterVolume);
+                continueAreaTransition = true;
             }
 
+            areaTransitioning = continueAreaTransition;
+        }
+
+
+
+        if (variantTransitioning)
+        {
+            bool continueVariantTransition = false;
+
+            if (currentVariantVolume < 1)
+            {
+                currentVariantVolume += currentVariantIncrement * Time.deltaTime * 6f;
+                currentEvent.setParameterByName(variantVolParamNames[currentVariant], currentVariantVolume);
+                continueVariantTransition = true;
+            }
+
+            if (oldVariantVolume > 0 && oldVariant >= 0)
+            {
+                //Debug.Log("decrementing");
+                oldVariantVolume -= (currentVariantIncrement * Time.deltaTime);
+                currentEvent.setParameterByName(variantVolParamNames[oldVariant], oldVariantVolume);
+                continueVariantTransition = true;
+            }
+
+            variantTransitioning = continueVariantTransition;
 
         }
 
 
-        //instance.setParameterByName("Reverb", reverb);
+        counter += Time.deltaTime;
+        if (counter > 1)
+        {
+            counter -= 1;
+
+            float m;
+            currentEvent.getParameterByName(masterVolParamName, out m);
+            float v0;
+            currentEvent.getParameterByName(variantVolParamNames[0], out v0);
+            float v1;
+            currentEvent.getParameterByName(variantVolParamNames[1], out v1);
+            float v2;
+            currentEvent.getParameterByName(variantVolParamNames[2], out v2);
+            float v3;
+            currentEvent.getParameterByName(variantVolParamNames[3], out v3);
+
+/*            Debug.Log("Master Volume: " + m);
+            Debug.Log("Variant 0: " + v0);
+            Debug.Log("Variant 1: " + v1);
+            Debug.Log("Variant 2: " + v2);
+            Debug.Log("Variant 3: " + v3);*/
+
+            //Debug.Log(oldVariant)
+
+        }
+
     }
 
     public void HandleMusicTrigger(MusicTrigger trigger)
@@ -94,29 +179,66 @@ public class MusicManager : MonoBehaviour
     {
         // This function fades out the MASTER VOLUME of an event, leaving the individual tracks alone
 
-        oldMasterFading = true;
-
-        oldArea = currentArea;
-        currentArea = Area.None;
-
-        oldEvent = currentEvent;
-        // Might not work??
-        currentEvent = new FMOD.Studio.EventInstance();
-
-        float oldVol;
-        oldEvent.getParameterByName(ubiqMasterVolParam, out oldVol);
-        oldMasterVolume = oldVol;
-
 
     }
 
     private void BeginFadeToNewArea(MusicTrigger trigger)
     {
-        
+        //Debug.Log("Fading to new area: " + trigger.area.ToString());
+
+        // Will only be executed if areas are different. No need for verification
+
+        // Reassign current variables
+        areaTransitioning = true;
+
+        oldEvent = currentEvent;
+        currentEvent = areaEvents[((int)trigger.area)];
+
+        oldArea = currentArea;
+        currentArea = trigger.area;
+
+        oldVariant = -1;
+        currentVariant = trigger.variant;
+
+        currentMasterIncrement = MusicTrigger.fadeSpeedDict[trigger.masterFadeRate];
+
+
+        // Set master volume to 0, current variant volume to 1
+        currentAreaMasterVolume = 0;
+        currentEvent.setParameterByName(masterVolParamName, currentAreaMasterVolume);
+        foreach (string s in variantVolParamNames)
+        {
+            currentEvent.setParameterByName(s, 0);
+        }
+        currentVariantVolume = 1;
+        currentEvent.setParameterByName(variantVolParamNames[trigger.variant], currentVariantVolume);
+        currentVariant = trigger.variant;
+
+
+        // Begin event
+        currentEvent.start();
+
     }
 
     private void BeginFadeToVariant(MusicTrigger trigger)
     {
+        //Debug.Log("Fading in variant " + trigger.variant + " and fading out variant " + currentVariant);
+
+        // Reassign Variables
+        variantTransitioning = true;
+
+        if (oldVariant >= 0)
+            currentEvent.setParameterByName(variantVolParamNames[oldVariant], 0f);
+
+        oldVariant = currentVariant;
+        oldVariantVolume = currentVariantVolume;
+        //Debug.Log("Old: " + oldVariantVolume);
+
+        currentVariant = trigger.variant;
+        currentEvent.getParameterByName(variantVolParamNames[currentVariant], out currentVariantVolume);
+        //Debug.Log("New: " + currentVariantVolume);
+
+        currentVariantIncrement = MusicTrigger.fadeSpeedDict[trigger.variantFadeRate];
 
     }
 

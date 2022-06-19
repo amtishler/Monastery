@@ -280,11 +280,11 @@ MonoBehaviour:
   SwitchSettingsMigration: 1
   HasSourceProject: 1
   HasPlatforms: 1
-  sourceProjectPath: 11.4-12.37-FMOD/11.4-12.37-FMOD.fspro
-  sourceBankPath: 11.4-12.37-FMOD/Build
+  sourceProjectPath: Assets/FMOD/MonasteryMusic/MonasteryFMOD.fspro
+  sourceBankPath: Assets/FMOD/MonasteryMusic/Build
   SourceBankPathUnformatted: 
-  BankRefreshCooldown: 5
-  ShowBankRefreshWindow: 1
+  BankRefreshCooldown: 1
+  ShowBankRefreshWindow: 0
   AutomaticEventLoading: 1
   BankLoadType: 0
   AutomaticSampleLoading: 0
@@ -306,7 +306,7 @@ MonoBehaviour:
   MasterBanks:
   - Master
   Banks:
-  - LivingRoomBank
+  - Test
   BanksToLoad: []
   LiveUpdatePort: 9264
   EnableMemoryTracking: 0

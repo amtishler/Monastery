@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="ParameterPreset" id="{b5cc1317-2d05-4337-96b1-50c1210f7d61}">
 		<property name="name">
-			<value>Track4Vol</value>
+			<value>Track3Vol</value>
 		</property>
 		<relationship name="folder">
 			<destination>{d9fae892-b35a-45ca-94f5-71216d296add}</destination>
@@ -13,7 +13,7 @@
 	</object>
 	<object class="GameParameter" id="{e8ff490b-e52a-489f-b408-8f4a9183bf7f}">
 		<property name="initialValue">
-			<value>1</value>
+			<value>0</value>
 		</property>
 	</object>
 </objects>

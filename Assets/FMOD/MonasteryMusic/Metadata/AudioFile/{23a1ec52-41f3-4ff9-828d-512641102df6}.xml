@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="AudioFile" id="{23a1ec52-41f3-4ff9-828d-512641102df6}">
 		<property name="assetPath">
-			<value>CC_MONASTERY - Forest Musics v1 Stems KS Piano Freeze.wav</value>
+			<value>ForestRough/CC_MONASTERY - Forest Musics v1 Stems KS Piano Freeze.wav</value>
 		</property>
 		<property name="isStreaming">
 			<value>true</value>

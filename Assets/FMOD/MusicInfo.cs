@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum Area { 
+    // WARNING: Move test to the end whenever you implement new stuff
     Forest, 
     Monastery,
     Highlands,
     None
-    // adding shouldn't be an issue. None should always be last
+    // None should always be last
 }
 
 [CreateAssetMenu(fileName = "MusicInfo", menuName = "MusicInfo", order = 0)]
