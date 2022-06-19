@@ -1097,7 +1097,7 @@ SpriteRenderer:
   m_SortingLayerID: -1791665367
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7ab955e6695b147459bd68281cce99d2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7d888f54a7de9444abbd0758212c35e6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1161,10 +1161,10 @@ MonoBehaviour:
   invincibletimer: 1.5
   knockbackmultiplier: 1
   moveSpriteList:
-  - {fileID: 21300000, guid: 75cd55c0fc79ec64f9b6fb545d8eebbf, type: 3}
-  - {fileID: 21300000, guid: a2e775c2e56b11b498ae4ef0bf4611b0, type: 3}
-  - {fileID: 21300000, guid: 09ca06a018005f84a93ef7cce0e5c9b9, type: 3}
-  - {fileID: 21300000, guid: 7ab955e6695b147459bd68281cce99d2, type: 3}
+  - {fileID: 21300000, guid: b3fc15c3494b6ae4ea8f12eed7d78b21, type: 3}
+  - {fileID: 21300000, guid: e2b694de54646e245af0176157ce9e07, type: 3}
+  - {fileID: 21300000, guid: 5711162800afe154fa2aa6671f6ba7d9, type: 3}
+  - {fileID: 21300000, guid: 7d888f54a7de9444abbd0758212c35e6, type: 3}
   invincible: 0
   stunned: 0
   grabbed: 0
