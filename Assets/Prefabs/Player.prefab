@@ -564,10 +564,10 @@ MonoBehaviour:
   player: {fileID: 2705515590991708970}
   tongueBody: {fileID: 2705515589059232779}
   chargeTime: 0.05
-  timeToExtend: 0.2
-  tongueLength: 5
-  retractAccelFactor: 1
-  autoRetractionAngle: 60
+  timeToExtend: 0.25
+  tongueLength: 4
+  retractAccelFactor: 2
+  autoRetractionAngle: 45
   objectResidualSpeed: 0.6
   buttonSpeedReduction: 0.8
   playerMoveSpeed: 3
@@ -725,12 +725,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerconf: {fileID: 2705515590991708970}
   damage: 0
-  knockback: 30
+  knockback: 20
   knockbacknormalization: 0.5
   staffCollider: {fileID: 2705515589359950220}
-  staffSwingTime: 0.33
-  staffWidth: 4
-  staffHeight: 2
+  staffSwingTime: 0.1
+  staffWidth: 2.5
+  staffHeight: 1.5
 --- !u!1 &2705515589997795902
 GameObject:
   m_ObjectHideFlags: 0
@@ -1153,9 +1153,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
-  maximumSpeed: 7
-  minimumSpeed: 1
-  acceleration: 0.5
+  maximumSpeed: 6.5
+  minimumSpeed: 0.5
+  acceleration: 1
   deacceleration: 0.5
   recoveryDeaccel: 0.5
   invincibletimer: 1.5
