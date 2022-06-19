@@ -50,7 +50,6 @@ public class PlayerConfig : CharacterConfig {
     }
 
 
-
     // Gets vector in direction of mouse
     public Vector3 GetMouseDirection() {
         Debug.Log(Input.GetJoystickNames().Length);

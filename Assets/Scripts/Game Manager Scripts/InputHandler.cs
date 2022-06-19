@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class InputHandler {
 
+    public static bool BOOL = true;
+
     // Returns vectorized version of particular axis
     private static Vector3 GetAxisAsVector(string h, string v) {
         float x = Input.GetAxisRaw(h);
@@ -15,6 +17,7 @@ public class InputHandler {
     public static Vector3 GetMoveDirection() {
         Vector3 direction = GetAxisAsVector("Move Horizontal", "Move Vertical");
         direction.Normalize();
+        BOOL = false;
         return direction;
     }
 

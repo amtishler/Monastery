@@ -261,13 +261,15 @@ public class PlayerKickState : PlayerState {
     : base(config, currentContext, stateFactory){}
 
     public override void EnterState() {
-        config.SlowDown(config.Deacceleration);
+        config.SlowDown(config.Deacceleration*3);
+        Vector3 direction = InputHandler.GetTongueDirection();
         kick = config.kick.GetComponent<KickController>();
         config.kick.SetActive(true);
+        config.RotateSprite(direction);
     }
 
     public override void UpdateState() {
-        config.SlowDown(config.Deacceleration);
+        config.SlowDown(config.Deacceleration*3);
         kick.UpdateKick();
         CheckSwitchStates();
     }
