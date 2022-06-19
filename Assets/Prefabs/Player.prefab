@@ -563,9 +563,9 @@ MonoBehaviour:
   tongueCollider: {fileID: 2705515589280278569}
   player: {fileID: 2705515590991708970}
   tongueBody: {fileID: 2705515589059232779}
-  chargeTime: 0.3
-  timeToExtend: 0.3
-  tongueLength: 8
+  chargeTime: 0.05
+  timeToExtend: 0.2
+  tongueLength: 5
   retractAccelFactor: 1
   autoRetractionAngle: 60
   objectResidualSpeed: 0.6
@@ -574,6 +574,7 @@ MonoBehaviour:
   playerMoveSpeedHeavy: 2
   criticalFrameWindow: 10
   criticalMultiplier: 3
+  spitknockback: 20
   grabbed: 0
   autoRetract: 0
   holdingObject: 0
@@ -851,7 +852,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7784616, y: 1}
+    m_SensorSize: {x: 1.7777778, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1154,8 +1155,8 @@ MonoBehaviour:
   speed: 0
   maximumSpeed: 7
   minimumSpeed: 1
-  acceleration: 0.12
-  deacceleration: 0.12
+  acceleration: 0.5
+  deacceleration: 0.5
   recoveryDeaccel: 0.5
   invincibletimer: 1.5
   knockbackmultiplier: 1
@@ -1165,7 +1166,14 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 09ca06a018005f84a93ef7cce0e5c9b9, type: 3}
   - {fileID: 21300000, guid: 7ab955e6695b147459bd68281cce99d2, type: 3}
   invincible: 0
+  stunned: 0
+  grabbed: 0
   currentdir: 0
+  directionMap:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
   tongueMaxSpeed: 6
   jumpMaximumSpeed: 25
   jumpMinimumSpeed: 1
