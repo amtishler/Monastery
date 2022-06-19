@@ -396,58 +396,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2705515589280278571, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
-      propertyPath: timeToExtend
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 2705515589280278571, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
-      propertyPath: tongueLength
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2705515589280278571, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
-      propertyPath: retractAccelFactor
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2705515589280278571, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
-      propertyPath: autoRetractionAngle
-      value: 45
-      objectReference: {fileID: 0}
-    - target: {fileID: 2705515589359950219, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2705515589359950221, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
-      propertyPath: knockback
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 2705515589359950221, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
-      propertyPath: staffWidth
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2705515589359950221, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
-      propertyPath: staffHeight
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2705515589359950221, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
-      propertyPath: staffSwingTime
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2705515589359950222, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2705515590991708970, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
-      propertyPath: acceleration
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2705515590991708970, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
-      propertyPath: maximumSpeed
-      value: 6.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2705515590991708970, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
-      propertyPath: minimumSpeed
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 2705515590991708971, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
       propertyPath: m_Name
       value: Player
