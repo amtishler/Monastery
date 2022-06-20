@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class KickController : Attack {
     
@@ -27,10 +28,7 @@ public class KickController : Attack {
     void OnEnable() {
         // Mouse direction calculation
         transform.position = playerconf.transform.position;
-        Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mouse.z = 0f;
-        direction = mouse - transform.position;
-        direction.Normalize();
+        direction = GetComponentInParent<PlayerConfig>().Input.Aim;
 
         // picking direction
         int angle = (int)Vector3.Angle(direction, Vector3.right);

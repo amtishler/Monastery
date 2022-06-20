@@ -7,7 +7,7 @@ public class TongueController : MonoBehaviour {
     // Serialized Fields
     [Header("References")]
     [SerializeField] private CircleCollider2D tongueCollider;
-    [SerializeField] PlayerConfig player;
+    [SerializeField] PlayerConfig config;
     [SerializeField] GameObject tongueBody;
     [Header("Tongue Variables")]
     [SerializeField] float chargeTime = 1f;
@@ -62,12 +62,12 @@ public class TongueController : MonoBehaviour {
     public void UpdateTongue() {
 
         // Set spawn
-        Vector3 pos = player.transform.position;
+        Vector3 pos = config.transform.position;
         SetSpawn(pos);
 
         // Checking if tongue is still going out
         if (extending) {
-            if (InputHandler.TongueRelease()) {
+            if (!config.Input.Tongue) {
                 speed = deacceleration*Time.deltaTime;
                 StopExtending();
                 // retractAccelFactor
@@ -117,7 +117,7 @@ public class TongueController : MonoBehaviour {
 
         if(heldconf != null)
         {
-            direction = InputHandler.GetTongueDirection();
+            direction = config.Input.Aim;
             heldconf.ApplyKnockback(direction, spitknockback);
             heldconf.stunned = true;
         }
@@ -192,7 +192,7 @@ public class TongueController : MonoBehaviour {
         grabbed = false;
 
         // Change parent back to player
-        gameObject.transform.SetParent(player.gameObject.transform);
+        gameObject.transform.SetParent(config.gameObject.transform);
     }
 
 
@@ -200,11 +200,11 @@ public class TongueController : MonoBehaviour {
     public void OnEnable() {
 
         // Direction & position of tongue
-        SetSpawn(player.transform.position);
-        direction = InputHandler.GetTongueDirection();
+        SetSpawn(config.transform.position);
+        direction = config.Input.Aim;
 
         // Save axis to base rotatin on
-        tongueAxis = GetAxis(player.GetAngle(direction));
+        tongueAxis = GetAxis(config.GetAngle(direction));
 
         // Internal settings
         transform.position = tongueOrigin;
@@ -226,7 +226,7 @@ public class TongueController : MonoBehaviour {
         tongueCollider.enabled = true;
 
         // Rotate player
-        player.RotateSprite(direction);
+        config.RotateSprite(direction);
 
         //
         autoRetract = false;

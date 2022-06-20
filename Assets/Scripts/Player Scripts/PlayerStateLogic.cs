@@ -42,13 +42,12 @@ public class PlayerIdleState : PlayerState {
     public override void ExitState() {}
 
     public override void CheckSwitchStates() {
-        if ((InputHandler.Tongue() && tongue.heldObject == null) || (InputHandler.TongueRelease() && tongue.heldObject != null)) SwitchStates(factory.TongueCharge());
-        if (InputHandler.GetMoveDirection() != Vector3.zero) SwitchStates(factory.Running());
-        else if(tongue.heldObject == null)
-        {
-            if (InputHandler.Staff()) SwitchStates(factory.Staff());
-            else if (InputHandler.Kick()) SwitchStates(factory.Kick());
-            else if (InputHandler.JumpCharge()) SwitchStates(factory.JumpCharge());
+        if ((config.Input.Tongue && tongue.heldObject == null) || (!config.Input.TongueHeld() && tongue.heldObject != null)) SwitchStates(factory.TongueCharge());
+        if (config.Input.Move != Vector3.zero) SwitchStates(factory.Running());
+        else if(tongue.heldObject == null) {
+            if (config.Input.Staff) SwitchStates(factory.Staff());
+            else if (config.Input.Kick) SwitchStates(factory.Kick());
+            else if (config.Input.Jump) SwitchStates(factory.JumpCharge());
         }
     }
 }
@@ -78,13 +77,12 @@ public class PlayerRunningState : PlayerState {
     }
 
     public override void CheckSwitchStates() {
-        if ((InputHandler.Tongue() && tongue.heldObject == null) || (InputHandler.TongueRelease() && tongue.heldObject != null)) SwitchStates(factory.TongueCharge());
+        if ((config.Input.Tongue && tongue.heldObject == null) || (!config.Input.TongueHeld() && tongue.heldObject != null)) SwitchStates(factory.TongueCharge());
         if (config.Speed == 0) SwitchStates(factory.Idle());
-        else if(tongue.heldObject == null)
-        {
-            if (InputHandler.Staff()) SwitchStates(factory.Staff());
-            else if (InputHandler.Kick()) SwitchStates(factory.Kick());
-            else if (InputHandler.JumpCharge()) SwitchStates(factory.JumpCharge());
+        else if(tongue.heldObject == null) {
+            if (config.Input.Staff) SwitchStates(factory.Staff());
+            else if (config.Input.Kick) SwitchStates(factory.Kick());
+            else if (config.Input.Jump) SwitchStates(factory.JumpCharge());
         }
     }
 
@@ -92,7 +90,7 @@ public class PlayerRunningState : PlayerState {
     public void Move() {
 
         // finding direction
-        Vector3 targetDir = InputHandler.GetMoveDirection();
+        Vector3 targetDir = config.Input.Move;
 
         // moving
         if (targetDir == Vector3.zero) {
@@ -155,7 +153,7 @@ public class PlayerTongueState : PlayerState {
 
     public override void EnterState() {
         tongue = config.tongue.GetComponent<TongueController>();
-        Vector3 direction = InputHandler.GetTongueDirection();
+        Vector3 direction = config.Input.Aim;
         config.RotateSprite(direction);
 
         if(!tongue.holdingObject) config.tongue.SetActive(true);
@@ -167,7 +165,9 @@ public class PlayerTongueState : PlayerState {
         CheckSwitchStates();
     }
 
-    public override void ExitState() {}
+    public override void ExitState() {
+        if (tongue.CheckIfFinished()) config.CurrentTongueCooldown = 0f;
+    }
 
     public override void CheckSwitchStates() {
         if (tongue.CheckIfFinished()) {
@@ -202,9 +202,10 @@ public class PlayerGrabbingState : PlayerState {
 
     public override void ExitState() {
         tongue.UnGrab();
+        config.CurrentTongueCooldown = 0f;
     }
     public override void CheckSwitchStates() {
-        if (InputHandler.TongueRelease() || tongue.autoRetract){
+        if (!config.Input.Tongue || tongue.autoRetract){
             SwitchStates(factory.Tongue());
         }
     }
@@ -213,7 +214,7 @@ public class PlayerGrabbingState : PlayerState {
     public void Move() {
 
         // finding direction
-        Vector3 targetDir = InputHandler.GetMoveDirection();
+        Vector3 targetDir = config.Input.Move;
 
         float distancetoobj = Vector3.Distance(tongue.transform.position, config.transform.position);
 
@@ -243,7 +244,7 @@ public class PlayerStaffState : PlayerState {
     : base(config, currentContext, stateFactory){}
 
     public override void EnterState() {
-        Vector3 direction = InputHandler.GetTongueDirection();
+        Vector3 direction = config.Input.Aim;
         config.RotateSprite(direction);
         staff = config.staff.GetComponent<StaffController>();
         config.staff.SetActive(true);
@@ -257,6 +258,7 @@ public class PlayerStaffState : PlayerState {
 
     public override void ExitState() {
         config.staff.SetActive(false);
+        config.CurrentStaffCooldown = 0f;
     }
 
     public override void CheckSwitchStates() {
@@ -275,7 +277,7 @@ public class PlayerKickState : PlayerState {
 
     public override void EnterState() {
         config.SlowDown(config.Deacceleration*3);
-        Vector3 direction = InputHandler.GetTongueDirection();
+        Vector3 direction = config.Input.Aim;
         kick = config.kick.GetComponent<KickController>();
         config.kick.SetActive(true);
         config.RotateSprite(direction);
@@ -289,6 +291,7 @@ public class PlayerKickState : PlayerState {
 
     public override void ExitState() {
         config.kick.SetActive(false);
+        config.CurrentKickCooldown = 0f;
     }
 
     public override void CheckSwitchStates() {
@@ -313,13 +316,14 @@ public class PlayerJumpChargeState : PlayerState {
     public override void UpdateState() {
         config.SlowDown(config.Deacceleration*2);
         chargeTime = chargeTime + Time.deltaTime;
+        config.RotateSprite(config.Input.Aim);
         CheckSwitchStates();
     }
 
     public override void ExitState(){}
 
     public override void CheckSwitchStates() {
-        if (InputHandler.JumpRelease()) {
+        if (!config.Input.Jump) {
             if (chargeTime < config.JumpChargeTime) SwitchStates(factory.Idle());
             else SwitchStates(factory.Jumping());
         }
@@ -342,7 +346,8 @@ public class PlayerJumpingState : PlayerState {
         finished = false;
         totalDist = config.JumpTotalDist;
         currentDist = 0f;
-        direction = InputHandler.GetTongueDirection();
+        direction = config.Input.Aim;
+        Debug.Log(direction);
         config.RotateSprite(direction);
         Move();
     }

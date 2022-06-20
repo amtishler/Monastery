@@ -1,13 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using FMODUnity;
 using FMOD.Studio;
 
 public class PlayerConfig : CharacterConfig {
-
-
-    private Camera mainCamera;
 
     // Serialized Fields
     [Header("Tongue")]
@@ -23,10 +21,27 @@ public class PlayerConfig : CharacterConfig {
     
     [Header("Weapons")]
     [SerializeField] public GameObject tongue;
+    [SerializeField] float tongueCooldown = 1.0f;
     [SerializeField] public GameObject staff;
+    [SerializeField] float staffCooldown = 1.0f;
     [SerializeField] public GameObject kick;
+    [SerializeField] float kickCooldown = 1.0f;
+
+    // Private fields
+    private Camera mainCamera;
+    private InputHandler input;
+    private float currentTongueCooldown;
+    private float currentStaffCooldown;
+    private float currentKickCooldown;
 
     // Getters & Setters
+    public InputHandler Input {get {return input;}}
+    public float TongueCooldown {get {return tongueCooldown;}}
+    public float StaffCooldown {get {return staffCooldown;}}
+    public float KickCooldown {get {return kickCooldown;}}
+    public float CurrentTongueCooldown {get {return currentTongueCooldown;} set {currentTongueCooldown = value;}}
+    public float CurrentStaffCooldown {get {return currentStaffCooldown;} set {currentStaffCooldown = value;}}
+    public float CurrentKickCooldown {get {return currentKickCooldown;} set {currentKickCooldown = value;}}
     public float TongueMaxSpeed {get {return tongueMaxSpeed;}}
     public float JumpMaximumSpeed {get {return jumpMaximumSpeed;}}
     public float JumpMinimumSpeed {get {return jumpMinimumSpeed;}}
@@ -39,6 +54,14 @@ public class PlayerConfig : CharacterConfig {
     // Start method, called before the first frame update.
     protected override void _Start() {   
         mainCamera = Camera.main;
+        input = GetComponentInParent<InputHandler>();
+    }
+
+    // Update method - just to handle cooldowns.
+    protected override void _Update() {
+        currentTongueCooldown = currentTongueCooldown + Time.deltaTime;
+        currentStaffCooldown = currentStaffCooldown + Time.deltaTime;
+        currentKickCooldown = currentKickCooldown + Time.deltaTime;
     }
 
 
@@ -47,16 +70,5 @@ public class PlayerConfig : CharacterConfig {
         int angle = GetAngle(targetDir);
         spriteRenderer.sprite = moveSpriteList[angle];
         currentdir = angle;
-    }
-
-
-    // Gets vector in direction of mouse
-    public Vector3 GetMouseDirection() {
-        Debug.Log(Input.GetJoystickNames().Length);
-        Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mouse.z = 0f;
-        Vector3 direction = mouse - transform.position;
-        direction.Normalize();
-        return direction;
     }
 }

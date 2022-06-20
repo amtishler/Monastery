@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public abstract class CharacterConfig : MonoBehaviour
 {
@@ -33,8 +34,9 @@ public abstract class CharacterConfig : MonoBehaviour
     public bool grabbed;
     public int currentdir;
     public Vector3[] directionMap = new Vector3[4];
-    //For any additional start elements.
+    //For any additional elements.
     protected abstract void _Start();
+    protected abstract void _Update();
 
     public Vector3 Velocity {get {return rigidBody.velocity;} set {rigidBody.velocity = value;}}
     public float Speed {get {return speed;} set {speed = value;}}
@@ -54,6 +56,10 @@ public abstract class CharacterConfig : MonoBehaviour
         directionMap[2] = Vector3.left;
         directionMap[3] = Vector3.down;
         _Start();
+    }
+    
+    void Update() {
+        _Update();
     }
 
     // Moves without player input

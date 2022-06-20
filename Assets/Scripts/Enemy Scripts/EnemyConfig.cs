@@ -10,8 +10,11 @@ public class EnemyConfig : CharacterConfig {
     public float projectileslowdown = 0.1f;
     public GameObject target;
 
-    protected override void _Start()
-    {
+    protected override void _Start() {
+        return;
+    }
+
+    protected override void _Update() {
         return;
     }
 
