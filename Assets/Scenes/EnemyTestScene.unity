@@ -402,43 +402,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!1 &1519048120 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2705515590991708971, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
-  m_PrefabInstance: {fileID: 2705515589604629383}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1519048122 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2705515590991708970, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
-  m_PrefabInstance: {fileID: 2705515589604629383}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1519048120}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05eea6b2524fbe049ad11e1d2687e55c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!50 &1519048127
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1519048120}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!1 &1594907903
 GameObject:
   m_ObjectHideFlags: 0
@@ -680,69 +643,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2705515589199267942, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2705515589199267942, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2705515589280278571, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
-      propertyPath: spitknockback
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 2705515589359950220, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2705515589359950221, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
-      propertyPath: knockback
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 2705515589359950221, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
-      propertyPath: playerconf
-      value: 
-      objectReference: {fileID: 1519048122}
-    - target: {fileID: 2705515589359950222, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 2705515590406865729, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 2705515590406865740, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
-      propertyPath: knockback
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 2705515590406865740, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
-      propertyPath: playerconf
-      value: 
-      objectReference: {fileID: 1519048122}
-    - target: {fileID: 2705515590991708970, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
-      propertyPath: recoverydeaccel
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2705515590991708970, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
-      propertyPath: knockbackmultiplier
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2705515590991708971, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 2705515590991708971, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2705515590991708971, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 2705515590991708981, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2705515590991708982, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
       propertyPath: m_RootOrder

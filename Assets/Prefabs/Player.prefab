@@ -574,7 +574,7 @@ MonoBehaviour:
   playerMoveSpeedHeavy: 2
   criticalFrameWindow: 10
   criticalMultiplier: 3
-  spitknockback: 20
+  spitknockback: 25
   grabbed: 0
   autoRetract: 0
   holdingObject: 0
@@ -853,7 +853,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7769653, y: 1}
+    m_SensorSize: {x: 1.7777778, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1026,11 +1026,13 @@ GameObject:
   - component: {fileID: 2705515590991708983}
   - component: {fileID: 2705515590991708980}
   - component: {fileID: 2705515590991708981}
-  - component: {fileID: 1519048127}
   - component: {fileID: 2705515590991708970}
   - component: {fileID: 2705515590991708979}
   - component: {fileID: 4539858897496940746}
   - component: {fileID: 4369810821518720248}
+  - component: {fileID: 1519048127}
+  - component: {fileID: 9211197577830643159}
+  - component: {fileID: 75413641034434680}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -1143,27 +1145,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: -0.66}
   serializedVersion: 2
   m_Radius: 0.33
---- !u!50 &1519048127
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2705515590991708971}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!114 &2705515590991708970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1202,7 +1183,7 @@ MonoBehaviour:
   jumpMaximumSpeed: 25
   jumpMinimumSpeed: 1
   jumpAcceleration: 1.2
-  jumpDeacceleration: 0.25
+  jumpDeacceleration: 0.5
   jumpChargeTime: 0.67
   jumpTotalDist: 12
   tongue: {fileID: 2705515589280278572}
@@ -1297,6 +1278,60 @@ MonoBehaviour:
   m_DefaultActionMap: Combat
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!50 &1519048127
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2705515590991708971}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!95 &9211197577830643159
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2705515590991708971}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 05d8f71fdafc5784686e7eb3a063ee18, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &75413641034434680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2705515590991708971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89a8ca009b14008429f621808bba2086, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_defaultAnim: {fileID: 0}
 --- !u!1 &2705515591012369535
 GameObject:
   m_ObjectHideFlags: 0
