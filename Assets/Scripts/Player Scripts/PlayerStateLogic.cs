@@ -26,10 +26,14 @@ public abstract class PlayerState : State {
 // Idle
 public class PlayerIdleState : PlayerState {
 
+    TongueController tongue;
+
     public PlayerIdleState(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
     : base(config, currentContext, stateFactory){}
 
-    public override void EnterState() {}
+    public override void EnterState() {
+        tongue = config.tongue.GetComponent<TongueController>();
+    }
 
     public override void UpdateState() {
         CheckSwitchStates();
@@ -38,11 +42,14 @@ public class PlayerIdleState : PlayerState {
     public override void ExitState() {}
 
     public override void CheckSwitchStates() {
-        if (InputHandler.Tongue()) SwitchStates(factory.TongueCharge());
-        else if (InputHandler.Staff()) SwitchStates(factory.Staff());
-        else if (InputHandler.Kick()) SwitchStates(factory.Kick());
-        else if (InputHandler.JumpCharge()) SwitchStates(factory.JumpCharge());
-        else if (InputHandler.GetMoveDirection() != Vector3.zero) SwitchStates(factory.Running());
+        if ((InputHandler.Tongue() && tongue.heldObject == null) || (InputHandler.TongueRelease() && tongue.heldObject != null)) SwitchStates(factory.TongueCharge());
+        if (InputHandler.GetMoveDirection() != Vector3.zero) SwitchStates(factory.Running());
+        else if(tongue.heldObject == null)
+        {
+            if (InputHandler.Staff()) SwitchStates(factory.Staff());
+            else if (InputHandler.Kick()) SwitchStates(factory.Kick());
+            else if (InputHandler.JumpCharge()) SwitchStates(factory.JumpCharge());
+        }
     }
 }
 
@@ -50,10 +57,13 @@ public class PlayerIdleState : PlayerState {
 // Running
 public class PlayerRunningState : PlayerState {
 
+    TongueController tongue;
+
     public PlayerRunningState(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
     : base(config, currentContext, stateFactory){}
 
     public override void EnterState() {
+        tongue = config.tongue.GetComponent<TongueController>();
         Move();
     }
     
@@ -68,11 +78,14 @@ public class PlayerRunningState : PlayerState {
     }
 
     public override void CheckSwitchStates() {
-        if (InputHandler.Tongue()) SwitchStates(factory.TongueCharge());
-        else if (InputHandler.Staff()) SwitchStates(factory.Staff());
-        else if (InputHandler.Kick()) SwitchStates(factory.Kick());
-        else if (InputHandler.JumpCharge()) SwitchStates(factory.JumpCharge());
-        else if (config.Speed == 0) SwitchStates(factory.Idle());
+        if ((InputHandler.Tongue() && tongue.heldObject == null) || (InputHandler.TongueRelease() && tongue.heldObject != null)) SwitchStates(factory.TongueCharge());
+        if (config.Speed == 0) SwitchStates(factory.Idle());
+        else if(tongue.heldObject == null)
+        {
+            if (InputHandler.Staff()) SwitchStates(factory.Staff());
+            else if (InputHandler.Kick()) SwitchStates(factory.Kick());
+            else if (InputHandler.JumpCharge()) SwitchStates(factory.JumpCharge());
+        }
     }
 
     // Helper function

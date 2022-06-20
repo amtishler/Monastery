@@ -103,7 +103,10 @@ public class EnemyHurtState : EnemyState {
     public override void ExitState() {}
 
     public override void CheckSwitchStates(){
-        if(config.Speed == 0) SwitchStates(currentContext.previousState);
+        if(config.Speed == 0){
+            if(config.target != null) SwitchStates(factory.Aggressive());
+            else SwitchStates(factory.Idle());
+        }
     }
 }
 
@@ -143,7 +146,7 @@ public class EnemyGrabbedState : EnemyState {
     }
 }
 
-// Stunned
+// Stunned (Enemy acts as projectile)
 public class EnemyStunnedState : EnemyState {
 
     private float deacceleration;
