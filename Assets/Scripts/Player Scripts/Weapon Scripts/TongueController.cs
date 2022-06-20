@@ -46,7 +46,7 @@ public class TongueController : MonoBehaviour {
     private bool grabUsed;
 
     // GameObject containing grabbed object
-    private GameObject heldObject;
+    public GameObject heldObject;
     private CharacterConfig heldconf;
 
     //Timer for critical window
@@ -80,6 +80,8 @@ public class TongueController : MonoBehaviour {
             }
         }
 
+        //Fix this eventually if we even decide to use it
+        /*
         criticalTimer++;
         if(!criticalUsed && criticalTimer < criticalFrameWindow && InputHandler.TongueRelease())
         {
@@ -87,6 +89,7 @@ public class TongueController : MonoBehaviour {
             criticalUsed = true;
             deacceleration = deacceleration * criticalMultiplier;
         };
+        */
 
         velocity = direction*speed;
         distTraveled = distTraveled+speed*Time.deltaTime;
