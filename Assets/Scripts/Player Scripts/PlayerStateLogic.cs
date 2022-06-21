@@ -419,6 +419,7 @@ public class PlayerDeadState : PlayerState
     }
     public override void UpdateState()
     {
+        config.SlowDown(config.Deacceleration);
         CheckSwitchStates();
     }
     public override void ExitState(){}

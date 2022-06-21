@@ -24,15 +24,18 @@ public abstract class CharacterConfig : MonoBehaviour
 
     [Header("Damage")]
     [SerializeField] protected float health = 100f;
-    [SerializeField] protected float invincibletimer = 1.5f;
+    [SerializeField] protected float invincibleduration = 2f;
     [SerializeField] protected float knockbackmultiplier = 1f;
 
     [Header("Sprites")]
     [SerializeField] protected Sprite[] moveSpriteList = new Sprite[4];
 
     public bool invincible;
+    private float invincibletimer;
+
     public bool stunned;
     public bool grabbed;
+    public bool dead;
     public int currentdir;
     public Vector3[] directionMap = new Vector3[4];
     //For any additional elements.
@@ -60,6 +63,13 @@ public abstract class CharacterConfig : MonoBehaviour
     }
     
     void Update() {
+        if(invincible && !dead){
+            invincibletimer += Time.deltaTime;
+            if(invincibletimer >= invincibleduration)
+            {
+                invincible = false;
+            }
+        }
         _Update();
     }
 
@@ -81,9 +91,13 @@ public abstract class CharacterConfig : MonoBehaviour
             if(health <= 0)
             {
                 stateManager.ForceDead();
+                invincible = true;
+                dead = true;
             }
             else{
                 stateManager.ForceHurt();
+                invincible = true;
+                invincibletimer = 0;
             }
         }
     }
