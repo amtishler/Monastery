@@ -1194,8 +1194,8 @@ MonoBehaviour:
   jumpMinimumSpeed: 1
   jumpAcceleration: 1.2
   jumpDeacceleration: 0.5
-  jumpChargeTime: 0.67
-  jumpTotalDist: 12
+  jumpChargeTime: 0.35
+  jumpTotalDist: 4
   tongue: {fileID: 2705515589280278572}
   tongueCooldown: 0.5
   staff: {fileID: 2705515589359950222}
