@@ -396,13 +396,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2705515590991708970, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
-      propertyPath: jumpMaximumSpeed
-      value: 25
+    - target: {fileID: 2705515589359950220, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2705515590991708970, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
-      propertyPath: jumpDeacceleration
-      value: 0.5
+    - target: {fileID: 2705515589359950222, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2705515590991708971, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
       propertyPath: m_Name
