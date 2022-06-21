@@ -117,4 +117,9 @@ public abstract class CharacterConfig : MonoBehaviour
 
         return angle;
     }
+
+    public void Heal(float healamt)
+    {
+        health += healamt;
+    }
 }

@@ -82,7 +82,7 @@ public class TongueController : MonoBehaviour {
 
         //Fix this eventually if we even decide to use it
         /*
-        criticalTimer++;
+        criticalTimer+= Time.delaTime;
         if(!criticalUsed && criticalTimer < criticalFrameWindow && InputHandler.TongueRelease())
         {
             Debug.Log("Critical");
@@ -110,16 +110,22 @@ public class TongueController : MonoBehaviour {
         //Should have object to spit
         if(!holdingObject || heldObject == null)
         {
-            Debug.Log("Trying to spit out object that doesn't exist");
+            return;
         }
         heldObject.transform.SetParent(null);
         heldObject.SetActive(true);
 
+        direction = config.Input.Aim;
+
         if(heldconf != null)
         {
-            direction = config.Input.Aim;
             heldconf.ApplyKnockback(direction, spitknockback);
             heldconf.stunned = true;
+        }
+
+        HittableObject inanimateobj = heldObject.transform.root.GetComponent<HittableObject>();
+        if(inanimateobj != null){
+            inanimateobj.ApplyKnockback(direction, spitknockback);
         }
 
         heldObject = null;
@@ -150,11 +156,11 @@ public class TongueController : MonoBehaviour {
                 grabUsed = true;
                 StopExtending();
 
-                //Let object it has grabbed become a child so it follows it to frog.
+                //Let object it has grabbed become a child so it follows.
                 heldObject = hits[0].transform.gameObject;
                 heldconf = heldObject.transform.root.GetComponent<CharacterConfig>();
 
-                heldObject.transform.position = transform.position;
+                transform.position = heldObject.transform.position;
                 heldObject.transform.SetParent(gameObject.transform);
 
                 if(heldconf != null)
@@ -167,8 +173,8 @@ public class TongueController : MonoBehaviour {
                 speed = speed*objectResidualSpeed;
 
                 //Start timer
-                criticalTimer = 0;
-                criticalUsed = false;
+                //criticalTimer = 0;
+                //criticalUsed = false;
             }
         }
     }
