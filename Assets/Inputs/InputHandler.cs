@@ -37,6 +37,7 @@ public class InputHandler : MonoBehaviour{
         staff = false;
         kick = false;
         jump = false;
+        Debug.Log("test");
     }
 
     // Input listeners
