@@ -414,7 +414,9 @@ public class PlayerDeadState : PlayerState
     public PlayerDeadState(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
     : base(config, currentContext, stateFactory){}
 
-    public override void EnterState(){}
+    public override void EnterState(){
+        Debug.Log("You are dead :(");
+    }
     public override void UpdateState()
     {
         CheckSwitchStates();

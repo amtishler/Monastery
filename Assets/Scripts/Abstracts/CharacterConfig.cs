@@ -23,6 +23,7 @@ public abstract class CharacterConfig : MonoBehaviour
     [SerializeField] protected float recoveryDeaccel = 0.5f;
 
     [Header("Damage")]
+    [SerializeField] protected float health = 100f;
     [SerializeField] protected float invincibletimer = 1.5f;
     [SerializeField] protected float knockbackmultiplier = 1f;
 
@@ -75,8 +76,15 @@ public abstract class CharacterConfig : MonoBehaviour
     {
         if(!invincible)
         {
-            stateManager.ForceHurt();
             ApplyKnockback(knockback, magnitude);
+            health -= damage;
+            if(health <= 0)
+            {
+                stateManager.ForceDead();
+            }
+            else{
+                stateManager.ForceHurt();
+            }
         }
     }
 

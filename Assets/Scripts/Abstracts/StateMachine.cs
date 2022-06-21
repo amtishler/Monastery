@@ -11,4 +11,5 @@ public abstract class StateMachine : MonoBehaviour {
     }
 
     public abstract void ForceHurt();
+    public abstract void ForceDead();
 }

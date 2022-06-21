@@ -25,6 +25,10 @@ public class EnemyStateFactory : StateFactory
         return new EnemyHurtState(config, currentContext, this);
     }
 
+    public State Dead() {
+        return new EnemyDeadState(config, currentContext, this);
+    }
+
     public State Grabbed() {
         return new EnemyGrabbedState(config, currentContext, this);
     }

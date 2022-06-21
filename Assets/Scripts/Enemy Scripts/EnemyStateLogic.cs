@@ -110,6 +110,40 @@ public class EnemyHurtState : EnemyState {
     }
 }
 
+// Dead
+public class EnemyDeadState : EnemyState {
+
+    private float deacceleration;
+    private float recoverytimer;
+    private HitboxController selfhitbox;
+
+    public EnemyDeadState(EnemyConfig config, EnemyStateMachine currentContext, EnemyStateFactory stateFactory)
+    : base(config, currentContext, stateFactory){}
+
+    public override void EnterState() {
+        config.invincible = true;
+        selfhitbox = config.GetComponentInChildren<HitboxController>();
+        selfhitbox.gameObject.SetActive(false);
+        deacceleration = config.RecoveryDeaccel;
+        config.SlowDown(deacceleration);
+    }
+
+    public override void UpdateState()
+    {
+        if(config.Speed != 0)
+        {
+            deacceleration += config.RecoveryDeaccel * Time.deltaTime;
+            config.SlowDown(deacceleration);
+        }
+    }
+
+    public override void ExitState() {}
+
+    public override void CheckSwitchStates(){
+
+    }
+}
+
 // Grabbed
 public class EnemyGrabbedState : EnemyState {
     public EnemyGrabbedState(EnemyConfig config, EnemyStateMachine currentContext, EnemyStateFactory stateFactory)
@@ -134,15 +168,6 @@ public class EnemyGrabbedState : EnemyState {
 
     public override void CheckSwitchStates(){
         if(config.stunned) SwitchStates(factory.Stunned());
-        /*if(!config.grabbed){
-            if(config.target != null){
-                SwitchStates(factory.Aggressive());
-            }
-            else
-            {
-                SwitchStates(factory.Idle());
-            }
-        }*/
     }
 }
 

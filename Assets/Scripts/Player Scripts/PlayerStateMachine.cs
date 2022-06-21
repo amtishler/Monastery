@@ -18,4 +18,9 @@ public class PlayerStateMachine : StateMachine
     {
         currentState.SwitchStates(states.Hurt());
     }
+
+    public override void ForceDead()
+    {
+        currentState.SwitchStates(states.Dead());
+    }
 }

@@ -166,6 +166,7 @@ MonoBehaviour:
   acceleration: 0.1
   deacceleration: 0.1
   recoveryDeaccel: 0.5
+  health: 100
   invincibletimer: 1.5
   knockbackmultiplier: 1
   moveSpriteList:
@@ -233,7 +234,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerconf: {fileID: 4220657007158370608}
-  damage: 0
+  damage: 50
   knockback: 30
   knockbacknormalization: 0.5
 --- !u!61 &8649202318979798941

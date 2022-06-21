@@ -19,4 +19,9 @@ public class EnemyStateMachine : StateMachine
         previousState = currentState;
         currentState.SwitchStates(states.Hurt());
     }
+
+    public override void ForceDead()
+    {
+        currentState.SwitchStates(states.Dead());
+    }
 }
