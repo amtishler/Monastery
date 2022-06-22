@@ -12,7 +12,7 @@ public class Attack : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //LIVING THINGS
-        CharacterConfig d = collision.transform.root.GetComponent<CharacterConfig>();
+        CharacterConfig d = collision.transform.GetComponent<CharacterConfig>();
         if (d != null)
         {
             // put knockback calculations here or something
@@ -28,7 +28,7 @@ public class Attack : MonoBehaviour
         }
 
         //INANIMATE OBJECTS
-        HittableObject obj = collision.transform.root.GetComponent<HittableObject>();
+        HittableObject obj = collision.transform.GetComponent<HittableObject>();
         if (obj != null)
         {
             Vector3 knockbackdir = collision.transform.position - playerconf.transform.position;
