@@ -51,10 +51,7 @@ public class MusicManager : MonoBehaviour
     [SerializeField]
     private bool variantTransitioning;
 
-
-
-    float counter = 0;
-
+    //float counter = 0;
 
 
     private static MusicManager _instance;
@@ -91,14 +88,14 @@ public class MusicManager : MonoBehaviour
         {
             bool continueAreaTransition = false;
 
-            if (currentAreaMasterVolume < 1)
+            if (currentAreaMasterVolume < 1 && currentArea != Area.None)
             {
                 currentAreaMasterVolume += currentMasterIncrement * Time.deltaTime;
                 currentEvent.setParameterByName(masterVolParamName, currentAreaMasterVolume);
                 continueAreaTransition = true;
             }
 
-            if (oldAreaMasterVolume > 0 && !Object.ReferenceEquals(oldEvent, null))
+            if (oldAreaMasterVolume > 0 && oldArea != Area.None)
             {
                 oldAreaMasterVolume -= currentMasterIncrement * Time.deltaTime;
                 oldEvent.setParameterByName(masterVolParamName, oldAreaMasterVolume);
@@ -134,7 +131,7 @@ public class MusicManager : MonoBehaviour
         }
 
 
-        counter += Time.deltaTime;
+        /*counter += Time.deltaTime;
         if (counter > 1)
         {
             counter -= 1;
@@ -150,19 +147,19 @@ public class MusicManager : MonoBehaviour
             float v3;
             currentEvent.getParameterByName(variantVolParamNames[3], out v3);
 
-/*            Debug.Log("Master Volume: " + m);
+            Debug.Log("Master Volume: " + m);
             Debug.Log("Variant 0: " + v0);
             Debug.Log("Variant 1: " + v1);
             Debug.Log("Variant 2: " + v2);
-            Debug.Log("Variant 3: " + v3);*/
+            Debug.Log("Variant 3: " + v3);
 
             //Debug.Log(oldVariant)
 
-        }
+        }*/
 
     }
 
-    public void HandleMusicTrigger(MusicTrigger trigger)
+    public void HandleTrigger(MusicTrigger trigger)
     {
         if (trigger.stopMusic)
             BeginFadeOut(trigger);
@@ -179,12 +176,28 @@ public class MusicManager : MonoBehaviour
     {
         // This function fades out the MASTER VOLUME of an event, leaving the individual tracks alone
 
+        Debug.Log("Fading out");
+
+        areaTransitioning = true;
+
+        oldEvent = currentEvent;
+        currentEvent = new FMOD.Studio.EventInstance();
+
+        oldArea = currentArea;
+        currentArea = Area.None;
+
+        currentMasterIncrement = MusicTrigger.fadeSpeedDict[trigger.masterFadeRate];
+
+        oldAreaMasterVolume = currentAreaMasterVolume;
+        currentAreaMasterVolume = 0;
+
 
     }
 
     private void BeginFadeToNewArea(MusicTrigger trigger)
     {
-        //Debug.Log("Fading to new area: " + trigger.area.ToString());
+
+        Debug.Log("Fading to new area: " + trigger.area.ToString());
 
         // Will only be executed if areas are different. No need for verification
 
@@ -222,7 +235,7 @@ public class MusicManager : MonoBehaviour
 
     private void BeginFadeToVariant(MusicTrigger trigger)
     {
-        //Debug.Log("Fading in variant " + trigger.variant + " and fading out variant " + currentVariant);
+        Debug.Log("Fading in variant " + trigger.variant + " and fading out variant " + currentVariant);
 
         // Reassign Variables
         variantTransitioning = true;
@@ -237,6 +250,9 @@ public class MusicManager : MonoBehaviour
         currentVariant = trigger.variant;
         currentEvent.getParameterByName(variantVolParamNames[currentVariant], out currentVariantVolume);
         //Debug.Log("New: " + currentVariantVolume);
+
+        if (oldVariant == currentVariant)
+            oldVariant = -1;
 
         currentVariantIncrement = MusicTrigger.fadeSpeedDict[trigger.variantFadeRate];
 

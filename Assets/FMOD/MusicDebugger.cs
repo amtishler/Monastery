@@ -8,7 +8,7 @@ public class MusicDebugger : MonoBehaviour
     public MusicTrigger[] triggers;
 
 
-    private void Update()
+    /*private void Update()
     {
         if(Input.GetKeyDown("[0]"))
         {
@@ -30,7 +30,7 @@ public class MusicDebugger : MonoBehaviour
             MusicManager.Instance.HandleMusicTrigger(triggers[3]);
         }
 
-    }
+    }*/
 
 
 }
