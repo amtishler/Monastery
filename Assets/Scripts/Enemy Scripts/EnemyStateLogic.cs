@@ -150,13 +150,13 @@ public class EnemyGrabbedState : EnemyState {
     public EnemyGrabbedState(EnemyConfig config, EnemyStateMachine currentContext, EnemyStateFactory stateFactory)
     : base(config, currentContext, stateFactory){}
 
-    private HitboxController selfhitbox;
+    private Rigidbody2D body;
 
     public override void EnterState() {
         config.Speed = 0;
         config.Velocity = Vector3.zero;
-        selfhitbox = config.GetComponentInChildren<HitboxController>();
-        selfhitbox.gameObject.GetComponent<Collider2D>().enabled = false;
+        body = config.GetComponent<Rigidbody2D>();
+        body.simulated = false;
     }
 
     public override void UpdateState()
@@ -179,6 +179,7 @@ public class EnemyStunnedState : EnemyState {
     private float deacceleration;
     private float recoverytimer = 1.5f;
     private HitboxController selfhitbox;
+    private Rigidbody2D body;
 
     public EnemyStunnedState(EnemyConfig config, EnemyStateMachine currentContext, EnemyStateFactory stateFactory)
     : base(config, currentContext, stateFactory){}
@@ -186,8 +187,8 @@ public class EnemyStunnedState : EnemyState {
     public override void EnterState() {
         selfhitbox = config.GetComponentInChildren<HitboxController>();
         selfhitbox.gameObject.layer = LayerMask.NameToLayer("Spit Projectile Hitbox");
-        selfhitbox.gameObject.GetComponent<Collider2D>().enabled = true;
-        config.SlowDown(deacceleration);
+        body = config.GetComponent<Rigidbody2D>();
+        body.simulated = true;
     }
 
     public override void UpdateState()
@@ -201,6 +202,7 @@ public class EnemyStunnedState : EnemyState {
 
     public override void ExitState() {
         selfhitbox.gameObject.layer = LayerMask.NameToLayer("Enemy Hitbox");
+        config.gameObject.GetComponent<Collider2D>().enabled = true;
         config.invincible = false;
     }
 
