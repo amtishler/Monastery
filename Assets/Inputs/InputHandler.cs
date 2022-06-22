@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 public class InputHandler : MonoBehaviour{
 
     private PlayerConfig config;
+
+    private PlayerInput playerInput;
     private bool usingController;
 
     private Vector3 move;
@@ -14,6 +16,7 @@ public class InputHandler : MonoBehaviour{
     private bool staff;
     private bool kick;
     private bool jump;
+    private bool reset;
 
     // Getters & setters
     public Vector3 Move {get {return move;}}
@@ -22,6 +25,7 @@ public class InputHandler : MonoBehaviour{
     public bool Staff {get {if (config.CurrentStaffCooldown > config.StaffCooldown) return staff; else return false;}}
     public bool Kick {get {if (config.CurrentKickCooldown > config.KickCooldown) return kick; else return false;}}
     public bool Jump {get {return jump;}}
+    public bool Reset {get {return reset;}}
 
     // On Start
     private void Start() {
@@ -30,6 +34,7 @@ public class InputHandler : MonoBehaviour{
         else usingController = false;
 
         config = GetComponentInParent<PlayerConfig>();
+        playerInput = GetComponent<PlayerInput>();
 
         move = Vector3.zero;
         aim = Vector3.zero;
@@ -74,6 +79,10 @@ public class InputHandler : MonoBehaviour{
         jump = value.isPressed;
     }
 
+    private void OnReset(InputValue value) {
+        reset = value.isPressed;
+    }
+
     // Helper functions if needed
     public Vector3 GetMouseDirection() {
         Vector3 mouse = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
@@ -94,5 +103,9 @@ public class InputHandler : MonoBehaviour{
         if (direction == Vector3.zero) direction = move;
         if (direction == Vector3.zero) direction = config.directionMap[config.currentdir];
         return direction;
+    }
+
+    public void DeathMap() {
+        playerInput.SwitchCurrentActionMap("Death");
     }
 }

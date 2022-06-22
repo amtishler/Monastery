@@ -11,6 +11,7 @@ public class EnemyConfig : CharacterConfig {
     public GameObject target;
 
     protected override void _Start() {
+        target = FindObjectOfType<PlayerConfig>().gameObject;
         return;
     }
 

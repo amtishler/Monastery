@@ -315,6 +315,45 @@
                     "isPartOfComposite": true
                 }
             ]
+        },
+        {
+            "name": "Death",
+            "id": "1e37aaca-d269-4727-af50-10635c3b6b84",
+            "actions": [
+                {
+                    "name": "Reset",
+                    "type": "Button",
+                    "id": "d274b427-5446-4371-82e5-0728d7af44ef",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "9c4db411-8196-4813-b3c5-ec60552975e4",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "Reset",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cb6054a8-f3b5-4fb3-8618-3e38ec29e6a9",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Reset",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

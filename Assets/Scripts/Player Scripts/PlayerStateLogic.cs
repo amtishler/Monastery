@@ -430,7 +430,13 @@ public class PlayerDeadState : PlayerState
         CheckSwitchStates();
     }
     public override void ExitState(){}
-    public override void CheckSwitchStates(){}
+    public override void CheckSwitchStates(){
+        InputHandler deadstate = config.GetComponent<InputHandler>();
+        deadstate.DeathMap();
+        if (config.Input.Reset){
+            GameManager.Instance.ReloadScene();
+        }
+    }
 }
 
 

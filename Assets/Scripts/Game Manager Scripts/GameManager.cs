@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -31,5 +32,11 @@ public class GameManager : MonoBehaviour
     public void DamageCharacter(CharacterConfig character, float damage, Vector3 knockbackdir, float knockbackmag)
     {
         character.Hit(damage, knockbackdir, knockbackmag);
+    }
+
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
     }
 }
