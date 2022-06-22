@@ -63,7 +63,7 @@ public abstract class CharacterConfig : MonoBehaviour
     }
     
     void Update() {
-        if(invincible && !dead){
+        if(invincible && !dead && !grabbed){
             invincibletimer += Time.deltaTime;
             if(invincibletimer >= invincibleduration)
             {

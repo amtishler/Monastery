@@ -41,6 +41,7 @@ public class EnemyIdleState : EnemyState {
 
     public override void CheckSwitchStates() {
         if(config.stunned) SwitchStates(factory.Stunned());
+        else if(config.grabbed) SwitchStates(factory.Grabbed());
         else if(CheckVision()) SwitchStates(factory.Aggressive());
     }
 
@@ -152,8 +153,10 @@ public class EnemyGrabbedState : EnemyState {
     private HitboxController selfhitbox;
 
     public override void EnterState() {
+        config.Speed = 0;
+        config.Velocity = Vector3.zero;
         selfhitbox = config.GetComponentInChildren<HitboxController>();
-        selfhitbox.gameObject.SetActive(false);
+        selfhitbox.gameObject.GetComponent<Collider2D>().enabled = false;
     }
 
     public override void UpdateState()
@@ -163,7 +166,6 @@ public class EnemyGrabbedState : EnemyState {
 
     public override void ExitState() {
         config.grabbed = false;
-        selfhitbox.gameObject.SetActive(true);
     }    
 
     public override void CheckSwitchStates(){
@@ -183,8 +185,8 @@ public class EnemyStunnedState : EnemyState {
 
     public override void EnterState() {
         selfhitbox = config.GetComponentInChildren<HitboxController>();
-        selfhitbox.gameObject.SetActive(true);
         selfhitbox.gameObject.layer = LayerMask.NameToLayer("Spit Projectile Hitbox");
+        selfhitbox.gameObject.GetComponent<Collider2D>().enabled = true;
         config.SlowDown(deacceleration);
     }
 
