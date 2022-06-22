@@ -31,7 +31,7 @@ public abstract class CharacterConfig : MonoBehaviour
     [SerializeField] protected Sprite[] moveSpriteList = new Sprite[4];
 
     public bool invincible;
-    private float invincibletimer;
+    public float invincibletimer;
 
     public bool stunned;
     public bool grabbed;
@@ -91,6 +91,7 @@ public abstract class CharacterConfig : MonoBehaviour
             if(health <= 0)
             {
                 stateManager.ForceDead();
+                Death(this.gameObject);
                 invincible = true;
                 dead = true;
             }
@@ -122,4 +123,10 @@ public abstract class CharacterConfig : MonoBehaviour
     {
         health += healamt;
     }
+
+    public void Death(GameObject character)
+    {
+        if (character.CompareTag("Player")) Debug.Log("Death");
+        else Destroy(character);
+    }    
 }

@@ -73,6 +73,4 @@ public class PlayerConfig : CharacterConfig {
         //spriteRenderer.sprite = moveSpriteList[angle];
         currentdir = angle;
     }
-
-    
 }

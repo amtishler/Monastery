@@ -175,7 +175,7 @@ public class EnemyGrabbedState : EnemyState {
 public class EnemyStunnedState : EnemyState {
 
     private float deacceleration;
-    private float recoverytimer;
+    private float recoverytimer = 1.5f;
     private HitboxController selfhitbox;
 
     public EnemyStunnedState(EnemyConfig config, EnemyStateMachine currentContext, EnemyStateFactory stateFactory)
