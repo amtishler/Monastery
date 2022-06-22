@@ -33,6 +33,7 @@ public class PlayerIdleState : PlayerState {
 
     public override void EnterState() {
         tongue = config.tongue.GetComponent<TongueController>();
+        config.playerAnimator.UpdateIdleAnimation();
     }
 
     public override void UpdateState() {
@@ -109,6 +110,7 @@ public class PlayerRunningState : PlayerState {
         // update sprite
         if (targetDir == Vector3.zero) return;
         config.RotateSprite(targetDir);
+        config.playerAnimator.UpdateWalkAnimation();
     }
 }
 
@@ -157,6 +159,7 @@ public class PlayerTongueState : PlayerState {
         config.RotateSprite(direction);
 
         if(!tongue.holdingObject) config.tongue.SetActive(true);
+        
     }
 
     public override void UpdateState() {
@@ -248,6 +251,7 @@ public class PlayerStaffState : PlayerState {
         config.RotateSprite(direction);
         staff = config.staff.GetComponent<StaffController>();
         config.staff.SetActive(true);
+        config.playerAnimator.UpdateStaffAnimation();
     }
 
     public override void UpdateState() {
@@ -281,6 +285,7 @@ public class PlayerKickState : PlayerState {
         kick = config.kick.GetComponent<KickController>();
         config.kick.SetActive(true);
         config.RotateSprite(direction);
+        config.playerAnimator.UpdateKickAnimation();
     }
 
     public override void UpdateState() {
@@ -311,6 +316,7 @@ public class PlayerJumpChargeState : PlayerState {
     public override void EnterState() {
         config.SlowDown(config.Deacceleration*2);
         chargeTime = 0f;
+        config.playerAnimator.UpdateJumpChargeAnimation();
     }
 
     public override void UpdateState() {
@@ -350,6 +356,7 @@ public class PlayerJumpingState : PlayerState {
         Debug.Log(direction);
         config.RotateSprite(direction);
         Move();
+        config.playerAnimator.UpdateJumpAnimation();
     }
 
     public override void UpdateState() {

@@ -49,12 +49,14 @@ public class PlayerConfig : CharacterConfig {
     public float JumpDeacceleration {get {return jumpDeacceleration;}}
     public float JumpChargeTime {get {return jumpChargeTime;}}
     public float JumpTotalDist {get {return jumpTotalDist;}}
-
+    
+    public PlayerAnimator playerAnimator;
 
     // Start method, called before the first frame update.
     protected override void _Start() {   
         mainCamera = Camera.main;
         input = GetComponentInParent<InputHandler>();
+        playerAnimator = GetComponent<PlayerAnimator>();
     }
 
     // Update method - just to handle cooldowns.
@@ -68,7 +70,9 @@ public class PlayerConfig : CharacterConfig {
     // Changes player's sprite to one of the four directions.
     public void RotateSprite(Vector3 targetDir) {
         int angle = GetAngle(targetDir);
-        spriteRenderer.sprite = moveSpriteList[angle];
+        //spriteRenderer.sprite = moveSpriteList[angle];
         currentdir = angle;
     }
+
+    
 }
