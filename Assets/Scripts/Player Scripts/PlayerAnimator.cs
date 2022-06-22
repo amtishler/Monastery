@@ -21,6 +21,7 @@ public class PlayerAnimator : MonoBehaviour
 
     bool kick = false;
     bool staff = false;
+    bool jumpCharge = false;
 
     // Start is called before the first frame update
     void Start()
@@ -47,7 +48,7 @@ public class PlayerAnimator : MonoBehaviour
     }
 
     public void UpdateIdleAnimation() {
-        if(m_anim.Clip != idleAnimations[currentdir] && m_anim.GetNormalisedTime() >= 1f) {
+        if(m_anim.Clip != idleAnimations[currentdir] && m_anim.GetNormalisedTime() >= 1f && !jumpCharge) {
             m_anim.Play(idleAnimations[currentdir]);
         }
     }
@@ -75,12 +76,14 @@ public class PlayerAnimator : MonoBehaviour
     public void UpdateJumpChargeAnimation() {
         if(m_anim.Clip != jumpChargeAnimations[currentdir]) {
             m_anim.Play(jumpChargeAnimations[currentdir]);
+            jumpCharge = true;
         }
     }
 
     public void UpdateJumpAnimation() {
         if(m_anim.Clip != jumpAnimations[currentdir]) {
             m_anim.Play(jumpAnimations[currentdir]);
+            jumpCharge = false;
         }
     }
 }
