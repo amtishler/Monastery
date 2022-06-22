@@ -158,7 +158,7 @@ public class TongueController : MonoBehaviour {
 
                 //Let object it has grabbed become a child so it follows.
                 heldObject = hits[0].transform.gameObject;
-                heldconf = heldObject.transform.root.GetComponent<CharacterConfig>();
+                heldconf = heldObject.transform.GetComponentInParent<CharacterConfig>();
 
                 transform.position = heldObject.transform.position;
                 heldObject.transform.SetParent(gameObject.transform);
