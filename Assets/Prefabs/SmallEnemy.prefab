@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7214512695575093670}
   - component: {fileID: 7332554439221743871}
-  m_Layer: 9
+  m_Layer: 14
   m_Name: WallCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -234,6 +234,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   invincible: 0
+  invincibletimer: 0
   stunned: 0
   grabbed: 0
   dead: 0
