@@ -27,6 +27,10 @@ public class InputHandler : MonoBehaviour{
     public bool Jump {get {return jump;}}
     public bool Reset {get {return reset;}}
 
+    // For debugger:
+    public string inputText = "";
+
+
     // On Start
     private void Start() {
 
@@ -43,6 +47,8 @@ public class InputHandler : MonoBehaviour{
         kick = false;
         jump = false;
         Debug.Log("test");
+
+        inputText = "";
     }
 
     // Input listeners
@@ -55,32 +61,38 @@ public class InputHandler : MonoBehaviour{
     private void OnMove(InputValue value) {
         move = value.Get<Vector3>(); 
         move.Normalize();
+        inputText = "Moving";
     }
 
     private void OnAim(InputValue value) {
         aim = value.Get<Vector3>();
         aim.Normalize();
+        inputText = "Aiming";
     }
 
     private void OnTongue(InputValue value) {
         tongue = value.isPressed;
-
+        inputText = "Tonguing";
     }
 
     private void OnStaff(InputValue value) {
         staff = value.isPressed;
+        inputText = "Staffing";
     } 
 
     private void OnKick(InputValue value) {
         kick = value.isPressed;
+        inputText = "Kicking";
     }
 
     private void OnJump(InputValue value) {
         jump = value.isPressed;
+        inputText = "Jumping";
     }
 
     private void OnReset(InputValue value) {
         reset = value.isPressed;
+        inputText = "Reseting";
     }
 
     // Helper functions if needed

@@ -53,6 +53,9 @@ public class MusicManager : MonoBehaviour
 
     //float counter = 0;
 
+    // For debugger:
+    public string[] debugTexts;
+
 
     private static MusicManager _instance;
     public static MusicManager Instance //Singleton Stuff
@@ -76,7 +79,15 @@ public class MusicManager : MonoBehaviour
         areaTransitioning = false;
         variantTransitioning = false;
 
+        currentVariant = -1;
         oldVariant = -1;
+
+        currentVariantVolume = 0;
+        oldVariantVolume = 0;
+
+        debugTexts = new string[4] { "", "", "", "" };
+            
+
 
     }
 
@@ -130,32 +141,12 @@ public class MusicManager : MonoBehaviour
 
         }
 
+        // For debugger:
+        debugTexts[0] = currentArea.ToString();
+        debugTexts[1] = currentVariant.ToString();
+        debugTexts[2] = currentVariantVolume.ToString();
+        debugTexts[3] = oldVariantVolume.ToString();
 
-        /*counter += Time.deltaTime;
-        if (counter > 1)
-        {
-            counter -= 1;
-
-            float m;
-            currentEvent.getParameterByName(masterVolParamName, out m);
-            float v0;
-            currentEvent.getParameterByName(variantVolParamNames[0], out v0);
-            float v1;
-            currentEvent.getParameterByName(variantVolParamNames[1], out v1);
-            float v2;
-            currentEvent.getParameterByName(variantVolParamNames[2], out v2);
-            float v3;
-            currentEvent.getParameterByName(variantVolParamNames[3], out v3);
-
-            Debug.Log("Master Volume: " + m);
-            Debug.Log("Variant 0: " + v0);
-            Debug.Log("Variant 1: " + v1);
-            Debug.Log("Variant 2: " + v2);
-            Debug.Log("Variant 3: " + v3);
-
-            //Debug.Log(oldVariant)
-
-        }*/
 
     }
 
@@ -257,10 +248,6 @@ public class MusicManager : MonoBehaviour
         currentVariantIncrement = MusicTrigger.fadeSpeedDict[trigger.variantFadeRate];
 
     }
-
-
-
-
 
 
 }

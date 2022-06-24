@@ -27,6 +27,7 @@ public class CameraController : MonoBehaviour
     BoxCollider2D box;
     Rigidbody2D rig;
 
+
     private void Awake()
     {
         box = GetComponent<BoxCollider2D>();
