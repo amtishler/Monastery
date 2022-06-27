@@ -45,12 +45,12 @@ public class PlayerIdleState : PlayerState {
     public override void ExitState() {}
 
     public override void CheckSwitchStates() {
-        if ((config.Input.Tongue && tongue.heldObject == null) || (!config.Input.TongueHeld() && tongue.heldObject != null)) SwitchStates(factory.TongueCharge());
+        if ((config.Input.TonguePressed && tongue.heldObject == null) || (!config.Input.TongueHeld && tongue.heldObject != null)) SwitchStates(factory.TongueCharge());
         if (config.Input.Move != Vector3.zero) SwitchStates(factory.Running());
         else if(tongue.heldObject == null) {
-            if (config.Input.Staff) SwitchStates(factory.Staff());
-            else if (config.Input.Kick) SwitchStates(factory.Kick());
-            else if (config.Input.Jump) SwitchStates(factory.JumpCharge());
+            if (config.Input.StaffPressed) SwitchStates(factory.Staff());
+            else if (config.Input.KickPressed) SwitchStates(factory.Kick());
+            else if (config.Input.JumpPressed) SwitchStates(factory.JumpCharge());
         }
     }
 }
@@ -82,12 +82,12 @@ public class PlayerRunningState : PlayerState {
     }
 
     public override void CheckSwitchStates() {
-        if ((config.Input.Tongue && tongue.heldObject == null) || (!config.Input.TongueHeld() && tongue.heldObject != null)) SwitchStates(factory.TongueCharge());
+        if ((config.Input.TonguePressed && tongue.heldObject == null) || (!config.Input.TongueHeld && tongue.heldObject != null)) SwitchStates(factory.TongueCharge());
         if (config.Speed == 0) SwitchStates(factory.Idle());
         else if(tongue.heldObject == null) {
-            if (config.Input.Staff) SwitchStates(factory.Staff());
-            else if (config.Input.Kick) SwitchStates(factory.Kick());
-            else if (config.Input.Jump) SwitchStates(factory.JumpCharge());
+            if (config.Input.StaffPressed) SwitchStates(factory.Staff());
+            else if (config.Input.KickPressed) SwitchStates(factory.Kick());
+            else if (config.Input.JumpPressed) SwitchStates(factory.JumpCharge());
         }
     }
 
@@ -175,9 +175,7 @@ public class PlayerTongueState : PlayerState {
         CheckSwitchStates();
     }
 
-    public override void ExitState() {
-        if (tongue.CheckIfFinished()) config.CurrentTongueCooldown = 0f;
-    }
+    public override void ExitState() {}
 
     public override void CheckSwitchStates() {
         if (tongue.CheckIfFinished()) {
@@ -214,10 +212,9 @@ public class PlayerGrabbingState : PlayerState {
 
     public override void ExitState() {
         tongue.UnGrab();
-        config.CurrentTongueCooldown = 0f;
     }
     public override void CheckSwitchStates() {
-        if (!config.Input.Tongue || tongue.autoRetract){
+        if (!config.Input.TongueHeld || tongue.autoRetract){
             SwitchStates(factory.Tongue());
         }
     }
@@ -273,7 +270,6 @@ public class PlayerStaffState : PlayerState {
 
     public override void ExitState() {
         config.staff.SetActive(false);
-        config.CurrentStaffCooldown = 0f;
     }
 
     public override void CheckSwitchStates() {
@@ -309,7 +305,6 @@ public class PlayerKickState : PlayerState {
 
     public override void ExitState() {
         config.kick.SetActive(false);
-        config.CurrentKickCooldown = 0f;
     }
 
     public override void CheckSwitchStates() {
@@ -344,7 +339,7 @@ public class PlayerJumpChargeState : PlayerState {
     public override void ExitState(){}
 
     public override void CheckSwitchStates() {
-        if (!config.Input.Jump) {
+        if (!config.Input.JumpHeld) {
             if (chargeTime < config.JumpChargeTime) SwitchStates(factory.Idle());
             else SwitchStates(factory.Jumping());
         }
@@ -454,7 +449,7 @@ public class PlayerDeadState : PlayerState
     public override void CheckSwitchStates(){
         InputHandler deadstate = config.GetComponent<InputHandler>();
         deadstate.DeathMap();
-        if (config.Input.Reset){
+        if (config.Input.ResetPressed){
             GameManager.Instance.ReloadScene();
         }
     }

@@ -67,7 +67,7 @@ public class TongueController : MonoBehaviour {
 
         // Checking if tongue is still going out
         if (extending) {
-            if (!config.Input.Tongue) {
+            if (!config.Input.TongueHeld) {
                 speed = deacceleration*Time.deltaTime;
                 StopExtending();
                 // retractAccelFactor

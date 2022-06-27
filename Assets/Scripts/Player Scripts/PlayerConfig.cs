@@ -21,27 +21,19 @@ public class PlayerConfig : CharacterConfig {
     
     [Header("Weapons")]
     [SerializeField] public GameObject tongue;
-    [SerializeField] float tongueCooldown = 1.0f;
     [SerializeField] public GameObject staff;
-    [SerializeField] float staffCooldown = 1.0f;
     [SerializeField] public GameObject kick;
-    [SerializeField] float kickCooldown = 1.0f;
+    [SerializeField] float attackCooldown = 1.0f;
 
     // Private fields
     private Camera mainCamera;
     private InputHandler input;
-    private float currentTongueCooldown;
-    private float currentStaffCooldown;
-    private float currentKickCooldown;
+    private float currentAttackCooldown;
 
     // Getters & Setters
     public InputHandler Input {get {return input;}}
-    public float TongueCooldown {get {return tongueCooldown;}}
-    public float StaffCooldown {get {return staffCooldown;}}
-    public float KickCooldown {get {return kickCooldown;}}
-    public float CurrentTongueCooldown {get {return currentTongueCooldown;} set {currentTongueCooldown = value;}}
-    public float CurrentStaffCooldown {get {return currentStaffCooldown;} set {currentStaffCooldown = value;}}
-    public float CurrentKickCooldown {get {return currentKickCooldown;} set {currentKickCooldown = value;}}
+    public float AttackCooldown {get {return attackCooldown;}}
+    public float CurrentAttackCooldown {get {return currentAttackCooldown;}}
     public float TongueMaxSpeed {get {return tongueMaxSpeed;}}
     public float JumpMaximumSpeed {get {return jumpMaximumSpeed;}}
     public float JumpMinimumSpeed {get {return jumpMinimumSpeed;}}
@@ -61,9 +53,7 @@ public class PlayerConfig : CharacterConfig {
 
     // Update method - just to handle cooldowns.
     protected override void _Update() {
-        currentTongueCooldown = currentTongueCooldown + Time.deltaTime;
-        currentStaffCooldown = currentStaffCooldown + Time.deltaTime;
-        currentKickCooldown = currentKickCooldown + Time.deltaTime;
+        currentAttackCooldown = currentAttackCooldown + Time.deltaTime;
     }
 
 
