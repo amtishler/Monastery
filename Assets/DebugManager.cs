@@ -34,6 +34,7 @@ public class DebugManager : MonoBehaviour
 
     [Header("Player")]
     [SerializeField] private TextMeshProUGUI actionInput;
+    [SerializeField] private TextMeshProUGUI state;
 
 
     private void Start()
@@ -42,7 +43,7 @@ public class DebugManager : MonoBehaviour
 
 
         // Camera refs
-        mainCamera = GameObject.Find("PlayerCamera").GetComponent<Camera>();
+        mainCamera = GameObject.Find("PlayerCam").GetComponent<Camera>();
 
         // Music refs
         musicManager = MusicManager.Instance;
@@ -53,6 +54,8 @@ public class DebugManager : MonoBehaviour
         playerConfig = player.GetComponent<PlayerConfig>();
         playerStateMachine = player.GetComponent<PlayerStateMachine>();
         playerAnimator = player.GetComponent<PlayerAnimator>();
+
+        Debug.Log(playerStateMachine.currentState);
     }
 
 
@@ -73,6 +76,7 @@ public class DebugManager : MonoBehaviour
 
         // Player:
         actionInput.text = "Action Input: ";// + inputHandler.inputText;
+        state.text = "State: " + playerStateMachine.currentState.name;
 
     }
 

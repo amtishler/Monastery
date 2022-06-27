@@ -665,7 +665,7 @@ GameObject:
   - component: {fileID: 136655005}
   - component: {fileID: 136655004}
   m_Layer: 0
-  m_Name: Unassigned
+  m_Name: State
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1663,6 +1663,7 @@ MonoBehaviour:
   activeVolume: {fileID: 844867033}
   fadingVolume: {fileID: 943680926}
   actionInput: {fileID: 817633231}
+  state: {fileID: 136655004}
 --- !u!1 &264029780
 GameObject:
   m_ObjectHideFlags: 0

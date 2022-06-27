@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class State {
 
     protected StateMachine ctx;
-
+    public string name = "None";
 
     // Constructor
     public State(StateMachine currentContext) {

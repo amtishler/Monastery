@@ -29,7 +29,9 @@ public class PlayerIdleState : PlayerState {
     TongueController tongue;
 
     public PlayerIdleState(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
-    : base(config, currentContext, stateFactory){}
+    : base(config, currentContext, stateFactory){
+        name = "PlayerIdle";
+    }
 
     public override void EnterState() {
         tongue = config.tongue.GetComponent<TongueController>();
@@ -60,7 +62,9 @@ public class PlayerRunningState : PlayerState {
     TongueController tongue;
 
     public PlayerRunningState(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
-    : base(config, currentContext, stateFactory){}
+    : base(config, currentContext, stateFactory){
+        name = "PlayerRun";
+    }
 
     public override void EnterState() {
         tongue = config.tongue.GetComponent<TongueController>();
@@ -122,6 +126,7 @@ public class PlayerTongueChargeState : PlayerState {
 
     public PlayerTongueChargeState(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
     : base(config, currentContext, stateFactory){
+        name = "PlayerTongueCharge";
     }
 
     public override void EnterState() {
@@ -151,7 +156,9 @@ public class PlayerTongueState : PlayerState {
     TongueController tongue;
 
     public PlayerTongueState(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
-    : base(config, currentContext, stateFactory){}
+    : base(config, currentContext, stateFactory){
+        name = "PlayerTongueShoot";
+    }
 
     public override void EnterState() {
         tongue = config.tongue.GetComponent<TongueController>();
@@ -188,7 +195,9 @@ public class PlayerGrabbingState : PlayerState {
     TongueController tongue;
 
     public PlayerGrabbingState(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
-    : base(config, currentContext, stateFactory){}
+    : base(config, currentContext, stateFactory){
+        name = "PlayerGrab";
+    }
 
     public override void EnterState(){
         tongue = config.tongue.GetComponent<TongueController>();
@@ -244,7 +253,9 @@ public class PlayerStaffState : PlayerState {
     StaffController staff;
 
     public PlayerStaffState(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
-    : base(config, currentContext, stateFactory){}
+    : base(config, currentContext, stateFactory){
+        name = "PlayerStaff";
+    }
 
     public override void EnterState() {
         Vector3 direction = config.Input.Aim;
@@ -277,7 +288,9 @@ public class PlayerKickState : PlayerState {
     KickController kick;
     
     public PlayerKickState(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
-    : base(config, currentContext, stateFactory){}
+    : base(config, currentContext, stateFactory){
+        name = "PlayerKick";
+    }
 
     public override void EnterState() {
         config.SlowDown(config.Deacceleration*3);
@@ -311,7 +324,9 @@ public class PlayerJumpChargeState : PlayerState {
     float chargeTime;
 
     public PlayerJumpChargeState(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
-    : base(config, currentContext, stateFactory){}
+    : base(config, currentContext, stateFactory){
+        name = "PlayerJumpCharge";
+    }
 
     public override void EnterState() {
         config.SlowDown(config.Deacceleration*2);
@@ -346,7 +361,9 @@ public class PlayerJumpingState : PlayerState {
     bool finished;
 
     public PlayerJumpingState(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
-    : base(config, currentContext, stateFactory){}
+    : base(config, currentContext, stateFactory){
+        name = "PlayerJump";
+    }
 
     public override void EnterState() {
         finished = false;
@@ -395,7 +412,9 @@ public class PlayerHurtState : PlayerState
     TongueController tongue;
 
     public PlayerHurtState(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
-    : base(config, currentContext, stateFactory){}
+    : base(config, currentContext, stateFactory){
+        name = "PlayerHurt";
+    }
 
     public override void EnterState(){
         tongue = config.tongue.GetComponent<TongueController>();
@@ -419,7 +438,9 @@ public class PlayerHurtState : PlayerState
 public class PlayerDeadState : PlayerState
 {
     public PlayerDeadState(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
-    : base(config, currentContext, stateFactory){}
+    : base(config, currentContext, stateFactory){
+        name = "PlayerDead";
+    }
 
     public override void EnterState(){
         Debug.Log("You are dead :(");
@@ -444,7 +465,9 @@ public class PlayerDeadState : PlayerState
 public class PlayerMapOpenState : PlayerState
 {
     public PlayerMapOpenState(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
-    : base(config, currentContext, stateFactory){}
+    : base(config, currentContext, stateFactory){
+        name = "PlayerMapOpen";
+    }
 
     public override void EnterState(){}
     public override void UpdateState()
@@ -460,7 +483,9 @@ public class PlayerMapOpenState : PlayerState
 public class PlayerTeleportingState : PlayerState
 {
     public PlayerTeleportingState(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
-    : base(config, currentContext, stateFactory){}
+    : base(config, currentContext, stateFactory){
+        name = "PlayerTeleport";
+    }
 
     public override void EnterState(){}
     public override void UpdateState()
@@ -476,7 +501,9 @@ public class PlayerTeleportingState : PlayerState
 public class PlayerCutsceneState : PlayerState
 {
     public PlayerCutsceneState(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
-    : base(config, currentContext, stateFactory){}
+    : base(config, currentContext, stateFactory){
+        name = "PlayerCutscene";
+    }
 
     public override void EnterState(){}
     public override void UpdateState()
