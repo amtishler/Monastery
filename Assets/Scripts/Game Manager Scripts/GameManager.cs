@@ -34,9 +34,14 @@ public class GameManager : MonoBehaviour
         character.Hit(damage, knockbackdir, knockbackmag);
     }
 
+    //Scene Functions
     public void ReloadScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 
+    //Tutorial Messages
+    public TutorialMessages GetTutorialMessages() {
+        return GetComponent<TutorialMessages>();
     }
 }

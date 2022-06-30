@@ -30,8 +30,13 @@ public class InputHandler : MonoBehaviour{
     private PlayerConfig config;
 
     private PlayerInput playerInput;
-    private bool usingController;
+    private bool usingController = false;
 
+    // Used for tutorial messages
+    public bool tutorialMessages;
+    private TutorialMessages messages;
+    private bool startCheck = false;
+    /////////////////////////////////////
     private Vector3 move;
     private Vector3 aim;
     private Button tongue;
@@ -67,6 +72,9 @@ public class InputHandler : MonoBehaviour{
         if (InputSystem.GetDevice<Gamepad>() != null) usingController = true;
         else usingController = false;
 
+        messages = GameManager.Instance.GetTutorialMessages();
+        Debug.Log(messages.controller[0] + " -- " + messages.keyboard[0]);
+        
         config = GetComponentInParent<PlayerConfig>();
         playerInput = GetComponent<PlayerInput>();
 
@@ -94,6 +102,8 @@ public class InputHandler : MonoBehaviour{
 
     private void OnControlsChanged() {
         usingController = !usingController;
+        if (tutorialMessages && startCheck) ChangeMessages();
+        if (!startCheck) startCheck = true;
     }
 
     private void OnMove(InputValue value) {
@@ -158,5 +168,13 @@ public class InputHandler : MonoBehaviour{
 
     public void DeathMap() {
         playerInput.SwitchCurrentActionMap("Death");
+    }
+
+    private void ChangeMessages() {
+        if (usingController) {
+            messages.ShowController();
+        } else {
+            messages.ShowKeyboard();         
+        }
     }
 }
