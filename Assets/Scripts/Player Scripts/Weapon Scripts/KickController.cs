@@ -6,13 +6,15 @@ using UnityEngine.InputSystem;
 public class KickController : Attack {
     
     [SerializeField] BoxCollider2D kickCollider;
-
+    [SerializeField] float kickChargeTime;
     [SerializeField] float kickTime;
     [SerializeField] float kickWidth;
     [SerializeField] float kickHeight;
     private Vector3 direction;
     private int[][] directionList = new int[4][];
     private float timeUp = 0f;
+
+    public float KickChargeTime {get {return kickChargeTime;}}
 
 
     // Awake is called before the first frame update

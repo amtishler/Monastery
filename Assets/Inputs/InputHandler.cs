@@ -73,7 +73,7 @@ public class InputHandler : MonoBehaviour{
         else usingController = false;
 
         messages = GameManager.Instance.GetTutorialMessages();
-        Debug.Log(messages.controller[0] + " -- " + messages.keyboard[0]);
+        // Debug.Log(messages.controller[0] + " -- " + messages.keyboard[0]);
         
         config = GetComponentInParent<PlayerConfig>();
         playerInput = GetComponent<PlayerInput>();

@@ -20,10 +20,11 @@ public class PlayerConfig : CharacterConfig {
     [SerializeField] float jumpTotalDist = 8.0f;
     
     [Header("Weapons")]
+    [SerializeField] float attackCooldown = 1.0f;
+    [SerializeField] float attackDeaccel = 1.0f;
     [SerializeField] public GameObject tongue;
     [SerializeField] public GameObject staff;
     [SerializeField] public GameObject kick;
-    [SerializeField] float attackCooldown = 1.0f;
 
     // Private fields
     private Camera mainCamera;
@@ -33,6 +34,7 @@ public class PlayerConfig : CharacterConfig {
     // Getters & Setters
     public InputHandler Input {get {return input;}}
     public float AttackCooldown {get {return attackCooldown;}}
+    public float AttackDeaccel {get {return attackDeaccel;}}
     public float CurrentAttackCooldown {get {return currentAttackCooldown;}}
     public float TongueMaxSpeed {get {return tongueMaxSpeed;}}
     public float JumpMaximumSpeed {get {return jumpMaximumSpeed;}}
