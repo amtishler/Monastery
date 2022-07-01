@@ -23,6 +23,7 @@ public abstract class CharacterConfig : MonoBehaviour
     [SerializeField] protected float recoveryDeaccel = 0.5f;
 
     [Header("Damage")]
+    [SerializeField] protected float maxHealth = 100f;
     [SerializeField] protected float health = 100f;
     [SerializeField] protected float invincibleduration = 2f;
     [SerializeField] protected float knockbackmultiplier = 1f;
@@ -49,6 +50,8 @@ public abstract class CharacterConfig : MonoBehaviour
     public float Acceleration {get {return acceleration;}}
     public float Deacceleration {get {return deacceleration;}}
     public float RecoveryDeaccel {get {return recoveryDeaccel;}}
+    public float MaxHealth {get {return maxHealth;}}
+    public float Health {get {return health;}}
 
     void Start() {
         characterCollider = GetComponent<CircleCollider2D>();
@@ -59,6 +62,7 @@ public abstract class CharacterConfig : MonoBehaviour
         directionMap[1] = Vector3.up;
         directionMap[2] = Vector3.left;
         directionMap[3] = Vector3.down;
+        health = maxHealth;
         _Start();
     }
     
