@@ -403,8 +403,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AssetsPPU: 32
-  m_RefResolutionX: 640
-  m_RefResolutionY: 360
+  m_RefResolutionX: 960
+  m_RefResolutionY: 540
   m_UpscaleRT: 1
   m_PixelSnapping: 0
   m_CropFrameX: 0
@@ -729,7 +729,7 @@ MonoBehaviour:
   knockback: 20
   knockbacknormalization: 0.5
   staffCollider: {fileID: 2705515589359950220}
-  staffSwingTime: 0.1
+  staffSwingTime: 0.3
   staffWidth: 2.5
   staffHeight: 1.5
 --- !u!1 &2705515589997795902
@@ -1024,6 +1024,7 @@ MonoBehaviour:
   knockback: 40
   knockbacknormalization: 0.5
   kickCollider: {fileID: 2705515590406865742}
+  kickChargeTime: 0
   kickTime: 0.15
   kickWidth: 0.75
   kickHeight: 1.5
@@ -1187,6 +1188,7 @@ MonoBehaviour:
   acceleration: 1
   deacceleration: 0.5
   recoveryDeaccel: 0.5
+  maxHealth: 100
   health: 100
   invincibleduration: 0.25
   knockbackmultiplier: 1
@@ -1213,12 +1215,11 @@ MonoBehaviour:
   jumpDeacceleration: 0.5
   jumpChargeTime: 0.35
   jumpTotalDist: 4
+  attackCooldown: 1
+  attackDeaccel: 1
   tongue: {fileID: 2705515589280278572}
-  tongueCooldown: 0.5
   staff: {fileID: 2705515589359950222}
-  staffCooldown: 0.25
   kick: {fileID: 2705515590406865729}
-  kickCooldown: 0.25
   playerAnimator: {fileID: 3225320141677246804}
 --- !u!114 &2705515590991708979
 MonoBehaviour:
@@ -1244,6 +1245,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ddf7a6cfaad7c1438ebf7f65bb69a01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tutorialMessages: 0
+  inputText: 
 --- !u!114 &4369810821518720248
 MonoBehaviour:
   m_ObjectHideFlags: 0
