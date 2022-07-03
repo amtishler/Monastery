@@ -4,3 +4,8 @@ rule_03_alt.tmx
 rule_04.tmx
 rule_05.tmx
 rule_06.tmx
+rule_07.tmx
+rule_08.tmx
+rule_09.tmx
+rule_10.tmx
+rule_11.tmx
