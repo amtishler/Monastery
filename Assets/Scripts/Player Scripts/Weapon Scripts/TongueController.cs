@@ -135,7 +135,7 @@ public class TongueController : MonoBehaviour {
 
     // Checks to see if the tongue hits something
     private void CheckCollision(Vector3 start, Vector3 end) {
-        LayerMask mask = LayerMask.GetMask("Object Hurtbox");
+        LayerMask mask = LayerMask.GetMask("Object Hurtbox") | LayerMask.GetMask("Collectible Hitbox");
 
         RaycastHit2D[] hits = Physics2D.LinecastAll(start, end, mask);
         if (hits.Length != 0) {
