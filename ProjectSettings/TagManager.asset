@@ -54,6 +54,9 @@ TagManager:
   - name: Interactable Objects
     uniqueID: 3606707
     locked: 0
+  - name: Ambience
+    uniqueID: 3200001477
+    locked: 0
   - name: UI Text
     uniqueID: 1681101671
     locked: 0

@@ -1,7 +1,8 @@
 rule_01.tmx
 rule_02.tmx
-rule_03_alt.tmx
+
 rule_04.tmx
+rule_03_alt.tmx
 rule_05.tmx
 rule_06.tmx
 rule_07.tmx
