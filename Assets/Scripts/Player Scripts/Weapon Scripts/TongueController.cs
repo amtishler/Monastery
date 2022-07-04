@@ -123,9 +123,9 @@ public class TongueController : MonoBehaviour {
             heldconf.stunned = true;
         }
 
-        HittableObject inanimateobj = heldObject.transform.root.GetComponent<HittableObject>();
+        InteractableObject inanimateobj = heldObject.transform.root.GetComponent<InteractableObject>();
         if(inanimateobj != null){
-            inanimateobj.ApplyKnockback(direction, spitknockback);
+            inanimateobj.OnHit(direction, spitknockback);
         }
 
         heldObject = null;

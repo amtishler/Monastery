@@ -135,7 +135,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1791665367
-  m_SortingLayer: 2
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 1c02df577cef2114f87643cbf8608cef, type: 3}
   m_Color: {r: 0.16580634, g: 0.509434, b: 0.215312, a: 1}
@@ -225,6 +225,7 @@ MonoBehaviour:
   acceleration: 0.1
   deacceleration: 0.1
   recoveryDeaccel: 0.5
+  maxHealth: 100
   health: 100
   invincibleduration: 0.5
   knockbackmultiplier: 1
@@ -298,6 +299,7 @@ MonoBehaviour:
   damage: 20
   knockback: 15
   knockbacknormalization: 0.5
+  knockbackreflected: 0.25
 --- !u!61 &8649202318979798941
 BoxCollider2D:
   m_ObjectHideFlags: 0

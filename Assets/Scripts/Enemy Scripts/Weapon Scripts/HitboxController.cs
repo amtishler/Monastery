@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class HitboxController : Attack
 {
+    public float knockbackreflected = 0.25f;
     private void OnTriggerStay2D(Collider2D collision)
     {
         CharacterConfig d = collision.transform.root.GetComponent<CharacterConfig>();
@@ -17,7 +18,7 @@ public class HitboxController : Attack
 
             Vector3 finaldir = (knockbackdir * (1 - knockbacknormalization)) + (facingdir * knockbacknormalization);
 
-
+            playerconf.ApplyKnockback(finaldir, knockback*knockbackreflected);
             GameManager.Instance.DamageCharacter(d, damage, finaldir, knockback);
         }
     }

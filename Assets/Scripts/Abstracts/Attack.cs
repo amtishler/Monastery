@@ -28,7 +28,7 @@ public class Attack : MonoBehaviour
         }
 
         //INANIMATE OBJECTS
-        HittableObject obj = collision.transform.GetComponent<HittableObject>();
+        InteractableObject obj = collision.transform.GetComponent<InteractableObject>();
         if (obj != null)
         {
             Vector3 knockbackdir = collision.transform.position - playerconf.transform.position;
@@ -37,7 +37,7 @@ public class Attack : MonoBehaviour
             facingdir.Normalize();
 
             Vector3 finaldir = (knockbackdir * (1 - knockbacknormalization)) + (facingdir * knockbacknormalization);
-            obj.ApplyKnockback(knockbackdir, knockback);
+            obj.OnHit(knockbackdir, knockback);
         }
     }
 

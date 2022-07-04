@@ -188,6 +188,7 @@ public class EnemyStunnedState : EnemyState {
         selfhitbox = config.GetComponentInChildren<HitboxController>();
         selfhitbox.gameObject.layer = LayerMask.NameToLayer("Spit Projectile Hitbox");
         body = config.GetComponent<Rigidbody2D>();
+        config.gameObject.GetComponent<Collider2D>().enabled = false;
         body.simulated = true;
     }
 

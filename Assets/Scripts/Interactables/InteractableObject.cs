@@ -2,31 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HittableObject : MonoBehaviour
+public class InteractableObject : MonoBehaviour
 {
-    public float projectilespeed = 4.0f;
-    public float deacceleration = 0.1f;
+
+    public float deacceleration = 0.5f;
     public float knockbackmultiplier = 1.0f;
     public float minimumSpeed = 3.0f;
 
-    private Rigidbody2D rigidBody;
+    protected Rigidbody2D rigidBody;
 
-    private float speed;
-    private Vector3 velocity;
+    protected float speed;
+    protected Vector3 velocity;
     public Vector3 Velocity {get {return rigidBody.velocity;} set {rigidBody.velocity = value;}}
-
-    void Start()
-    {
-        rigidBody = GetComponent<Rigidbody2D>();
-    }
-
-    void Update()
-    {
-        if(speed != 0)
-        {
-            SlowDown(deacceleration);
-        }
-    }
 
     public void SlowDown(float dampening) {
         speed = speed - dampening;
@@ -41,4 +28,6 @@ public class HittableObject : MonoBehaviour
         speed = mag * knockbackmultiplier;
         Velocity = dir;
     }
+
+    public virtual void OnHit(Vector3 dir, float mag){}
 }

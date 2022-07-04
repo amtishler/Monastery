@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2277682966142454465}
   - component: {fileID: 2277682966142454471}
   - component: {fileID: 2277682966142454470}
-  - component: {fileID: 2277682966142454469}
+  - component: {fileID: 211285302}
   m_Layer: 7
   m_Name: SmallObject
   m_TagString: Small Object
@@ -27,7 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2277682966142454466}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.435852, y: -3.42, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 3606707
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 4daa071ededc51f40906d949b7826017, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -124,7 +124,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &2277682966142454469
+--- !u!114 &211285302
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -133,10 +133,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2277682966142454466}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9ac746a98ec6334d89e047e87c53c08, type: 3}
+  m_Script: {fileID: 11500000, guid: b5751764f33708342bcad0298ad8bff5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilespeed: 4
-  deacceleration: 0.3
+  deacceleration: 0.5
   knockbackmultiplier: 1
-  minimumSpeed: 0.5
+  minimumSpeed: 3
+  damage: 10
+  knockback: 20
+  knockbackreflected: 0.5
+  projectilespeed: 10
