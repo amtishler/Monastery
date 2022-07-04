@@ -612,7 +612,7 @@ GameObject:
   - component: {fileID: 2705515589359950219}
   - component: {fileID: 2705515589359950220}
   - component: {fileID: 2705515589359950221}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: Staff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -907,7 +907,7 @@ GameObject:
   - component: {fileID: 2705515590406865741}
   - component: {fileID: 2705515590406865742}
   - component: {fileID: 2705515590406865740}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: Kick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
