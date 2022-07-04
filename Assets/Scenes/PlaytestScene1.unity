@@ -3589,25 +3589,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7039264617798981194, guid: 9887d583e7701a940b332ddde671c96a, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7039264617798981206, guid: 9887d583e7701a940b332ddde671c96a, type: 3}
       propertyPath: m_Name
       value: CameraCollider
-      objectReference: {fileID: 0}
-    - target: {fileID: 7039264618110969826, guid: 9887d583e7701a940b332ddde671c96a, type: 3}
-      propertyPath: m_RefResolutionX
-      value: 800
-      objectReference: {fileID: 0}
-    - target: {fileID: 7039264618110969826, guid: 9887d583e7701a940b332ddde671c96a, type: 3}
-      propertyPath: m_RefResolutionY
-      value: 520
-      objectReference: {fileID: 0}
-    - target: {fileID: 7039264618110969829, guid: 9887d583e7701a940b332ddde671c96a, type: 3}
-      propertyPath: m_Lens.m_SensorSize.x
-      value: 1.7777778
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9887d583e7701a940b332ddde671c96a, type: 3}
