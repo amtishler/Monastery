@@ -12550,7 +12550,7 @@ ParticleSystem:
     flipU: 0
     flipV: 0
   VelocityModule:
-    enabled: 1
+    enabled: 0
     x:
       serializedVersion: 2
       minMaxState: 3
@@ -13412,11 +13412,11 @@ ParticleSystem:
     randomizePerFrame: 0
   ExternalForcesModule:
     serializedVersion: 2
-    enabled: 0
+    enabled: 1
     multiplierCurve:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2.81
+      scalar: 1.56
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -13693,7 +13693,7 @@ ParticleSystem:
     drag:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.07
+      scalar: 0.14
       minScalar: 0
       maxCurve:
         serializedVersion: 2

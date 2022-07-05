@@ -11,3 +11,8 @@ rule_08.tmx
 rule_09.tmx
 rule_10.tmx
 rule_11.tmx
+rule_12.tmx
+rule_13.tmx
+rule_13-1.tmx
+rule_14.tmx
+rule_15.tmx
