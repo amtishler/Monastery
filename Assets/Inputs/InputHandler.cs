@@ -109,43 +109,43 @@ public class InputHandler : MonoBehaviour{
     private void OnMove(InputValue value) {
         move = value.Get<Vector3>(); 
         move.Normalize();
-        inputText = "Moving";
+        //inputText = "Moving";
     }
 
     private void OnAim(InputValue value) {
         aim = value.Get<Vector3>();
         aim.Normalize();
-        inputText = "Aiming";
+        //inputText = "Aiming";
     }
 
     private void OnTongue(InputValue value) {
         tongue.SetValue(value.isPressed);
-        inputText = "Tonguing";
+        //inputText = "Tonguing";
     }
 
     private void OnStaff(InputValue value) {
         staff.SetValue(value.isPressed);
-        inputText = "Staffing";
+        //inputText = "Staffing";
     } 
 
     private void OnKick(InputValue value) {
         kick.SetValue(value.isPressed);
-        inputText = "Kicking";
+        //inputText = "Kicking";
     }
 
     private void OnJump(InputValue value) {
         jump.SetValue(value.isPressed);
-        inputText = "Jumping";
+        //inputText = "Jumping";
     }
 
     private void OnReset(InputValue value) {
         reset.SetValue(value.isPressed);
-        inputText = "Reseting";
+        //inputText = "Reseting";
     }
 
     private void OnDebugMenu(InputValue value) {
         debugMenu.SetValue(value.isPressed);
-        inputText = "Turning on debug";
+        //inputText = "Turning on debug";
     }
 
     // Helper functions if needed

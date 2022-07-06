@@ -9,6 +9,11 @@ public class Tree : InteractableObject
     public int maxdrops;
     public bool dropused;
 
+    void Update()
+    {
+        
+    }
+
     public override void OnHit(Vector3 dir, float mag)
     {
         Debug.Log("Tree: Yeeeowch!");

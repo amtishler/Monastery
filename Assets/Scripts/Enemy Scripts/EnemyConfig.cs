@@ -5,9 +5,14 @@ using UnityEngine;
 public class EnemyConfig : CharacterConfig {
 
     public float detectionradius = 10f;
+    public float attackradius = 4f;
     public float collisiondamage = 0f;
     public float collisionknockback = 10f;
     public float projectileslowdown = 0.1f;
+    public float readyingspeed;
+    public float attacktimer = 2f;
+
+
     public GameObject target;
 
     protected override void _Start() {
@@ -43,6 +48,7 @@ public class EnemyConfig : CharacterConfig {
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, detectionradius);
+        Gizmos.DrawWireSphere(transform.position, attackradius);
     }
 
 
@@ -50,10 +56,10 @@ public class EnemyConfig : CharacterConfig {
         int angle = GetAngle(targetDir);
         switch(angle){
             case 0:
-                spriteRenderer.sprite = moveSpriteList[0];
+                transform.localRotation = Quaternion.Euler(0, 180, 0);
                 break;
             case 2:
-                spriteRenderer.sprite = moveSpriteList[1];
+                transform.localRotation = Quaternion.Euler(0, 0, 0);
                 break;
             default:
                 break;

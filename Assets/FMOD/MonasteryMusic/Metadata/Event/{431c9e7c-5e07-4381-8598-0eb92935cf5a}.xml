@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="Event" id="{431c9e7c-5e07-4381-8598-0eb92935cf5a}">
 		<property name="name">
-			<value>Footsteps</value>
+			<value>FootstepsWIP</value>
 		</property>
 		<property name="outputFormat">
 			<value>1</value>
@@ -33,6 +33,9 @@
 		</relationship>
 		<relationship name="parameters">
 			<destination>{b381aeb5-4326-42b4-8a33-be2b450e5cb6}</destination>
+		</relationship>
+		<relationship name="banks">
+			<destination>{7431a13c-9b40-48c9-b5b9-715a224d4397}</destination>
 		</relationship>
 	</object>
 	<object class="EventMixer" id="{3687e40a-121e-40be-9732-44bdb6ef2636}">

@@ -63,7 +63,6 @@ public class EnemyAggressiveState : EnemyState {
     : base(config, currentContext, stateFactory){}
 
     public override void EnterState() {
-        Debug.Log("GRRR");
         if(config.target == null) SwitchStates(factory.Idle());
     }
 
@@ -76,7 +75,45 @@ public class EnemyAggressiveState : EnemyState {
 
     public override void CheckSwitchStates() {
         if(config.grabbed) SwitchStates(factory.Grabbed());
+        else if(CheckVision()) SwitchStates(factory.Readying());
     }
+
+    private bool CheckVision()
+    {
+        Collider2D collider = Physics2D.OverlapCircle(config.transform.position, config.attackradius, LayerMask.GetMask("Player Hurtbox"));
+        if(collider == null) return false;
+        else return true;
+    }
+}
+
+// Readying
+public class EnemyReadyingState : EnemyState {
+
+    private float oldspeed;
+
+    public EnemyReadyingState(EnemyConfig config, EnemyStateMachine currentContext, EnemyStateFactory stateFactory)
+    : base(config, currentContext, stateFactory){}
+
+    public override void EnterState() {
+        Debug.Log("Readying Attack");
+        if(config.target == null) SwitchStates(factory.Idle());
+        oldspeed = config.MaximumSpeed;
+        config.MaximumSpeed = config.readyingspeed;
+    }
+
+    public override void UpdateState() {
+        config.MoveTowards(config.target);
+        CheckSwitchStates();
+    }
+
+    public override void ExitState() {
+        config.MaximumSpeed = oldspeed;
+    }
+
+    public override void CheckSwitchStates() {
+        if(config.grabbed) SwitchStates(factory.Grabbed());
+    }
+
 }
 
 // Hurt
@@ -205,6 +242,8 @@ public class EnemyStunnedState : EnemyState {
         selfhitbox.gameObject.layer = LayerMask.NameToLayer("Enemy Hitbox");
         config.gameObject.GetComponent<Collider2D>().enabled = true;
         config.invincible = false;
+        body.simulated = false;
+        config.stunned = false;
     }
 
     public override void CheckSwitchStates(){
