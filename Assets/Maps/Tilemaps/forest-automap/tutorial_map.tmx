@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="98" height="82" tilewidth="32" tileheight="32" infinite="1" nextlayerid="352" nextobjectid="12">
+<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="98" height="82" tilewidth="32" tileheight="32" infinite="1" nextlayerid="354" nextobjectid="12">
  <tileset firstgid="1" source="../../Tilesets/forest-tiles.tsx"/>
  <tileset firstgid="65" source="../../Tilesets/forest-decoration.tsx"/>
+ <tileset firstgid="129" source="../../Tilesets/forest-terrain.tsx"/>
  <layer id="1" name="layout" width="98" height="82">
   <data encoding="csv">
    <chunk x="96" y="-16" width="16" height="16">
@@ -3304,5 +3305,8 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </chunk>
   </data>
+ </layer>
+ <layer id="352" name="wall_layout" width="98" height="82">
+  <data encoding="csv"/>
  </layer>
 </map>
