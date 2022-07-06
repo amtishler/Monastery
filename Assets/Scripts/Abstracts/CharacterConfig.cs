@@ -45,7 +45,7 @@ public abstract class CharacterConfig : MonoBehaviour
 
     public Vector3 Velocity {get {return rigidBody.velocity;} set {rigidBody.velocity = value;}}
     public float Speed {get {return speed;} set {speed = value;}}
-    public float MaximumSpeed {get {return maximumSpeed;}}
+    public float MaximumSpeed {get {return maximumSpeed;} set {maximumSpeed = value;}}
     public float MinimumSpeed {get {return minimumSpeed;}}
     public float Acceleration {get {return acceleration;}}
     public float Deacceleration {get {return deacceleration;}}
