@@ -9,11 +9,24 @@ public class EnemyConfig : CharacterConfig {
     public float collisiondamage = 0f;
     public float collisionknockback = 10f;
     public float projectileslowdown = 0.1f;
-    public float readyingspeed;
-    public float attacktimer = 2f;
 
+    //Stalking speed (Getting ready to attack)
+    public float readyingspeed = 1f;
+
+    //Time spent stalking (before attacking)
+    public float attacktimer = 1f;
+
+    //Pouncing speed;
+    public float pouncespeed = 10f;
+    public float pounceslowdown = 0.1f;
+
+    public float attackcooldown = 5f;
+    public bool oncooldown;
+    private bool timerstarted;
+    private float cooldowntimer;
 
     public GameObject target;
+    public Vector3 attackvector;
 
     protected override void _Start() {
         target = FindObjectOfType<PlayerConfig>().gameObject;
@@ -21,7 +34,20 @@ public class EnemyConfig : CharacterConfig {
     }
 
     protected override void _Update() {
-        return;
+        if(!timerstarted && oncooldown)
+        {
+            cooldowntimer = 0;
+            timerstarted = true;
+        }
+        if(timerstarted)
+        {
+            cooldowntimer += Time.deltaTime;
+            if(cooldowntimer > attackcooldown)
+            {
+                oncooldown = false;
+                timerstarted = false;
+            }
+        }
     }
 
     public void MoveTowards(GameObject target)

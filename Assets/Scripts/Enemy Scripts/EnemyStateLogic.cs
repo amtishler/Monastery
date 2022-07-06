@@ -75,7 +75,7 @@ public class EnemyAggressiveState : EnemyState {
 
     public override void CheckSwitchStates() {
         if(config.grabbed) SwitchStates(factory.Grabbed());
-        else if(CheckVision()) SwitchStates(factory.Readying());
+        else if(CheckVision() && !config.oncooldown) SwitchStates(factory.Readying());
     }
 
     private bool CheckVision()
@@ -90,19 +90,39 @@ public class EnemyAggressiveState : EnemyState {
 public class EnemyReadyingState : EnemyState {
 
     private float oldspeed;
+    private float timer;
+    private bool stopped;
 
     public EnemyReadyingState(EnemyConfig config, EnemyStateMachine currentContext, EnemyStateFactory stateFactory)
     : base(config, currentContext, stateFactory){}
 
     public override void EnterState() {
-        Debug.Log("Readying Attack");
+        timer = 0;
+        stopped = false;
+
         if(config.target == null) SwitchStates(factory.Idle());
         oldspeed = config.MaximumSpeed;
         config.MaximumSpeed = config.readyingspeed;
     }
 
     public override void UpdateState() {
-        config.MoveTowards(config.target);
+        timer += Time.deltaTime;
+
+        if(timer < (config.attacktimer / 2f))
+        {
+            config.MoveTowards(config.target);
+        }
+        else
+        {
+            // Locks in attack vector halfway through to give a chance to dodge.
+            if(!stopped)
+            {
+                stopped = true;
+                config.Speed = 0;
+                config.Velocity = Vector3.zero;
+                config.attackvector = config.target.transform.position - config.transform.position;
+            }
+        }
         CheckSwitchStates();
     }
 
@@ -112,8 +132,37 @@ public class EnemyReadyingState : EnemyState {
 
     public override void CheckSwitchStates() {
         if(config.grabbed) SwitchStates(factory.Grabbed());
+        if(timer > config.attacktimer) SwitchStates(factory.Attack());
+    }
+}
+
+// Attacking
+public class EnemyAttackState : EnemyState {
+
+    public EnemyAttackState(EnemyConfig config, EnemyStateMachine currentContext, EnemyStateFactory stateFactory)
+    : base(config, currentContext, stateFactory){}
+
+    public override void EnterState() {
+        config.Velocity = config.attackvector;
+        config.Speed = config.pouncespeed;
     }
 
+    public override void UpdateState() {
+        config.SlowDown(config.pounceslowdown);
+        CheckSwitchStates();
+    }
+
+    public override void ExitState() {
+        config.oncooldown = true;
+    }
+
+    public override void CheckSwitchStates() {
+        if(config.grabbed) SwitchStates(factory.Grabbed());
+        else if(config.Speed == 0){
+            if(config.target != null) SwitchStates(factory.Aggressive());
+            else SwitchStates(factory.Idle());
+        }
+    }
 }
 
 // Hurt
@@ -242,17 +291,14 @@ public class EnemyStunnedState : EnemyState {
         selfhitbox.gameObject.layer = LayerMask.NameToLayer("Enemy Hitbox");
         config.gameObject.GetComponent<Collider2D>().enabled = true;
         config.invincible = false;
-        body.simulated = false;
         config.stunned = false;
     }
 
     public override void CheckSwitchStates(){
         if(config.Speed == 0 && config.target != null){
-            config.stunned = false;
             SwitchStates(factory.Aggressive());
         }
         else if(config.Speed == 0){
-            config.stunned = false;
             SwitchStates(factory.Idle());
         }
     }

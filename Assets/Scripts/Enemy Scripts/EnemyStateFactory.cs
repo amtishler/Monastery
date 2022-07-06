@@ -25,6 +25,10 @@ public class EnemyStateFactory : StateFactory
         return new EnemyReadyingState(config, currentContext, this);
     }
 
+    public State Attack() {
+        return new EnemyAttackState(config, currentContext, this);
+    }
+
     public State Hurt() {
         return new EnemyHurtState(config, currentContext, this);
     }
