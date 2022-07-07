@@ -33,7 +33,6 @@ public class InputHandler : MonoBehaviour{
     private bool usingController = false;
 
     // Used for tutorial messages
-    public bool tutorialMessages;
     private TutorialMessages messages;
     private bool startCheck = false;
     /////////////////////////////////////
@@ -102,7 +101,7 @@ public class InputHandler : MonoBehaviour{
 
     private void OnControlsChanged() {
         usingController = !usingController;
-        if (tutorialMessages && startCheck) ChangeMessages();
+        if (messages.tutorial && startCheck) ChangeMessages();
         if (!startCheck) startCheck = true;
     }
 
@@ -176,5 +175,9 @@ public class InputHandler : MonoBehaviour{
         } else {
             messages.ShowKeyboard();         
         }
+    }
+
+    public bool UsingController() {
+        return usingController;
     }
 }

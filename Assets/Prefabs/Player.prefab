@@ -880,7 +880,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bfd948236763c742bd40c992fd599b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseInfluence: 1
+  influence: 1
   player: {fileID: 2705515590991708971}
 --- !u!1 &2705515590406865729
 GameObject:

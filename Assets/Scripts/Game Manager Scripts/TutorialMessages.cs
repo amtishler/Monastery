@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TutorialMessages : GameManager
 {
+    public bool tutorial;
     [SerializeField] public GameObject[] controller;
     [SerializeField] public GameObject[] keyboard;
 
