@@ -787,10 +787,18 @@ MonoBehaviour:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   detectionradius: 5
+  attackradius: 4
   collisiondamage: 0
   collisionknockback: 10
   projectileslowdown: 0.1
+  readyingspeed: 1
+  attacktimer: 1
+  pouncespeed: 10
+  pounceslowdown: 0.1
+  attackcooldown: 5
+  oncooldown: 0
   target: {fileID: 0}
+  attackvector: {x: 0, y: 0, z: 0}
 --- !u!114 &1498259642
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1564,6 +1572,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2705515589199267943, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
+      propertyPath: orthographic size
+      value: 8.4375
+      objectReference: {fileID: 0}
+    - target: {fileID: 2705515589997795899, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
+      propertyPath: m_Follow
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2705515590991708971, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
       propertyPath: m_Name
       value: Player
@@ -1612,7 +1628,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2705515589199267940, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
+    - {fileID: 6716762407453513628, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
+    - {fileID: 2705515589997795897, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
 --- !u!1001 &5526066710058119561
 PrefabInstance:
