@@ -9,6 +9,9 @@ public class CameraAim : MonoBehaviour
     private CinemachineVirtualCamera cam;
     private InputHandler input;
     private Gamepad gamepad;
+
+    private Vector3 debugVec;
+
     [SerializeField] private float influence;
     [SerializeField] private GameObject player;
 
@@ -40,11 +43,13 @@ public class CameraAim : MonoBehaviour
         direction *= influence;
         direction.x -= 0.5f;
         direction.z = -10f;
+        debugVec = direction;
         // prevPos = direction;
         //Debug.Log(direction);
         return direction;
     }
 
+    //TO DO: Implement stick deadzones/sensitivity
     private Vector3 GetStickInfluence() {
         Vector2 rightStick = gamepad.rightStick.ReadValue();
         Vector2 playerVec = new Vector2(player.transform.localPosition.x, player.transform.localPosition.y);
@@ -54,8 +59,14 @@ public class CameraAim : MonoBehaviour
         direction *= influence;
         direction.x -= 0.5f;
         direction.z = -10f;
+        debugVec = direction;
         // prevPos = direction;
         //Debug.Log(direction);
         return direction;
+    }
+
+    //For debug window
+    public Vector3 DebugVec() {
+        return debugVec;
     }
 }

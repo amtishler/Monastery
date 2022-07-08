@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 using TMPro;
 
 public class DebugManager : MonoBehaviour
@@ -9,7 +10,9 @@ public class DebugManager : MonoBehaviour
 
 
     // Camera refs
-    private Camera mainCamera;
+    private CinemachineBrain mainCamera;
+    private CinemachineVirtualCamera cam;
+    private CameraAim camDir;
 
     // Music refs
     private MusicManager musicManager;
@@ -25,6 +28,9 @@ public class DebugManager : MonoBehaviour
     [Header("Input")]
 
     [Header("Camera")]
+    [SerializeField] private TextMeshProUGUI activeCam;
+    [SerializeField] private TextMeshProUGUI playerCamPos;
+    [SerializeField] private TextMeshProUGUI combatArena;
 
     [Header("Music")]
     [SerializeField] private TextMeshProUGUI area;
@@ -43,13 +49,14 @@ public class DebugManager : MonoBehaviour
 
 
         // Camera refs
-        mainCamera = GameObject.Find("PlayerCam").GetComponent<Camera>();
-
+        mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CinemachineBrain>();
+        cam = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<CinemachineVirtualCamera>();
+        camDir = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<CameraAim>();
         // Music refs
         musicManager = MusicManager.Instance;
 
         // Player refs
-        player = GameObject.Find("Player");
+        player = GameObject.FindGameObjectWithTag("Player");
         inputHandler = player.GetComponent<InputHandler>();
         playerConfig = player.GetComponent<PlayerConfig>();
         playerStateMachine = player.GetComponent<PlayerStateMachine>();
@@ -66,6 +73,9 @@ public class DebugManager : MonoBehaviour
 
 
         // Camera:
+        activeCam.text = "ActiveCam: " + mainCamera.ActiveVirtualCamera.Name;
+        playerCamPos.text = "PlayerCamPos: " + camDir.DebugVec();
+        combatArena.text = "CombatArena: " + (cam.Priority != 10).ToString();
 
 
         // Music:
