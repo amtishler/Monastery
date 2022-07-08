@@ -34,7 +34,7 @@ public class InputHandler : MonoBehaviour{
 
     // Used for tutorial messages
     private TutorialMessages messages;
-    private bool startCheck = false;
+    private bool tutorialActive = false;
     /////////////////////////////////////
     private Vector3 move;
     private Vector3 aim;
@@ -72,6 +72,7 @@ public class InputHandler : MonoBehaviour{
         else usingController = false;
 
         messages = GameManager.Instance.GetTutorialMessages();
+        tutorialActive = messages.tutorial;
         // Debug.Log(messages.controller[0] + " -- " + messages.keyboard[0]);
         
         config = GetComponentInParent<PlayerConfig>();
@@ -101,8 +102,7 @@ public class InputHandler : MonoBehaviour{
 
     private void OnControlsChanged() {
         usingController = !usingController;
-        if (messages.tutorial && startCheck) ChangeMessages();
-        if (!startCheck) startCheck = true;
+        if (tutorialActive) ChangeMessages();
     }
 
     private void OnMove(InputValue value) {

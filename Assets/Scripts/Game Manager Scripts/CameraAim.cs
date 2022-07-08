@@ -46,10 +46,9 @@ public class CameraAim : MonoBehaviour
     }
 
     private Vector3 GetStickInfluence() {
-        Vector3 rightStick = gamepad.rightStick.ReadValue();
-        // rightStick.x *= 10f;
-        // rightStick.y *= 10f;
-        Vector3 direction = rightStick - player.transform.localPosition;
+        Vector2 rightStick = gamepad.rightStick.ReadValue();
+        Vector2 playerVec = new Vector2(player.transform.localPosition.x, player.transform.localPosition.y);
+        Vector3 direction = rightStick - playerVec;
         // Debug.Log(direction);
         direction.Normalize();
         direction *= influence;
