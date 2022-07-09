@@ -68,9 +68,6 @@ public class LocalAmbience : MonoBehaviour
                 currentVolume = 0;
 
             currentLocalAmbience.setParameterByName("MasterVol", currentVolume);
-
-            Debug.Log(currentVolume);
-
         }
     }
 
