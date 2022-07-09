@@ -29,11 +29,9 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public void DamageCharacter(CharacterConfig character, float damage, Vector3 knockbackdir, float knockbackmag)
+    public void DamageCharacter(CharacterConfig character, float damage, float stun, Vector3 knockbackdir, float knockbackmag)
     {
-        character.Hit(damage, knockbackdir, knockbackmag);
-
-
+        character.Hit(damage, stun, knockbackdir, knockbackmag);
     }
 
     //Scene Functions

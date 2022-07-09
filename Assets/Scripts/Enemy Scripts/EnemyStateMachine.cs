@@ -24,4 +24,9 @@ public class EnemyStateMachine : StateMachine
     {
         currentState.SwitchStates(states.Dead());
     }
+
+    public override void ForceStunned()
+    {
+        currentState.SwitchStates(states.Stunned());
+    }
 }

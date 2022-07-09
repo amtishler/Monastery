@@ -26,6 +26,7 @@ public class EnemyConfig : CharacterConfig {
     private float cooldowntimer;
 
     public GameObject target;
+    public GameObject attackhitbox;
     public Vector3 attackvector;
 
     protected override void _Start() {

@@ -19,7 +19,7 @@ public class HitboxController : Attack
             Vector3 finaldir = (knockbackdir * (1 - knockbacknormalization)) + (facingdir * knockbacknormalization);
 
             playerconf.ApplyKnockback(finaldir, knockback*knockbackreflected);
-            GameManager.Instance.DamageCharacter(d, damage, finaldir, knockback);
+            GameManager.Instance.DamageCharacter(d, damage, stun, finaldir, knockback);
         }
     }
 }

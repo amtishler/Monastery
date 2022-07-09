@@ -120,7 +120,7 @@ public class TongueController : MonoBehaviour {
         if(heldconf != null)
         {
             heldconf.ApplyKnockback(direction, spitknockback);
-            heldconf.stunned = true;
+            heldconf.projectile = true;
         }
 
         InteractableObject inanimateobj = heldObject.transform.root.GetComponent<InteractableObject>();

@@ -25,20 +25,23 @@ public abstract class CharacterConfig : MonoBehaviour
     [Header("Damage")]
     [SerializeField] protected float maxHealth = 100f;
     [SerializeField] protected float health = 100f;
+    [SerializeField] protected float maxStun = 50f;
+    [SerializeField] protected float stun = 0f;
+    [SerializeField] protected float stundecay = 0f;
     [SerializeField] protected float invincibleduration = 2f;
     [SerializeField] protected float knockbackmultiplier = 1f;
+    [SerializeField] protected float invincibletimer;
 
     [Header("Sprites")]
     [SerializeField] protected Sprite[] moveSpriteList = new Sprite[4];
 
-    public bool invincible;
-    public float invincibletimer;
-
-    public bool stunned;
-    public bool grabbed;
-    public bool dead;
-    public int currentdir;
-    public Vector3[] directionMap = new Vector3[4];
+    [System.NonSerialized] public bool invincible;
+    [System.NonSerialized] public bool projectile;
+    [System.NonSerialized] public bool grabbed;
+    [System.NonSerialized] public bool stunned;
+    [System.NonSerialized] public bool dead;
+    [System.NonSerialized] public int currentdir;
+    [System.NonSerialized] public Vector3[] directionMap = new Vector3[4];
     //For any additional elements.
     protected abstract void _Start();
     protected abstract void _Update();
@@ -52,6 +55,8 @@ public abstract class CharacterConfig : MonoBehaviour
     public float RecoveryDeaccel {get {return recoveryDeaccel;}}
     public float MaxHealth {get {return maxHealth;}}
     public float Health {get {return health;}}
+    public float Stun {get {return stun;} set {stun = value;}}
+    public float InvincibleTimer {get {return invincibletimer;} set {invincibletimer = value;}}
 
     void Start() {
         characterCollider = GetComponent<CircleCollider2D>();
@@ -68,12 +73,21 @@ public abstract class CharacterConfig : MonoBehaviour
     
     void Update() {
         if(invincible && !dead && !grabbed){
-            invincibletimer += Time.deltaTime;
-            if(invincibletimer >= invincibleduration)
+            InvincibleTimer += Time.deltaTime;
+            if(InvincibleTimer >= invincibleduration)
             {
                 invincible = false;
             }
         }
+
+        //TODO stun decay
+        /*while(stun > 0){
+            stun -= stundecay * Time.deltaTime;
+            if(stun < 0){
+                stun = 0;
+            }
+        }*/
+
         _Update();
     }
 
@@ -86,14 +100,17 @@ public abstract class CharacterConfig : MonoBehaviour
         Velocity = targetDir*speed;
     }
 
-    public void Hit(float damage, Vector3 knockback, float magnitude)
+    public void Hit(float damage, float stundamage, Vector3 knockback, float magnitude)
     {
         if(!invincible)
         {
             ApplyKnockback(knockback, magnitude);
             health -= damage;
+            stun += stundamage;
+
             if(health <= 0)
             {
+                health = 0;
                 stateManager.ForceDead();
                 Death(this.gameObject);
                 invincible = true;
@@ -102,7 +119,14 @@ public abstract class CharacterConfig : MonoBehaviour
             else{
                 stateManager.ForceHurt();
                 invincible = true;
-                invincibletimer = 0;
+                InvincibleTimer = 0;
+            }
+
+            if(stun >= maxStun)
+            {
+                stun = maxStun;
+                stunned = true;
+                stateManager.ForceStunned();
             }
         }
     }

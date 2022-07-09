@@ -5,7 +5,7 @@ using UnityEngine;
 public class Attack : MonoBehaviour
 {
     [SerializeField] protected CharacterConfig playerconf;
-    [SerializeField] protected float damage, knockback;
+    [SerializeField] protected float damage, knockback, stun;
     [SerializeField] protected float knockbacknormalization = 0.5f;
 
 
@@ -24,7 +24,7 @@ public class Attack : MonoBehaviour
             Vector3 finaldir = (knockbackdir * (1 - knockbacknormalization)) + (facingdir * knockbacknormalization);
 
 
-            GameManager.Instance.DamageCharacter(d, damage, finaldir, knockback);
+            GameManager.Instance.DamageCharacter(d, damage, stun, finaldir, knockback);
 
             PlayerConfig p = playerconf.GetComponent<PlayerConfig>();
 

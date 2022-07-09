@@ -5,7 +5,7 @@ using UnityEngine;
 public class ProjectileObject : InteractableObject
 {
 
-    public float damage, knockback;
+    public float damage, knockback, stun;
     public float knockbackreflected = 0.5f;
 
 
@@ -54,7 +54,7 @@ public class ProjectileObject : InteractableObject
                 knockbackdir.Normalize();
 
                 ApplyKnockback(-knockbackdir, knockback * knockbackreflected);
-                GameManager.Instance.DamageCharacter(d, damage, knockbackdir, knockback);
+                GameManager.Instance.DamageCharacter(d, damage, stun, knockbackdir, knockback);
             }
         }
     }

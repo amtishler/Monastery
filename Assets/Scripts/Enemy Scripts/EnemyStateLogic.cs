@@ -40,7 +40,7 @@ public class EnemyIdleState : EnemyState {
     public override void ExitState() {}
 
     public override void CheckSwitchStates() {
-        if(config.stunned) SwitchStates(factory.Stunned());
+        if(config.projectile) SwitchStates(factory.Projectile());
         else if(config.grabbed) SwitchStates(factory.Grabbed());
         else if(CheckVision()) SwitchStates(factory.Aggressive());
     }
@@ -145,6 +145,7 @@ public class EnemyAttackState : EnemyState {
     public override void EnterState() {
         config.Velocity = config.attackvector;
         config.Speed = config.pouncespeed;
+        config.attackhitbox.SetActive(true);
     }
 
     public override void UpdateState() {
@@ -154,6 +155,7 @@ public class EnemyAttackState : EnemyState {
 
     public override void ExitState() {
         config.oncooldown = true;
+        config.attackhitbox.SetActive(false);
     }
 
     public override void CheckSwitchStates() {
@@ -210,7 +212,7 @@ public class EnemyDeadState : EnemyState {
     public override void EnterState() {
         config.invincible = true;
         selfhitbox = config.GetComponentInChildren<HitboxController>();
-        selfhitbox.gameObject.SetActive(false);
+        if(selfhitbox != null) selfhitbox.gameObject.SetActive(false);
         deacceleration = config.RecoveryDeaccel;
         config.SlowDown(deacceleration);
     }
@@ -255,22 +257,47 @@ public class EnemyGrabbedState : EnemyState {
     }    
 
     public override void CheckSwitchStates(){
-        if(config.stunned) SwitchStates(factory.Stunned());
+        if(config.projectile) SwitchStates(factory.Projectile());
     }
 }
 
-// Stunned (Enemy acts as projectile)
+// Stunned (Grabbable)
 public class EnemyStunnedState : EnemyState {
+
+    public EnemyStunnedState(EnemyConfig config, EnemyStateMachine currentContext, EnemyStateFactory stateFactory)
+    : base(config, currentContext, stateFactory){}
+
+    public override void EnterState() {
+        config.Stun = 0;
+    }
+
+    public override void UpdateState() {
+        if(config.Speed > 0){
+            config.SlowDown(config.RecoveryDeaccel);
+        }
+        CheckSwitchStates();
+    }
+
+    public override void ExitState() {}
+
+    public override void CheckSwitchStates() {
+        if(config.grabbed) SwitchStates(factory.Grabbed());
+    }
+}
+
+// Projectile (Enemy acts as projectile)
+public class EnemyProjectileState : EnemyState {
 
     private float deacceleration;
     private float recoverytimer = 1.5f;
     private HitboxController selfhitbox;
     private Rigidbody2D body;
 
-    public EnemyStunnedState(EnemyConfig config, EnemyStateMachine currentContext, EnemyStateFactory stateFactory)
+    public EnemyProjectileState(EnemyConfig config, EnemyStateMachine currentContext, EnemyStateFactory stateFactory)
     : base(config, currentContext, stateFactory){}
 
     public override void EnterState() {
+        config.attackhitbox.SetActive(true);
         selfhitbox = config.GetComponentInChildren<HitboxController>();
         selfhitbox.gameObject.layer = LayerMask.NameToLayer("Spit Projectile Hitbox");
         body = config.GetComponent<Rigidbody2D>();
@@ -289,9 +316,10 @@ public class EnemyStunnedState : EnemyState {
 
     public override void ExitState() {
         selfhitbox.gameObject.layer = LayerMask.NameToLayer("Enemy Hitbox");
+        config.attackhitbox.SetActive(false);
         config.gameObject.GetComponent<Collider2D>().enabled = true;
         config.invincible = false;
-        config.stunned = false;
+        config.projectile = false;
     }
 
     public override void CheckSwitchStates(){

@@ -141,5 +141,6 @@ MonoBehaviour:
   minimumSpeed: 3
   damage: 10
   knockback: 20
+  stun: 25
   knockbackreflected: 0.5
   projectilespeed: 10

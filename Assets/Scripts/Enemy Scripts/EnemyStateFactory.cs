@@ -45,4 +45,8 @@ public class EnemyStateFactory : StateFactory
         return new EnemyStunnedState(config, currentContext, this);
     }
 
+    public State Projectile() {
+        return new EnemyProjectileState(config, currentContext, this);
+    }
+
 }
