@@ -26,7 +26,15 @@ public class Attack : MonoBehaviour
 
             GameManager.Instance.DamageCharacter(d, damage, finaldir, knockback);
 
-            
+            PlayerConfig p = playerconf.GetComponent<PlayerConfig>();
+
+            if (p != null)
+            {
+                //p.
+            }
+
+
+
         }
 
         //INANIMATE OBJECTS
