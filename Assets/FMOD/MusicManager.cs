@@ -69,12 +69,14 @@ public class MusicManager : MonoBehaviour
     private void Awake()
     {
         _instance = this;
+
+        areaEvents.Add(FMODUnity.RuntimeManager.CreateInstance("event:/Music/Forest Music"));
+
     }
 
     private void Start()
     {
         // TO DO: When implementing a new area, add its ambient and melodic tracks here, in the right order
-        areaEvents.Add(FMODUnity.RuntimeManager.CreateInstance("event:/Forest"));
         currentArea = Area.None;
         areaTransitioning = false;
         variantTransitioning = false;

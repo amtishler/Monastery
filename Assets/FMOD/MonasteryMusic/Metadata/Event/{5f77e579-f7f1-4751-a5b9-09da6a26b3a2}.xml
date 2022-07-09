@@ -2,13 +2,13 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="Event" id="{5f77e579-f7f1-4751-a5b9-09da6a26b3a2}">
 		<property name="name">
-			<value>Forest</value>
+			<value>Forest Music</value>
 		</property>
 		<property name="outputFormat">
 			<value>1</value>
 		</property>
 		<relationship name="folder">
-			<destination>{f5b9f428-9036-4715-91ea-1c80f3d4827e}</destination>
+			<destination>{36ae1a5c-518d-498b-832d-0ff00d7c3b61}</destination>
 		</relationship>
 		<relationship name="mixer">
 			<destination>{f69c9fc3-36c0-4595-81c1-331af20a8bdd}</destination>
@@ -78,7 +78,7 @@
 			<destination>{9988364f-3d29-40c5-b983-5577892d6743}</destination>
 		</relationship>
 		<relationship name="output">
-			<destination>{c146d2d0-9429-486d-a173-a59e22c75666}</destination>
+			<destination>{09ef6936-c67b-488a-a33e-e7ae2b5c6eaa}</destination>
 		</relationship>
 	</object>
 	<object class="EventAutomatableProperties" id="{a8ac5597-8c9a-43ec-b908-571aabd3cf72}" />

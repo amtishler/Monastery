@@ -8,7 +8,7 @@
 			<value>1</value>
 		</property>
 		<relationship name="folder">
-			<destination>{f5b9f428-9036-4715-91ea-1c80f3d4827e}</destination>
+			<destination>{093ba113-7a92-4789-bd26-7299cd0bd328}</destination>
 		</relationship>
 		<relationship name="mixer">
 			<destination>{e8a12d37-df2c-4fda-9064-1e4b5261441d}</destination>
@@ -62,14 +62,14 @@
 			<destination>{d9844a6f-357f-4ac4-80e9-b2b06354b6c8}</destination>
 		</relationship>
 		<relationship name="output">
-			<destination>{c146d2d0-9429-486d-a173-a59e22c75666}</destination>
+			<destination>{536b8fbc-e95d-4fec-8c74-3e5c2dfabeae}</destination>
 		</relationship>
 	</object>
 	<object class="EventAutomatableProperties" id="{9b3d70a8-afd1-4698-97bb-fbba2cca6b5e}" />
 	<object class="MarkerTrack" id="{879bb13f-e314-4588-a3a9-2209e8409b6a}" />
 	<object class="GroupTrack" id="{249f99be-749a-439b-969d-fee76485f982}">
 		<relationship name="automationTracks">
-			<destination>{a5142884-990d-40f9-bd5f-57969186920e}</destination>
+			<destination>{a612303d-1f8c-469d-bdd8-4fc9c1d60393}</destination>
 		</relationship>
 		<relationship name="modules">
 			<destination>{10fb7cac-7f2d-404d-8402-2acbf8e0a307}</destination>
@@ -121,7 +121,7 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{d9844a6f-357f-4ac4-80e9-b2b06354b6c8}" />
-	<object class="AutomationTrack" id="{a5142884-990d-40f9-bd5f-57969186920e}">
+	<object class="AutomationTrack" id="{a612303d-1f8c-469d-bdd8-4fc9c1d60393}">
 		<relationship name="automator">
 			<destination>{cbc685e0-abb9-4415-950f-24e538cd944c}</destination>
 		</relationship>
@@ -179,6 +179,8 @@
 	<object class="MixerBusEffectChain" id="{b6ba61b5-a8d5-4108-9282-84bdd8b2f54d}">
 		<relationship name="effects">
 			<destination>{a9a6c6a2-7b4d-4af5-abaa-9737d0716add}</destination>
+			<destination>{63ed4c6f-2b30-42e5-9c60-655700306f0a}</destination>
+			<destination>{f1340f9c-6c26-4265-8eea-82605ce1ba03}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{5538fbfd-9f32-4ae0-96e8-c1916d5e5710}" />
@@ -228,6 +230,31 @@
 		</relationship>
 	</object>
 	<object class="MixerBusFader" id="{a9a6c6a2-7b4d-4af5-abaa-9737d0716add}" />
+	<object class="MultibandEqEffect" id="{63ed4c6f-2b30-42e5-9c60-655700306f0a}">
+		<property name="filterTypeA">
+			<value>4</value>
+		</property>
+		<property name="filterTypeB">
+			<value>8</value>
+		</property>
+		<property name="frequencyA">
+			<value>240.333511</value>
+		</property>
+		<property name="frequencyB">
+			<value>1948.19666</value>
+		</property>
+		<property name="qualityB">
+			<value>1.91082752</value>
+		</property>
+		<property name="gainB">
+			<value>-30</value>
+		</property>
+	</object>
+	<object class="SFXReverbEffect" id="{f1340f9c-6c26-4265-8eea-82605ce1ba03}">
+		<property name="decayTime">
+			<value>850</value>
+		</property>
+	</object>
 	<object class="AutomationCurve" id="{b4308052-0ce7-420f-9783-96507d9e8649}">
 		<relationship name="parameter">
 			<destination>{830841d8-d1bb-4fba-ba57-24f4b14acf18}</destination>

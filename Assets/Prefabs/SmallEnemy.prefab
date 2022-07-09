@@ -219,6 +219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9297143049c4c9f4981371f62891de42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectIdentity: 3
   speed: 0
   maximumSpeed: 4
   minimumSpeed: 3
@@ -299,6 +300,7 @@ MonoBehaviour:
   damage: 20
   knockback: 15
   knockbacknormalization: 0.5
+  identity: 0
   knockbackreflected: 0.25
 --- !u!61 &8649202318979798941
 BoxCollider2D:
