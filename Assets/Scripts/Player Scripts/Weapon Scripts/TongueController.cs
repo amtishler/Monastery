@@ -14,6 +14,7 @@ public class TongueController : MonoBehaviour {
     [SerializeField] float timeToExtend = 0.5f;
     [SerializeField] float tongueLength = 8f;
     [SerializeField] float retractAccelFactor = 1f;
+    [SerializeField] float grappleDamp = 1f;
     [SerializeField] float autoRetractionAngle = 90f;
     [Header("Object Interactions")]
     [SerializeField] float objectResidualSpeed = 0.6f;
@@ -92,15 +93,35 @@ public class TongueController : MonoBehaviour {
         */
 
         velocity = direction*speed;
-        distTraveled = distTraveled+speed*Time.deltaTime;
+        distTraveled = distTraveled + Mathf.Abs(speed)*Time.deltaTime;
         speed = speed - deacceleration*Time.deltaTime;
 
-        Vector3 nextpos = transform.position + velocity*Time.deltaTime;
+        Vector3 nextPos = transform.position + velocity*Time.deltaTime;
 
-        if(!grabbed && !grabUsed) CheckCollision(transform.position, nextpos);
+        if(!grabbed && !grabUsed) CheckCollision(transform.position, nextPos);
 
         // if (distTraveled <= 0) player.ReturnTongue();
-        transform.position = nextpos;
+        transform.position = nextPos;
+        SetSpawn(config.transform.position);
+        SetEndpoint();
+        ResizeTongueBody();
+    }
+
+
+    // Moves the player towards the tongue's end (used when grappling)
+    public void PullPlayer() {
+        // Moving the player
+        // Simultaniously updating the tongue's speeds to be the opposite of the players
+        // for when the player cancels.
+        config.Velocity = direction*config.Speed;
+        config.Speed = config.Speed + deacceleration*Time.deltaTime;
+        velocity = -config.Velocity;
+        speed = -config.Speed;
+        distTraveled = distTraveled + Mathf.Abs(config.Speed)*Time.deltaTime; // We need to invert the distTraveled
+
+        // Resetting tongue's variables
+        SetSpawn(config.transform.position);
+        SetEndpoint();
         ResizeTongueBody();
     }
 
@@ -146,12 +167,18 @@ public class TongueController : MonoBehaviour {
                 grabbed = true;
                 grabUsed = true;
                 StopExtending();
+                SetEndpoint();
 
-                //Freeze tongue movement. Set to be child of object it is grabbed to so it moves with it
-                speed = 0f;
-                velocity = Vector3.zero;
+                // Set to be child of object it is grabbed to so it moves with it
                 gameObject.transform.SetParent(hits[0].transform.gameObject.transform);
+
+                // Speed is reset here, but it now will start pulling the player to its location.
+                // We also set the player's speeds to be the same as the tongue's
+                speed = deacceleration*Time.deltaTime;
+                deacceleration = deacceleration*grappleDamp;
+                config.Speed = speed;
             }
+
             if(objectType == "Small Object") {
                 grabUsed = true;
                 StopExtending();
@@ -207,6 +234,7 @@ public class TongueController : MonoBehaviour {
 
         // Direction & position of tongue
         SetSpawn(config.transform.position);
+        SetEndpoint();
         direction = config.Input.Aim;
 
         // Save axis to base rotatin on
@@ -215,8 +243,9 @@ public class TongueController : MonoBehaviour {
         // Internal settings
         transform.position = tongueOrigin;
         transform.rotation = Quaternion.identity;
+        speed = 0f;
         totalTime = 0f;
-        distTraveled = 0f;     // DistTraveled is reset once at enable and once when the tongue reaches it's max
+        distTraveled = 0f;
         lengthReached = 0f;
         extending = true;
         grabUsed = false;
@@ -228,20 +257,21 @@ public class TongueController : MonoBehaviour {
         float angle = Vector3.Angle(direction, Vector3.right);
         if (direction.y < 0) angle = -angle;
         tongueBody.transform.Rotate(0f,0f,angle);
-        tongueBody.SetActive(true);
         tongueCollider.enabled = true;
 
         // Rotate player
         config.RotateSprite(direction);
 
-        //
+        // Finishing
         autoRetract = false;
+        ResizeTongueBody();
+        tongueBody.GetComponent<SpriteRenderer>().enabled = true;
     }
 
 
     // Disable method, called every time the tongue is disabled.
     void OnDisable() {
-        tongueBody.SetActive(false);
+        tongueBody.GetComponent<SpriteRenderer>().enabled = false;
         grabUsed = false;
         tongueCollider.enabled = false;
 
@@ -284,7 +314,7 @@ public class TongueController : MonoBehaviour {
     // Checks if tongue is finished
     public bool CheckIfFinished() {
         bool finished = false;
-        if (!extending) finished = Vector3.Distance(finalPos, tongueOrigin) + distTraveled < 0;
+        if (!extending) finished = lengthReached - distTraveled < 0;
         return finished;
     }
 

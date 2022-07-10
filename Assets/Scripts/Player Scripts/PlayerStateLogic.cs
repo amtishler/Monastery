@@ -39,6 +39,7 @@ public class PlayerIdleState : PlayerState {
     }
 
     public override void UpdateState() {
+        if (config.Velocity != Vector3.zero) config.SlowDown(config.Deacceleration);
         CheckSwitchStates();
     }
 
@@ -167,7 +168,9 @@ public class PlayerTongueState : PlayerState {
         Vector3 direction = config.Input.Aim;
         config.RotateSprite(direction);
 
-        if(!tongue.holdingObject) config.tongue.SetActive(true);
+        if(!tongue.holdingObject) {
+            config.tongue.SetActive(true);
+        }
         
     }
 
@@ -201,22 +204,19 @@ public class PlayerGrabbingState : PlayerState {
 
     public override void EnterState(){
         tongue = config.tongue.GetComponent<TongueController>();
-        Move();
     }
 
     public override void UpdateState() {
-        Move();
-        tongue.SetSpawn(config.transform.position);
-        tongue.SetEndpoint();
-        tongue.ResizeTongueBody();
+        tongue.PullPlayer();
         CheckSwitchStates();
     }
 
     public override void ExitState() {
         tongue.UnGrab();
     }
+
     public override void CheckSwitchStates() {
-        if (!config.Input.TongueHeld || tongue.autoRetract){
+        if (!config.Input.TongueHeld || tongue.autoRetract || config.Input.Move != Vector3.zero){
             SwitchStates(factory.Tongue());
         }
     }

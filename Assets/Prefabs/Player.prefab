@@ -141,7 +141,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2705515589059232779}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -310,7 +310,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2705515589199267929}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4, y: -4, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -345,7 +345,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 4.390625
+  orthographic size: 8.78125
   m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
@@ -604,6 +604,7 @@ MonoBehaviour:
   timeToExtend: 0.25
   tongueLength: 4
   retractAccelFactor: 2
+  grappleDamp: 1
   autoRetractionAngle: 45
   objectResidualSpeed: 0.9
   buttonSpeedReduction: 0.8
@@ -764,6 +765,7 @@ MonoBehaviour:
   playerconf: {fileID: 2705515590991708970}
   damage: 50
   knockback: 30
+  stun: 0
   knockbacknormalization: 0.5
   staffCollider: {fileID: 2705515589359950220}
   staffSwingTime: 0.3
@@ -847,7 +849,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7777778, y: 1}
+    m_SensorSize: {x: 2.1942308, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1009,6 +1011,7 @@ MonoBehaviour:
   playerconf: {fileID: 2705515590991708970}
   damage: 50
   knockback: 40
+  stun: 0
   knockbacknormalization: 0.5
   kickCollider: {fileID: 2705515590406865742}
   kickChargeTime: 0
@@ -1190,24 +1193,17 @@ MonoBehaviour:
   recoveryDeaccel: 0.5
   maxHealth: 100
   health: 100
+  maxStun: 50
+  stun: 0
+  stundecay: 0
   invincibleduration: 0.25
   knockbackmultiplier: 1
+  invincibletimer: 0
   moveSpriteList:
   - {fileID: 21300000, guid: b3fc15c3494b6ae4ea8f12eed7d78b21, type: 3}
   - {fileID: 21300000, guid: e2b694de54646e245af0176157ce9e07, type: 3}
   - {fileID: 21300000, guid: 5711162800afe154fa2aa6671f6ba7d9, type: 3}
   - {fileID: 21300000, guid: 7d888f54a7de9444abbd0758212c35e6, type: 3}
-  invincible: 0
-  invincibletimer: 0
-  stunned: 0
-  grabbed: 0
-  dead: 0
-  currentdir: 0
-  directionMap:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
   tongueMaxSpeed: 6
   jumpMaximumSpeed: 25
   jumpMinimumSpeed: 1
