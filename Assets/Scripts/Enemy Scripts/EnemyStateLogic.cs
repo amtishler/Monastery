@@ -279,7 +279,9 @@ public class EnemyStunnedState : EnemyState {
         CheckSwitchStates();
     }
 
-    public override void ExitState() {}
+    public override void ExitState() {
+        config.stunned = false;
+    }
 
     public override void CheckSwitchStates() {
         if(config.grabbed) SwitchStates(factory.Grabbed());
