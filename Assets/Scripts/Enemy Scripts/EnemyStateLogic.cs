@@ -99,7 +99,7 @@ public class EnemyReadyingState : EnemyState {
     public override void EnterState() {
         timer = 0;
         stopped = false;
-
+        config.isattacking = true;
         if(config.target == null) SwitchStates(factory.Idle());
         oldspeed = config.MaximumSpeed;
         config.MaximumSpeed = config.readyingspeed;
@@ -156,6 +156,7 @@ public class EnemyAttackState : EnemyState {
     public override void ExitState() {
         config.oncooldown = true;
         config.attackhitbox.SetActive(false);
+        config.isattacking = false;
     }
 
     public override void CheckSwitchStates() {

@@ -21,6 +21,7 @@ public class EnemyConfig : CharacterConfig {
     public float pounceslowdown = 0.1f;
 
     public float attackcooldown = 5f;
+    public bool isattacking;
     public bool oncooldown;
     private bool timerstarted;
     private float cooldowntimer;
@@ -29,8 +30,12 @@ public class EnemyConfig : CharacterConfig {
     public GameObject attackhitbox;
     public Vector3 attackvector;
 
+    private Animator animator;
+
     protected override void _Start() {
         target = FindObjectOfType<PlayerConfig>().gameObject;
+        animator = GetComponent<Animator>();
+        isattacking = false;
         return;
     }
 
@@ -49,6 +54,9 @@ public class EnemyConfig : CharacterConfig {
                 timerstarted = false;
             }
         }
+
+        animator.SetFloat("Speed", Speed);
+        animator.SetBool("Attacking", isattacking);
     }
 
     public void MoveTowards(GameObject target)

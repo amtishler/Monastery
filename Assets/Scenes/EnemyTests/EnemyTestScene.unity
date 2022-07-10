@@ -2633,7 +2633,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2705515589199267943, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
       propertyPath: orthographic size
-      value: 8.4375
+      value: 9.875
+      objectReference: {fileID: 0}
+    - target: {fileID: 2705515589199267943, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
+      propertyPath: m_NormalizedViewPortRect.y
+      value: 0.00078926596
+      objectReference: {fileID: 0}
+    - target: {fileID: 2705515589199267943, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
+      propertyPath: m_NormalizedViewPortRect.height
+      value: 0.9976322
       objectReference: {fileID: 0}
     - target: {fileID: 2705515590991708971, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
       propertyPath: m_Name
@@ -3197,6 +3205,10 @@ PrefabInstance:
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 4220657007158370608, guid: be5cfb4329788014e83ad608a29edde3, type: 3}
+      propertyPath: attackhitbox
+      value: 
+      objectReference: {fileID: 1737932319}
+    - target: {fileID: 4220657007158370608, guid: be5cfb4329788014e83ad608a29edde3, type: 3}
       propertyPath: attackradius
       value: 3
       objectReference: {fileID: 0}
@@ -3235,6 +3247,14 @@ PrefabInstance:
     - target: {fileID: 4220657007158370609, guid: be5cfb4329788014e83ad608a29edde3, type: 3}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4220657007158370609, guid: be5cfb4329788014e83ad608a29edde3, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4220657007158370609, guid: be5cfb4329788014e83ad608a29edde3, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4220657007158370609, guid: be5cfb4329788014e83ad608a29edde3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3283,7 +3303,7 @@ PrefabInstance:
     - target: {fileID: 4220657007158370622, guid: be5cfb4329788014e83ad608a29edde3, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 24023db2a9bd42242866a586b2905b81, type: 3}
+      objectReference: {fileID: 21300000, guid: 2cef688d76064674584011aeed83f2b4, type: 3}
     - target: {fileID: 4220657007158370622, guid: be5cfb4329788014e83ad608a29edde3, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -3297,16 +3317,32 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4220657007158370623, guid: be5cfb4329788014e83ad608a29edde3, type: 3}
+      propertyPath: m_Size.x
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4220657007158370623, guid: be5cfb4329788014e83ad608a29edde3, type: 3}
+      propertyPath: m_Size.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4220657007158370623, guid: be5cfb4329788014e83ad608a29edde3, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4220657007158370623, guid: be5cfb4329788014e83ad608a29edde3, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1.875
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 4220657007158370623, guid: be5cfb4329788014e83ad608a29edde3, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 1.5625
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7214512695575093670, guid: be5cfb4329788014e83ad608a29edde3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.106
+      objectReference: {fileID: 0}
+    - target: {fileID: 7214512695575093670, guid: be5cfb4329788014e83ad608a29edde3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.762
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8649202318979798941, guid: be5cfb4329788014e83ad608a29edde3, type: 3}
@@ -5097,7 +5133,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.25, y: 0.25}
   m_EdgeRadius: 0
 --- !u!1 &1738935214
 GameObject:
