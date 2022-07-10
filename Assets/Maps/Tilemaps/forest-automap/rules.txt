@@ -18,4 +18,8 @@ rule_14.tmx
 rule_15.tmx
 rule_16.tmx
 rule_17.tmx
+rule_17-1.tmx
 rule_18.tmx
+rule_19.tmx
+rule_20.tmx
+rule_21.tmx
