@@ -21,7 +21,11 @@ public class PlayerSFX : MonoBehaviour
 
     private void Awake()
     {
-        sfxList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/Footsteps"));
+        sfxList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/Player/Footsteps"));
+        sfxList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/Player/Footsteps"));
+        sfxList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/Player/Footsteps"));
+        sfxList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/Player/StaffSwing"));
+
     }
 
 

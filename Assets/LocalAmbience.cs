@@ -43,7 +43,7 @@ public class LocalAmbience : MonoBehaviour
         circle.radius = radius;
         rig.isKinematic = true;
 
-        localAmbiences.Add(FMODUnity.RuntimeManager.CreateInstance("event:/AmbientSFX/River"));
+        localAmbiences.Add(FMODUnity.RuntimeManager.CreateInstance("event:/LocalAmbiences/River"));
 
         currentVolume = 0;
 

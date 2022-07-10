@@ -283,7 +283,7 @@ MonoBehaviour:
   sourceProjectPath: Assets/FMOD/Project/MonasteryFMOD.fspro
   sourceBankPath: Assets/FMOD/Project/Build
   SourceBankPathUnformatted: 
-  BankRefreshCooldown: 5
+  BankRefreshCooldown: 1
   ShowBankRefreshWindow: 0
   AutomaticEventLoading: 1
   BankLoadType: 0

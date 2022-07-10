@@ -44,7 +44,7 @@ public class AmbienceManager : MonoBehaviour
     {
         _instance = this;
 
-        ambienceList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/AmbientSFX/Forest Ambiences"));
+        ambienceList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/AreaAmbiences/Forest Ambiences"));
 
         currentVolume = 0;
         oldVolume = 0;
