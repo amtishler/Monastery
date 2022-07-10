@@ -20,6 +20,9 @@ rule_16.tmx
 rule_17.tmx
 rule_17-1.tmx
 rule_18.tmx
+rule_18-1.tmx
 rule_19.tmx
 rule_20.tmx
+
 rule_21.tmx
+rule_20-1.tmx
