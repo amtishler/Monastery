@@ -1348,6 +1348,7 @@ MonoBehaviour:
   pouncespeed: 10
   pounceslowdown: 0.1
   attackcooldown: 5
+  isattacking: 0
   oncooldown: 0
   target: {fileID: 0}
   attackhitbox: {fileID: 0}
@@ -2130,6 +2131,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 405182025, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.x
+      value: 5.6875
+      objectReference: {fileID: 0}
+    - target: {fileID: 405182025, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 2705515589059232778, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -2162,6 +2171,10 @@ PrefabInstance:
       propertyPath: orthographic size
       value: 8.125
       objectReference: {fileID: 0}
+    - target: {fileID: 2705515589280278568, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2705515589280278570, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -2175,8 +2188,16 @@ PrefabInstance:
       value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 2705515589280278571, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
+      propertyPath: tongueLength
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2705515589280278571, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
       propertyPath: retractAccelFactor
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2705515589280278572, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2705515589997795899, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
       propertyPath: m_Follow
@@ -2250,6 +2271,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2705515590991708983, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
+      propertyPath: m_Size.x
+      value: 5.6875
+      objectReference: {fileID: 0}
+    - target: {fileID: 2705515590991708983, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
+      propertyPath: m_Size.y
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2705515590991708983, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3710589495446813952, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
       propertyPath: player
       value: 
@@ -2266,6 +2299,7 @@ PrefabInstance:
     - {fileID: 2705515589199267940, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
     - {fileID: 6716762407453513628, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
     - {fileID: 2705515589997795897, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
+    - {fileID: 2705515589280278568, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
 --- !u!1001 &5526066710058119561
 PrefabInstance:

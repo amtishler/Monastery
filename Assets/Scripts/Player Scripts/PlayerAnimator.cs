@@ -17,8 +17,6 @@ public class PlayerAnimator : MonoBehaviour
     protected SpriteAnim m_anim = null;
     protected PlayerConfig config;
 
-    int currentdir;
-
     bool kick = false;
     bool staff = false;
     bool jumpCharge = false;
@@ -33,57 +31,46 @@ public class PlayerAnimator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentdir = config.currentdir;
-        if(staff || kick) {
+        if (config.State == "PlayerStaff" || config.State == "PlayerKick") {
             if(m_anim.GetNormalisedTime() >= 1f) {
                 UpdateIdleAnimation();
             }
         }
     }
 
-    public void UpdateWalkAnimation() {
-        if(m_anim.Clip != walkAnimations[currentdir]) {
-            m_anim.Play(walkAnimations[currentdir]);
+    void UpdateAnimation(AnimationClip[] animation) {
+        if(m_anim.Clip != animation[config.currentdir]) {
+            m_anim.Play(animation[config.currentdir]);
         }
+    }
+
+    // Public Methods to change states
+    
+    public void UpdateWalkAnimation() {
+        UpdateAnimation(walkAnimations);
     }
 
     public void UpdateIdleAnimation() {
-        if(m_anim.Clip != idleAnimations[currentdir] && m_anim.GetNormalisedTime() >= 1f && !jumpCharge) {
-            m_anim.Play(idleAnimations[currentdir]);
-        }
+        UpdateAnimation(idleAnimations);
     }
 
     public void UpdateStaffAnimation() {
-        if(m_anim.Clip != staffAnimations[currentdir]) {
-            m_anim.Play(staffAnimations[currentdir]);
-            staff = true;
-        }
+        UpdateAnimation(staffAnimations);
     }
 
     public void UpdateKickAnimation() {
-        if(m_anim.Clip != kickAnimations[currentdir]) {
-            m_anim.Play(kickAnimations[currentdir]);
-            kick = true;
-        }
+        UpdateAnimation(kickAnimations);
     }
 
     public void UpdateSpitAnimation() {
-        if(m_anim.Clip != spitAnimations[currentdir]) {
-            m_anim.Play(spitAnimations[currentdir]);
-        }
+        UpdateAnimation(spitAnimations);
     }
 
     public void UpdateJumpChargeAnimation() {
-        if(m_anim.Clip != jumpChargeAnimations[currentdir]) {
-            m_anim.Play(jumpChargeAnimations[currentdir]);
-            jumpCharge = true;
-        }
+        UpdateAnimation(jumpChargeAnimations);
     }
 
     public void UpdateJumpAnimation() {
-        if(m_anim.Clip != jumpAnimations[currentdir]) {
-            m_anim.Play(jumpAnimations[currentdir]);
-            jumpCharge = false;
-        }
+        UpdateAnimation(jumpAnimations);
     }
 }

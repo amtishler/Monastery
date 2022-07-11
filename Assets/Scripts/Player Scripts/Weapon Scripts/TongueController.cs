@@ -110,9 +110,7 @@ public class TongueController : MonoBehaviour {
 
     // Moves the player towards the tongue's end (used when grappling)
     public void PullPlayer() {
-        // Moving the player
-        // Simultaniously updating the tongue's speeds to be the opposite of the players
-        // for when the player cancels.
+
         config.Velocity = direction*config.Speed;
         config.Speed = config.Speed + deacceleration*Time.deltaTime;
         velocity = -config.Velocity;
@@ -133,6 +131,8 @@ public class TongueController : MonoBehaviour {
         {
             return;
         }
+        SetSpawn(config.transform.position);
+        heldObject.transform.position = tongueOrigin;
         heldObject.transform.SetParent(null);
         heldObject.SetActive(true);
 
@@ -181,7 +181,8 @@ public class TongueController : MonoBehaviour {
 
             if(objectType == "Small Object") {
                 grabUsed = true;
-                StopExtending();
+                // StopExtending();
+                SetEndpoint();
 
                 //Let object it has grabbed become a child so it follows.
                 heldObject = hits[0].transform.gameObject;

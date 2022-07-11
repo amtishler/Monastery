@@ -23,6 +23,15 @@ public abstract class PlayerState : State {
        SUBCLASSES
 ==================== */
 
+// State Names:
+// PlayerIdle
+// PlayerRun
+// PlayerTongueCharge
+// PlayerTongueShoot
+// PlayerStaff
+// PlayerKickCharge
+// PlayerKick
+
 // Idle
 public class PlayerIdleState : PlayerState {
 
