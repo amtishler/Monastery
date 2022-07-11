@@ -8,14 +8,14 @@
 0,0,0
 </data>
  </layer>
- <layer id="2" name="input_wall_layout" width="3" height="3">
+ <layer id="2" name="input_top_layout" width="3" height="3">
   <data encoding="csv">
 0,0,0,
 0,16,0,
 0,0,0
 </data>
  </layer>
- <layer id="3" name="output_terrain_high" width="3" height="3">
+ <layer id="3" name="output_terrain_top" width="3" height="3">
   <data encoding="csv">
 0,0,0,
 0,10,0,

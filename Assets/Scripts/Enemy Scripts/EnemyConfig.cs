@@ -57,6 +57,7 @@ public class EnemyConfig : CharacterConfig {
 
         animator.SetFloat("Speed", Speed);
         animator.SetBool("Attacking", isattacking);
+        animator.SetBool("Stunned", stunned);
     }
 
     public void MoveTowards(GameObject target)

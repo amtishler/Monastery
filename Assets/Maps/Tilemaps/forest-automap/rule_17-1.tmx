@@ -15,7 +15,7 @@
 0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="2" name="input_terrain_high" width="10" height="10">
+ <layer id="2" name="input_terrain_top" width="10" height="10">
   <properties>
    <property name="StrictEmpty" type="bool" value="true"/>
   </properties>
@@ -32,7 +32,7 @@
 0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="3" name="output_terrain_high" width="10" height="10">
+ <layer id="3" name="output_terrain_top" width="10" height="10">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,

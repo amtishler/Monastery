@@ -2633,15 +2633,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2705515589199267943, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
       propertyPath: orthographic size
-      value: 9.875
+      value: 9.734375
       objectReference: {fileID: 0}
     - target: {fileID: 2705515589199267943, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
       propertyPath: m_NormalizedViewPortRect.y
-      value: 0.00078926596
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2705515589199267943, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
       propertyPath: m_NormalizedViewPortRect.height
-      value: 0.9976322
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2705515589359950221, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
+      propertyPath: stun
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2705515589359950221, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
+      propertyPath: damage
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2705515590991708971, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
       propertyPath: m_Name

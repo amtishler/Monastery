@@ -8,7 +8,7 @@
 0,0,0
 </data>
  </layer>
- <layer id="2" name="input_wall_layout" width="3" height="3">
+ <layer id="2" name="input_top_layout" width="3" height="3">
   <data encoding="csv">
 0,0,0,
 0,16,0,
@@ -18,18 +18,18 @@
  <layer id="3" name="output1_terrain_decoration" width="3" height="3">
   <data encoding="csv">
 0,0,0,
-0,57,0,
+0,64,0,
 0,0,0
 </data>
  </layer>
- <layer id="5" name="output2_terrain_decoration" width="3" height="3" visible="0">
+ <layer id="5" name="output2_terrain_decoration" width="3" height="3">
   <data encoding="csv">
 0,0,0,
 0,4,0,
 0,0,0
 </data>
  </layer>
- <layer id="4" name="output3_terrain_decoration" width="3" height="3" visible="0">
+ <layer id="4" name="output3_terrain_decoration" width="3" height="3">
   <data encoding="csv">
 0,0,0,
 0,5,0,
