@@ -266,6 +266,7 @@ public class PlayerStaffState : PlayerState {
     }
 
     public override void EnterState() {
+        config.SlowDown(config.Deacceleration);
         Vector3 direction = config.Input.Aim;
         config.RotateSprite(direction);
         config.playerAnimator.UpdateStaffAnimation();
@@ -274,7 +275,7 @@ public class PlayerStaffState : PlayerState {
     }
 
     public override void UpdateState() {
-        config.SlowDown(config.Deacceleration*2);
+        config.SlowDown(config.Deacceleration);
         staff.UpdateStaff();
         CheckSwitchStates();
     }
