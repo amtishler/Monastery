@@ -45,11 +45,17 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background Trees
+    uniqueID: 4058098473
+    locked: 0
   - name: Player
     uniqueID: 2503301929
     locked: 0
   - name: PlayerFeatures
     uniqueID: 2385895333
+    locked: 0
+  - name: Foreground Trees
+    uniqueID: 376176415
     locked: 0
   - name: Interactable Objects
     uniqueID: 3606707
