@@ -270,6 +270,7 @@ public class EnemyStunnedState : EnemyState {
 
     public override void EnterState() {
         config.Stun = 0;
+        config.grabbable = true;
     }
 
     public override void UpdateState() {
@@ -281,6 +282,7 @@ public class EnemyStunnedState : EnemyState {
 
     public override void ExitState() {
         config.stunned = false;
+        config.grabbable = false;
     }
 
     public override void CheckSwitchStates() {

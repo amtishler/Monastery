@@ -9,6 +9,13 @@ public class Tree : InteractableObject
     public int maxdrops;
     public bool dropused;
 
+    private Animator animator;
+
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
+
     void Update()
     {
         
@@ -16,6 +23,6 @@ public class Tree : InteractableObject
 
     public override void OnHit(Vector3 dir, float mag)
     {
-        Debug.Log("Tree: Yeeeowch!");
+        animator.Play("Tree1-Hit");
     }
 }

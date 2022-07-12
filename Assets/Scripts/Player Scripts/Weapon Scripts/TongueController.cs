@@ -180,14 +180,25 @@ public class TongueController : MonoBehaviour {
             }
 
             if(objectType == "Small Object") {
+
+                heldObject = hits[0].transform.gameObject;
+                heldconf = heldObject.transform.GetComponentInParent<CharacterConfig>();
                 grabUsed = true;
+
+                if(heldconf != null && !heldconf.grabbable)
+                {
+                    heldObject = null;
+                    return;
+                }
+                else if(heldconf != null)
+                {
+                    heldconf.invincible = true;
+                    heldconf.grabbed = true;
+                }
                 // StopExtending();
                 SetEndpoint();
 
                 //Let object it has grabbed become a child so it follows.
-                heldObject = hits[0].transform.gameObject;
-                heldconf = heldObject.transform.GetComponentInParent<CharacterConfig>();
-
                 transform.position = heldObject.transform.position;
                 heldObject.transform.SetParent(gameObject.transform);
 

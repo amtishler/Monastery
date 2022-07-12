@@ -36,6 +36,7 @@ public class EnemyConfig : CharacterConfig {
         target = FindObjectOfType<PlayerConfig>().gameObject;
         animator = GetComponent<Animator>();
         isattacking = false;
+        grabbable = false;
         return;
     }
 

@@ -37,6 +37,7 @@ public abstract class CharacterConfig : MonoBehaviour
 
     [System.NonSerialized] public bool invincible;
     [System.NonSerialized] public bool projectile;
+    [System.NonSerialized] public bool grabbable;
     [System.NonSerialized] public bool grabbed;
     [System.NonSerialized] public bool stunned;
     [System.NonSerialized] public bool dead;
