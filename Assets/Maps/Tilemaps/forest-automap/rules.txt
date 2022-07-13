@@ -29,3 +29,5 @@ rule_20-1.tmx
 rule_22.tmx
 rule_23.tmx
 rule_24.tmx
+rule_25.tmx
+rule_26.tmx
