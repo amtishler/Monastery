@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="AudioFile" id="{33000e65-60e7-40f0-9d2c-dcffc26fd65e}">
 		<property name="assetPath">
-			<value>ESM_Throw_Weapon_6_Sound_FX_Military_Whoosh_Swing.wav</value>
+			<value>player movement/ESM_Throw_Weapon_6_Sound_FX_Military_Whoosh_Swing.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>44.0999985</value>
