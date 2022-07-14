@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TreeController : MonoBehaviour
+[ExecuteInEditMode]
+public class Log : MonoBehaviour
 {
-    [SerializeField]
     GameObject playerGO;
     [SerializeField]
-    Vector3 treeMidpoint;
+    Vector3 midpoint;
+    [Range(0, 7)]
+    public int direction; 
+    [SerializeField]
+    Sprite[] spriteList = new Sprite[8];
 
     SpriteRenderer sR;
     // Start is called before the first frame update
@@ -25,6 +29,9 @@ public class TreeController : MonoBehaviour
         } else
         {
             sR.sortingLayerName = "Background Trees";
+        }
+        if(sR.sprite != spriteList[direction]) {
+            sR.sprite = spriteList[direction];
         }
     }
 }
