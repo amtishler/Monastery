@@ -81,8 +81,15 @@ public class EnemyAggressiveState : EnemyState {
     private bool CheckVision()
     {
         Collider2D collider = Physics2D.OverlapCircle(config.transform.position, config.attackradius, LayerMask.GetMask("Player Hurtbox"));
-        if(collider == null) return false;
-        else return true;
+        if(collider != null)
+        {
+            RaycastHit2D[] hits = Physics2D.LinecastAll(config.transform.position, collider.transform.position, LayerMask.GetMask("Boundary"));
+            if(hits.Length == 0)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
 

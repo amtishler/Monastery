@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Pathfinding;
 
 public class EnemyConfig : CharacterConfig {
 
@@ -32,12 +33,36 @@ public class EnemyConfig : CharacterConfig {
 
     private Animator animator;
 
+    //Pathfinding vars
+    public float nextWaypointDistance = 3f;
+    private Path path;
+    private int currentWaypoint = 0;
+    private bool reachedEndOfPath = false;
+    private Seeker seeker;
+
     protected override void _Start() {
-        target = FindObjectOfType<PlayerConfig>().gameObject;
+        seeker = GetComponent<Seeker>();
         animator = GetComponent<Animator>();
         isattacking = false;
         grabbable = false;
+
+        
+        InvokeRepeating("UpdatePath", 0f, .5f);
         return;
+    }
+
+    void UpdatePath()
+    {
+        if (seeker.IsDone() && target != null) seeker.StartPath(rigidBody.position, target.transform.position, OnPathComplete);
+    }
+
+    void OnPathComplete(Path p)
+    {
+        if(!p.error)
+        {
+            path = p;
+            currentWaypoint = 0;
+        }
     }
 
     protected override void _Update() {
@@ -61,12 +86,36 @@ public class EnemyConfig : CharacterConfig {
         animator.SetBool("Stunned", stunned);
     }
 
+
+
     public void MoveTowards(GameObject target)
     {
-        Vector3 targetDir = target.transform.position - this.transform.position;
+
+        if(path == null)
+        {
+            return;
+        }
+        if(currentWaypoint >= path.vectorPath.Count)
+        {
+            reachedEndOfPath = true;
+            SlowDown(deacceleration);
+            return;
+        }
+        else
+        {
+            reachedEndOfPath = false;
+        }
+
+        Vector3 targetDir = path.vectorPath[currentWaypoint] - this.transform.position;
         targetDir.Normalize();
 
-        // Moving
+        float distance = Vector3.Distance(this.transform.position, path.vectorPath[currentWaypoint]);
+
+        if(distance < nextWaypointDistance)
+        {
+            currentWaypoint++;
+        }
+
         if (targetDir == Vector3.zero) {
             SlowDown(deacceleration);
         } else {

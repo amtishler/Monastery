@@ -150,6 +150,7 @@ GameObject:
   - component: {fileID: 1245101477447179944}
   - component: {fileID: 1245101477447179947}
   - component: {fileID: 3158628754461147013}
+  - component: {fileID: 1208284323}
   m_Layer: 7
   m_Name: BugEnemy
   m_TagString: Small Object
@@ -213,7 +214,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1791665367
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 2cef688d76064674584011aeed83f2b4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -327,6 +328,7 @@ MonoBehaviour:
   target: {fileID: 0}
   attackhitbox: {fileID: 1245101477299156770}
   attackvector: {x: 0, y: 0, z: 0}
+  nextWaypointDistance: 0.5
 --- !u!95 &3158628754461147013
 Animator:
   serializedVersion: 4
@@ -347,3 +349,31 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1208284323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1245101477447179942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  drawGizmos: 1
+  detailedGizmos: 0
+  startEndModifier:
+    addPoints: 0
+    exactStartPoint: 3
+    exactEndPoint: 3
+    useRaycasting: 0
+    mask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    useGraphRaycasting: 0
+  traversableTags: -1
+  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  graphMask:
+    value: -1
