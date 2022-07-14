@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="AudioFile" id="{9989ab79-4371-4b2a-aa18-92776df79019}">
 		<property name="assetPath">
-			<value>Ambiences/BRS_Atmos_Forest_Evening_Birds_Distant_Frogs_1.wav</value>
+			<value>Ambience/Area Ambiences/BRS_Atmos_Forest_Evening_Birds_Distant_Frogs_1.wav</value>
 		</property>
 		<property name="isStreaming">
 			<value>true</value>

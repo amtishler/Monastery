@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="AudioFile" id="{57aac3be-b56b-4095-ab39-f73df37dff3a}">
 		<property name="assetPath">
-			<value>Ambiences/BRS_Leaves_Sml_Leaf_Wind_Mvs_Rustles_Snaps_2.wav</value>
+			<value>Ambience/Area Ambiences/BRS_Leaves_Sml_Leaf_Wind_Mvs_Rustles_Snaps_2.wav</value>
 		</property>
 		<property name="isStreaming">
 			<value>true</value>

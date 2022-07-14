@@ -26,6 +26,7 @@ public class PlayerSFX : MonoBehaviour
         sfxList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/Player/Footsteps"));
         sfxList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/Player/StaffSwing"));
 
+
     }
 
 

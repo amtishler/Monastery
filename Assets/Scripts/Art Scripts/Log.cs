@@ -24,7 +24,7 @@ public class Log : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(playerGO.transform.position.y >= transform.position.y + treeMidpoint.y) {
+        if(playerGO.transform.position.y >= transform.position.y + midpoint.y) {
             sR.sortingLayerName = "Foreground Trees";
         } else
         {

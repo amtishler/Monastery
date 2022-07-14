@@ -5,10 +5,10 @@
 			<value>Footsteps</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>0</value>
 		</property>
 		<relationship name="folder">
-			<destination>{093ba113-7a92-4789-bd26-7299cd0bd328}</destination>
+			<destination>{918ad133-b29a-4f82-ad40-d86009c69db5}</destination>
 		</relationship>
 		<relationship name="mixer">
 			<destination>{e8a12d37-df2c-4fda-9064-1e4b5261441d}</destination>
@@ -130,12 +130,6 @@
 		<property name="length">
 			<value>0.46194791666666668</value>
 		</property>
-		<relationship name="sounds">
-			<destination>{291795a2-a57b-41c9-8899-c6e7432ff4dc}</destination>
-			<destination>{e6c3bc0a-d286-4570-a339-d9741b143adf}</destination>
-			<destination>{d4f1b05d-05ac-4db5-8846-bce131437e88}</destination>
-			<destination>{9242885b-51eb-444e-9170-f0aadc1a0910}</destination>
-		</relationship>
 	</object>
 	<object class="EventMixerGroup" id="{c41d38a3-e105-4a36-82e3-ad70aa2dd5dc}">
 		<property name="name">
@@ -184,26 +178,6 @@
 	<object class="MixerBusPanner" id="{5538fbfd-9f32-4ae0-96e8-c1916d5e5710}" />
 	<object class="MultiSound" id="{dbe19a0f-7397-46a7-b139-4da223e0f573}" />
 	<object class="MixerBusFader" id="{4ca1bd81-2075-4e2f-be71-8477fc081133}" />
-	<object class="SingleSound" id="{291795a2-a57b-41c9-8899-c6e7432ff4dc}">
-		<relationship name="audioFile">
-			<destination>{d2312d09-5614-4f99-a6f4-906df47cc5b0}</destination>
-		</relationship>
-	</object>
-	<object class="SingleSound" id="{e6c3bc0a-d286-4570-a339-d9741b143adf}">
-		<relationship name="audioFile">
-			<destination>{a3411079-210c-4e97-9ae0-ff4f3060c239}</destination>
-		</relationship>
-	</object>
-	<object class="SingleSound" id="{d4f1b05d-05ac-4db5-8846-bce131437e88}">
-		<relationship name="audioFile">
-			<destination>{b8672730-9a0f-4417-bcf7-b01b7f7c6c4a}</destination>
-		</relationship>
-	</object>
-	<object class="SingleSound" id="{9242885b-51eb-444e-9170-f0aadc1a0910}">
-		<relationship name="audioFile">
-			<destination>{a908c3ad-e588-445a-9df2-308afb1b981e}</destination>
-		</relationship>
-	</object>
 	<object class="Automator" id="{cbc685e0-abb9-4415-950f-24e538cd944c}">
 		<property name="nameOfPropertyBeingAutomated">
 			<value>volume</value>

@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="AudioFile" id="{be5fbc5b-7f2a-4547-8787-0e7a709dbe99}">
 		<property name="assetPath">
-			<value>ForestTracks/MONASTERY - Forest Music Variant 2 Wurlitzer.wav</value>
+			<value>Music/Forest Song/MONASTERY - Forest Music Variant 2 Wurlitzer.wav</value>
 		</property>
 		<property name="isStreaming">
 			<value>true</value>

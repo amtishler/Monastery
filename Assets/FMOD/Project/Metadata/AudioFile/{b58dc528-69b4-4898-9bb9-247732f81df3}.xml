@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="AudioFile" id="{b58dc528-69b4-4898-9bb9-247732f81df3}">
 		<property name="assetPath">
-			<value>Ambiences/Wind_01.wav</value>
+			<value>Ambience/Area Ambiences/Wind_01.wav</value>
 		</property>
 		<property name="isStreaming">
 			<value>true</value>

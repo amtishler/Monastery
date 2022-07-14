@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="DataFile" id="{0a475272-7382-44a9-b584-d5e94b879cbe}">
+		<property name="assetPath">
+			<value>Music/Forest Song/MONASTERY - Forest Music Variant 3 Synths.wav.meta</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{c28e1d4f-f9af-4e5f-9cd2-a8a56fd8ed2d}</destination>
+		</relationship>
+	</object>
+</objects>
