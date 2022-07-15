@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{f6d0105f-6c6d-4104-a622-7f1be0730274}">
+		<property name="assetPath">
+			<value>Enemy 1 (bug)/Aggro/ESM_Wall-E__Servo_Bot_Chirp_2_Futuristic_Mobile_App_Pick_Up_Sci_fi_Mechanical_Glitch.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>1.6982993197278911</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{c28e1d4f-f9af-4e5f-9cd2-a8a56fd8ed2d}</destination>
+		</relationship>
+	</object>
+</objects>
