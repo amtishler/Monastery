@@ -11,11 +11,24 @@ public abstract class PlayerState : State {
     protected PlayerConfig config;
     protected PlayerStateFactory factory;
 
+    protected Vector3 returnPoint;
+    protected float updatePoint = 0f;
+
     public PlayerState(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
     : base(currentContext) {
         this.config = config;
         this.factory = stateFactory;
     }
+
+    //Helper function
+protected void newPoint() {
+    --updatePoint;
+    if (updatePoint <= 0 && config.grounded) {
+        returnPoint = config.gameObject.transform.position;
+        updatePoint = 100f;
+    }
+    //Debug.Log(returnPoint);
+}
 }
 
 
@@ -31,6 +44,14 @@ public abstract class PlayerState : State {
 // PlayerStaff
 // PlayerKickCharge
 // PlayerKick
+// PlayerJumpChargeState
+// PlayerJumpState
+// PlayerHurtState
+// PlayerDeadState
+// PlayerMapOpenState
+// PlayerTeleportingState
+// PlayerCutsceneState
+// PlayerFall
 
 // Idle
 public class PlayerIdleState : PlayerState {
@@ -48,6 +69,7 @@ public class PlayerIdleState : PlayerState {
     }
 
     public override void UpdateState() {
+        newPoint();
         if (config.Velocity != Vector3.zero) config.SlowDown(config.Deacceleration);
         CheckSwitchStates();
     }
@@ -83,15 +105,18 @@ public class PlayerRunningState : PlayerState {
     
     public override void UpdateState() {
         Move();
+        newPoint();
         CheckSwitchStates();
     }
 
     public override void ExitState() {
         // config.Speed = 0f;
         // config.Velocity = Vector3.zero;
+        config.resetPosition = returnPoint;
     }
 
     public override void CheckSwitchStates() {
+        if(!config.grounded) SwitchStates(factory.Falling());
         if ((config.Input.TonguePressed && tongue.heldObject == null) || (!config.Input.TongueHeld && tongue.heldObject != null)) SwitchStates(factory.TongueCharge());
         if (config.Speed == 0) SwitchStates(factory.Idle());
         else if(tongue.heldObject == null) {
@@ -148,15 +173,18 @@ public class PlayerTongueChargeState : PlayerState {
 
     public override void UpdateState() {
         config.SlowDown(config.Deacceleration);
+        newPoint();
         chargeTime = chargeTime + Time.deltaTime;
         CheckSwitchStates();
     }
 
     public override void ExitState() {
         config.Velocity = Vector3.zero;
+        config.resetPosition = returnPoint;
     }
 
     public override void CheckSwitchStates() {
+        if(!config.grounded) SwitchStates(factory.Falling());
         if (chargeTime >= totalChargeTime) SwitchStates(factory.Tongue());
     }
 }
@@ -184,6 +212,7 @@ public class PlayerTongueState : PlayerState {
     }
 
     public override void UpdateState() {
+        newPoint();
         if(!tongue.holdingObject) tongue.UpdateTongue();
         else tongue.spitObject();
         CheckSwitchStates();
@@ -216,15 +245,18 @@ public class PlayerGrabbingState : PlayerState {
     }
 
     public override void UpdateState() {
+        newPoint();
         tongue.PullPlayer();
         CheckSwitchStates();
     }
 
     public override void ExitState() {
         tongue.UnGrab();
+        config.resetPosition = returnPoint;
     }
 
     public override void CheckSwitchStates() {
+        if(!config.grounded) SwitchStates(factory.Falling());
         if (!config.Input.TongueHeld || tongue.autoRetract || config.Input.Move != Vector3.zero){
             SwitchStates(factory.Tongue());
         }
@@ -277,15 +309,18 @@ public class PlayerStaffState : PlayerState {
 
     public override void UpdateState() {
         config.SlowDown(config.Deacceleration);
+        newPoint();
         staff.UpdateStaff();
         CheckSwitchStates();
     }
 
     public override void ExitState() {
         config.staff.SetActive(false);
+        config.resetPosition = returnPoint;
     }
 
     public override void CheckSwitchStates() {
+        if(!config.grounded) SwitchStates(factory.Falling());
         if (staff.Done()) SwitchStates(factory.Idle());
     }
 }
@@ -309,15 +344,18 @@ public class PlayerKickChargeState : PlayerState {
 
     public override void UpdateState() {
         config.SlowDown(config.Deacceleration);
+        newPoint();
         chargeTime = chargeTime + Time.deltaTime;
         CheckSwitchStates();
     }
 
     public override void ExitState() {
         config.Velocity = Vector3.zero;
+        config.resetPosition = returnPoint;
     }
 
     public override void CheckSwitchStates() {
+        if(!config.grounded) SwitchStates(factory.Falling());
         if (!config.Input.KickHeld) {
             if (chargeTime < config.JumpChargeTime) SwitchStates(factory.Idle());
             else SwitchStates(factory.Kick());
@@ -346,15 +384,18 @@ public class PlayerKickState : PlayerState {
 
     public override void UpdateState() {
         config.SlowDown(config.Deacceleration*3);
+        newPoint();
         kick.UpdateKick();
         CheckSwitchStates();
     }
 
     public override void ExitState() {
         config.kick.SetActive(false);
+        config.resetPosition = returnPoint;
     }
 
     public override void CheckSwitchStates() {
+        if(!config.grounded) SwitchStates(factory.Falling());
         if (kick.Done()) SwitchStates(factory.Idle());
     }
 }
@@ -378,14 +419,18 @@ public class PlayerJumpChargeState : PlayerState {
 
     public override void UpdateState() {
         config.SlowDown(config.Deacceleration*2);
+        newPoint();
         chargeTime = chargeTime + Time.deltaTime;
         config.RotateSprite(config.Input.Aim);
         CheckSwitchStates();
     }
 
-    public override void ExitState(){}
+    public override void ExitState(){
+        config.resetPosition = returnPoint;
+    }
 
     public override void CheckSwitchStates() {
+        if(!config.grounded) SwitchStates(factory.Falling());
         if (!config.Input.JumpHeld) {
             if (chargeTime < config.JumpChargeTime) SwitchStates(factory.Idle());
             else SwitchStates(factory.Jump());
@@ -420,16 +465,20 @@ public class PlayerJumpState : PlayerState {
 
     public override void UpdateState() {
         Move();
+        newPoint();
         CheckSwitchStates();
     }
 
     public override void ExitState() {
         config.Speed = 0f;
         config.Velocity = Vector3.zero;
+        config.resetPosition = returnPoint;
     }
 
     public override void CheckSwitchStates() {
+        if(!config.grounded) SwitchStates(factory.Falling());
         if (finished) SwitchStates(factory.Idle());
+
     }
 
     public void Move() {
@@ -464,14 +513,17 @@ public class PlayerHurtState : PlayerState
         config.tongue.SetActive(false);
     }
 
-    public override void UpdateState()
-    {
+    public override void UpdateState(){
         config.SlowDown(config.RecoveryDeaccel);
+        newPoint();
         CheckSwitchStates();
     }
-    public override void ExitState(){}
+    public override void ExitState(){
+        config.resetPosition = returnPoint;
+    }
     public override void CheckSwitchStates(){
         if(config.Speed == 0) SwitchStates(factory.Idle());
+        if(!config.grounded) SwitchStates(factory.Falling());
     }
 }
 
@@ -487,12 +539,12 @@ public class PlayerDeadState : PlayerState
     public override void EnterState(){
         Debug.Log("You are dead :(");
     }
-    public override void UpdateState()
-    {
+    public override void UpdateState(){
         config.SlowDown(config.Deacceleration);
         CheckSwitchStates();
     }
-    public override void ExitState(){}
+    public override void ExitState(){
+    }
     public override void CheckSwitchStates(){
         InputHandler deadstate = config.GetComponent<InputHandler>();
         deadstate.DeathMap();
@@ -554,4 +606,42 @@ public class PlayerCutsceneState : PlayerState
     }
     public override void ExitState(){}
     public override void CheckSwitchStates(){}
+}
+
+// Falling
+public class PlayerFall : PlayerState
+{
+    private float _fallAnim;
+    public PlayerFall(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
+    : base(config, currentContext, stateFactory){
+        name = "PlayerFall";
+    }
+
+    public override void EnterState(){
+        _fallAnim = config.fallingAnimDuration;
+    }
+    public override void UpdateState(){
+        config.SlowDown(config.Deacceleration);
+        newPoint();
+        //Debug.Log(_fallAnim);
+        --_fallAnim;
+        CheckSwitchStates();
+    }
+    public override void ExitState(){
+        // GameObject.Find("PlayerCollision").SetActive(true);
+    }
+    public override void CheckSwitchStates(){
+        if (_fallAnim <= 0) {
+            config.Speed = 0;
+            config.Hit(config.fallDamage, 0, Vector3.zero, 0);
+            if(config.Health <= 0) {
+                SwitchStates(factory.Dead());
+            } else {
+                // Debug.Log("Reset: " + config.resetPosition);
+                config.gameObject.transform.position = config.resetPosition;
+                config.grounded = true;
+                SwitchStates(factory.Idle());
+            }
+        }
+    }
 }

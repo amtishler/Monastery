@@ -45,6 +45,7 @@ public class PlayerConfig : CharacterConfig {
     public float JumpTotalDist {get {return jumpTotalDist;}}
     
     public PlayerAnimator playerAnimator;
+    public Vector3 resetPosition;
 
     // Start method, called before the first frame update.
     protected override void _Start() {   

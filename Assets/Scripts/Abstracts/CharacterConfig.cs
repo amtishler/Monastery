@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public abstract class CharacterConfig : MonoBehaviour
 {
+    public bool grounded;
+
     // Base variables
     [System.NonSerialized]
     protected CircleCollider2D characterCollider;
@@ -31,9 +33,11 @@ public abstract class CharacterConfig : MonoBehaviour
     [SerializeField] protected float invincibleduration = 2f;
     [SerializeField] protected float knockbackmultiplier = 1f;
     [SerializeField] protected float invincibletimer;
+    [SerializeField] public float fallDamage = 0f;
 
     [Header("Sprites")]
     [SerializeField] protected Sprite[] moveSpriteList = new Sprite[4];
+    [SerializeField] public float fallingAnimDuration;
 
     [System.NonSerialized] public bool invincible;
     [System.NonSerialized] public bool projectile;
@@ -70,6 +74,7 @@ public abstract class CharacterConfig : MonoBehaviour
         directionMap[2] = Vector3.left;
         directionMap[3] = Vector3.down;
         health = maxHealth;
+        grounded = true;
         _Start();
     }
     

@@ -55,4 +55,7 @@ public class PlayerStateFactory : StateFactory {
     public State Cutscene() {
         return new PlayerCutsceneState(config, context, this);
     }
+    public State Falling() {
+        return new PlayerFall(config, context, this);
+    }
 }
