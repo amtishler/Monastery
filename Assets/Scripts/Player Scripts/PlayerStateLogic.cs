@@ -266,6 +266,7 @@ public class PlayerStaffState : PlayerState {
     }
 
     public override void EnterState() {
+        config.Velocity = config.Input.GetAim()*config.Speed;
         config.SlowDown(config.Deacceleration);
         Vector3 direction = config.Input.Aim;
         config.RotateSprite(direction);
