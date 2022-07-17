@@ -30,7 +30,7 @@ public class KickController : Attack {
     void OnEnable() {
         // Mouse direction calculation
         transform.position = playerconf.transform.position;
-        direction = GetComponentInParent<PlayerConfig>().Input.Aim;
+        direction = InputManager.Instance.Aim;
 
         // picking direction
         int angle = (int)Vector3.Angle(direction, Vector3.right);

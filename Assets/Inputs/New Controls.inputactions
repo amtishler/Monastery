@@ -27,7 +27,7 @@
                     "name": "Tongue",
                     "type": "Value",
                     "id": "cd606379-1628-4766-853c-c6c82f3436f2",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -63,7 +63,7 @@
                     "name": "Interact",
                     "type": "Value",
                     "id": "728a9300-1fcd-4764-9a87-63062e0a36a5",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true

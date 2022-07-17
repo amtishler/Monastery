@@ -7,7 +7,6 @@ using Cinemachine;
 public class CameraAim : MonoBehaviour
 {
     private CinemachineVirtualCamera cam;
-    private InputHandler input;
     private Gamepad gamepad;
 
     private Vector3 debugVec;
@@ -17,7 +16,6 @@ public class CameraAim : MonoBehaviour
 
     public void Start() {
         cam = GetComponent<CinemachineVirtualCamera>();
-        input = GetComponentInParent<InputHandler>();
         gamepad = Gamepad.current;
     }
 
@@ -26,7 +24,7 @@ public class CameraAim : MonoBehaviour
         //Debug.DrawLine(gamepad.rightStick.ReadValue(), player.transform.position, Color.yellow);
         // Debug.Log(player.transform.localPosition);
         if (cam.Priority == 10) {
-            if (!input.UsingController()) { 
+            if (!InputManager.Instance.UsingController()) { 
                 cam.transform.localPosition = GetMouseInfluence();
             } else {
                 cam.transform.localPosition = GetStickInfluence();

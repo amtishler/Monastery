@@ -29,11 +29,9 @@ public class PlayerConfig : CharacterConfig {
 
     // Private fields
     private Camera mainCamera;
-    private InputHandler input;
     private float currentAttackCooldown;
 
     // Getters & Setters
-    public InputHandler Input {get {return input;}}
     public float AttackCooldown {get {return attackCooldown;}}
     public float AttackDeaccel {get {return attackDeaccel;}}
     public float CurrentAttackCooldown {get {return currentAttackCooldown;}}
@@ -51,7 +49,6 @@ public class PlayerConfig : CharacterConfig {
     // Start method, called before the first frame update.
     protected override void _Start() {   
         mainCamera = Camera.main;
-        input = GetComponentInParent<InputHandler>();
         playerAnimator = GetComponent<PlayerAnimator>();
     }
 

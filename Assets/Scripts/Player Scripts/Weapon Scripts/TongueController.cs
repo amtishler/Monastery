@@ -68,7 +68,7 @@ public class TongueController : MonoBehaviour {
 
         // Checking if tongue is still going out
         if (extending) {
-            if (!config.Input.TongueHeld) {
+            if (!InputManager.Instance.TongueHeld) {
                 speed = deacceleration*Time.deltaTime;
                 StopExtending();
                 // retractAccelFactor
@@ -136,7 +136,7 @@ public class TongueController : MonoBehaviour {
         heldObject.transform.SetParent(null);
         heldObject.SetActive(true);
 
-        direction = config.Input.Aim;
+        direction = InputManager.Instance.Aim;
 
         if(heldconf != null)
         {
@@ -247,7 +247,7 @@ public class TongueController : MonoBehaviour {
         // Direction & position of tongue
         SetSpawn(config.transform.position);
         SetEndpoint();
-        direction = config.Input.Aim;
+        direction = InputManager.Instance.Aim;
 
         // Save axis to base rotatin on
         tongueAxis = GetAxis(config.GetAngle(direction));

@@ -19,7 +19,6 @@ public class DebugManager : MonoBehaviour
 
     // Player refs
     private GameObject player;
-    private InputHandler inputHandler;
     private PlayerConfig playerConfig;
     private PlayerStateMachine playerStateMachine;
     private PlayerAnimator playerAnimator;
@@ -57,7 +56,6 @@ public class DebugManager : MonoBehaviour
 
         // Player refs
         player = GameObject.FindGameObjectWithTag("Player");
-        inputHandler = player.GetComponent<InputHandler>();
         playerConfig = player.GetComponent<PlayerConfig>();
         playerStateMachine = player.GetComponent<PlayerStateMachine>();
         playerAnimator = player.GetComponent<PlayerAnimator>();

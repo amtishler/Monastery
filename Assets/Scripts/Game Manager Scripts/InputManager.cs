@@ -25,7 +25,15 @@ public class Button {
 }
 
 // Input Handler
-public class InputHandler : MonoBehaviour{
+public class InputManager : MonoBehaviour{
+
+    private static InputManager _instance;
+    public static InputManager Instance {
+        get {
+            if (_instance == null) Debug.Log("Input Manager is Null");
+            return _instance;
+        }
+    }
 
     private PlayerConfig config;
 
@@ -69,17 +77,16 @@ public class InputHandler : MonoBehaviour{
 
 
     // On Start
-    private void Start() {
-
+    private void Awake() {
         if (InputSystem.GetDevice<Gamepad>() != null) usingController = true;
         else usingController = false;
 
-        messages = GameManager.Instance.GetTutorialMessages();
-        tutorialActive = messages.tutorial;
+        // messages = GameManager.Instance.GetTutorialMessages();
+        // tutorialActive = messages.tutorial;
         // Debug.Log(messages.controller[0] + " -- " + messages.keyboard[0]);
         
-        config = GetComponentInParent<PlayerConfig>();
-        playerInput = GetComponent<PlayerInput>();
+        config = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerConfig>();
+        playerInput = GetComponentInParent<PlayerInput>();
 
         move = Vector3.zero;
         aim = Vector3.zero;
@@ -92,6 +99,8 @@ public class InputHandler : MonoBehaviour{
         debugMenu = new Button();
 
         inputText = "";
+
+        _instance = this;
     }
 
     // Makes sure "pressed" is set to false if somebody just holds the button down.

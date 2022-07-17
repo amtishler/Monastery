@@ -73,7 +73,7 @@ public class PlayerIdleState : PlayerState {
         if (config.Velocity != Vector3.zero) config.SlowDown(config.Deacceleration);
         CheckSwitchStates();
         // DELETE THIS
-        if (config.Input.InteractPressed) {
+        if (InputManager.Instance.InteractPressed) {
             DialogueManager.Instance.Play(config.text);
         }
     }
@@ -81,12 +81,12 @@ public class PlayerIdleState : PlayerState {
     public override void ExitState() {}
 
     public override void CheckSwitchStates() {
-        if ((config.Input.TonguePressed && tongue.heldObject == null) || (!config.Input.TongueHeld && tongue.heldObject != null)) SwitchStates(factory.TongueCharge());
-        if (config.Input.Move != Vector3.zero) SwitchStates(factory.Running());
+        if ((InputManager.Instance.TonguePressed && tongue.heldObject == null) || (!InputManager.Instance.TongueHeld && tongue.heldObject != null)) SwitchStates(factory.TongueCharge());
+        if (InputManager.Instance.Move != Vector3.zero) SwitchStates(factory.Running());
         else if(tongue.heldObject == null) {
-            if (config.Input.StaffPressed) SwitchStates(factory.Staff());
-            else if (config.Input.KickPressed) SwitchStates(factory.KickCharge());
-            else if (config.Input.JumpPressed) SwitchStates(factory.JumpCharge());
+            if (InputManager.Instance.StaffPressed) SwitchStates(factory.Staff());
+            else if (InputManager.Instance.KickPressed) SwitchStates(factory.KickCharge());
+            else if (InputManager.Instance.JumpPressed) SwitchStates(factory.JumpCharge());
         }
     }
 }
@@ -121,12 +121,12 @@ public class PlayerRunningState : PlayerState {
 
     public override void CheckSwitchStates() {
         if(!config.grounded) SwitchStates(factory.Falling());
-        if ((config.Input.TonguePressed && tongue.heldObject == null) || (!config.Input.TongueHeld && tongue.heldObject != null)) SwitchStates(factory.TongueCharge());
+        if ((InputManager.Instance.TonguePressed && tongue.heldObject == null) || (!InputManager.Instance.TongueHeld && tongue.heldObject != null)) SwitchStates(factory.TongueCharge());
         if (config.Speed == 0) SwitchStates(factory.Idle());
         else if(tongue.heldObject == null) {
-            if (config.Input.StaffPressed) SwitchStates(factory.Staff());
-            else if (config.Input.KickPressed) SwitchStates(factory.KickCharge());
-            else if (config.Input.JumpPressed) SwitchStates(factory.JumpCharge());
+            if (InputManager.Instance.StaffPressed) SwitchStates(factory.Staff());
+            else if (InputManager.Instance.KickPressed) SwitchStates(factory.KickCharge());
+            else if (InputManager.Instance.JumpPressed) SwitchStates(factory.JumpCharge());
         }
     }
 
@@ -134,7 +134,7 @@ public class PlayerRunningState : PlayerState {
     public void Move() {
 
         // finding direction
-        Vector3 targetDir = config.Input.Move;
+        Vector3 targetDir = InputManager.Instance.Move;
 
         // moving
         if (targetDir == Vector3.zero) {
@@ -206,7 +206,7 @@ public class PlayerTongueState : PlayerState {
 
     public override void EnterState() {
         tongue = config.tongue.GetComponent<TongueController>();
-        Vector3 direction = config.Input.Aim;
+        Vector3 direction = InputManager.Instance.Aim;
         config.RotateSprite(direction);
 
         if(!tongue.holdingObject) {
@@ -261,7 +261,7 @@ public class PlayerGrabbingState : PlayerState {
 
     public override void CheckSwitchStates() {
         if(!config.grounded) SwitchStates(factory.Falling());
-        if (!config.Input.TongueHeld || tongue.autoRetract || config.Input.Move != Vector3.zero){
+        if (!InputManager.Instance.TongueHeld || tongue.autoRetract || InputManager.Instance.Move != Vector3.zero){
             SwitchStates(factory.Tongue());
         }
     }
@@ -270,7 +270,7 @@ public class PlayerGrabbingState : PlayerState {
     public void Move() {
 
         // finding direction
-        Vector3 targetDir = config.Input.Move;
+        Vector3 targetDir = InputManager.Instance.Move;
 
         float distancetoobj = Vector3.Distance(tongue.transform.position, config.transform.position);
 
@@ -302,9 +302,9 @@ public class PlayerStaffState : PlayerState {
     }
 
     public override void EnterState() {
-        config.Velocity = config.Input.GetAim()*config.Speed;
+        config.Velocity = InputManager.Instance.GetAim()*config.Speed;
         config.SlowDown(config.Deacceleration);
-        Vector3 direction = config.Input.Aim;
+        Vector3 direction = InputManager.Instance.Aim;
         config.RotateSprite(direction);
         config.playerAnimator.UpdateStaffAnimation();
         staff = config.staff.GetComponent<StaffController>();
@@ -360,7 +360,7 @@ public class PlayerKickChargeState : PlayerState {
 
     public override void CheckSwitchStates() {
         if(!config.grounded) SwitchStates(factory.Falling());
-        if (!config.Input.KickHeld) {
+        if (!InputManager.Instance.KickHeld) {
             if (chargeTime < config.JumpChargeTime) SwitchStates(factory.Idle());
             else SwitchStates(factory.Kick());
         }
@@ -379,7 +379,7 @@ public class PlayerKickState : PlayerState {
 
     public override void EnterState() {
         config.SlowDown(config.Deacceleration*3);
-        Vector3 direction = config.Input.Aim;
+        Vector3 direction = InputManager.Instance.Aim;
         kick = config.kick.GetComponent<KickController>();
         config.kick.SetActive(true);
         config.RotateSprite(direction);
@@ -425,7 +425,7 @@ public class PlayerJumpChargeState : PlayerState {
         config.SlowDown(config.Deacceleration*2);
         newPoint();
         chargeTime = chargeTime + Time.deltaTime;
-        config.RotateSprite(config.Input.Aim);
+        config.RotateSprite(InputManager.Instance.Aim);
         CheckSwitchStates();
     }
 
@@ -435,7 +435,7 @@ public class PlayerJumpChargeState : PlayerState {
 
     public override void CheckSwitchStates() {
         if(!config.grounded) SwitchStates(factory.Falling());
-        if (!config.Input.JumpHeld) {
+        if (!InputManager.Instance.JumpHeld) {
             if (chargeTime < config.JumpChargeTime) SwitchStates(factory.Idle());
             else SwitchStates(factory.Jump());
         }
@@ -460,7 +460,7 @@ public class PlayerJumpState : PlayerState {
         finished = false;
         totalDist = config.JumpTotalDist;
         currentDist = 0f;
-        direction = config.Input.Aim;
+        direction = InputManager.Instance.Aim;
         Debug.Log(direction);
         config.RotateSprite(direction);
         Move();
@@ -550,9 +550,8 @@ public class PlayerDeadState : PlayerState
     public override void ExitState(){
     }
     public override void CheckSwitchStates(){
-        InputHandler deadstate = config.GetComponent<InputHandler>();
-        deadstate.DeathMap();
-        if (config.Input.ResetPressed){
+        InputManager.Instance.DeathMap();
+        if (InputManager.Instance.ResetPressed){
             GameManager.Instance.ReloadScene();
         }
     }
