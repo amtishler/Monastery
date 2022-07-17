@@ -147,6 +147,10 @@ public class InputHandler : MonoBehaviour{
         //inputText = "Reseting";
     }
 
+    private void OnInteract(InputValue value) {
+        interact.SetValue(value.isPressed);
+    }
+
     private void OnDebugMenu(InputValue value) {
         debugMenu.SetValue(value.isPressed);
         //inputText = "Turning on debug";

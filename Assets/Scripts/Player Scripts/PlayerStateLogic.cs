@@ -72,6 +72,10 @@ public class PlayerIdleState : PlayerState {
         newPoint();
         if (config.Velocity != Vector3.zero) config.SlowDown(config.Deacceleration);
         CheckSwitchStates();
+        // DELETE THIS
+        if (config.Input.InteractPressed) {
+            DialogueManager.Instance.Play(config.text);
+        }
     }
 
     public override void ExitState() {}
