@@ -8,7 +8,6 @@ using FMOD.Studio;
 public class PlayerConfig : CharacterConfig {
 
     // Serialized Fields
-    [SerializeField] public TextAsset text;  // DELETE THIS
     [Header("Tongue")]
     [SerializeField] float tongueMaxSpeed = 6.0f;
 

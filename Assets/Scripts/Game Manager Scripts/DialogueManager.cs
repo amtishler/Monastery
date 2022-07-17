@@ -40,6 +40,7 @@ public class DialogueManager : MonoBehaviour{
     // Notice that running is set to true outside of the corroutine but needs
     // to be set to false from inside the coroutine.
     public void Play(TextAsset dialogue) {
+        if (running == true) {return;}
         running = true;
         player.GetComponent<PlayerStateMachine>().BeginCutscene();
         dialogueBox.SetActive(true);
@@ -83,6 +84,7 @@ public class DialogueManager : MonoBehaviour{
         dialogueBox.SetActive(false);
         running = false;
         player.GetComponent<PlayerStateMachine>().EndCutscene();
+        yield return 0;
     }
 
 

@@ -72,10 +72,6 @@ public class PlayerIdleState : PlayerState {
         newPoint();
         if (config.Velocity != Vector3.zero) config.SlowDown(config.Deacceleration);
         CheckSwitchStates();
-        // DELETE THIS
-        if (InputManager.Instance.InteractPressed) {
-            DialogueManager.Instance.Play(config.text);
-        }
     }
 
     public override void ExitState() {}
@@ -602,7 +598,9 @@ public class PlayerCutsceneState : PlayerState
         name = "PlayerCutscene";
     }
 
-    public override void EnterState(){}
+    public override void EnterState(){
+        config.Velocity = Vector3.zero;
+    }
     public override void UpdateState() {
         CheckSwitchStates();
     }
