@@ -14,6 +14,7 @@ public abstract class State {
 
     // Switches to new state
     public void SwitchStates(State newState) {
+        ctx.previousState = this;
         ExitState();
         newState.EnterState();
         ctx.currentState = newState;

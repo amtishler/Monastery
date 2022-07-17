@@ -23,4 +23,12 @@ public class PlayerStateMachine : StateMachine
     {
         currentState.SwitchStates(states.Dead());
     }
+
+    public void BeginCutscene() {
+        currentState.SwitchStates(states.Cutscene());
+    }
+
+    public void EndCutscene() {
+        currentState.SwitchStates(previousState);
+    }
 }

@@ -7,20 +7,24 @@ using UnityEngine.InputSystem;
 public class Button {
 
     private bool pressed;
+    private bool pressedBuffer;
     private bool held;
     public bool Pressed {get {return pressed;}}
     public bool Held {get {return held;}}
 
     public Button() {
         pressed = false;
+        pressedBuffer = false;
         held = false;
     }
     public void SetValue(bool isDown) {
         held = isDown;
         pressed = isDown;
+        pressedBuffer = isDown;
     }
     public void Update() {
-        pressed = false;
+        pressed = pressedBuffer;
+        pressedBuffer = false;
     }
 }
 
