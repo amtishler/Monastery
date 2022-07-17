@@ -43,6 +43,7 @@ public class InputHandler : MonoBehaviour{
     private Button kick;
     private Button jump;
     private Button reset;
+    private Button interact;
     private Button debugMenu;
 
     // Getters & Setters
@@ -58,6 +59,8 @@ public class InputHandler : MonoBehaviour{
     public bool JumpHeld {get {return jump.Held;}}
     public bool ResetPressed {get {return reset.Pressed;}}
     public bool ResetHeld {get {return reset.Held;}}
+    public bool InteractPressed {get {return interact.Pressed;}}
+    public bool InteractHeld {get {return interact.Held;}}
     public bool DebugMenuPressed {get {return debugMenu.Pressed;}}
     public bool DebugMenuHeld {get {return debugMenu.Held;}}
     
@@ -85,6 +88,7 @@ public class InputHandler : MonoBehaviour{
         kick = new Button();
         jump = new Button();
         reset = new Button();
+        interact = new Button();
         debugMenu = new Button();
 
         inputText = "";
@@ -98,6 +102,7 @@ public class InputHandler : MonoBehaviour{
         staff.Update();
         kick.Update();
         jump.Update();
+        interact.Update();
     }
 
     private void OnControlsChanged() {
