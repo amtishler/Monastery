@@ -107,8 +107,11 @@ MonoBehaviour:
   knockbackmultiplier: 0
   minimumSpeed: 0
   drop: {fileID: 8812492887654432392, guid: ed364ff087b788c4188787960c5ab57a, type: 3}
-  maxdrops: 0
+  maxdrops: 2
   dropused: 0
+  childdrop: {fileID: 0}
+  dropy: -2
+  dropx: 2
 --- !u!61 &3748316753382805021
 BoxCollider2D:
   m_ObjectHideFlags: 0
