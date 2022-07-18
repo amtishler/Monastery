@@ -5,25 +5,80 @@ using UnityEngine.UI;
 
 public class HealthManager : MonoBehaviour {
 
-    private PlayerConfig config;
-    [SerializeField] GameObject health;
+    const int WIDTH = 356;
+    const int HEIGHT = 24;
+    const int SHINE_WIDTH = 368;
+    const int SHINE_HEIGHT = 32;
 
-    private Vector2 defaultHealthDim;
+    [Header("Objects")]
+    [SerializeField] GameObject health;
+    [SerializeField] Sprite green;
+    [SerializeField] Sprite yellow;
+    [SerializeField] Sprite orange;
+    [SerializeField] Sprite red;
+    [Header("Variables")]
+    [SerializeField] float healthBarSpeed;
+    [SerializeField] float damageBarSpeed;
+    [SerializeField] float yellowBreakpoint;
+    [SerializeField] float orangeBreakpoint;
+    [SerializeField] float redBreakpoint;
+    private PlayerConfig config;
+    private RectTransform healthBar;
+    private RectTransform shineBar;
+    private RectTransform damageBar;
+    private Image color;
+    private float currentHealth;
+    private float currentDamage;
+    private float playerHealth;
 
     // Start is called before the first frame update
     void Start() {
         config = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerConfig>();
-        defaultHealthDim = health.GetComponent<RectTransform>().sizeDelta;
+        Debug.Log(transform==null);
+        Transform bar = transform.Find("Health");
+        healthBar = bar.Find("healthBar").GetComponent<RectTransform>();
+        shineBar  = bar.Find("shine").GetComponent<RectTransform>();
+        damageBar = bar.Find("damageBar").GetComponent<RectTransform>();
+        color = bar.Find("healthBar").GetComponent<Image>();
     }
 
     // Update is called once per frame
     void Update() {
-        UpdateHealth();
-    }
+        playerHealth = Mathf.Round((config.Health / config.MaxHealth)*WIDTH);
+        currentHealth = healthBar.sizeDelta[0];
+        currentDamage = damageBar.sizeDelta[0];
 
-    private void UpdateHealth() {
-        RectTransform bar = health.GetComponent<RectTransform>();
-        float barScale = config.Health / config.MaxHealth;
-        bar.sizeDelta = new Vector2(defaultHealthDim.x*barScale, defaultHealthDim.y);
+        // Scaling health bar
+        if (currentHealth < playerHealth) {
+            currentHealth = currentHealth + healthBarSpeed*Time.deltaTime;
+            Debug.Log(currentHealth);
+            if (currentHealth > playerHealth) currentHealth = playerHealth;
+        } else if (currentHealth > playerHealth) {
+            currentHealth = currentHealth - healthBarSpeed*Time.deltaTime;
+            if (currentHealth < playerHealth) currentHealth = playerHealth;
+        }
+        // scaling damage bar
+        if (currentDamage > playerHealth) {
+            currentDamage = currentDamage - damageBarSpeed*Time.deltaTime;
+        } if (currentDamage < playerHealth) currentDamage = playerHealth;
+
+        healthBar.sizeDelta = new Vector2(currentHealth, HEIGHT);
+        shineBar.sizeDelta  = new Vector2(currentHealth*SHINE_WIDTH/WIDTH, SHINE_HEIGHT);
+        damageBar.sizeDelta = new Vector2(currentDamage, HEIGHT);
+
+        
+
+        // Changing colors
+        if (playerHealth < WIDTH*redBreakpoint) {
+            color.sprite = red; return;
+        }
+        if (playerHealth < WIDTH*orangeBreakpoint) {
+            color.sprite = orange; return;
+        }
+        if (playerHealth < WIDTH*yellowBreakpoint) {
+            color.sprite = yellow; return;
+        } else {
+            color.sprite = green;
+        }
     }
 }
