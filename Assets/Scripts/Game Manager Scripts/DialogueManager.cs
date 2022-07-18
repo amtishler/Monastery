@@ -13,10 +13,10 @@ public class DialogueManager : MonoBehaviour{
         }
     }
     [SerializeField] GameObject dialogueBox;
+    [SerializeField] float dialogueSpeed;
     private TMP_Text speaker;
     private TMP_Text body;
     private GameObject player;
-    [SerializeField] float dialogueSpeed;
 
     // Coroutine variables
     private bool running;
