@@ -12,7 +12,7 @@ public class DialogueManager : MonoBehaviour{
             return _instance;
         }
     }
-    private GameObject dialogueBox;
+    [SerializeField] GameObject dialogueBox;
     private TMP_Text speaker;
     private TMP_Text body;
     private GameObject player;
@@ -26,7 +26,6 @@ public class DialogueManager : MonoBehaviour{
 
     // Awake Method, when game starts
     private void Awake() {
-        dialogueBox = transform.Find("DialogueBox").gameObject;
         speaker = dialogueBox.transform.Find("Speaker").GetComponentInChildren<TMP_Text>();
         body = dialogueBox.transform.Find("Body").GetComponentInChildren<TMP_Text>();
         player = GameObject.FindGameObjectWithTag("Player");
@@ -84,7 +83,6 @@ public class DialogueManager : MonoBehaviour{
         dialogueBox.SetActive(false);
         running = false;
         player.GetComponent<PlayerStateMachine>().EndCutscene();
-        yield return 0;
     }
 
 

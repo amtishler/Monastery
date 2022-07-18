@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour {
+public class HealthManager : MonoBehaviour {
 
-    [SerializeField] PlayerConfig config;
+    private PlayerConfig config;
     [SerializeField] GameObject health;
 
     private Vector2 defaultHealthDim;
 
     // Start is called before the first frame update
     void Start() {
+        config = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerConfig>();
         defaultHealthDim = health.GetComponent<RectTransform>().sizeDelta;
     }
 

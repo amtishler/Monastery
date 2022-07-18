@@ -533,7 +533,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6408f85cf63c3994bb4a9bb5e0534f1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  config: {fileID: 0}
   health: {fileID: 5526066708126918467}
 --- !u!114 &3662923278171375374
 MonoBehaviour:
@@ -547,6 +546,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6312576fd7cb150418133f6af2ec4762, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogueBox: {fileID: 7653693426302242695}
   dialogueSpeed: 0.05
 --- !u!1 &7653693426302242695
 GameObject:
