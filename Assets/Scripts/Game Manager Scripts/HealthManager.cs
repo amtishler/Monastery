@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class HealthManager : MonoBehaviour {
 
-    const int WIDTH = 356;
-    const int HEIGHT = 24;
-    const int SHINE_WIDTH = 368;
-    const int SHINE_HEIGHT = 32;
+    const float WIDTH = 11.125f;
+    const float HEIGHT = 0.75f;
+    const float SHINE_WIDTH = 11.5f;
+    const float SHINE_HEIGHT = 1f;
 
     [Header("Objects")]
     [SerializeField] GameObject health;
@@ -44,7 +44,7 @@ public class HealthManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        playerHealth = Mathf.Round((config.Health / config.MaxHealth)*WIDTH);
+        playerHealth = (config.Health / config.MaxHealth)*WIDTH;
         currentHealth = healthBar.sizeDelta[0];
         currentDamage = damageBar.sizeDelta[0];
 
@@ -80,5 +80,6 @@ public class HealthManager : MonoBehaviour {
         } else {
             color.sprite = green;
         }
+        Debug.Log(playerHealth);
     }
 }
