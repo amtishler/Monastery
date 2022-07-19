@@ -49,4 +49,8 @@ public class EnemyStateFactory : StateFactory
         return new EnemyProjectileState(config, currentContext, this);
     }
 
+    public State Falling() {
+        return new EnemyFallingState(config, currentContext, this);
+    }
+
 }

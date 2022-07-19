@@ -11,6 +11,7 @@ public class ProjectileObject : InteractableObject
 
     public float projectilespeed = 10.0f;
     private bool isProjectile;
+    // private float duration = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +36,10 @@ public class ProjectileObject : InteractableObject
                 gameObject.layer = LayerMask.NameToLayer("Object Hurtbox");
             }
         }
+        // if (this.gameObject.GetComponent<Rigidbody2D>().gravityScale == 1f) {
+        //     duration += Time.deltaTime;
+        //     if (duration >= 5f) Destroy(this);
+        // }
     }
 
     public override void OnHit(Vector3 dir, float mag)

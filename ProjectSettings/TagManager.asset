@@ -26,7 +26,7 @@ TagManager:
   - Enemy Wall Collision
   - Collectible Hitbox
   - Boundary
-  - 
+  - Object Wall Collision
   - 
   - 
   - 
@@ -45,8 +45,11 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Background Trees
+  - name: Background
     uniqueID: 4058098473
+    locked: 0
+  - name: Interactable Objects
+    uniqueID: 3606707
     locked: 0
   - name: Player
     uniqueID: 2503301929
@@ -54,11 +57,8 @@ TagManager:
   - name: PlayerFeatures
     uniqueID: 2385895333
     locked: 0
-  - name: Foreground Trees
+  - name: Foreground
     uniqueID: 376176415
-    locked: 0
-  - name: Interactable Objects
-    uniqueID: 3606707
     locked: 0
   - name: Ambience
     uniqueID: 3200001477

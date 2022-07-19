@@ -9,15 +9,15 @@ public class GroundDetection : MonoBehaviour
 {
     [SerializeField] private CompositeCollider2D ground;
     [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private bool isGrounded;
-
+    // [SerializeField] private Rigidbody2D projectile;
+    private bool isGrounded;
 
     private void Awake() {
         ground = GetComponent<CompositeCollider2D>();
         rb = GetComponent<Rigidbody2D>();
     }
 
-    private void FixedUpdate() {
+    private void Update() {
         isGrounded = false;
     }
 
@@ -31,24 +31,10 @@ public class GroundDetection : MonoBehaviour
             character.grounded = false;
             Debug.Log("**Exit Detected**");
         } else {
+            // projectile = hitbox.gameObject.GetComponent<Rigidbody2D>();
+            // projectile.gravityScale += 1f;
+            // projectile.GetComponentInParent<SpriteRenderer>().sortingLayerName = "Default";
             Debug.Log("**character is null**");
         }
     }
-
-    // private void OnTriggerStay2D(Collider2D hitbox) {
-    //     CharacterConfig character = hitbox.gameObject.GetComponentInParent<CharacterConfig>();
-    //     if (character != null) {
-    //         onGround = true;
-    //     }
-    // }
-
-        // private void OnTriggerExit2D(Collider2D hitbox) {
-        //     CharacterConfig character = hitbox.gameobject.GetComponent<CharacterConfig>();
-        //     if (character != null) {
-        //         character.grounded = false;
-        //         Debug.Log("**Exit Detected**");
-        //     } else {
-        //         Debug.Log("**character is null**");
-        //     }
-        // }
 }

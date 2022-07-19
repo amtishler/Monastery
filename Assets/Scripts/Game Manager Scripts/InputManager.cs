@@ -85,9 +85,8 @@ public class InputManager : MonoBehaviour{
         if (InputSystem.GetDevice<Gamepad>() != null) usingController = true;
         else usingController = false;
 
-        // messages = GameManager.Instance.GetTutorialMessages();
-        // tutorialActive = messages.tutorial;
-        // Debug.Log(messages.controller[0] + " -- " + messages.keyboard[0]);
+        messages = GameManager.Instance.GetTutorialMessages();
+        tutorialActive = messages.tutorial;
         
         config = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerConfig>();
         playerInput = GetComponentInParent<PlayerInput>();

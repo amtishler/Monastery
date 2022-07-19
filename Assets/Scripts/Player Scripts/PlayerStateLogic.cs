@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 /* ====================
       SUPERCLASSES
@@ -22,10 +23,10 @@ public abstract class PlayerState : State {
 
     //Helper function
 protected void newPoint() {
-    --updatePoint;
+    updatePoint -= Time.deltaTime;
     if (updatePoint <= 0 && config.grounded) {
         returnPoint = config.gameObject.transform.position;
-        updatePoint = 100f;
+        updatePoint = 0.5f;
     }
     //Debug.Log(returnPoint);
 }
@@ -612,6 +613,9 @@ public class PlayerCutsceneState : PlayerState
 public class PlayerFall : PlayerState
 {
     private float _fallAnim;
+    private Rigidbody2D character;
+    private CinemachineVirtualCamera cam;
+    private Vector3 offset;
     public PlayerFall(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
     : base(config, currentContext, stateFactory){
         name = "PlayerFall";
@@ -619,16 +623,25 @@ public class PlayerFall : PlayerState
 
     public override void EnterState(){
         _fallAnim = config.fallingAnimDuration;
+        config.GetComponent<SpriteRenderer>().sortingLayerName = "Default";
+        character = config.GetComponent<Rigidbody2D>();
+        cam = config.GetComponentInChildren<CinemachineVirtualCamera>();
+        offset = new Vector3(0, 0, -10);
     }
     public override void UpdateState(){
-        config.SlowDown(config.Deacceleration);
+        config.SlowDown(config.Deacceleration/10f);
         newPoint();
-        //Debug.Log(_fallAnim);
-        --_fallAnim;
+        _fallAnim -= Time.deltaTime;
+        character.gravityScale += Time.deltaTime*30f;
+        if (offset.y < 1f) offset.y += Time.deltaTime;
+        else offset.y += Time.deltaTime*3f;
+        cam.GetComponent<CinemachineCameraOffset>().m_Offset = offset;
         CheckSwitchStates();
     }
     public override void ExitState(){
-        // GameObject.Find("PlayerCollision").SetActive(true);
+        config.GetComponent<SpriteRenderer>().sortingLayerName = "Player";
+        character.gravityScale = 0f;
+        cam.GetComponent<CinemachineCameraOffset>().m_Offset = Vector3.zero;
     }
     public override void CheckSwitchStates(){
         if (_fallAnim <= 0) {

@@ -365,7 +365,7 @@
                 {
                     "name": "",
                     "id": "9c4db411-8196-4813-b3c5-ec60552975e4",
-                    "path": "<Keyboard>/enter",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard & Mouse",

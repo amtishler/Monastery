@@ -200,6 +200,7 @@ public class EnemyHurtState : EnemyState {
     public override void ExitState() {}
 
     public override void CheckSwitchStates(){
+        if(!config.grounded) SwitchStates(factory.Falling());
         if(config.Speed == 0){
             if(config.target != null) SwitchStates(factory.Aggressive());
             else SwitchStates(factory.Idle());
@@ -294,6 +295,7 @@ public class EnemyStunnedState : EnemyState {
 
     public override void CheckSwitchStates() {
         if(config.grabbed) SwitchStates(factory.Grabbed());
+        if(!config.grounded) SwitchStates(factory.Falling());
     }
 }
 
@@ -335,12 +337,44 @@ public class EnemyProjectileState : EnemyState {
     }
 
     public override void CheckSwitchStates(){
+        if(!config.grounded) SwitchStates(factory.Falling());
         if(config.Speed == 0 && config.target != null){
             SwitchStates(factory.Aggressive());
         }
         else if(config.Speed == 0){
             SwitchStates(factory.Idle());
         }
+    }
+}
+
+// Falling
+public class EnemyFallingState : EnemyState
+{
+    private float _fallAnim;
+    private Rigidbody2D character;
+    public EnemyFallingState(EnemyConfig config, EnemyStateMachine currentContext, EnemyStateFactory stateFactory)
+    : base(config, currentContext, stateFactory){
+        name = "EnemyFallingState";
+    }
+
+    public override void EnterState(){
+        _fallAnim = config.fallingAnimDuration;
+        config.GetComponent<SpriteRenderer>().sortingLayerName = "Default";
+        character = config.GetComponent<Rigidbody2D>();
+        config.Hit(config.fallDamage, 0, Vector3.zero, 0);
+    }
+    public override void UpdateState(){
+        // config.SlowDown(config.Deacceleration/10f);
+        _fallAnim -= Time.deltaTime;
+        character.gravityScale += Time.deltaTime*2f;
+        CheckSwitchStates();
+    }
+    public override void ExitState(){
+        config.GetComponent<SpriteRenderer>().sortingLayerName = "Player";
+        character.gravityScale = 0f;
+    }
+    public override void CheckSwitchStates(){
+        if (_fallAnim <= 0) SwitchStates(factory.Dead());
     }
 }
 

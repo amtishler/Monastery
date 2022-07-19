@@ -80,6 +80,6 @@ public class HealthManager : MonoBehaviour {
         } else {
             color.sprite = green;
         }
-        Debug.Log(playerHealth);
+        //Debug.Log(playerHealth);
     }
 }
