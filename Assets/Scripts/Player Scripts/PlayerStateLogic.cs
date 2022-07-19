@@ -220,7 +220,9 @@ public class PlayerTongueState : PlayerState {
         CheckSwitchStates();
     }
 
-    public override void ExitState() {}
+    public override void ExitState() {
+        config.Speed = 0f;
+    }
 
     public override void CheckSwitchStates() {
         if (tongue.CheckIfFinished()) {
