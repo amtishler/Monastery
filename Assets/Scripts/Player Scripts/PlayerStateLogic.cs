@@ -186,7 +186,6 @@ public class PlayerTongueChargeState : PlayerState {
     }
 
     public override void CheckSwitchStates() {
-        if(!config.grounded) SwitchStates(factory.Falling());
         if (chargeTime >= totalChargeTime) SwitchStates(factory.Tongue());
     }
 }
@@ -261,7 +260,6 @@ public class PlayerGrabbingState : PlayerState {
     }
 
     public override void CheckSwitchStates() {
-        if(!config.grounded) SwitchStates(factory.Falling());
         if (!InputManager.Instance.TongueHeld || tongue.autoRetract || InputManager.Instance.Move != Vector3.zero){
             SwitchStates(factory.Tongue());
         }

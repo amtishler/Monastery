@@ -21,6 +21,11 @@ public class GroundDetection : MonoBehaviour
         isGrounded = false;
     }
 
+    private void OnTriggerEnter2D(Collider2D hitbox) {
+        CharacterConfig character = hitbox.gameObject.GetComponentInParent<CharacterConfig>();
+        if (character != null) character.grounded = true;
+    }
+
     private void OnTriggerStay2D(Collider2D hitbox) {
         isGrounded = true;
     }
