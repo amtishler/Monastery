@@ -5,8 +5,6 @@ using UnityEngine.InputSystem;
 
 public abstract class CharacterConfig : MonoBehaviour
 {
-    public bool grounded;
-
     // Base variables
     [System.NonSerialized]
     protected CircleCollider2D characterCollider;
@@ -37,7 +35,11 @@ public abstract class CharacterConfig : MonoBehaviour
 
     [Header("Sprites")]
     [SerializeField] protected Sprite[] moveSpriteList = new Sprite[4];
+
+    [Header("Falling Values")]
     [SerializeField] public float fallingAnimDuration;
+    [SerializeField] public float gravity;
+    [SerializeField] public bool grounded;
 
     [System.NonSerialized] public bool invincible;
     [System.NonSerialized] public bool projectile;

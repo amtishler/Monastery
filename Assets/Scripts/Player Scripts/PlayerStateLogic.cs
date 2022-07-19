@@ -627,14 +627,16 @@ public class PlayerFall : PlayerState
         character = config.GetComponent<Rigidbody2D>();
         cam = config.GetComponentInChildren<CinemachineVirtualCamera>();
         offset = new Vector3(0, 0, -10);
+        config.SlowDown(config.Deacceleration);
+        character.gravityScale += config.gravity;
     }
     public override void UpdateState(){
-        config.SlowDown(config.Deacceleration/10f);
+        // config.SlowDown(config.Deacceleration/10f);
         newPoint();
         _fallAnim -= Time.deltaTime;
-        character.gravityScale += Time.deltaTime*30f;
-        if (offset.y < 1f) offset.y += Time.deltaTime;
-        else offset.y += Time.deltaTime*3f;
+        // if (offset.y < 1f) offset.y += Time.deltaTime;
+        // else offset.y += Time.deltaTime*3f;
+        offset.y += Time.deltaTime*config.gravity*2;
         cam.GetComponent<CinemachineCameraOffset>().m_Offset = offset;
         CheckSwitchStates();
     }
