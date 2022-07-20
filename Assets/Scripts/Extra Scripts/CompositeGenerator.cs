@@ -7,5 +7,6 @@ public class CompositeGenerator : MonoBehaviour
     void Start()
     {
         foreach (PolygonCollider2D c in this.gameObject.GetComponentsInChildren<PolygonCollider2D>()) c.usedByComposite = true;
+        Debug.Log("Composite Generated");
     }
 }

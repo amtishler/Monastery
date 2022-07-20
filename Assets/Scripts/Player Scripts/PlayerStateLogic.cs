@@ -547,7 +547,7 @@ public class PlayerFall : PlayerState
     }
     public override void UpdateState(){
         // config.SlowDown(config.Deacceleration/10f);
-        newPoint();
+        // newPoint();
         _fallAnim -= Time.deltaTime;
         // if (offset.y < 1f) offset.y += Time.deltaTime;
         // else offset.y += Time.deltaTime*3f;

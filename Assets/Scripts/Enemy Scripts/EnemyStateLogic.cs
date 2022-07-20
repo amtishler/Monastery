@@ -40,6 +40,7 @@ public class EnemyIdleState : EnemyState {
     public override void ExitState() {}
 
     public override void CheckSwitchStates() {
+        if(!config.grounded) SwitchStates(factory.Falling());
         if(config.projectile) SwitchStates(factory.Projectile());
         else if(config.grabbed) SwitchStates(factory.Grabbed());
         else if(CheckVision()) SwitchStates(factory.Aggressive());
@@ -74,6 +75,7 @@ public class EnemyAggressiveState : EnemyState {
     public override void ExitState() {}
 
     public override void CheckSwitchStates() {
+        if(!config.grounded) SwitchStates(factory.Falling());
         if(config.grabbed) SwitchStates(factory.Grabbed());
         else if(CheckVision() && !config.oncooldown) SwitchStates(factory.Readying());
     }
@@ -138,6 +140,7 @@ public class EnemyReadyingState : EnemyState {
     }
 
     public override void CheckSwitchStates() {
+        if(!config.grounded) SwitchStates(factory.Falling());
         if(config.grabbed) SwitchStates(factory.Grabbed());
         if(timer > config.attacktimer) SwitchStates(factory.Attack());
     }
@@ -167,6 +170,7 @@ public class EnemyAttackState : EnemyState {
     }
 
     public override void CheckSwitchStates() {
+        if(!config.grounded) SwitchStates(factory.Falling());
         if(config.grabbed) SwitchStates(factory.Grabbed());
         else if(config.Speed == 0){
             if(config.target != null) SwitchStates(factory.Aggressive());
@@ -296,8 +300,8 @@ public class EnemyStunnedState : EnemyState {
     }
 
     public override void CheckSwitchStates() {
-        if(config.grabbed) SwitchStates(factory.Grabbed());
         if(!config.grounded) SwitchStates(factory.Falling());
+        if(config.grabbed) SwitchStates(factory.Grabbed());
     }
 }
 
