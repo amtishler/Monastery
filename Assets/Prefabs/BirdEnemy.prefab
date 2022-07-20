@@ -261,7 +261,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3920087274004548428}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -314,8 +314,8 @@ MonoBehaviour:
   invincibletimer: 0
   fallDamage: 0
   moveSpriteList: []
-  fallingAnimDuration: 0
-  gravity: 0
+  fallingAnimDuration: 1
+  gravity: 1
   grounded: 0
   detectionradius: 6
   attackradius: 1

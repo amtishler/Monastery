@@ -361,20 +361,21 @@ public class EnemyFallingState : EnemyState
         _fallAnim = config.fallingAnimDuration;
         config.GetComponent<SpriteRenderer>().sortingLayerName = "Default";
         character = config.GetComponent<Rigidbody2D>();
-        config.Hit(config.fallDamage, 0, Vector3.zero, 0);
+        config.SlowDown(config.Deacceleration);
+        character.gravityScale += config.gravity;
+        config.Hit(config.Health, 0, Vector3.zero, 0);
     }
     public override void UpdateState(){
         // config.SlowDown(config.Deacceleration/10f);
         _fallAnim -= Time.deltaTime;
-        character.gravityScale += Time.deltaTime*2f;
         CheckSwitchStates();
     }
-    public override void ExitState(){
-        config.GetComponent<SpriteRenderer>().sortingLayerName = "Player";
-        character.gravityScale = 0f;
-    }
+    public override void ExitState(){}
     public override void CheckSwitchStates(){
-        if (_fallAnim <= 0) SwitchStates(factory.Dead());
+        if (_fallAnim <= 0f) {
+            //SwitchStates(factory.Dead());
+            GameObject.Destroy(character.gameObject);
+        }
     }
 }
 
