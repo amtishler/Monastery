@@ -51,6 +51,12 @@ public class EnemyConfig : CharacterConfig {
         return;
     }
 
+    void OnAwake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.sortingLayerName = "Player";
+    }
+
     void UpdatePath()
     {
         if (seeker.IsDone() && target != null) seeker.StartPath(rigidBody.position, target.transform.position, OnPathComplete);
