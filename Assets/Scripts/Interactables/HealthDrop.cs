@@ -7,14 +7,19 @@ public class HealthDrop : MonoBehaviour
 
     public float healthgain = 10f;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    /*private void OnTriggerEnter2D(Collider2D collision)
     {
         CharacterConfig d = collision.transform.GetComponent<PlayerConfig>();
-        if (d != null)
+        CharacterConfig parent = this.transform.parent.transform.GetComponent<PlayerConfig>();
+        if (d != null && parent != null)
         {
-            Debug.Log("Here");
             d.Heal(healthgain);
             Destroy(this.gameObject);
         }
+    }*/
+
+    public void Eat(PlayerConfig player) {
+        player.Heal(healthgain);
+        Destroy(this.gameObject);
     }
 }

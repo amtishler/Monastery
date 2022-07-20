@@ -160,8 +160,7 @@ public class TongueController : MonoBehaviour {
 
         RaycastHit2D[] hits = Physics2D.LinecastAll(start, end, mask);
         if (hits.Length != 0) {
-
-            string objectType = hits[0].transform.gameObject.tag;
+            string objectType = hits[0].collider.transform.gameObject.tag;
 
             if(objectType == "Large Object") {
                 grabbed = true;
@@ -181,13 +180,15 @@ public class TongueController : MonoBehaviour {
 
             if(objectType == "Small Object") {
 
-                heldObject = hits[0].transform.gameObject;
+                heldObject = hits[0].collider.transform.gameObject;
                 heldconf = heldObject.transform.GetComponentInParent<CharacterConfig>();
                 grabUsed = true;
 
                 if(heldconf != null && !heldconf.grabbable)
                 {
                     heldObject = null;
+                    speed = 0;
+                    StopExtending();
                     return;
                 }
                 else if(heldconf != null)
@@ -287,7 +288,18 @@ public class TongueController : MonoBehaviour {
         grabUsed = false;
         tongueCollider.enabled = false;
 
-        if(heldObject != null) holdingObject = true;
+        if(heldObject != null){
+            HealthDrop holdinghealth = heldObject.transform.GetComponent<HealthDrop>();
+            if(holdinghealth != null)
+            {
+                holdinghealth.Eat(config);
+                holdingObject = false;
+            }
+            else
+            {
+                holdingObject = true;
+            }
+        }
     }
 
 
