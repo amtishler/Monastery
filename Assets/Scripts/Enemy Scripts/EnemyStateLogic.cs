@@ -252,6 +252,7 @@ public class EnemyGrabbedState : EnemyState {
     public override void EnterState() {
         config.Speed = 0;
         config.Velocity = Vector3.zero;
+        config.grabbed = true;
         body = config.GetComponent<Rigidbody2D>();
         body.simulated = false;
     }
@@ -279,6 +280,7 @@ public class EnemyStunnedState : EnemyState {
     public override void EnterState() {
         config.Stun = 0;
         config.grabbable = true;
+        config.stunned = true;
     }
 
     public override void UpdateState() {
@@ -316,6 +318,7 @@ public class EnemyProjectileState : EnemyState {
         selfhitbox.gameObject.layer = LayerMask.NameToLayer("Spit Projectile Hitbox");
         body = config.GetComponent<Rigidbody2D>();
         config.gameObject.GetComponent<Collider2D>().enabled = false;
+        config.projectile = true;
         body.simulated = true;
     }
 
@@ -363,7 +366,6 @@ public class EnemyFallingState : EnemyState
         character = config.GetComponent<Rigidbody2D>();
         config.SlowDown(config.Deacceleration);
         character.gravityScale += config.gravity;
-        config.Hit(config.Health, 0, Vector3.zero, 0);
     }
     public override void UpdateState(){
         // config.SlowDown(config.Deacceleration/10f);
@@ -374,8 +376,8 @@ public class EnemyFallingState : EnemyState
     public override void CheckSwitchStates(){
         if (_fallAnim <= 0f) {
             //SwitchStates(factory.Dead());
+            config.Hit(config.Health, 0, Vector3.zero, 0);
             GameObject.Destroy(character.gameObject);
         }
     }
 }
-

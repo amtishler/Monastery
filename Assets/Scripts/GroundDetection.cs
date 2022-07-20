@@ -17,7 +17,7 @@ public class GroundDetection : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    private void Update() {
+    private void FixedUpdate() {
         isGrounded = false;
     }
 
@@ -33,7 +33,7 @@ public class GroundDetection : MonoBehaviour
     private void OnTriggerExit2D(Collider2D hitbox) {
         CharacterConfig character = hitbox.gameObject.GetComponentInParent<CharacterConfig>();
         ProjectileObject projectile = hitbox.gameObject.GetComponentInParent<ProjectileObject>();
-        if (character != null && !isGrounded) {
+        if (character != null && !isGrounded && !character.grabbed) {
             character.grounded = false;
             Debug.Log("**Exit Detected**");
         } else if (projectile != null && projectile.isProjectile) {

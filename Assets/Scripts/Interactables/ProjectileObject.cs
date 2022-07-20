@@ -53,11 +53,14 @@ public class ProjectileObject : InteractableObject
 
     private void OnTriggerStay2D(Collider2D collision)
     {
+        //Debug.Log("hit");
         if(isProjectile)
         {
-            CharacterConfig d = collision.transform.root.GetComponent<CharacterConfig>();
+            CharacterConfig d = collision.transform.GetComponent<CharacterConfig>();
+            Debug.Log(d);
             if (d != null)
             {
+                Debug.Log(d);
                 // put knockback calculations here or something
                 Vector3 knockbackdir = collision.transform.position - gameObject.transform.position;
                 knockbackdir.Normalize();
