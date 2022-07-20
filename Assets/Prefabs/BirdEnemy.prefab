@@ -321,7 +321,7 @@ MonoBehaviour:
   attackradius: 1
   collisiondamage: 0
   collisionknockback: 40
-  projectileslowdown: 1
+  projectileslowdown: 0.3
   readyingspeed: 1
   attacktimer: 0.5
   pouncespeed: 5
