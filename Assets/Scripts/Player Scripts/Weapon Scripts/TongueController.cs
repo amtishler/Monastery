@@ -161,8 +161,9 @@ public class TongueController : MonoBehaviour {
         RaycastHit2D[] hits = Physics2D.LinecastAll(start, end, mask);
         if (hits.Length != 0) {
             string objectType = hits[0].collider.transform.gameObject.tag;
+            Debug.Log(objectType);
 
-            if(objectType == "Large Object") {
+            if(objectType == "Large Object" || (objectType == "Untagged" && hits[0].transform.gameObject.tag == "Large Object")) {
                 grabbed = true;
                 grabUsed = true;
                 StopExtending();
@@ -178,7 +179,7 @@ public class TongueController : MonoBehaviour {
                 config.Speed = speed;
             }
 
-            if(objectType == "Small Object") {
+            if(objectType == "Small Object" || (objectType == "Untagged" && hits[0].transform.gameObject.tag == "Small Object")) {
 
                 heldObject = hits[0].collider.transform.gameObject;
                 heldconf = heldObject.transform.GetComponentInParent<CharacterConfig>();
