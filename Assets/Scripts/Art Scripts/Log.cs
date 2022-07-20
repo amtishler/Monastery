@@ -13,11 +13,16 @@ public class Log : MonoBehaviour
     [SerializeField]
     Sprite[] spriteList = new Sprite[8];
 
+    //Transform hitboxChild;
+
     SpriteRenderer sR;
     // Start is called before the first frame update
     void Start()
     {
         sR = GetComponent<SpriteRenderer>();
+        //hitboxChild = transform.GetChild(0);
+        //hitboxChild.rotation = Quaternion.Euler(0, 0, 45 * direction);
+
         playerGO = GameObject.Find("Player");
     }
 
@@ -25,13 +30,14 @@ public class Log : MonoBehaviour
     void Update()
     {
         if(playerGO.transform.position.y >= transform.position.y + midpoint.y) {
-            sR.sortingLayerName = "Foreground Trees";
+            sR.sortingLayerName = "Foreground";
         } else
         {
-            sR.sortingLayerName = "Background Trees";
+            sR.sortingLayerName = "Background";
         }
         if(sR.sprite != spriteList[direction]) {
             sR.sprite = spriteList[direction];
+            //hitboxChild.rotation = Quaternion.Euler(0, 0, 45 * direction);
         }
     }
 }
