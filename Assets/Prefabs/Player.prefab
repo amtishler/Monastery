@@ -310,7 +310,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2705515589199267929}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.5, y: 0, z: -10}
+  m_LocalPosition: {x: -0.50000143, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -345,7 +345,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 11.703125
+  orthographic size: 8.4375
   m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
@@ -547,13 +547,13 @@ MonoBehaviour:
   tongueCollider: {fileID: 2705515589280278569}
   config: {fileID: 2705515590991708970}
   tongueBody: {fileID: 2705515589059232779}
-  chargeTime: 0.05
-  timeToExtend: 0.25
-  tongueLength: 5
-  retractAccelFactor: 2
+  chargeTime: 0
+  timeToExtend: 0.3
+  tongueLength: 6
+  retractAccelFactor: 0.72
   grappleDamp: 1
   autoRetractionAngle: 45
-  objectResidualSpeed: 0.9
+  objectResidualSpeed: 0.5
   buttonSpeedReduction: 0.8
   playerMoveSpeed: 3
   playerMoveSpeedHeavy: 2
@@ -657,9 +657,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerconf: {fileID: 2705515590991708970}
-  damage: 50
-  knockback: 30
-  stun: 0
+  damage: 25
+  knockback: 20
+  stun: 25
   knockbacknormalization: 0.5
   staffCollider: {fileID: 2705515589359950220}
   staffSwingTime: 0.3
@@ -676,6 +676,7 @@ GameObject:
   - component: {fileID: 2705515589997795899}
   - component: {fileID: 4534918450390580963}
   - component: {fileID: 3710589495446813952}
+  - component: {fileID: 4534918450008466386}
   m_Layer: 8
   m_Name: PlayerCam
   m_TagString: Untagged
@@ -691,7 +692,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2705515589997795902}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.5, y: 0, z: -10}
+  m_LocalPosition: {x: -0.50000143, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -731,7 +732,7 @@ MonoBehaviour:
   m_Priority: 10
   m_StandbyUpdate: 1
   m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 2705515590991708982}
+  m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 40
     OrthographicSize: 10
@@ -741,7 +742,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7775424, y: 1}
+    m_SensorSize: {x: 1.7777778, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -774,8 +775,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bfd948236763c742bd40c992fd599b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  influence: 1
+  influence: 2.5
   player: {fileID: 2002277777110678984}
+--- !u!114 &4534918450008466386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2705515589997795902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44d70cc20219cd84593f67d248eafe36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Offset: {x: 0, y: 0, z: 0}
+  m_ApplyAfter: 1
+  m_PreserveComposition: 0
 --- !u!1 &2705515590406865729
 GameObject:
   m_ObjectHideFlags: 0
@@ -998,7 +1014,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1791665367
   m_SortingLayer: 3
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 7d888f54a7de9444abbd0758212c35e6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1008,7 +1024,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 2
   m_SpriteSortPoint: 0
 --- !u!114 &2705515590991708980
 MonoBehaviour:
@@ -1052,14 +1068,14 @@ MonoBehaviour:
   invincibleduration: 0.25
   knockbackmultiplier: 1
   invincibletimer: 0
-  fallDamage: 25
+  fallDamage: 15
   moveSpriteList:
   - {fileID: 21300000, guid: b3fc15c3494b6ae4ea8f12eed7d78b21, type: 3}
   - {fileID: 21300000, guid: e2b694de54646e245af0176157ce9e07, type: 3}
   - {fileID: 21300000, guid: 5711162800afe154fa2aa6671f6ba7d9, type: 3}
   - {fileID: 21300000, guid: 7d888f54a7de9444abbd0758212c35e6, type: 3}
-  fallingAnimDuration: 2
-  gravity: 0
+  fallingAnimDuration: 1
+  gravity: 1
   grounded: 0
   tongueMaxSpeed: 6
   jumpMaximumSpeed: 25
@@ -1252,7 +1268,7 @@ MonoBehaviour:
   - {x: 0.23082781, y: -0.98944426, z: 0}
   m_ShapePathHash: 236791949
   m_Mesh: {fileID: 0}
-  m_InstanceId: 204652
+  m_InstanceId: -32192
 --- !u!1 &2705515591012369535
 GameObject:
   m_ObjectHideFlags: 0
