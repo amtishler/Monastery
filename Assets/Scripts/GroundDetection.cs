@@ -32,18 +32,16 @@ public class GroundDetection : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D hitbox) {
         CharacterConfig character = hitbox.gameObject.GetComponentInParent<CharacterConfig>();
+        ProjectileObject projectile = hitbox.gameObject.GetComponentInParent<ProjectileObject>();
         if (character != null && !isGrounded) {
             character.grounded = false;
-            //Debug.Log("**Exit Detected**");
-        } else {
-            projectile = hitbox.gameObject.GetComponentInParent<ProjectileObject>();
-            if (projectile != null && projectile.isProjectile) {
-                projectile.gameObject.layer = 0;
-                projectile.gameObject.GetComponent<Rigidbody2D>().gravityScale += projectile.gravity;
-                projectile.GetComponentInParent<SpriteRenderer>().sortingLayerName = "Default";
-                //Debug.Log("Projectile fell");
-            }
-            //Debug.Log("**Projectile didn't fall**");
+            Debug.Log("**Exit Detected**");
+        } else if (projectile != null && projectile.isProjectile) {
+            projectile.gameObject.layer = 0;
+            projectile.gameObject.GetComponent<Rigidbody2D>().gravityScale += projectile.gravity;
+            projectile.GetComponentInParent<SpriteRenderer>().sortingLayerName = "Default";
+            //Debug.Log("Projectile fell");
         }
+        //Debug.Log("**Projectile didn't fall**");
     }
 }

@@ -11,11 +11,14 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/TileCollisionTest.unity
     guid: 5587e8da7899883438db31edf0cab77d
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/PlaytestScene1.unity
     guid: 41f0192442340344093088fc51963b75
   - enabled: 0
     path: Assets/Scenes/EnemyTests/EnemyTestSceneOld.unity
     guid: 6883714ff5830fa47965f6ac48fe21d2
+  - enabled: 1
+    path: Assets/Scenes/Tutorial.unity
+    guid: fadec204f050b0446a6e1d17b0d2aeba
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 5c096992297e48e4e812b6b24d90a4c0, type: 2}
