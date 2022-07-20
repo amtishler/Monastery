@@ -15,7 +15,7 @@ public class DialogueBox : MonoBehaviour {
     // Private fields
     private float min_width = 2f;
     private float max_width = 6f;
-    private float min_height = 0.85f;
+    private float min_height = 0.5f;
     private float max_height = 2.7f;
     private bool textCrawling=false;
     private int absPivot;

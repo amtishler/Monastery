@@ -34,12 +34,6 @@ public class PlayerStateFactory : StateFactory {
     public State Kick() {
         return new PlayerKickState(config, context, this);
     }
-    public State JumpCharge() {
-        return new PlayerJumpChargeState(config, context, this);
-    }
-    public State Jump() {
-        return new PlayerJumpState(config, context, this);
-    }
     public State Hurt() {
         return new PlayerHurtState(config, context, this);
     }

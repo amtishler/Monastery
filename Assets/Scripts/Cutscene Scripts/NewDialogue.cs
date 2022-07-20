@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class NewDialogue {
@@ -36,6 +37,7 @@ public class NewDialogue {
         RectTransform obTransform = ob.GetComponent<RectTransform>();
 
         ob.GetComponent<DialogueBox>().Rotate(Pivot);
+        if (!displayTextBox) ob.GetComponentInChildren<Image>().color = Color.clear;
 
         obTransform.position = speaker.transform.position;
         ob.transform.SetParent(speaker.transform);

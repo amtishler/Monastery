@@ -84,7 +84,6 @@ public class PlayerIdleState : PlayerState {
         else if(tongue.heldObject == null) {
             if (InputManager.Instance.StaffPressed) SwitchStates(factory.Staff());
             else if (InputManager.Instance.KickPressed) SwitchStates(factory.KickCharge());
-            else if (InputManager.Instance.JumpPressed) SwitchStates(factory.JumpCharge());
         }
     }
 }
@@ -125,7 +124,6 @@ public class PlayerRunningState : PlayerState {
         else if(tongue.heldObject == null) {
             if (InputManager.Instance.StaffPressed) SwitchStates(factory.Staff());
             else if (InputManager.Instance.KickPressed) SwitchStates(factory.KickCharge());
-            else if (InputManager.Instance.JumpPressed) SwitchStates(factory.JumpCharge());
         }
     }
 
@@ -260,7 +258,7 @@ public class PlayerGrabbingState : PlayerState {
     }
 
     public override void CheckSwitchStates() {
-        if (!InputManager.Instance.TongueHeld || tongue.autoRetract || InputManager.Instance.Move != Vector3.zero){
+        if (!InputManager.Instance.TongueHeld || tongue.autoRetract){
             SwitchStates(factory.Tongue());
         }
     }
@@ -405,101 +403,6 @@ public class PlayerKickState : PlayerState {
 }
 
 
-// Jump (charging)
-public class PlayerJumpChargeState : PlayerState {
-
-    float chargeTime;
-
-    public PlayerJumpChargeState(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
-    : base(config, currentContext, stateFactory){
-        name = "PlayerJumpCharge";
-    }
-
-    public override void EnterState() {
-        config.SlowDown(config.Deacceleration*2);
-        chargeTime = 0f;
-        config.playerAnimator.UpdateJumpChargeAnimation();
-    }
-
-    public override void UpdateState() {
-        config.SlowDown(config.Deacceleration*2);
-        newPoint();
-        chargeTime = chargeTime + Time.deltaTime;
-        config.RotateSprite(InputManager.Instance.Aim);
-        CheckSwitchStates();
-    }
-
-    public override void ExitState(){
-        config.resetPosition = returnPoint;
-    }
-
-    public override void CheckSwitchStates() {
-        if(!config.grounded) SwitchStates(factory.Falling());
-        if (!InputManager.Instance.JumpHeld) {
-            if (chargeTime < config.JumpChargeTime) SwitchStates(factory.Idle());
-            else SwitchStates(factory.Jump());
-        }
-    }
-}
-
-
-// Jumping
-public class PlayerJumpState : PlayerState {
-
-    Vector3 direction;
-    float totalDist;
-    float currentDist;
-    bool finished;
-
-    public PlayerJumpState(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
-    : base(config, currentContext, stateFactory){
-        name = "PlayerJump";
-    }
-
-    public override void EnterState() {
-        finished = false;
-        totalDist = config.JumpTotalDist;
-        currentDist = 0f;
-        direction = InputManager.Instance.Aim;
-        Debug.Log(direction);
-        config.RotateSprite(direction);
-        Move();
-        config.playerAnimator.UpdateJumpAnimation();
-    }
-
-    public override void UpdateState() {
-        Move();
-        newPoint();
-        CheckSwitchStates();
-    }
-
-    public override void ExitState() {
-        config.Speed = 0f;
-        config.Velocity = Vector3.zero;
-        config.resetPosition = returnPoint;
-    }
-
-    public override void CheckSwitchStates() {
-        if(!config.grounded) SwitchStates(factory.Falling());
-        if (finished) SwitchStates(factory.Idle());
-
-    }
-
-    public void Move() {
-        if (currentDist < totalDist) {
-            if (config.Speed < config.JumpMinimumSpeed) config.Speed = config.JumpMinimumSpeed;
-            if (config.Speed < config.JumpMaximumSpeed) config.Speed = config.Speed + config.JumpAcceleration;
-            config.Velocity = config.Speed*direction;
-            currentDist = currentDist + config.Speed*Time.deltaTime;
-        } else {
-            config.Speed = config.Speed - config.JumpDeacceleration;
-            config.Velocity = config.Speed*direction;
-            if(config.Speed < config.JumpMinimumSpeed) finished = true;
-        }
-    }
-}
-
-
 // Hurt (invicibility)
 public class PlayerHurtState : PlayerState
 {
@@ -604,12 +507,16 @@ public class PlayerCutsceneState : PlayerState
     }
 
     public override void EnterState(){
+        config.playerAnimator.UpdateIdleAnimation();
+        InputManager.Instance.CutsceneMap();
         config.Velocity = Vector3.zero;
     }
     public override void UpdateState() {
         CheckSwitchStates();
     }
-    public override void ExitState(){}
+    public override void ExitState(){
+        InputManager.Instance.CombatMap();
+    }
     public override void CheckSwitchStates() {}
 }
 

@@ -159,6 +159,7 @@ public abstract class CharacterConfig : MonoBehaviour
     public void Heal(float healamt)
     {
         health += healamt;
+        if (health >= maxHealth) health = maxHealth;
     }
 
     public void Death(GameObject character)
