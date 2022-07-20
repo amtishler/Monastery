@@ -8,6 +8,7 @@ TagManager:
   - Small Object
   - Keyboard
   - Gamepad
+  - Debug
   layers:
   - Default
   - TransparentFX

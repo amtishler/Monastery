@@ -61,7 +61,9 @@ public class InputManager : MonoBehaviour{
     // Death
     private Button reset;
     // ??
-    private Button debugMenu;
+    private Button debug;
+
+    private Button quit;
 
     // Getters & Setters
     public Vector3 Move {get {return move;}}
@@ -81,8 +83,11 @@ public class InputManager : MonoBehaviour{
     public bool ResetPressed {get {return reset.Pressed;}}
     public bool ResetHeld {get {return reset.Held;}}
 
-    public bool DebugMenuPressed {get {return debugMenu.Pressed;}}
-    public bool DebugMenuHeld {get {return debugMenu.Held;}}
+    public bool DebugPressed {get {return debug.Pressed;}}
+    public bool DebugHeld {get {return debug.Held;}}
+
+    public bool QuitPressed {get {return quit.Pressed;}}
+    public bool QuitHeld {get {return quit.Held;}}
     
     // For debugger:
     public string inputText = "";
@@ -106,7 +111,8 @@ public class InputManager : MonoBehaviour{
         kick = new Button();
         jump = new Button();
         reset = new Button();
-        debugMenu = new Button();
+        debug = new Button();
+        quit = new Button();
         advance = new Button();
         skip = new Button();
 
@@ -125,6 +131,8 @@ public class InputManager : MonoBehaviour{
         jump.Update();
         advance.Update();
         skip.Update();
+        debug.Update();
+        quit.Update();
     }
 
     private void OnControlsChanged() {
@@ -179,9 +187,14 @@ public class InputManager : MonoBehaviour{
         //inputText = "Reseting";
     }
 
-    private void OnDebugMenu(InputValue value) {
-        debugMenu.SetValue(value.isPressed);
+    private void OnDebug(InputValue value) {
+        debug.SetValue(value.isPressed);
         //inputText = "Turning on debug";
+    }
+
+        private void OnQuit(InputValue value) {
+        quit.SetValue(value.isPressed);
+        //inputText = "Quit app";
     }
 
     // Helper functions if needed

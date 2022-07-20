@@ -3,7 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-
+    private GameObject debug;
+    private bool debugActive;
     //GameManager.Instance.whatever
     private static GameManager _instance;
     public static GameManager Instance //Singleton Stuff
@@ -26,7 +27,10 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        
+        if(InputManager.Instance.QuitPressed) {
+            Application.Quit();
+            Debug.Log("Quit");
+        }
     }
 
     public void DamageCharacter(CharacterConfig character, float damage, float stun, Vector3 knockbackdir, float knockbackmag)
