@@ -106,7 +106,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 906f805eec39a7343b1fbe8d013f689c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPosition: {x: 0, y: 0}
+  startDelay: 1.5
+  endDelay: 1
+  textScrollSpeed: 0
   dialogues: []
 --- !u!61 &5934965468192349459
 BoxCollider2D:
