@@ -10,6 +10,7 @@ public class LocalAmbience : MonoBehaviour
     private enum AmbienceFX
     {
         river,
+        wind
         // Reminder to always at the end of the list, so we don't mess up serialization
     }
 
@@ -44,6 +45,7 @@ public class LocalAmbience : MonoBehaviour
         rig.isKinematic = true;
 
         localAmbiences.Add(FMODUnity.RuntimeManager.CreateInstance("event:/LocalAmbiences/River"));
+        localAmbiences.Add(FMODUnity.RuntimeManager.CreateInstance("event:/LocalAmbiences/HowlingWind"));
 
         currentVolume = 0;
 

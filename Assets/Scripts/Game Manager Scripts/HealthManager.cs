@@ -31,9 +31,13 @@ public class HealthManager : MonoBehaviour {
     private float currentDamage;
     private float playerHealth;
 
+    private void Awake()
+    {
+        config = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerConfig>();
+    }
+
     // Start is called before the first frame update
     void Start() {
-        config = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerConfig>();
         //Debug.Log(transform==null);
         Transform bar = transform.Find("Health");
         healthBar = bar.Find("healthBar").GetComponent<RectTransform>();
@@ -44,6 +48,7 @@ public class HealthManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+        Debug.Log(config.Health.ToString());
         playerHealth = (config.Health / config.MaxHealth)*WIDTH;
         currentHealth = healthBar.sizeDelta[0];
         currentDamage = damageBar.sizeDelta[0];
