@@ -108,7 +108,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startDelay: 1.5
   endDelay: 1
-  textScrollSpeed: 0
+  textScrollSpeed: 0.05
   dialogues: []
 --- !u!61 &5934965468192349459
 BoxCollider2D:
@@ -233,7 +233,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7785844, y: 1}
+    m_SensorSize: {x: 1.7773973, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
