@@ -204,7 +204,7 @@ public class PlayerTongueState : PlayerState {
     public override void EnterState() {
         tongue = config.tongue.GetComponent<TongueController>();
         Vector3 direction = InputManager.Instance.Aim;
-        config.RotateSprite(direction);
+        // config.RotateSprite(direction);
 
         if(!tongue.holdingObject) {
             config.tongue.SetActive(true);
@@ -345,6 +345,10 @@ public class PlayerKickChargeState : PlayerState {
     }
 
     public override void UpdateState() {
+        Vector3 targetDir = InputManager.Instance.Aim;
+        config.RotateSprite(targetDir);
+        config.playerAnimator.UpdateJumpChargeAnimation();
+
         config.SlowDown(config.Deacceleration);
         newPoint();
         chargeTime = chargeTime + Time.deltaTime;
@@ -359,7 +363,7 @@ public class PlayerKickChargeState : PlayerState {
     public override void CheckSwitchStates() {
         if(!config.grounded) SwitchStates(factory.Falling());
         if (!InputManager.Instance.KickHeld) {
-            if (chargeTime < config.JumpChargeTime) SwitchStates(factory.Idle());
+            if (chargeTime <config.kick.GetComponent<KickController>().KickChargeTime) SwitchStates(factory.Idle());
             else SwitchStates(factory.Kick());
         }
     }

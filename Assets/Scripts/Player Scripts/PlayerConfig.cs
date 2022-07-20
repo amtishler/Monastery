@@ -61,7 +61,7 @@ public class PlayerConfig : CharacterConfig {
     // Changes player's sprite to one of the four directions.
     public void RotateSprite(Vector3 targetDir) {
         int angle = GetAngle(targetDir);
-        //spriteRenderer.sprite = moveSpriteList[angle];
+        // spriteRenderer.sprite = moveSpriteList[angle];
         currentdir = angle;
     }
 }

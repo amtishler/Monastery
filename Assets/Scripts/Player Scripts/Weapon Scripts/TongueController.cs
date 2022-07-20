@@ -275,6 +275,7 @@ public class TongueController : MonoBehaviour {
 
         // Rotate player
         config.RotateSprite(direction);
+        config.playerAnimator.UpdateIdleAnimation();
 
         // Finishing
         autoRetract = false;
