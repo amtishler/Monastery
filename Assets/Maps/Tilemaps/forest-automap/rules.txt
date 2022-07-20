@@ -26,6 +26,7 @@ rule_20.tmx
 
 rule_21.tmx
 rule_20-1.tmx
+rule_wall_copy.tmx
 rule_22.tmx
 rule_23.tmx
 rule_24.tmx
