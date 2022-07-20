@@ -1,4 +1,0 @@
-<c> BLYMM
-<t> Hey there.
-<t> What are you doing in my neck of the woods?
-<e>

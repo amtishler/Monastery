@@ -48,14 +48,19 @@ public class InputManager : MonoBehaviour{
     private TutorialMessages messages;
     private bool tutorialActive = false;
     /////////////////////////////////////
+    // Combat
     private Vector3 move;
     private Vector3 aim;
     private Button tongue;
     private Button staff;
     private Button kick;
     private Button jump;
+    // Cutscene
+    private Button advance;
+    private Button skip;
+    // Death
     private Button reset;
-    private Button interact;
+    // ??
     private Button debugMenu;
 
     // Getters & Setters
@@ -69,10 +74,13 @@ public class InputManager : MonoBehaviour{
     public bool KickHeld {get {return kick.Held;}}
     public bool JumpPressed {get {return jump.Pressed;}}
     public bool JumpHeld {get {return jump.Held;}}
+    public bool AdvancePressed {get {return advance.Pressed;}}
+    public bool AdvanceHeld {get {return advance.Held;}}
+    public bool SkipPressed {get {return skip.Pressed;}}
+    public bool SkipHeld {get {return skip.Held;}}
     public bool ResetPressed {get {return reset.Pressed;}}
     public bool ResetHeld {get {return reset.Held;}}
-    public bool InteractPressed {get {return interact.Pressed;}}
-    public bool InteractHeld {get {return interact.Held;}}
+
     public bool DebugMenuPressed {get {return debugMenu.Pressed;}}
     public bool DebugMenuHeld {get {return debugMenu.Held;}}
     
@@ -98,8 +106,9 @@ public class InputManager : MonoBehaviour{
         kick = new Button();
         jump = new Button();
         reset = new Button();
-        interact = new Button();
         debugMenu = new Button();
+        advance = new Button();
+        skip = new Button();
 
         inputText = "";
 
@@ -114,7 +123,8 @@ public class InputManager : MonoBehaviour{
         staff.Update();
         kick.Update();
         jump.Update();
-        interact.Update();
+        advance.Update();
+        skip.Update();
     }
 
     private void OnControlsChanged() {
@@ -154,13 +164,19 @@ public class InputManager : MonoBehaviour{
         //inputText = "Jumping";
     }
 
+    private void OnAdvance(InputValue value) {
+        advance.SetValue(value.isPressed);
+        //inputText = "Advance";
+    }
+
+    private void OnSkip(InputValue value) {
+        skip.SetValue(value.isPressed);
+        //inputText = "Skip";
+    }
+
     private void OnReset(InputValue value) {
         reset.SetValue(value.isPressed);
         //inputText = "Reseting";
-    }
-
-    private void OnInteract(InputValue value) {
-        interact.SetValue(value.isPressed);
     }
 
     private void OnDebugMenu(InputValue value) {
@@ -184,6 +200,14 @@ public class InputManager : MonoBehaviour{
         if (direction == Vector3.zero) direction = move;
         if (direction == Vector3.zero) direction = config.directionMap[config.currentdir];
         return direction;
+    }
+
+    public void CombatMap() {
+        playerInput.SwitchCurrentActionMap("Combat");
+    }
+
+    public void CutsceneMap() {
+        playerInput.SwitchCurrentActionMap("Cutscene");
     }
 
     public void DeathMap() {

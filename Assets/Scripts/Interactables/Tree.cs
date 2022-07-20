@@ -19,6 +19,7 @@ public class Tree : InteractableObject
 
     void Start()
     {
+        hit = false;
         dropused = false;
         numdropsused = 0;
         animator = GetComponent<Animator>();

@@ -39,6 +39,7 @@ public class PlayerAnimator : MonoBehaviour
     }
 
     void UpdateAnimation(AnimationClip[] animation) {
+        if (m_anim == null) return;
         if(m_anim.Clip != animation[config.currentdir]) {
             m_anim.Play(animation[config.currentdir]);
         }
