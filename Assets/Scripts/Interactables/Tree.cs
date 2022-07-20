@@ -26,7 +26,7 @@ public class Tree : InteractableObject
 
     void Update()
     {
-        animator.SetBool("Hit", hit);
+        //animator.SetBool("Hit", hit);
         if(hit)
         {
             hit = false;

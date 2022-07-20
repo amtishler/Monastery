@@ -34,7 +34,7 @@ public class HealthManager : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         config = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerConfig>();
-        Debug.Log(transform==null);
+        //Debug.Log(transform==null);
         Transform bar = transform.Find("Health");
         healthBar = bar.Find("healthBar").GetComponent<RectTransform>();
         shineBar  = bar.Find("shine").GetComponent<RectTransform>();
