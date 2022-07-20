@@ -44,7 +44,7 @@ public class HealthManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        Debug.Log(config.Health.ToString());
+        //Debug.Log(config.Health.ToString());
         playerHealth = (config.Health / config.MaxHealth)*WIDTH;
         currentHealth = healthBar.sizeDelta[0];
         currentDamage = damageBar.sizeDelta[0];

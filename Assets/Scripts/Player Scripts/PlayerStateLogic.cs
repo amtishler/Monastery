@@ -78,7 +78,7 @@ public class PlayerIdleState : PlayerState {
     public override void ExitState() {}
 
     public override void CheckSwitchStates() {
-        if(!config.grounded) SwitchStates(factory.Falling());
+        // if(!config.grounded) SwitchStates(factory.Falling());
         if ((InputManager.Instance.TonguePressed && tongue.heldObject == null) || (!InputManager.Instance.TongueHeld && tongue.heldObject != null)) SwitchStates(factory.TongueCharge());
         if (InputManager.Instance.Move != Vector3.zero) SwitchStates(factory.Running());
         else if(tongue.heldObject == null) {

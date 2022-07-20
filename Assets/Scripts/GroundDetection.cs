@@ -36,8 +36,9 @@ public class GroundDetection : MonoBehaviour
         ProjectileObject projectile = hitbox.gameObject.GetComponentInParent<ProjectileObject>();
         if (character != null && !character.grabbed) {
             character.grounded = false;
-            Debug.Log("**Exit Detected**");
+            Debug.Log(character);
         } else if (projectile != null && projectile.isProjectile) {
+            Debug.Log(projectile);
             projectile.gameObject.layer = 0;
             projectile.gameObject.GetComponent<Rigidbody2D>().gravityScale += projectile.gravity;
             projectile.GetComponentInParent<SpriteRenderer>().sortingLayerName = "Default";
