@@ -31,14 +31,10 @@ public class HealthManager : MonoBehaviour {
     private float currentDamage;
     private float playerHealth;
 
-    private void Awake()
-    {
-        config = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerConfig>();
-    }
-
     // Start is called before the first frame update
     void Start() {
         //Debug.Log(transform==null);
+        config = GameObject.FindObjectOfType<PlayerConfig>();
         Transform bar = transform.Find("Health");
         healthBar = bar.Find("healthBar").GetComponent<RectTransform>();
         shineBar  = bar.Find("shine").GetComponent<RectTransform>();

@@ -101,7 +101,7 @@ public class InputManager : MonoBehaviour{
         messages = GameManager.Instance.GetTutorialMessages();
         tutorialActive = messages.tutorial;
         
-        config = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerConfig>();
+        config = GameObject.FindObjectOfType<PlayerConfig>();
         playerInput = GetComponentInParent<PlayerInput>();
 
         move = Vector3.zero;
