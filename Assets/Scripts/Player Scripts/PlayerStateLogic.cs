@@ -101,6 +101,7 @@ public class PlayerRunningState : PlayerState {
     }
 
     public override void EnterState() {
+        returnPoint = config.resetPosition;
         tongue = config.tongue.GetComponent<TongueController>();
         Move();
     }
@@ -168,6 +169,7 @@ public class PlayerTongueChargeState : PlayerState {
     }
 
     public override void EnterState() {
+        returnPoint = config.resetPosition;
         config.SlowDown(config.Deacceleration*2.5f);
         totalChargeTime = config.tongue.GetComponent<TongueController>().ChargeTime;
         chargeTime = 0f;
@@ -219,9 +221,7 @@ public class PlayerTongueState : PlayerState {
         CheckSwitchStates();
     }
 
-    public override void ExitState() {
-        config.Speed = 0f;
-    }
+    public override void ExitState() {}
 
     public override void CheckSwitchStates() {
         if (tongue.CheckIfFinished()) {
@@ -255,8 +255,8 @@ public class PlayerGrabbingState : PlayerState {
     }
 
     public override void ExitState() {
+        config.Speed = 0f;
         tongue.UnGrab();
-        config.resetPosition = returnPoint;
     }
 
     public override void CheckSwitchStates() {
@@ -301,6 +301,7 @@ public class PlayerStaffState : PlayerState {
     }
 
     public override void EnterState() {
+        returnPoint = config.resetPosition;
         config.Velocity = InputManager.Instance.GetAim()*config.Speed;
         config.SlowDown(config.Deacceleration);
         Vector3 direction = InputManager.Instance.Aim;
@@ -511,6 +512,7 @@ public class PlayerHurtState : PlayerState
     }
 
     public override void EnterState(){
+        returnPoint = config.resetPosition;
         tongue = config.tongue.GetComponent<TongueController>();
         if(tongue.grabbed) tongue.UnGrab();
         config.tongue.SetActive(false);
