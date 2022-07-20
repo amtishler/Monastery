@@ -151,6 +151,7 @@ GameObject:
   - component: {fileID: 1245101477447179947}
   - component: {fileID: 3158628754461147013}
   - component: {fileID: 1208284323}
+  - component: {fileID: 8791931699697515188}
   m_Layer: 7
   m_Name: BugEnemy
   m_TagString: Small Object
@@ -381,3 +382,15 @@ MonoBehaviour:
   tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   graphMask:
     value: -1
+--- !u!114 &8791931699697515188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1245101477447179942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58868f832d1bddf48a32c64b21f38b5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
