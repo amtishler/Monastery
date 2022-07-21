@@ -65,6 +65,7 @@ public class PlayerIdleState : PlayerState {
     }
 
     public override void EnterState() {
+        config.grounded = true;
         tongue = config.tongue.GetComponent<TongueController>();
         config.playerAnimator.UpdateIdleAnimation();
     }
@@ -100,6 +101,7 @@ public class PlayerRunningState : PlayerState {
     }
 
     public override void EnterState() {
+        config.grounded = true;
         returnPoint = config.resetPosition;
         tongue = config.tongue.GetComponent<TongueController>();
         Move();
@@ -118,12 +120,12 @@ public class PlayerRunningState : PlayerState {
     }
 
     public override void CheckSwitchStates() {
-        if(!config.grounded) SwitchStates(factory.Falling());
         if ((InputManager.Instance.TonguePressed && tongue.heldObject == null) || (!InputManager.Instance.TongueHeld && tongue.heldObject != null)) SwitchStates(factory.TongueCharge());
         if (config.Speed == 0) SwitchStates(factory.Idle());
         else if(tongue.heldObject == null) {
             if (InputManager.Instance.StaffPressed) SwitchStates(factory.Staff());
             else if (InputManager.Instance.KickPressed) SwitchStates(factory.KickCharge());
+        if(!config.grounded) SwitchStates(factory.Falling());
         }
     }
 
@@ -167,6 +169,7 @@ public class PlayerTongueChargeState : PlayerState {
     }
 
     public override void EnterState() {
+        config.grounded = true;
         returnPoint = config.resetPosition;
         config.SlowDown(config.Deacceleration*2.5f);
         totalChargeTime = config.tongue.GetComponent<TongueController>().ChargeTime;
@@ -202,6 +205,7 @@ public class PlayerTongueState : PlayerState {
     }
 
     public override void EnterState() {
+        config.grounded = true;
         tongue = config.tongue.GetComponent<TongueController>();
         Vector3 direction = InputManager.Instance.Aim;
         // config.RotateSprite(direction);
@@ -242,6 +246,7 @@ public class PlayerGrabbingState : PlayerState {
     }
 
     public override void EnterState(){
+        config.grounded = true;
         tongue = config.tongue.GetComponent<TongueController>();
     }
 
@@ -299,6 +304,7 @@ public class PlayerStaffState : PlayerState {
     }
 
     public override void EnterState() {
+        config.grounded = true;
         returnPoint = config.resetPosition;
         config.Velocity = InputManager.Instance.GetAim()*config.Speed;
         config.SlowDown(config.Deacceleration);
@@ -322,8 +328,8 @@ public class PlayerStaffState : PlayerState {
     }
 
     public override void CheckSwitchStates() {
-        if(!config.grounded) SwitchStates(factory.Falling());
         if (staff.Done()) SwitchStates(factory.Idle());
+        if(!config.grounded) SwitchStates(factory.Falling());
     }
 }
 
@@ -339,6 +345,7 @@ public class PlayerKickChargeState : PlayerState {
     }
 
     public override void EnterState() {
+        config.grounded = true;
         config.SlowDown(config.Deacceleration*2.5f);
         totalChargeTime = config.kick.GetComponent<KickController>().KickChargeTime;
         chargeTime = 0f;
@@ -361,11 +368,11 @@ public class PlayerKickChargeState : PlayerState {
     }
 
     public override void CheckSwitchStates() {
-        if(!config.grounded) SwitchStates(factory.Falling());
         if (!InputManager.Instance.KickHeld) {
             if (chargeTime <config.kick.GetComponent<KickController>().KickChargeTime) SwitchStates(factory.Idle());
             else SwitchStates(factory.Kick());
         }
+        if(!config.grounded) SwitchStates(factory.Falling());
     }
 }
 
@@ -380,6 +387,7 @@ public class PlayerKickState : PlayerState {
     }
 
     public override void EnterState() {
+        config.grounded = true;
         config.SlowDown(config.Deacceleration*3);
         Vector3 direction = InputManager.Instance.Aim;
         kick = config.kick.GetComponent<KickController>();
@@ -401,8 +409,8 @@ public class PlayerKickState : PlayerState {
     }
 
     public override void CheckSwitchStates() {
-        if(!config.grounded) SwitchStates(factory.Falling());
         if (kick.Done()) SwitchStates(factory.Idle());
+        if(!config.grounded) SwitchStates(factory.Falling());
     }
 }
 
@@ -419,6 +427,7 @@ public class PlayerHurtState : PlayerState
     }
 
     public override void EnterState(){
+        config.grounded = true;
         returnPoint = config.resetPosition;
         tongue = config.tongue.GetComponent<TongueController>();
         if(tongue.grabbed) tongue.UnGrab();
@@ -474,7 +483,9 @@ public class PlayerMapOpenState : PlayerState
         name = "PlayerMapOpen";
     }
 
-    public override void EnterState(){}
+    public override void EnterState(){
+        config.grounded = true;
+    }
     public override void UpdateState()
     {
         CheckSwitchStates();
@@ -492,7 +503,9 @@ public class PlayerTeleportingState : PlayerState
         name = "PlayerTeleport";
     }
 
-    public override void EnterState(){}
+    public override void EnterState(){
+        config.grounded = true;
+    }
     public override void UpdateState()
     {
         CheckSwitchStates();
@@ -511,6 +524,7 @@ public class PlayerCutsceneState : PlayerState
     }
 
     public override void EnterState(){
+        config.grounded = true;
         config.playerAnimator.UpdateIdleAnimation();
         InputManager.Instance.CutsceneMap();
         config.Velocity = Vector3.zero;
@@ -546,11 +560,7 @@ public class PlayerFall : PlayerState
         character.gravityScale += config.gravity;
     }
     public override void UpdateState(){
-        // config.SlowDown(config.Deacceleration/10f);
-        // newPoint();
         _fallAnim -= Time.deltaTime;
-        // if (offset.y < 1f) offset.y += Time.deltaTime;
-        // else offset.y += Time.deltaTime*3f;
         offset.y += Time.deltaTime*config.gravity*2;
         cam.GetComponent<CinemachineCameraOffset>().m_Offset = offset;
         CheckSwitchStates();
