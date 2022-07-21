@@ -7,6 +7,8 @@ public class DepthController : MonoBehaviour
     GameObject playerGO;
     [SerializeField]
     Vector3 midpoint;
+    [SerializeField]
+    bool debugMidpoint = false;
 
     SpriteRenderer sR;
     // Start is called before the first frame update
@@ -24,6 +26,16 @@ public class DepthController : MonoBehaviour
         } else
         {
             sR.sortingLayerName = "Background";
+        }
+    }
+
+    void OnDrawGizmos()
+    {
+        if(debugMidpoint)
+        {
+            // Draw a yellow sphere at the transform's position
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(transform.position + midpoint, 0.1f);
         }
     }
 }
