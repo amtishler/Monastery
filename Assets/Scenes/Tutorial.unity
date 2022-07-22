@@ -6488,7 +6488,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2705515589199267943, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
       propertyPath: orthographic size
-      value: 8.4375
+      value: 7.5
       objectReference: {fileID: 0}
     - target: {fileID: 2705515589280278571, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
       propertyPath: tongueLength
