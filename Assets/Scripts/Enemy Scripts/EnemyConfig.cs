@@ -11,6 +11,8 @@ public class EnemyConfig : CharacterConfig {
     public float collisionknockback = 10f;
     public float projectileslowdown = 0.1f;
 
+
+    [Header("Attacking Values")]
     //Stalking speed (Getting ready to attack)
     public float readyingspeed = 1f;
 
@@ -33,12 +35,16 @@ public class EnemyConfig : CharacterConfig {
 
     private Animator animator;
 
+    [Header("Pathfinding Values")]
     //Pathfinding vars
-    public float nextWaypointDistance = 3f;
+    public float nextWaypointDistance = 0.5f;
     private Path path;
     private int currentWaypoint = 0;
     private bool reachedEndOfPath = false;
     private Seeker seeker;
+    public float targetDistance = 3f;
+    public float targetDistanceWindow = 0.5f;
+    private bool backup = false;
 
     protected override void _Start() {
         seeker = GetComponent<Seeker>();
@@ -47,7 +53,7 @@ public class EnemyConfig : CharacterConfig {
         grabbable = false;
 
         
-        InvokeRepeating("UpdatePath", 0f, .5f);
+        InvokeRepeating("UpdatePath", 0f, .25f);
         return;
     }
 
@@ -59,7 +65,12 @@ public class EnemyConfig : CharacterConfig {
 
     void UpdatePath()
     {
-        if (seeker.IsDone() && target != null) seeker.StartPath(rigidBody.position, target.transform.position, OnPathComplete);
+        if (seeker.IsDone() && target != null && !backup) seeker.StartPath(this.transform.position, target.transform.position, OnPathComplete);
+        else if(seeker.IsDone() && target != null && backup)
+        {
+            Vector3 awayPath = this.transform.position + (this.transform.position - target.transform.position);
+            seeker.StartPath(this.transform.position, awayPath, OnPathComplete);
+        }
     }
 
     void OnPathComplete(Path p)
@@ -92,9 +103,25 @@ public class EnemyConfig : CharacterConfig {
         animator.SetBool("Stunned", stunned);
     }
 
+    public void Move(GameObject target)
+    {
+        float distance = Vector3.Distance(this.transform.position, target.transform.position);
+        if(distance < targetDistance - targetDistanceWindow)
+        {
+            backup = true;
+            MoveTowards();
+        }
+        else if(distance > targetDistance + targetDistanceWindow)
+        {
+            backup = false;
+            MoveTowards();
+        }
+        else{
+            SlowDown(deacceleration);
+        }
+    }
 
-
-    public void MoveTowards(GameObject target)
+    public void MoveTowards()
     {
 
         if(path == null)

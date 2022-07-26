@@ -68,7 +68,7 @@ public class EnemyAggressiveState : EnemyState {
     }
 
     public override void UpdateState() {
-        config.MoveTowards(config.target);
+        config.Move(config.target);
         CheckSwitchStates();
     }
 
@@ -119,7 +119,7 @@ public class EnemyReadyingState : EnemyState {
 
         if(timer < (config.attacktimer / 2f))
         {
-            config.MoveTowards(config.target);
+            config.Move(config.target);
         }
         else
         {
