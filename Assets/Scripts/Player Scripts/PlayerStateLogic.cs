@@ -254,7 +254,6 @@ public class PlayerGrabbingState : PlayerState {
         newPoint();
         tongue.PullPlayer();
         CheckSwitchStates();
-        Debug.Log(InputManager.Instance.TongueHeld);
     }
 
     public override void ExitState() {
@@ -294,16 +293,15 @@ public class PlayerGrabbingState : PlayerState {
 
 
 // Staff swinging
-public class PlayerStaffState : PlayerState {
-
-    StaffController staff;
+public class PlayerStaffState : PlayerState
+{
+    Attack staff;
 
     public PlayerStaffState(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
-    : base(config, currentContext, stateFactory){
-        name = "PlayerStaff";
-    }
+    : base(config, currentContext, stateFactory) { name = "PlayerStaff"; }
 
-    public override void EnterState() {
+    public override void EnterState()
+    {
         config.grounded = true;
         returnPoint = config.resetPosition;
         config.Velocity = InputManager.Instance.GetAim()*config.Speed;
@@ -311,24 +309,26 @@ public class PlayerStaffState : PlayerState {
         Vector3 direction = InputManager.Instance.Aim;
         config.RotateSprite(direction);
         config.playerAnimator.UpdateStaffAnimation();
-        staff = config.staff.GetComponent<StaffController>();
+        staff = config.staff.GetComponent<Attack>();
         config.staff.SetActive(true);
     }
 
-    public override void UpdateState() {
+    public override void UpdateState()
+    {
         config.SlowDown(config.Deacceleration);
         newPoint();
-        staff.UpdateStaff();
         CheckSwitchStates();
     }
 
-    public override void ExitState() {
+    public override void ExitState()
+    {
         config.staff.SetActive(false);
         config.resetPosition = returnPoint;
     }
 
-    public override void CheckSwitchStates() {
-        if (staff.Done()) SwitchStates(factory.Idle());
+    public override void CheckSwitchStates()
+    {
+        if (staff.Done) SwitchStates(factory.Idle());
         if(!config.grounded) SwitchStates(factory.Falling());
     }
 }
@@ -347,7 +347,7 @@ public class PlayerKickChargeState : PlayerState {
     public override void EnterState() {
         config.grounded = true;
         config.SlowDown(config.Deacceleration*2.5f);
-        totalChargeTime = config.kick.GetComponent<KickController>().KickChargeTime;
+        totalChargeTime = config.KickChargeTime;
         chargeTime = 0f;
     }
 
@@ -369,7 +369,7 @@ public class PlayerKickChargeState : PlayerState {
 
     public override void CheckSwitchStates() {
         if (!InputManager.Instance.KickHeld) {
-            if (chargeTime <config.kick.GetComponent<KickController>().KickChargeTime) SwitchStates(factory.Idle());
+            if (chargeTime <config.KickChargeTime) SwitchStates(factory.Idle());
             else SwitchStates(factory.Kick());
         }
         if(!config.grounded) SwitchStates(factory.Falling());
@@ -377,39 +377,40 @@ public class PlayerKickChargeState : PlayerState {
 }
 
 // Kicking
-public class PlayerKickState : PlayerState {
-
-    KickController kick;
+public class PlayerKickState : PlayerState
+{
+    Attack kick;
     
     public PlayerKickState(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
-    : base(config, currentContext, stateFactory){
-        name = "PlayerKick";
-    }
+    : base(config, currentContext, stateFactory) { name = "PlayerKick"; }
 
-    public override void EnterState() {
+    public override void EnterState()
+    {
         config.grounded = true;
         config.SlowDown(config.Deacceleration*3);
         Vector3 direction = InputManager.Instance.Aim;
-        kick = config.kick.GetComponent<KickController>();
+        kick = config.kick.GetComponent<Attack>();
         config.kick.SetActive(true);
         config.RotateSprite(direction);
         config.playerAnimator.UpdateKickAnimation();
     }
 
-    public override void UpdateState() {
+    public override void UpdateState()
+    {
         config.SlowDown(config.Deacceleration*3);
         newPoint();
-        kick.UpdateKick();
         CheckSwitchStates();
     }
 
-    public override void ExitState() {
+    public override void ExitState()
+    {
         config.kick.SetActive(false);
         config.resetPosition = returnPoint;
     }
 
-    public override void CheckSwitchStates() {
-        if (kick.Done()) SwitchStates(factory.Idle());
+    public override void CheckSwitchStates()
+    {
+        if (kick.Done) SwitchStates(factory.Idle());
         if(!config.grounded) SwitchStates(factory.Falling());
     }
 }

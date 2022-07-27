@@ -10,18 +10,11 @@ public class PlayerConfig : CharacterConfig {
     // Serialized Fields
     [Header("Tongue")]
     [SerializeField] float tongueMaxSpeed = 6.0f;
-
-    [Header("Jump Mechanics")]
-    [SerializeField] float jumpMaximumSpeed = 12.0f;
-    [SerializeField] float jumpMinimumSpeed = 6.0f;
-    [SerializeField] float jumpAcceleration = 0.5f;
-    [SerializeField] float jumpDeacceleration = 0.5f;
-    [SerializeField] float jumpChargeTime = 1.0f;
-    [SerializeField] float jumpTotalDist = 8.0f;
     
     [Header("Weapons")]
     [SerializeField] float attackCooldown = 1.0f;
     [SerializeField] float attackDeaccel = 1.0f;
+    [SerializeField] float kickChargeTime = 0.5f;
     [SerializeField] public GameObject tongue;
     [SerializeField] public GameObject staff;
     [SerializeField] public GameObject kick;
@@ -35,12 +28,7 @@ public class PlayerConfig : CharacterConfig {
     public float AttackDeaccel {get {return attackDeaccel;}}
     public float CurrentAttackCooldown {get {return currentAttackCooldown;}}
     public float TongueMaxSpeed {get {return tongueMaxSpeed;}}
-    public float JumpMaximumSpeed {get {return jumpMaximumSpeed;}}
-    public float JumpMinimumSpeed {get {return jumpMinimumSpeed;}}
-    public float JumpAcceleration {get {return jumpAcceleration;}}
-    public float JumpDeacceleration {get {return jumpDeacceleration;}}
-    public float JumpChargeTime {get {return jumpChargeTime;}}
-    public float JumpTotalDist {get {return jumpTotalDist;}}
+    public float KickChargeTime { get {return kickChargeTime;}}
     
     public PlayerAnimator playerAnimator;
     

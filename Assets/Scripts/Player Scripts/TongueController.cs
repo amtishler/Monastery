@@ -60,22 +60,25 @@ public class TongueController : MonoBehaviour {
 
 
     // Updates the tongue (called by state update)
-    public void UpdateTongue() {
-
+    public void UpdateTongue()
+    {
         // Set spawn
         Vector3 pos = config.transform.position;
         SetSpawn(pos);
 
         // Checking if tongue is still going out
-        if (extending) {
-            if (!InputManager.Instance.TongueHeld) {
+        if (extending) 
+        {
+            if (!InputManager.Instance.TongueHeld)
+            {
                 speed = deacceleration*Time.deltaTime;
                 StopExtending();
                 // retractAccelFactor
                 deacceleration = deacceleration*retractAccelFactor*buttonSpeedReduction;
                 speed = deacceleration*Time.deltaTime;
             }
-            if (speed <= 0) {
+            if (speed <= 0)
+            {
                 StopExtending();
                 deacceleration = deacceleration*retractAccelFactor;
             }
@@ -109,8 +112,8 @@ public class TongueController : MonoBehaviour {
 
 
     // Moves the player towards the tongue's end (used when grappling)
-    public void PullPlayer() {
-
+    public void PullPlayer()
+    {
         config.Velocity = direction*config.Speed;
         config.Speed = config.Speed + deacceleration*Time.deltaTime;
         velocity = -config.Velocity;
@@ -125,7 +128,8 @@ public class TongueController : MonoBehaviour {
 
 
     // Spits an object out
-    public void spitObject() {
+    public void spitObject()
+    {
         //Should have object to spit
         if(!holdingObject || heldObject == null)
         {
@@ -145,7 +149,8 @@ public class TongueController : MonoBehaviour {
         }
 
         InteractableObject inanimateobj = heldObject.transform.root.GetComponent<InteractableObject>();
-        if(inanimateobj != null){
+        if(inanimateobj != null)
+        {
             inanimateobj.OnHit(direction, spitknockback);
         }
 
@@ -155,15 +160,18 @@ public class TongueController : MonoBehaviour {
 
 
     // Checks to see if the tongue hits something
-    private void CheckCollision(Vector3 start, Vector3 end) {
+    private void CheckCollision(Vector3 start, Vector3 end)
+    {
         LayerMask mask = LayerMask.GetMask("Object Hurtbox") | LayerMask.GetMask("Collectible Hitbox");
 
         RaycastHit2D[] hits = Physics2D.LinecastAll(start, end, mask);
-        if (hits.Length != 0) {
+        if (hits.Length != 0)
+        {
             string objectType = hits[0].collider.transform.gameObject.tag;
             Debug.Log(objectType);
 
-            if(objectType == "Large Object" || (objectType == "Untagged" && hits[0].transform.gameObject.tag == "Large Object")) {
+            if(objectType == "Large Object" || (objectType == "Untagged" && hits[0].transform.gameObject.tag == "Large Object")) 
+            {
                 grabbed = true;
                 grabUsed = true;
                 StopExtending();
@@ -179,8 +187,8 @@ public class TongueController : MonoBehaviour {
                 config.Speed = speed;
             }
 
-            if(objectType == "Small Object" || (objectType == "Untagged" && hits[0].transform.gameObject.tag == "Small Object")) {
-
+            if(objectType == "Small Object" || (objectType == "Untagged" && hits[0].transform.gameObject.tag == "Small Object"))
+            {
                 heldObject = hits[0].collider.transform.gameObject;
                 heldconf = heldObject.transform.GetComponentInParent<CharacterConfig>();
                 grabUsed = true;
@@ -222,20 +230,23 @@ public class TongueController : MonoBehaviour {
 
 
     // Continually have to change "spawn point" if the player is moving while tongue is out
-    public void SetSpawn(Vector3 position) {
+    public void SetSpawn(Vector3 position)
+    {
         position.y = position.y + 0.11f;
         tongueOrigin = position;
     }
 
     
     // Also will continually have to change the endpoint
-    public void SetEndpoint() {
+    public void SetEndpoint()
+    {
         finalPos = transform.position;
     }
 
 
     // If player lets go tongue must retract
-    public void UnGrab() {
+    public void UnGrab()
+    {
         grabbed = false;
 
         // Change parent back to player
@@ -244,8 +255,8 @@ public class TongueController : MonoBehaviour {
 
 
     // Enable method, called every time the tongue is enabled.
-    public void OnEnable() {
-
+    public void OnEnable() 
+    {
         // Direction & position of tongue
         SetSpawn(config.transform.position);
         SetEndpoint();
@@ -285,12 +296,14 @@ public class TongueController : MonoBehaviour {
 
 
     // Disable method, called every time the tongue is disabled.
-    void OnDisable() {
+    void OnDisable()
+    {
         tongueBody.GetComponent<SpriteRenderer>().enabled = false;
         grabUsed = false;
         tongueCollider.enabled = false;
 
-        if(heldObject != null){
+        if(heldObject != null)
+        {
             HealthDrop holdinghealth = heldObject.transform.GetComponent<HealthDrop>();
             if(holdinghealth != null)
             {
@@ -306,10 +319,12 @@ public class TongueController : MonoBehaviour {
 
 
     // Resizes the tongue's width and everything.
-    public void ResizeTongueBody() {
+    public void ResizeTongueBody()
+    {
         tongueBody.transform.position = (transform.position + tongueOrigin) / 2;
 
-        if(grabbed){
+        if(grabbed)
+        {
             tongueBody.transform.rotation = Quaternion.identity;
             direction = transform.position - tongueOrigin;
             direction.Normalize();
@@ -329,7 +344,8 @@ public class TongueController : MonoBehaviour {
 
 
     // Stops tongue extending
-    private void StopExtending() {
+    private void StopExtending()
+    {
         extending = false;
         lengthReached = distTraveled;
         SetEndpoint();
@@ -338,7 +354,8 @@ public class TongueController : MonoBehaviour {
 
 
     // Checks if tongue is finished
-    public bool CheckIfFinished() {
+    public bool CheckIfFinished()
+    {
         bool finished = false;
         if (!extending) finished = lengthReached - distTraveled < 0;
         return finished;
@@ -346,8 +363,10 @@ public class TongueController : MonoBehaviour {
 
 
     // Gets axis of tongue for angle purposes (+x, -x, +y, -y)
-    private Vector3 GetAxis(int dir) {
-        switch(dir) {
+    private Vector3 GetAxis(int dir) 
+    {
+        switch(dir) 
+        {
             case 0:
                 return Vector3.right;
             case 1:

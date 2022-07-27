@@ -66,7 +66,8 @@ public abstract class CharacterConfig : MonoBehaviour
     public float InvincibleTimer {get {return invincibletimer;} set {invincibletimer = value;}}
     public string State {get {return stateManager.currentState.name;}} // Handy for checking which state we're in
 
-    void Start() {
+    void Start()
+    {
         characterCollider = GetComponent<CircleCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         stateManager = GetComponent<StateMachine>();
@@ -80,8 +81,10 @@ public abstract class CharacterConfig : MonoBehaviour
         _Start();
     }
     
-    void Update() {
-        if(invincible && !dead && !grabbed){
+    void Update()
+    {
+        if(invincible && !dead && !grabbed)
+        {
             InvincibleTimer += Time.deltaTime;
             if(InvincibleTimer >= invincibleduration)
             {
@@ -100,8 +103,15 @@ public abstract class CharacterConfig : MonoBehaviour
         _Update();
     }
 
+    // Stops weapon. Called from an animation event.
+    public void StopWeapon(string name)
+    {
+        transform.Find(name).GetComponent<Attack>().Done = true;
+    }
+
     // Moves without player input
-    public void SlowDown(float dampening) {
+    public void SlowDown(float dampening)
+    {
         speed = speed - dampening;
         if (speed <= minimumSpeed) speed = 0;
         Vector3 targetDir = Velocity;

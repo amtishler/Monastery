@@ -4,11 +4,34 @@ using UnityEngine;
 
 public class Attack : MonoBehaviour
 {
+    // Fields
     [SerializeField] protected CharacterConfig playerconf;
     [SerializeField] protected float damage, knockback, stun;
     [SerializeField] protected float knockbacknormalization = 0.5f;
+    protected bool done = false;
 
+    // Getters & Setters
+    public bool Done { get { return done; } set { done = value; } }
 
+    // Gets direction
+    protected Vector3 GetAxis(int dir)
+    {
+        switch (dir)
+        {
+            case 0:
+                return Vector3.right;
+            case 1:
+                return Vector3.up;
+            case 2:
+                return Vector3.left;
+            case 3:
+                return Vector3.down;
+            default:
+                return Vector3.zero;
+        }
+    }
+
+    // Trigger enter, when attack hits something else
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //LIVING THINGS
@@ -32,9 +55,6 @@ public class Attack : MonoBehaviour
             {
                 //p.
             }
-
-
-
         }
 
         //INANIMATE OBJECTS
@@ -51,20 +71,9 @@ public class Attack : MonoBehaviour
         }
     }
 
-    protected Vector3 GetAxis(int dir)
+    // Called when object is disabled
+    private void OnDisable()
     {
-        switch(dir)
-        {
-            case 0:
-                return Vector3.right;
-            case 1:
-                return Vector3.up;
-            case 2:
-                return Vector3.left;
-            case 3:
-                return Vector3.down;
-            default:
-                return Vector3.zero;
-        }
+        done = false;
     }
 }
