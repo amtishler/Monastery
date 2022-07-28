@@ -334,6 +334,8 @@ MonoBehaviour:
   attackhitbox: {fileID: 3920087273619940040}
   attackvector: {x: 0, y: 0, z: 0}
   nextWaypointDistance: 0.5
+  targetDistance: 3
+  targetDistanceWindow: 0.25
 --- !u!95 &933436670037076591
 Animator:
   serializedVersion: 4
@@ -344,7 +346,7 @@ Animator:
   m_GameObject: {fileID: 3920087274004548428}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5956ab060a6d24640aa08945a7e038ef, type: 2}
+  m_Controller: {fileID: 9100000, guid: c83eb4f8ecf9f604a8f6c35a3e773b16, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
