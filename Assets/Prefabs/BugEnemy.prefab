@@ -168,7 +168,7 @@ Transform:
   m_GameObject: {fileID: 1245101477447179942}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.5, y: 17.72, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1245101477299156771}
@@ -334,6 +334,8 @@ MonoBehaviour:
   attackhitbox: {fileID: 1245101477299156770}
   attackvector: {x: 0, y: 0, z: 0}
   nextWaypointDistance: 0.5
+  targetDistance: 3
+  targetDistanceWindow: 0.25
 --- !u!95 &3158628754461147013
 Animator:
   serializedVersion: 4

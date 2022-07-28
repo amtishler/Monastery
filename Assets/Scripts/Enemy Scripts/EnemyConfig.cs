@@ -51,6 +51,7 @@ public class EnemyConfig : CharacterConfig {
         animator = GetComponent<Animator>();
         isattacking = false;
         grabbable = false;
+        dead = false;
 
         
         InvokeRepeating("UpdatePath", 0f, .25f);
@@ -101,6 +102,7 @@ public class EnemyConfig : CharacterConfig {
         animator.SetFloat("Speed", Speed);
         animator.SetBool("Attacking", isattacking);
         animator.SetBool("Stunned", stunned);
+        animator.SetBool("Dead", dead);
     }
 
     public void Move(GameObject target)
