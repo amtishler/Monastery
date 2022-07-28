@@ -41,7 +41,7 @@ public class FlyIdleState : FlyState {
 
     public override void CheckSwitchStates() {
         if(!config.grounded) SwitchStates(factory.Falling());
-        else if(config.attack) SwitchStates(factory.Aggressive());
+        else if(config.attacking) SwitchStates(factory.Aggressive());
     }
 
 }

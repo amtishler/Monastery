@@ -48,6 +48,10 @@ public class EnemyIdleState : EnemyState {
 
     private bool CheckVision()
     {
+        if(config.target != null)
+        {
+            return true;
+        }
         Collider2D collider = Physics2D.OverlapCircle(config.transform.position, config.detectionradius, LayerMask.GetMask("Player Hurtbox"));
         if(collider == null) return false;
         else{
@@ -218,6 +222,7 @@ public class EnemyDeadState : EnemyState {
     private float deacceleration;
     private float recoverytimer;
     private HitboxController selfhitbox;
+    private Rigidbody2D body;
 
     public EnemyDeadState(EnemyConfig config, EnemyStateMachine currentContext, EnemyStateFactory stateFactory)
     : base(config, currentContext, stateFactory){}
@@ -225,6 +230,7 @@ public class EnemyDeadState : EnemyState {
     public override void EnterState() {
         config.invincible = true;
         config.dead = true;
+        config.grabbable = false;
         selfhitbox = config.GetComponentInChildren<HitboxController>();
         if(selfhitbox != null) selfhitbox.gameObject.SetActive(false);
         deacceleration = config.RecoveryDeaccel;

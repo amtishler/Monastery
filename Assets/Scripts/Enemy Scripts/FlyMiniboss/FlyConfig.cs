@@ -6,7 +6,10 @@ using Pathfinding;
 public class FlyConfig : CharacterConfig {
     
     public GameObject target;
-    public bool attack;
+    public GameObject flychild;
+    public int maxchildren = 3;
+    private int numchildren = 0;
+    public bool attacking;
     private Animator animator;
 
     [Header("Pathfinding Values")]
@@ -25,9 +28,10 @@ public class FlyConfig : CharacterConfig {
         animator = GetComponent<Animator>();
         target = GameObject.FindWithTag("Player");
         grabbable = false;
-        attack = true;
+        attacking = true;
         pathendpoint = target.transform.position;
         InvokeRepeating("UpdatePath", 0f, .25f);
+        InvokeRepeating("SpawnChild", 5f, 5f);
         return;
     }
 
@@ -40,6 +44,19 @@ public class FlyConfig : CharacterConfig {
     void UpdatePath()
     {
         if (seeker.IsDone() && target != null) seeker.StartPath(this.transform.position, pathendpoint, OnPathComplete);
+    }
+
+    void SpawnChild()
+    {
+        if(attacking && numchildren < maxchildren)
+        {
+            numchildren++;
+            animator.Play("LayEgg");
+            GameObject newfly = Instantiate(flychild);
+            newfly.transform.position = this.transform.position;
+            EnemyConfig flyconf = newfly.GetComponent<EnemyConfig>();
+            flyconf.SetTarget(target);
+        }
     }
 
     void OnPathComplete(Path p)
