@@ -12,10 +12,17 @@ rule_09.tmx
 rule_10.tmx
 rule_11.tmx
 rule_12.tmx
+
+rule_27.tmx
+
+
 rule_13.tmx
 rule_13-1.tmx
 rule_14.tmx
 rule_15.tmx
+
+rule_28.tmx
+
 rule_16.tmx
 rule_17.tmx
 rule_17-1.tmx
@@ -33,8 +40,3 @@ rule_24.tmx
 rule_25.tmx
 rule_26.tmx
 
-rule_27.tmx
-rule_28.tmx
-rule_29.tmx
-rule_30.tmx
-rule_31.tmx
