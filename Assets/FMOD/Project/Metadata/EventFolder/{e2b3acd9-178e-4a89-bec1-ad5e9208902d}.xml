@@ -5,7 +5,7 @@
 			<value>HealthTree</value>
 		</property>
 		<relationship name="folder">
-			<destination>{093ba113-7a92-4789-bd26-7299cd0bd328}</destination>
+			<destination>{5573e6b1-651a-4585-a404-50fd9c59de3f}</destination>
 		</relationship>
 	</object>
 </objects>

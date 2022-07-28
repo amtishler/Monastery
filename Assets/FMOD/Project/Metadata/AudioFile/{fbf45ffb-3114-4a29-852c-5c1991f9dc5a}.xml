@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="AudioFile" id="{fbf45ffb-3114-4a29-852c-5c1991f9dc5a}">
 		<property name="assetPath">
-			<value>Enemy 2 (bird)/InsectVoiceChirp_BU01.403.wav</value>
+			<value>Enemy 1 (bug)/Idle/InsectVoiceChirp_BU01.403.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>96</value>

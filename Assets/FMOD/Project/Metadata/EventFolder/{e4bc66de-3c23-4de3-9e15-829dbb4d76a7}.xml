@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="EventFolder" id="{e4bc66de-3c23-4de3-9e15-829dbb4d76a7}">
+		<property name="name">
+			<value>Whispering tree</value>
+		</property>
+		<relationship name="folder">
+			<destination>{5573e6b1-651a-4585-a404-50fd9c59de3f}</destination>
+		</relationship>
+	</object>
+</objects>

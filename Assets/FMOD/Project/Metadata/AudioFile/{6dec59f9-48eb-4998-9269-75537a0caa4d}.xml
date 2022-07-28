@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="AudioFile" id="{6dec59f9-48eb-4998-9269-75537a0caa4d}">
 		<property name="assetPath">
-			<value>Ambiences/Hollow ambience for clearingoverlook/FF_SFFX_ambience_other_worlds_windy.wav</value>
+			<value>Ambience/Hollow ambience for clearingoverlook/FF_SFFX_ambience_other_worlds_windy.wav</value>
 		</property>
 		<property name="isStreaming">
 			<value>true</value>

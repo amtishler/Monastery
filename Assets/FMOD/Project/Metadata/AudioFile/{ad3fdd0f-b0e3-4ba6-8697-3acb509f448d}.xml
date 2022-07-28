@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="AudioFile" id="{ad3fdd0f-b0e3-4ba6-8697-3acb509f448d}">
 		<property name="assetPath">
-			<value>Enemy 2 (bird)/SPLC-6519_FX_Oneshot_Little_Monkey_Chirping_Vocalizations.wav</value>
+			<value>Enemy 1 (bug)/Idle/SPLC-6519_FX_Oneshot_Little_Monkey_Chirping_Vocalizations.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>192</value>
