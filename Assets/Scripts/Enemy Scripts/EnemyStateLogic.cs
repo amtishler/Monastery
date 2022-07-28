@@ -51,7 +51,7 @@ public class EnemyIdleState : EnemyState {
         Collider2D collider = Physics2D.OverlapCircle(config.transform.position, config.detectionradius, LayerMask.GetMask("Player Hurtbox"));
         if(collider == null) return false;
         else{
-            config.target = collider.gameObject;
+            config.SetTarget(collider.gameObject);
             return true;
         }
     }
