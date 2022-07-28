@@ -175,6 +175,6 @@ public abstract class CharacterConfig : MonoBehaviour
     public void Death(GameObject character)
     {
         if (character.CompareTag("Player")) Debug.Log("Death");
-        else Destroy(character);
+        else stateManager.ForceDead();
     }    
 }

@@ -224,6 +224,7 @@ public class EnemyDeadState : EnemyState {
 
     public override void EnterState() {
         config.invincible = true;
+        config.stunned = true;
         selfhitbox = config.GetComponentInChildren<HitboxController>();
         if(selfhitbox != null) selfhitbox.gameObject.SetActive(false);
         deacceleration = config.RecoveryDeaccel;

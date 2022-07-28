@@ -24,6 +24,7 @@ public class FlyConfig : CharacterConfig {
     protected override void _Start() {
         seeker = GetComponent<Seeker>();
         animator = GetComponent<Animator>();
+        target = GameObject.FindWithTag("Player");
         grabbable = false;
         attack = true;
         pathendpoint = target.transform.position;
