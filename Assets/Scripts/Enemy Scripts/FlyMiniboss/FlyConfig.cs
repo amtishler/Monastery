@@ -18,12 +18,12 @@ public class FlyConfig : CharacterConfig {
     private Seeker seeker;
     public float targetDistance = 3f;
     public float targetDistanceWindow = 0.5f;
-    private bool backup = false;
     private Vector3 pathendpoint;
 
     protected override void _Start() {
         seeker = GetComponent<Seeker>();
         animator = GetComponent<Animator>();
+        target = GameObject.FindWithTag("Player");
         grabbable = false;
         attack = true;
         pathendpoint = target.transform.position;

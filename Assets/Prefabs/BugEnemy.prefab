@@ -168,7 +168,7 @@ Transform:
   m_GameObject: {fileID: 1245101477447179942}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.5, y: 17.72, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1245101477299156771}
@@ -217,7 +217,7 @@ SpriteRenderer:
   m_SortingLayerID: -1791665367
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 2cef688d76064674584011aeed83f2b4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 399f09555d6dfb44caa179b7c12ccdae, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -245,7 +245,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.8, y: 0.5}
+    oldSize: {x: 2.5, y: 1.5625}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -334,6 +334,8 @@ MonoBehaviour:
   attackhitbox: {fileID: 1245101477299156770}
   attackvector: {x: 0, y: 0, z: 0}
   nextWaypointDistance: 0.5
+  targetDistance: 3
+  targetDistanceWindow: 0.25
 --- !u!95 &3158628754461147013
 Animator:
   serializedVersion: 4

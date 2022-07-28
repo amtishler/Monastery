@@ -45,12 +45,14 @@ public class EnemyConfig : CharacterConfig {
     public float targetDistance = 3f;
     public float targetDistanceWindow = 0.5f;
     private bool backup = false;
+    private Vector3 pathendpoint;
 
     protected override void _Start() {
         seeker = GetComponent<Seeker>();
         animator = GetComponent<Animator>();
         isattacking = false;
         grabbable = false;
+        dead = false;
 
         
         InvokeRepeating("UpdatePath", 0f, .25f);
@@ -65,12 +67,7 @@ public class EnemyConfig : CharacterConfig {
 
     void UpdatePath()
     {
-        if (seeker.IsDone() && target != null && !backup) seeker.StartPath(this.transform.position, target.transform.position, OnPathComplete);
-        else if(seeker.IsDone() && target != null && backup)
-        {
-            Vector3 awayPath = this.transform.position + (this.transform.position - target.transform.position);
-            seeker.StartPath(this.transform.position, awayPath, OnPathComplete);
-        }
+        if (seeker.IsDone() && target != null && !backup) seeker.StartPath(this.transform.position, pathendpoint, OnPathComplete);
     }
 
     void OnPathComplete(Path p)
@@ -101,19 +98,26 @@ public class EnemyConfig : CharacterConfig {
         animator.SetFloat("Speed", Speed);
         animator.SetBool("Attacking", isattacking);
         animator.SetBool("Stunned", stunned);
+        animator.SetBool("Dead", dead);
     }
 
-    public void Move(GameObject target)
+    public void SetTarget(GameObject objtarget)
+    {
+        pathendpoint = objtarget.transform.position;
+        target = objtarget;
+    }
+
+    public virtual void Move(GameObject target)
     {
         float distance = Vector3.Distance(this.transform.position, target.transform.position);
         if(distance < targetDistance - targetDistanceWindow)
         {
-            backup = true;
+            pathendpoint = this.transform.position + (this.transform.position - target.transform.position);
             MoveTowards();
         }
         else if(distance > targetDistance + targetDistanceWindow)
         {
-            backup = false;
+            pathendpoint = target.transform.position;
             MoveTowards();
         }
         else{
@@ -172,18 +176,32 @@ public class EnemyConfig : CharacterConfig {
 
 
     public void RotateSprite(Vector3 targetDir) {
-        int angle = GetAngle(targetDir);
-        switch(angle){
-            case 0:
-                transform.localRotation = Quaternion.Euler(0, 180, 0);
-                break;
-            case 2:
-                transform.localRotation = Quaternion.Euler(0, 0, 0);
-                break;
-            default:
-                break;
+        if(target != null){
+            Vector3 playervector = this.transform.position - target.transform.position;
+            switch(Mathf.Sign(playervector.x)){
+                case -1:
+                    transform.localRotation = Quaternion.Euler(0, 180, 0);
+                    break;
+                case 1:
+                    transform.localRotation = Quaternion.Euler(0, 0, 0);
+                    break;
+                default:
+                    break;
+            }
         }
-        currentdir = angle;
+        else{
+            int angle = GetAngle(targetDir);
+            switch(angle){
+                case 0:
+                    transform.localRotation = Quaternion.Euler(0, 180, 0);
+                    break;
+                case 2:
+                    transform.localRotation = Quaternion.Euler(0, 0, 0);
+                    break;
+                default:
+                    break;
+            }
+            currentdir = angle;
+        }
     }
-
 }

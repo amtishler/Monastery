@@ -51,7 +51,7 @@ public class EnemyIdleState : EnemyState {
         Collider2D collider = Physics2D.OverlapCircle(config.transform.position, config.detectionradius, LayerMask.GetMask("Player Hurtbox"));
         if(collider == null) return false;
         else{
-            config.target = collider.gameObject;
+            config.SetTarget(collider.gameObject);
             return true;
         }
     }
@@ -224,6 +224,7 @@ public class EnemyDeadState : EnemyState {
 
     public override void EnterState() {
         config.invincible = true;
+        config.dead = true;
         selfhitbox = config.GetComponentInChildren<HitboxController>();
         if(selfhitbox != null) selfhitbox.gameObject.SetActive(false);
         deacceleration = config.RecoveryDeaccel;
