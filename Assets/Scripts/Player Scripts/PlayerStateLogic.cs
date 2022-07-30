@@ -22,14 +22,14 @@ public abstract class PlayerState : State {
     }
 
     //Helper function
-protected void newPoint() {
-    updatePoint -= Time.deltaTime;
-    if (updatePoint <= 0 && config.grounded) {
-        returnPoint = config.gameObject.transform.position;
-        updatePoint = 0.5f;
+    protected void NewPoint() {
+        updatePoint -= Time.deltaTime;
+        if (updatePoint <= 0 && config.grounded) {
+            returnPoint = config.gameObject.transform.position;
+            updatePoint = 0.5f;
+        }
+        //Debug.Log(returnPoint);
     }
-    //Debug.Log(returnPoint);
-}
 }
 
 
@@ -40,8 +40,7 @@ protected void newPoint() {
 // State Names:
 // PlayerIdle
 // PlayerRun
-// PlayerTongueCharge
-// PlayerTongueShoot
+// PlayerTongue
 // PlayerStaff
 // PlayerKickCharge
 // PlayerKick
@@ -71,7 +70,7 @@ public class PlayerIdleState : PlayerState {
     }
 
     public override void UpdateState() {
-        newPoint();
+        NewPoint();
         if (config.Velocity != Vector3.zero) config.SlowDown(config.Deacceleration);
         CheckSwitchStates();
     }
@@ -80,7 +79,7 @@ public class PlayerIdleState : PlayerState {
 
     public override void CheckSwitchStates() {
         // if(!config.grounded) SwitchStates(factory.Falling());
-        if ((InputManager.Instance.TonguePressed && tongue.heldObject == null) || (!InputManager.Instance.TongueHeld && tongue.heldObject != null)) SwitchStates(factory.TongueCharge());
+        if ((InputManager.Instance.TonguePressed && tongue.heldObject == null) || (!InputManager.Instance.TongueHeld && tongue.heldObject != null)) SwitchStates(factory.Tongue());
         if (InputManager.Instance.Move != Vector3.zero) SwitchStates(factory.Running());
         else if(tongue.heldObject == null) {
             if (InputManager.Instance.StaffPressed) SwitchStates(factory.Staff());
@@ -109,7 +108,7 @@ public class PlayerRunningState : PlayerState {
     
     public override void UpdateState() {
         Move();
-        newPoint();
+        NewPoint();
         CheckSwitchStates();
     }
 
@@ -120,7 +119,7 @@ public class PlayerRunningState : PlayerState {
     }
 
     public override void CheckSwitchStates() {
-        if ((InputManager.Instance.TonguePressed && tongue.heldObject == null) || (!InputManager.Instance.TongueHeld && tongue.heldObject != null)) SwitchStates(factory.TongueCharge());
+        if ((InputManager.Instance.TonguePressed && tongue.heldObject == null) || (!InputManager.Instance.TongueHeld && tongue.heldObject != null)) SwitchStates(factory.Tongue());
         if (config.Speed == 0) SwitchStates(factory.Idle());
         else if(tongue.heldObject == null) {
             if (InputManager.Instance.StaffPressed) SwitchStates(factory.Staff());
@@ -157,43 +156,6 @@ public class PlayerRunningState : PlayerState {
 }
 
 
-// Tongue charge
-public class PlayerTongueChargeState : PlayerState {
-
-    float totalChargeTime;
-    float chargeTime;
-
-    public PlayerTongueChargeState(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
-    : base(config, currentContext, stateFactory){
-        name = "PlayerTongueCharge";
-    }
-
-    public override void EnterState() {
-        config.grounded = true;
-        returnPoint = config.resetPosition;
-        config.SlowDown(config.Deacceleration*2.5f);
-        totalChargeTime = config.tongue.GetComponent<TongueController>().ChargeTime;
-        chargeTime = 0f;
-    }
-
-    public override void UpdateState() {
-        config.SlowDown(config.Deacceleration);
-        newPoint();
-        chargeTime = chargeTime + Time.deltaTime;
-        CheckSwitchStates();
-    }
-
-    public override void ExitState() {
-        config.Velocity = Vector3.zero;
-        config.resetPosition = returnPoint;
-    }
-
-    public override void CheckSwitchStates() {
-        if (chargeTime >= totalChargeTime) SwitchStates(factory.Tongue());
-    }
-}
-
-
 // Tongue shooting
 public class PlayerTongueState : PlayerState {
 
@@ -206,19 +168,22 @@ public class PlayerTongueState : PlayerState {
 
     public override void EnterState() {
         config.grounded = true;
+        //config.Velocity = Vector3.zero;
         tongue = config.tongue.GetComponent<TongueController>();
         Vector3 direction = InputManager.Instance.Aim;
-        // config.RotateSprite(direction);
+        config.SlowDown(config.Deacceleration*2);
+        config.RotateSprite(direction);
 
-        if(!tongue.holdingObject) {
+        if (!tongue.HoldingObject) {
             config.tongue.SetActive(true);
         }
         
     }
 
     public override void UpdateState() {
-        newPoint();
-        if(!tongue.holdingObject) tongue.UpdateTongue();
+        NewPoint();
+        config.SlowDown(config.Deacceleration*2);
+        if(!tongue.HoldingObject) tongue.UpdateTongue();
         else tongue.spitObject();
         CheckSwitchStates();
     }
@@ -226,68 +191,113 @@ public class PlayerTongueState : PlayerState {
     public override void ExitState() {}
 
     public override void CheckSwitchStates() {
-        if (tongue.CheckIfFinished()) {
+        if (tongue.IsFinished) {
             SwitchStates(factory.Idle());
             config.tongue.SetActive(false);
         }
-        else if (tongue.grabbed) SwitchStates(factory.Grabbing());
+        else if (tongue.Grabbed) SwitchStates(factory.Pulling());
     }
 }
 
 
-// Grabbing (with tongue)
-public class PlayerGrabbingState : PlayerState {
-
+// Pulling (with tongue)
+public class PlayerPullingState : PlayerState
+{
     TongueController tongue;
 
-    public PlayerGrabbingState(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
-    : base(config, currentContext, stateFactory){
-        name = "PlayerGrab";
+    public PlayerPullingState(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
+    : base(config, currentContext, stateFactory)
+    {
+        name = "PlayerPull";
     }
 
-    public override void EnterState(){
+    public override void EnterState()
+    {
         config.grounded = true;
         tongue = config.tongue.GetComponent<TongueController>();
     }
 
-    public override void UpdateState() {
-        newPoint();
+    public override void UpdateState()
+    {
+        NewPoint();
         tongue.PullPlayer();
         CheckSwitchStates();
     }
 
-    public override void ExitState() {
-        config.Speed = 0f;
+    public override void ExitState()
+    {
         tongue.UnGrab();
     }
 
-    public override void CheckSwitchStates() {
-        if (!InputManager.Instance.TongueHeld || tongue.autoRetract){
-            SwitchStates(factory.Tongue());
+    public override void CheckSwitchStates()
+    {
+        if (tongue.IsFinished)
+        {
+            config.tongue.SetActive(false);
+            config.Velocity = Vector3.zero;
+            SwitchStates(factory.Idle());
+        }
+        if (!InputManager.Instance.TongueHeld)
+        {
+            SwitchStates(factory.Flying());
+        }
+    }
+}
+
+
+// Flying (with tongue)
+public class PlayerFlyingState : PlayerState
+{
+    TongueController tongue;
+    float deaccel;
+    bool justEntered;
+
+    public PlayerFlyingState(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
+    : base(config, currentContext, stateFactory)
+    {
+        name = "PlayerFly";
+    }
+
+    public override void EnterState()
+    {
+        config.grounded = true;
+        justEntered = true;
+        tongue = config.tongue.GetComponent<TongueController>();
+        deaccel = tongue.FlyingDeaccel;
+    }
+
+    public override void UpdateState()
+    {
+        // Movement updates
+        config.Speed -= deaccel;
+        config.Velocity = config.Velocity.normalized*config.Speed;
+        if (InputManager.Instance.Move == Vector3.zero) justEntered = false;
+        // Everything else 
+        NewPoint();
+        if (config.tongue.activeInHierarchy) tongue.UpdateTongue();
+        if (tongue.IsFinished) { config.tongue.SetActive(false); }
+        CheckSwitchStates();
+    }
+
+    public override void ExitState()
+    {
+        config.Speed = 0;
+        config.Velocity = Vector3.zero;
+    }
+
+    public override void CheckSwitchStates()
+    {
+        if (config.Speed < config.MinimumSpeed || InputCancelled())
+        {
+            if(config.tongue.activeInHierarchy) SwitchStates(factory.Tongue());
+            else SwitchStates(factory.Idle());
         }
     }
 
     // Helper function
-    public void Move() {
-
-        // finding direction
-        Vector3 targetDir = InputManager.Instance.Move;
-
-        float distancetoobj = Vector3.Distance(tongue.transform.position, config.transform.position);
-
-        // Tongue Moving, slower and no sprite update
-        if (targetDir == Vector3.zero) {
-            config.Speed = config.Speed - config.Deacceleration;
-            if (config.Speed <= config.MinimumSpeed) config.Speed = 0;
-            targetDir = config.Velocity;
-            targetDir.Normalize();
-            config.Velocity = targetDir*config.Speed;
-        } else {
-            if (config.Speed < config.MinimumSpeed) config.Speed = config.MinimumSpeed;
-            config.Speed = config.Speed + config.Acceleration;
-            if (config.Speed > tongue.PlayerMoveSpeed) config.Speed = tongue.PlayerMoveSpeed;
-            config.Velocity = targetDir*config.Speed;
-        }
+    bool InputCancelled()
+    {
+        return (InputManager.Instance.Move != Vector3.zero) && !justEntered;
     }
 }
 
@@ -316,7 +326,7 @@ public class PlayerStaffState : PlayerState
     public override void UpdateState()
     {
         config.SlowDown(config.Deacceleration);
-        newPoint();
+        NewPoint();
         CheckSwitchStates();
     }
 
@@ -357,7 +367,7 @@ public class PlayerKickChargeState : PlayerState {
         config.playerAnimator.UpdateJumpChargeAnimation();
 
         config.SlowDown(config.Deacceleration);
-        newPoint();
+        NewPoint();
         chargeTime = chargeTime + Time.deltaTime;
         CheckSwitchStates();
     }
@@ -398,7 +408,7 @@ public class PlayerKickState : PlayerState
     public override void UpdateState()
     {
         config.SlowDown(config.Deacceleration*3);
-        newPoint();
+        NewPoint();
         CheckSwitchStates();
     }
 
@@ -431,13 +441,13 @@ public class PlayerHurtState : PlayerState
         config.grounded = true;
         returnPoint = config.resetPosition;
         tongue = config.tongue.GetComponent<TongueController>();
-        if(tongue.grabbed) tongue.UnGrab();
+        if(tongue.Grabbed) tongue.UnGrab();
         config.tongue.SetActive(false);
     }
 
     public override void UpdateState(){
         config.SlowDown(config.RecoveryDeaccel);
-        newPoint();
+        NewPoint();
         CheckSwitchStates();
     }
     public override void ExitState(){

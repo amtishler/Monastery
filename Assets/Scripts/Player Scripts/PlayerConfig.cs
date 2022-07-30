@@ -35,19 +35,22 @@ public class PlayerConfig : CharacterConfig {
     public Vector3 resetPosition;
 
     // Start method, called before the first frame update.
-    protected override void _Start() {   
+    protected override void _Start()
+    {   
         mainCamera = Camera.main;
         playerAnimator = GetComponent<PlayerAnimator>();
     }
 
     // Update method - just to handle cooldowns.
-    protected override void _Update() {
+    protected override void _Update()
+    {
         currentAttackCooldown = currentAttackCooldown + Time.deltaTime;
     }
 
 
     // Changes player's sprite to one of the four directions.
-    public void RotateSprite(Vector3 targetDir) {
+    public void RotateSprite(Vector3 targetDir)
+    {
         int angle = GetAngle(targetDir);
         // spriteRenderer.sprite = moveSpriteList[angle];
         currentdir = angle;

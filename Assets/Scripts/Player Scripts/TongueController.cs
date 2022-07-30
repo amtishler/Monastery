@@ -6,66 +6,68 @@ public class TongueController : MonoBehaviour {
 
     // Serialized Fields
     [Header("References")]
-    [SerializeField] private CircleCollider2D tongueCollider;
+    [SerializeField] CircleCollider2D tongueCollider;
     [SerializeField] PlayerConfig config;
     [SerializeField] GameObject tongueBody;
     [Header("Tongue Variables")]
-    [SerializeField] float chargeTime = 1f;
+    [SerializeField] float aimAssistRadius = 0.25f;
     [SerializeField] float timeToExtend = 0.5f;
     [SerializeField] float tongueLength = 8f;
     [SerializeField] float retractAccelFactor = 1f;
     [SerializeField] float grappleDamp = 1f;
-    [SerializeField] float autoRetractionAngle = 90f;
-    [Header("Object Interactions")]
+    [SerializeField] Vector3 originAdjustment = new(0,0.11f,0);
+    //[SerializeField] float playerMoveSpeed = 3f;
+    //[SerializeField] float playerMoveSpeedHeavy = 2f;
+    //[SerializeField] int criticalFrameWindow = 10;
+    //[SerializeField] float criticalMultiplier = 2f;
+    [Header("Small Object Interactions")]
     [SerializeField] float objectResidualSpeed = 0.6f;
     [SerializeField] float buttonSpeedReduction = 0.8f;
-    [SerializeField] float playerMoveSpeed = 3f;
-    [SerializeField] float playerMoveSpeedHeavy = 2f;
-    [SerializeField] int criticalFrameWindow = 10;
-    [SerializeField] float criticalMultiplier = 2f;
     [SerializeField] float spitknockback = 20f;
+    [Header("Large Object Interactions")]
+    [SerializeField] float pullAccelFactor = 0.4f;
+    [SerializeField] float inputForceMag = 6f;
+    [SerializeField] float flyingDeaccel = 0.1f;
 
-    private float deacceleration;
-    private float speed;
-    private Vector3 velocity;
-    private Vector3 direction;
-    private Vector3 tongueAxis;
-    private Vector3 tongueOrigin;
-    private Vector3 finalPos;
-    private float distTraveled;
-    private float lengthReached;
-    private float totalTime = 0f;
-    private bool extending;
-    private bool paused;
+
+    float deacceleration;
+    float speed;
+    Vector3 velocity;
+    Vector3 direction;
+    Vector3 tongueAxis;
+    Vector3 TongueOrigin { get { return config.transform.position + originAdjustment; } }
+    float distTraveled;
+    float lengthReached;
+    Vector3 prevPos;
+    bool extending;
+    bool paused;
 
     //"grabbed" signifies sticking onto a large object
-    public bool grabbed;
-    public bool autoRetract;
-    public bool holdingObject;
+    bool grabbed;
+    bool holdingObject;
 
     // Need bool to check that the tongue can only grab once per instance.
-    private bool grabUsed;
+    bool grabUsed;
 
     // GameObject containing grabbed object
     public GameObject heldObject;
-    private CharacterConfig heldconf;
+    CharacterConfig heldconf;
 
     //Timer for critical window
-    private int criticalTimer;
-    private bool criticalUsed;
+    int criticalTimer;
+    bool criticalUsed;
 
     // getters & setters
-    public float PlayerMoveSpeed {get {return playerMoveSpeed;}}
-    public float ChargeTime {get {return chargeTime;}}
+    public bool Grabbed { get { return grabbed; } }
+    public bool HoldingObject { get { return holdingObject; } }
+    public float FlyingDeaccel { get { return flyingDeaccel; } }
+    public bool IsFinished { get; protected set; }
+    //public float PlayerMoveSpeed {get {return playerMoveSpeed;}}
 
 
     // Updates the tongue (called by state update)
     public void UpdateTongue()
     {
-        // Set spawn
-        Vector3 pos = config.transform.position;
-        SetSpawn(pos);
-
         // Checking if tongue is still going out
         if (extending) 
         {
@@ -74,13 +76,13 @@ public class TongueController : MonoBehaviour {
                 speed = deacceleration*Time.deltaTime;
                 StopExtending();
                 // retractAccelFactor
-                deacceleration = deacceleration*retractAccelFactor*buttonSpeedReduction;
+                deacceleration *= retractAccelFactor*buttonSpeedReduction;
                 speed = deacceleration*Time.deltaTime;
             }
             if (speed <= 0)
             {
                 StopExtending();
-                deacceleration = deacceleration*retractAccelFactor;
+                deacceleration *= retractAccelFactor;
             }
         }
 
@@ -96,32 +98,54 @@ public class TongueController : MonoBehaviour {
         */
 
         velocity = direction*speed;
-        distTraveled = distTraveled + Mathf.Abs(speed)*Time.deltaTime;
-        speed = speed - deacceleration*Time.deltaTime;
+        speed -= deacceleration*Time.deltaTime;
 
         Vector3 nextPos = transform.position + velocity*Time.deltaTime;
 
-        if(!grabbed && !grabUsed) CheckCollision(transform.position, nextPos);
+
+        bool shouldUpdate = true;
+
+        if (!grabbed && !grabUsed)
+        {
+            //CheckCollision(transform.position, nextPos);
+            CheckCollision();
+            if (grabUsed)
+            {
+                prevPos = transform.position;
+                shouldUpdate = false;
+            }
+        }
 
         // if (distTraveled <= 0) player.ReturnTongue();
-        transform.position = nextPos;
-        SetSpawn(config.transform.position);
-        SetEndpoint();
+        if (shouldUpdate) transform.position = nextPos;
         ResizeTongueBody();
+        distTraveled += (transform.position - prevPos).magnitude;
+        prevPos = transform.position;
+        if (!IsFinished) IsFinished = CheckIfFinished();
     }
 
 
     // Moves the player towards the tongue's end (used when grappling)
     public void PullPlayer()
     {
-        config.Velocity = direction*config.Speed;
-        config.Speed = config.Speed + deacceleration*Time.deltaTime;
+        // player Velocity
+        config.Speed += deacceleration*pullAccelFactor*Time.deltaTime;
+
+        // Applying player input force
+        Vector3 inverseAxis = new(-direction.y, direction.x, 0f);
+        Vector3 inputAdjustment = (Vector3.Dot(InputManager.Instance.Move, inverseAxis)*inverseAxis)*inputForceMag;
+        config.Velocity = (direction + inputAdjustment).normalized*config.Speed;
+
+
+        // tongue velocity
         velocity = -config.Velocity;
         speed = -config.Speed;
-        distTraveled = distTraveled + Mathf.Abs(config.Speed)*Time.deltaTime; // We need to invert the distTraveled
+        //distTraveled += Mathf.Abs( Vector3.Dot(config.Velocity, direction) )*Time.deltaTime;
+        distTraveled += (transform.position - prevPos).magnitude;
+        prevPos = transform.position;
+        if (!IsFinished) IsFinished = CheckIfFinished();
 
         // Resetting tongue's variables
-        SetSpawn(config.transform.position);
         SetEndpoint();
         ResizeTongueBody();
     }
@@ -135,8 +159,7 @@ public class TongueController : MonoBehaviour {
         {
             return;
         }
-        SetSpawn(config.transform.position);
-        heldObject.transform.position = tongueOrigin;
+        heldObject.transform.position = TongueOrigin;
         heldObject.transform.SetParent(null);
         heldObject.SetActive(true);
 
@@ -160,15 +183,23 @@ public class TongueController : MonoBehaviour {
 
 
     // Checks to see if the tongue hits something
-    private void CheckCollision(Vector3 start, Vector3 end)
+    private void CheckCollision()
     {
+        Vector3 start = transform.position;
+        Vector3 end = start + velocity*Time.deltaTime;
+
         LayerMask mask = LayerMask.GetMask("Object Hurtbox") | LayerMask.GetMask("Collectible Hitbox");
 
-        RaycastHit2D[] hits = Physics2D.LinecastAll(start, end, mask);
+        RaycastHit2D[] hits = Physics2D.CircleCastAll(start, aimAssistRadius, direction, 0f, layerMask: mask);
+
+        if (hits.Length == 0)
+        {
+            hits = Physics2D.LinecastAll(start, end, mask);
+        }
+
         if (hits.Length != 0)
         {
             string objectType = hits[0].collider.transform.gameObject.tag;
-            Debug.Log(objectType);
 
             if(objectType == "Large Object" || (objectType == "Untagged" && hits[0].transform.gameObject.tag == "Large Object")) 
             {
@@ -178,7 +209,8 @@ public class TongueController : MonoBehaviour {
                 SetEndpoint();
 
                 // Set to be child of object it is grabbed to so it moves with it
-                gameObject.transform.SetParent(hits[0].transform.gameObject.transform);
+                transform.position = hits[0].point;
+                gameObject.transform.SetParent(hits[0].transform);
 
                 // Speed is reset here, but it now will start pulling the player to its location.
                 // We also set the player's speeds to be the same as the tongue's
@@ -208,8 +240,9 @@ public class TongueController : MonoBehaviour {
                 // StopExtending();
                 SetEndpoint();
 
-                //Let object it has grabbed become a child so it follows.
+                // Tongue moves to object position, object becomes a child of tongue.
                 transform.position = heldObject.transform.position;
+                ResizeTongueBody();
                 heldObject.transform.SetParent(gameObject.transform);
 
                 if(heldconf != null)
@@ -228,19 +261,10 @@ public class TongueController : MonoBehaviour {
         }
     }
 
-
-    // Continually have to change "spawn point" if the player is moving while tongue is out
-    public void SetSpawn(Vector3 position)
-    {
-        position.y = position.y + 0.11f;
-        tongueOrigin = position;
-    }
-
-    
-    // Also will continually have to change the endpoint
+    //also will continually have to change the endpoint
     public void SetEndpoint()
     {
-        finalPos = transform.position;
+        //finalpos = transform.position;
     }
 
 
@@ -258,21 +282,20 @@ public class TongueController : MonoBehaviour {
     public void OnEnable() 
     {
         // Direction & position of tongue
-        SetSpawn(config.transform.position);
-        SetEndpoint();
         direction = InputManager.Instance.Aim;
 
         // Save axis to base rotatin on
         tongueAxis = GetAxis(config.GetAngle(direction));
 
         // Internal settings
-        transform.position = tongueOrigin;
+        transform.position = TongueOrigin;
         transform.rotation = Quaternion.identity;
         speed = 0f;
-        totalTime = 0f;
         distTraveled = 0f;
         lengthReached = 0f;
+        prevPos = transform.position;
         extending = true;
+        IsFinished = false;
         grabUsed = false;
         deacceleration = 2*tongueLength/Mathf.Pow(timeToExtend,2);
         speed = deacceleration*timeToExtend;
@@ -289,7 +312,6 @@ public class TongueController : MonoBehaviour {
         config.playerAnimator.UpdateIdleAnimation();
 
         // Finishing
-        autoRetract = false;
         ResizeTongueBody();
         tongueBody.GetComponent<SpriteRenderer>().enabled = true;
     }
@@ -321,25 +343,22 @@ public class TongueController : MonoBehaviour {
     // Resizes the tongue's width and everything.
     public void ResizeTongueBody()
     {
-        tongueBody.transform.position = (transform.position + tongueOrigin) / 2;
+        tongueBody.transform.position = (transform.position + TongueOrigin) / 2;
+        //direction = transform.position - TongueOrigin;
+        //direction.Normalize();
 
-        if(grabbed)
+        if (grabUsed)
         {
             tongueBody.transform.rotation = Quaternion.identity;
-            direction = transform.position - tongueOrigin;
+            direction = transform.position - TongueOrigin;
             direction.Normalize();
             float angle = Vector3.Angle(direction, Vector3.right);
             if (direction.y < 0) angle = -angle;
             tongueBody.transform.Rotate(0f,0f,angle);
-
-            if(Vector3.Angle(direction, tongueAxis) > autoRetractionAngle)
-            {
-                autoRetract = true;
-            };
         }
 
-        float currentLength = Vector3.Distance(transform.position, tongueOrigin);
-        tongueBody.transform.localScale = new Vector3(currentLength*5, 5*(.12f - .06f * (tongueBody.transform.localScale.x / (5*tongueLength))), transform.localScale.z);
+        float currentLength = Vector3.Distance(transform.position, TongueOrigin);
+        tongueBody.transform.localScale = new Vector3(currentLength, (.12f - .06f * (tongueBody.transform.localScale.x / (5*tongueLength))), transform.localScale.z);
     }
 
 
@@ -356,8 +375,24 @@ public class TongueController : MonoBehaviour {
     // Checks if tongue is finished
     public bool CheckIfFinished()
     {
+        //bool finished = false;
+        //if (!extending) finished = (config.transform.position - transform.position).magnitude - distTraveled < 0;
+        //return finished;
+
         bool finished = false;
-        if (!extending) finished = lengthReached - distTraveled < 0;
+
+        if (!extending)
+        {
+            Vector3 start = transform.position;
+            Vector3 end = prevPos;
+            LayerMask mask = LayerMask.GetMask("Player Hurtbox");
+
+            RaycastHit2D[] hits = Physics2D.LinecastAll(start, end, mask);
+            if (hits.Length == 0) return finished;
+            Debug.Log(hits[0].collider.transform.gameObject.tag);
+            Debug.Log(hits.Length);
+            if (hits[0].collider.transform.gameObject.CompareTag("Player")) finished = true;
+        }
         return finished;
     }
 
