@@ -289,7 +289,6 @@ public class EnemyStunnedState : EnemyState {
     : base(config, currentContext, stateFactory){}
 
     public override void EnterState() {
-        config.Stun = 0;
         config.grabbable = true;
         config.stunned = true;
     }
@@ -302,6 +301,7 @@ public class EnemyStunnedState : EnemyState {
     }
 
     public override void ExitState() {
+        config.Stun = 0;
         config.stunned = false;
         config.grabbable = false;
     }

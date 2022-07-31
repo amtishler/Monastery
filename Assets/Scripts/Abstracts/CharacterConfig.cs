@@ -63,6 +63,7 @@ public abstract class CharacterConfig : MonoBehaviour
     public float MaxHealth {get {return maxHealth;}}
     public float Health {get {return health;}}
     public float Stun {get {return stun;} set {stun = value;}}
+    public float MaxStun {get {return maxStun;}}
     public float InvincibleTimer {get {return invincibletimer;} set {invincibletimer = value;}}
     public string State {get {return stateManager.currentState.name;}} // Handy for checking which state we're in
 
