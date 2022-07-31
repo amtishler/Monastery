@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="98" height="82" tilewidth="32" tileheight="32" infinite="1" nextlayerid="3444" nextobjectid="24">
+<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="98" height="82" tilewidth="32" tileheight="32" infinite="1" nextlayerid="3444" nextobjectid="25">
  <tileset firstgid="1" source="../../Tilesets/forest-tiles.tsx"/>
  <tileset firstgid="65" source="../../Tilesets/forest-decoration.tsx"/>
  <tileset firstgid="129" source="../../Tilesets/forest-terrain.tsx"/>
@@ -5662,7 +5662,7 @@
   </data>
  </layer>
  <objectgroup id="251" name="Objects">
-  <object id="10" x="2654.79" y="838.79" width="960" height="540"/>
+  <object id="10" name="Max view" x="674.123" y="2438.79" width="1100" height="660"/>
   <object id="12" name="Fruit Intro" x="4518.67" y="930.667">
    <point/>
   </object>
@@ -5687,6 +5687,7 @@
   <object id="23" name="Jump" x="1672" y="1338">
    <point/>
   </object>
+  <object id="24" name="View" x="533.333" y="2394" width="960" height="540"/>
  </objectgroup>
  <layer id="3406" name="wall_collision" width="98" height="82">
   <data encoding="csv">

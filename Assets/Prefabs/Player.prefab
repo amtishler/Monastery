@@ -112,7 +112,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2705515589059232777}
   - component: {fileID: 2705515589059232778}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TongueBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -141,7 +141,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2705515589059232779}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -176,7 +176,7 @@ SpriteRenderer:
   m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.81960785, g: 0.14509803, b: 0.54039323, a: 1}
+  m_Color: {r: 0.9294118, g: 0.18431373, b: 0.76470596, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -295,6 +295,7 @@ GameObject:
   - component: {fileID: 2705515589199267939}
   - component: {fileID: 8786406847191199351}
   - component: {fileID: 6720115206736978869}
+  - component: {fileID: 749426387}
   m_Layer: 0
   m_Name: MainCamera
   m_TagString: MainCamera
@@ -345,7 +346,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 9.40625
+  orthographic size: 10.0625
   m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
@@ -481,6 +482,20 @@ MonoBehaviour:
   m_CropFrameX: 0
   m_CropFrameY: 0
   m_StretchFill: 0
+--- !u!114 &749426387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2705515589199267929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attenuationObject: {fileID: 0}
+  ListenerNumber: -1
 --- !u!1 &2705515589280278572
 GameObject:
   m_ObjectHideFlags: 0
@@ -532,7 +547,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 3
+  m_Radius: 0.5
 --- !u!114 &2705515589280278571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -548,19 +563,19 @@ MonoBehaviour:
   tongueCollider: {fileID: 2705515589280278569}
   config: {fileID: 2705515590991708970}
   tongueBody: {fileID: 2705515589059232779}
-  aimAssistRadius: 5
+  aimAssistRadius: 0.25
   timeToExtend: 0.3
-  tongueLength: 6
+  tongueLength: 6.8
   retractAccelFactor: 0.72
   grappleDamp: 1
   originAdjustment: {x: 0, y: 0.11, z: 0}
   objectResidualSpeed: 0.5
   buttonSpeedReduction: 0.8
   spitknockback: 25
-  pullAccelFactor: 0.4
-  inputForceMag: 6
-  flyingMaxSpeed: 20
-  flyingDeaccel: 0.1
+  pullAccelFactor: 0.75
+  inputForceMag: 1.5
+  flyingMaxSpeed: 25
+  flyingDeaccel: 0.4
   heldObject: {fileID: 0}
 --- !u!50 &2705515589280278583
 Rigidbody2D:
@@ -621,8 +636,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1909071963
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d1f6ad9a46fa045e7a45da2b81602dd6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -790,7 +805,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7774086, y: 1}
+    m_SensorSize: {x: 1.7779503, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1254,7 +1269,7 @@ MonoBehaviour:
   - {x: 0.23082781, y: -0.98944426, z: 0}
   m_ShapePathHash: 236791949
   m_Mesh: {fileID: 0}
-  m_InstanceId: 211584
+  m_InstanceId: -70144
 --- !u!1 &2705515591012369535
 GameObject:
   m_ObjectHideFlags: 0
