@@ -7011,6 +7011,18 @@ PrefabInstance:
       value: -1909071963
       objectReference: {fileID: 0}
     - target: {fileID: 2705515589059232778, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
+      propertyPath: m_Color.b
+      value: 0.76470596
+      objectReference: {fileID: 0}
+    - target: {fileID: 2705515589059232778, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
+      propertyPath: m_Color.g
+      value: 0.18431373
+      objectReference: {fileID: 0}
+    - target: {fileID: 2705515589059232778, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
+      propertyPath: m_Color.r
+      value: 0.9294118
+      objectReference: {fileID: 0}
+    - target: {fileID: 2705515589059232778, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
@@ -7024,7 +7036,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2705515589199267943, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
       propertyPath: orthographic size
-      value: 7.5625
+      value: 9.40625
       objectReference: {fileID: 0}
     - target: {fileID: 2705515589280278569, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
       propertyPath: m_Radius
@@ -7040,7 +7052,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2705515589280278571, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
       propertyPath: inputForceMag
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2705515589280278571, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
       propertyPath: aimAssistRadius
@@ -7060,7 +7072,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2705515589280278572, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2705515590406865740, guid: 4b95fd1d2fcc614479fa925d5cc7ef83, type: 3}
       propertyPath: stun

@@ -24,11 +24,13 @@ public class PlayerConfig : CharacterConfig {
     private float currentAttackCooldown;
 
     // Getters & Setters
-    public float AttackCooldown {get {return attackCooldown;}}
-    public float AttackDeaccel {get {return attackDeaccel;}}
-    public float CurrentAttackCooldown {get {return currentAttackCooldown;}}
-    public float TongueMaxSpeed {get {return tongueMaxSpeed;}}
-    public float KickChargeTime { get {return kickChargeTime;}}
+    public float AttackCooldown { get { return attackCooldown; } }
+    public float AttackDeaccel { get { return attackDeaccel; } }
+    public float CurrentAttackCooldown { get { return currentAttackCooldown; } }
+    public float TongueMaxSpeed { get { return tongueMaxSpeed; } }
+    public float KickChargeTime { get { return kickChargeTime; } }
+    public bool IsTouchingWall { get; protected set; }
+
     
     public PlayerAnimator playerAnimator;
     
@@ -45,6 +47,7 @@ public class PlayerConfig : CharacterConfig {
     protected override void _Update()
     {
         currentAttackCooldown = currentAttackCooldown + Time.deltaTime;
+        IsTouchingWall = false;
     }
 
 
@@ -54,5 +57,15 @@ public class PlayerConfig : CharacterConfig {
         int angle = GetAngle(targetDir);
         // spriteRenderer.sprite = moveSpriteList[angle];
         currentdir = angle;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("here");
+        if (collision.gameObject.layer == 9)
+        {
+            Debug.Log("hit wall");
+            IsTouchingWall = true;
+        }
     }
 }

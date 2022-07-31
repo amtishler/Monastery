@@ -26,7 +26,8 @@ public class TongueController : MonoBehaviour {
     [SerializeField] float spitknockback = 20f;
     [Header("Large Object Interactions")]
     [SerializeField] float pullAccelFactor = 0.4f;
-    [SerializeField] float inputForceMag = 6f;
+    [SerializeField] float inputForceMag = 1f;
+    [SerializeField] float flyingMaxSpeed = 20f;
     [SerializeField] float flyingDeaccel = 0.1f;
 
 
@@ -61,6 +62,7 @@ public class TongueController : MonoBehaviour {
     public bool Grabbed { get { return grabbed; } }
     public bool HoldingObject { get { return holdingObject; } }
     public float FlyingDeaccel { get { return flyingDeaccel; } }
+    public float FlyingMaxSpeed { get { return flyingMaxSpeed; } }
     public bool IsFinished { get; protected set; }
     //public float PlayerMoveSpeed {get {return playerMoveSpeed;}}
 
@@ -130,17 +132,20 @@ public class TongueController : MonoBehaviour {
     {
         // player Velocity
         config.Speed += deacceleration*pullAccelFactor*Time.deltaTime;
+        if (config.Speed > flyingMaxSpeed) config.Speed = flyingMaxSpeed;
 
         // Applying player input force
         Vector3 inverseAxis = new(-direction.y, direction.x, 0f);
-        Vector3 inputAdjustment = (Vector3.Dot(InputManager.Instance.Move, inverseAxis)*inverseAxis)*inputForceMag;
-        config.Velocity = (direction + inputAdjustment).normalized*config.Speed;
+        Vector3 inputAdjustment = (Vector3.Dot(InputManager.Instance.Move, inverseAxis) * (inverseAxis.normalized / inverseAxis.magnitude)) * inputForceMag;
+
+        //config.Velocity = (direction.normalized * Mathf.Sqrt(config.Speed) + inputAdjustment).normalized * config.Speed;
+        Vector3 previousAdjustment = (config.Velocity.normalized + direction) * Mathf.Sqrt(config.Speed);
+        config.Velocity = (previousAdjustment + inputAdjustment).normalized * config.Speed;
 
 
         // tongue velocity
         velocity = -config.Velocity;
         speed = -config.Speed;
-        //distTraveled += Mathf.Abs( Vector3.Dot(config.Velocity, direction) )*Time.deltaTime;
         distTraveled += (transform.position - prevPos).magnitude;
         prevPos = transform.position;
         if (!IsFinished) IsFinished = CheckIfFinished();

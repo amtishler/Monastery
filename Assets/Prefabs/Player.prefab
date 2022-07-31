@@ -345,7 +345,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 11.140625
+  orthographic size: 9.40625
   m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
@@ -548,21 +548,19 @@ MonoBehaviour:
   tongueCollider: {fileID: 2705515589280278569}
   config: {fileID: 2705515590991708970}
   tongueBody: {fileID: 2705515589059232779}
+  aimAssistRadius: 5
   timeToExtend: 0.3
   tongueLength: 6
   retractAccelFactor: 0.72
   grappleDamp: 1
   originAdjustment: {x: 0, y: 0.11, z: 0}
-  aimAssistRadius: 5
   objectResidualSpeed: 0.5
   buttonSpeedReduction: 0.8
-  playerMoveSpeed: 3
-  playerMoveSpeedHeavy: 2
-  criticalFrameWindow: 10
-  criticalMultiplier: 3
   spitknockback: 25
-  grabbed: 0
-  holdingObject: 0
+  pullAccelFactor: 0.4
+  inputForceMag: 6
+  flyingMaxSpeed: 20
+  flyingDeaccel: 0.1
   heldObject: {fileID: 0}
 --- !u!50 &2705515589280278583
 Rigidbody2D:
@@ -626,8 +624,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.9716981, g: 0.3987629, b: 0.7847124, a: 1}
+  m_Sprite: {fileID: 21300000, guid: d1f6ad9a46fa045e7a45da2b81602dd6, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -792,7 +790,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7779503, y: 1}
+    m_SensorSize: {x: 1.7774086, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1256,7 +1254,7 @@ MonoBehaviour:
   - {x: 0.23082781, y: -0.98944426, z: 0}
   m_ShapePathHash: 236791949
   m_Mesh: {fileID: 0}
-  m_InstanceId: 410578
+  m_InstanceId: 211584
 --- !u!1 &2705515591012369535
 GameObject:
   m_ObjectHideFlags: 0

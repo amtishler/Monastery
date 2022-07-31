@@ -270,6 +270,7 @@ public class PlayerFlyingState : PlayerState
     {
         // Movement updates
         config.Speed -= deaccel;
+        if (config.IsTouchingWall) { Debug.Log("fuckers");  config.Speed *= 0.25f; }
         config.Velocity = config.Velocity.normalized*config.Speed;
         if (InputManager.Instance.Move == Vector3.zero) justEntered = false;
         // Everything else 
