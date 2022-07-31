@@ -279,7 +279,7 @@ public class TongueController : MonoBehaviour {
 
 
     // Enable method, called every time the tongue is enabled.
-    public void OnEnable() 
+    public void OnEnable()
     {
         // Direction & position of tongue
         direction = InputManager.Instance.Aim;
@@ -297,20 +297,29 @@ public class TongueController : MonoBehaviour {
         extending = true;
         IsFinished = false;
         grabUsed = false;
-        deacceleration = 2*tongueLength/Mathf.Pow(timeToExtend,2);
-        speed = deacceleration*timeToExtend;
+        deacceleration = 2 * tongueLength / Mathf.Pow(timeToExtend, 2);
+        speed = deacceleration * timeToExtend;
 
         // Tongue bodies
         tongueBody.transform.rotation = Quaternion.identity;
         float angle = Vector3.Angle(direction, Vector3.right);
         if (direction.y < 0) angle = -angle;
-        tongueBody.transform.Rotate(0f,0f,angle);
+        tongueBody.transform.Rotate(0f, 0f, angle);
         tongueCollider.enabled = true;
 
-        // Rotate player
+        // Rotate player (and put sprite in correct place
         config.RotateSprite(direction);
         config.playerAnimator.UpdateIdleAnimation();
+        if (config.currentdir != 3)
+        {
+            GetComponent<SpriteRenderer>().sortingLayerName = "Player";
+            tongueBody.GetComponent<SpriteRenderer>().sortingLayerName = "Player";
+        } else
+        {
+            GetComponent<SpriteRenderer>().sortingLayerName = "PlayerFeatures";
+            tongueBody.GetComponent<SpriteRenderer>().sortingLayerName = "PlayerFeatures";
 
+        }
         // Finishing
         ResizeTongueBody();
         tongueBody.GetComponent<SpriteRenderer>().enabled = true;
@@ -358,7 +367,9 @@ public class TongueController : MonoBehaviour {
         }
 
         float currentLength = Vector3.Distance(transform.position, TongueOrigin);
-        tongueBody.transform.localScale = new Vector3(currentLength, (.12f - .06f * (tongueBody.transform.localScale.x / (5*tongueLength))), transform.localScale.z);
+        //tongueBody.transform.localScale = new Vector3(currentLength, (.12f - .06f * (tongueBody.transform.localScale.x / (5*tongueLength))), transform.localScale.z);
+        tongueBody.transform.localScale = new Vector3(currentLength, (.12f - .025f * (tongueBody.transform.localScale.x / (5*tongueLength))), transform.localScale.z);
+
     }
 
 
