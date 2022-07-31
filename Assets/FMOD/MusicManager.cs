@@ -152,6 +152,12 @@ public class MusicManager : MonoBehaviour
 
     }
 
+    public void HandleTrigger(bool stopMusic, FadeSpeed masterFadeRate, Area area, int variantIndex, FadeSpeed variantFadeRate)
+    {
+        MusicTrigger mt = new MusicTrigger(stopMusic, masterFadeRate, area, variantIndex, variantFadeRate);
+        HandleTrigger(mt);
+    }
+
     public void HandleTrigger(MusicTrigger trigger)
     {
         if (trigger.stopMusic)
@@ -162,6 +168,14 @@ public class MusicManager : MonoBehaviour
 
         else
             BeginFadeToVariant(trigger);
+
+/*        // When combat is triggered:
+        oldVariant = MusicManager.Instance.currentVariant;
+        HandleTrigger(false, FadeSpeed.normal, Area.Forest, 4, FadeSpeed.normal);
+
+        // When combat finishes:
+        HandleTrigger(false, FadeSpeed.normal, Area.Forest, oldVariant, FadeSpeed.normal);*/
+
 
     }
 
@@ -249,6 +263,11 @@ public class MusicManager : MonoBehaviour
 
         currentVariantIncrement = MusicTrigger.fadeSpeedDict[trigger.variantFadeRate];
 
+    }
+
+    public int getCurrentVariant()
+    {
+        return currentVariant;
     }
 
 

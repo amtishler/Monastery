@@ -17,6 +17,7 @@ public class CameraController : MonoBehaviour
     private bool edgesCreated = false;
     private bool activated = false;
     private Vector2 screenSize;
+    private int musicVariantToReturnTo = 0;
 
     public static CameraController Instance //Singleton Stuff
     {
@@ -50,7 +51,11 @@ public class CameraController : MonoBehaviour
     private void Update() {
         if (!isCutscene && activated) {
             if (!enemies.enemiesDefeated) enemies.CheckTimer();
-            else this.gameObject.SetActive(false);
+            else
+            {
+                MusicManager.Instance.HandleTrigger(false, FadeSpeed.normal, Area.Forest, musicVariantToReturnTo, FadeSpeed.normal);
+                this.gameObject.SetActive(false);
+            }
         }
     }
 
@@ -76,6 +81,8 @@ public class CameraController : MonoBehaviour
             if (!isCutscene && !edgesCreated) {
                 CreateEdges();
                 enemies.ActivateEnemies();
+                musicVariantToReturnTo = MusicManager.Instance.getCurrentVariant();
+                MusicManager.Instance.HandleTrigger(false, FadeSpeed.normal, Area.Forest, 4, FadeSpeed.normal);
             }
         }
     }

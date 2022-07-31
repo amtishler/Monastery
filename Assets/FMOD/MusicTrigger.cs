@@ -45,5 +45,13 @@ public class MusicTrigger
     public FadeSpeed variantFadeRate;
 
     //public TrackTriggerInfo[] trackTriggerInfo;
+    public MusicTrigger(bool s, FadeSpeed mfr, Area a, int v, FadeSpeed vfr)
+    {
+        stopMusic = s;
+        masterFadeRate = mfr;
+        area = a;
+        variant = v;
+        variantFadeRate = vfr;
+    }
 
 }
