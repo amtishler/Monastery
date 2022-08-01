@@ -93,13 +93,12 @@ public abstract class CharacterConfig : MonoBehaviour
             }
         }
 
-        //TODO stun decay
-        /*while(stun > 0){
+        if(stun > 0 && stun != maxStun){
             stun -= stundecay * Time.deltaTime;
             if(stun < 0){
                 stun = 0;
             }
-        }*/
+        }
 
         _Update();
     }
