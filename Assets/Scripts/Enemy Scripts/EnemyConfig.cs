@@ -29,6 +29,9 @@ public class EnemyConfig : CharacterConfig {
     private bool timerstarted;
     private float cooldowntimer;
 
+    public GameObject attackTriggerZone;
+    private EnemyAttackZone aggroZone; 
+
     public GameObject target;
     public GameObject attackhitbox;
     public Vector3 attackvector;
@@ -50,6 +53,12 @@ public class EnemyConfig : CharacterConfig {
     protected override void _Start() {
         seeker = GetComponent<Seeker>();
         animator = GetComponent<Animator>();
+
+        if(attackTriggerZone != null)
+        {
+            aggroZone = attackTriggerZone.GetComponent<EnemyAttackZone>();
+        }
+
         isattacking = false;
         grabbable = false;
         dead = false;
@@ -80,6 +89,12 @@ public class EnemyConfig : CharacterConfig {
     }
 
     protected override void _Update() {
+
+        if(attackTriggerZone != null && target == null && aggroZone.playerentered)
+        {
+            SetTarget(aggroZone.playergameobj);
+        }
+
         if(!timerstarted && oncooldown)
         {
             cooldowntimer = 0;
