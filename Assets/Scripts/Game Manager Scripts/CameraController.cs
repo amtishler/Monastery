@@ -15,8 +15,10 @@ public class CameraController : MonoBehaviour
     [SerializeField] private EnemyTracker enemies;
     public bool isCutscene = true;
     private bool edgesCreated = false;
-    private bool activated = false;
+    [SerializeField] private bool activated = false;
     private Vector2 screenSize;
+
+    [SerializeField] private Vector2 maxColliderSize = new Vector2(20, 10);
     private int musicVariantToReturnTo = 0;
 
     public static CameraController Instance //Singleton Stuff
@@ -53,17 +55,18 @@ public class CameraController : MonoBehaviour
             if (!enemies.enemiesDefeated) enemies.CheckTimer();
             else
             {
-                MusicManager.Instance.HandleTrigger(false, FadeSpeed.normal, Area.Forest, musicVariantToReturnTo, FadeSpeed.normal);
+                Debug.Log(this.gameObject);
                 this.gameObject.SetActive(false);
+                MusicManager.Instance.HandleTrigger(false, FadeSpeed.normal, Area.Forest, musicVariantToReturnTo, FadeSpeed.normal);
             }
         }
     }
 
-    // private void OnDrawGizmos()
-    // {
-    //     Gizmos.color = Color.blue;
-    //     Gizmos.DrawWireCube(transform.position, drawBox);
-    // }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(transform.position, maxColliderSize);
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -125,6 +128,6 @@ public class CameraController : MonoBehaviour
         colliders["BottomCollider"].position = new Vector3(cam.transform.position.x, cam.transform.position.y - screenSize.y - (colliders["BottomCollider"].localScale.y * 0.5f), 0f);
 
         edgesCreated = true;
-        Debug.Log(cam.transform.position);
+        // Debug.Log(cam.transform.position);
     }
 }

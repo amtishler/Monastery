@@ -24,7 +24,8 @@ public static class CameraSwitcher
         {
             if (c != camera)
             {
-                c.Priority = 0;
+                if (c.GetComponentInParent<PlayerConfig>() != null) c.Priority = 5;
+                else c.Priority = 0;
             }
         }
     }

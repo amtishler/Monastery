@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private GameObject[] checkpoints;
     private GameObject debug;
     private bool debugActive;
     //GameManager.Instance.whatever
@@ -23,6 +24,7 @@ public class GameManager : MonoBehaviour
     {
         _instance = this;
         Application.targetFrameRate = 144;
+        checkpoints = GameObject.FindGameObjectsWithTag("Checkpoint");
     }
 
     private void Update()
