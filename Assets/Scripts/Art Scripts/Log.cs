@@ -6,8 +6,6 @@ using UnityEngine;
 public class Log : MonoBehaviour
 {
     GameObject playerGO;
-    [SerializeField]
-    Vector3 midpoint;
     [Range(0, 7)]
     public int direction; 
     [SerializeField]
@@ -29,12 +27,6 @@ public class Log : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(playerGO.transform.position.y >= transform.position.y + midpoint.y) {
-            sR.sortingLayerName = "Foreground";
-        } else
-        {
-            sR.sortingLayerName = "Background";
-        }
         if(sR.sprite != spriteList[direction]) {
             sR.sprite = spriteList[direction];
             //hitboxChild.rotation = Quaternion.Euler(0, 0, 45 * direction);
