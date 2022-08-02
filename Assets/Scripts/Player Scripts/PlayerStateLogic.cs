@@ -220,7 +220,7 @@ public class PlayerTongueState : PlayerState {
 
         // buffering...
         if (InputManager.Instance.StaffPressed) buffer = factory.Staff();
-        if (InputManager.Instance.KickHeld) buffer = factory.Kick();
+        if (InputManager.Instance.KickHeld) buffer = factory.KickCharge();
         if (InputManager.Instance.TonguePressed) buffer = factory.Tongue();
         if (tongue.heldObject != null) buffer = factory.Running();
     }
@@ -320,7 +320,7 @@ public class PlayerFlyingState : PlayerState
         // buffering...
         if (InputManager.Instance.StaffPressed) buffer = factory.Staff();
         if (InputManager.Instance.TonguePressed) buffer = factory.Tongue();
-        if (InputManager.Instance.KickHeld) buffer = factory.Kick();
+        if (InputManager.Instance.KickHeld) buffer = factory.KickCharge();
         if (InputManager.Instance.Move != Vector3.zero) buffer = factory.Running();
     }
 
