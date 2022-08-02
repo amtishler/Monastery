@@ -11,6 +11,7 @@ public class BackgroundController : MonoBehaviour
     Vector2 posRatio = new Vector2();
     Vector2 bgSize = new Vector2();
     public GameObject clouds;
+    public float moveSpeed = 5.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +24,9 @@ public class BackgroundController : MonoBehaviour
     {
         camPos.x = camera.transform.position.x;
         camPos.y = camera.transform.position.y;
-        clouds.transform.position = new Vector3(camPos.x, camPos.y, 0);
+        //clouds.transform.position = new Vector3(camPos.x, camPos.y, 0);
+        float step = moveSpeed * Time.deltaTime;
+        clouds.transform.position = Vector3.Lerp (clouds.transform.position, new Vector3(camPos.x, camPos.y, 0), step);
         
         posRatio = (camPos - worldBounds.position) / (worldBounds.size) - (Vector2.one / 2);
         posRatio *= -1;
