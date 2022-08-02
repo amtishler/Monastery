@@ -15,6 +15,7 @@ public class TongueController : MonoBehaviour {
     [SerializeField] float tongueLength = 8f;
     [SerializeField] float retractAccelFactor = 1f;
     [SerializeField] float grappleDamp = 1f;
+    [SerializeField] float friction = 0.5f;
     [SerializeField] Vector3 originAdjustment = new(0,0.11f,0);
     //[SerializeField] float playerMoveSpeed = 3f;
     //[SerializeField] float playerMoveSpeedHeavy = 2f;
@@ -60,6 +61,7 @@ public class TongueController : MonoBehaviour {
     bool criticalUsed;
 
     // getters & setters
+    public float Friction { get { return friction; } }
     public Vector3 Velocity { get { return velocity; } }
     public float Speed { get { return velocity.magnitude; } }
     public Vector3 Direction { get { return direction; } }

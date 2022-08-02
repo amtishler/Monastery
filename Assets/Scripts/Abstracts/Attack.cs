@@ -8,10 +8,12 @@ public class Attack : MonoBehaviour
     [SerializeField] protected CharacterConfig playerconf;
     [SerializeField] protected float damage, knockback, stun;
     [SerializeField] protected float knockbacknormalization = 0.5f;
+    [SerializeField] protected float friction = 0.5f;
     protected bool done = false;
 
     // Getters & Setters
     public bool Done { get { return done; } set { done = value; } }
+    public float Friction { get { return friction; } }
 
     // Gets direction
     protected Vector3 GetAxis(int dir)

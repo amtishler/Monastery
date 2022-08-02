@@ -351,7 +351,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 8.4375
+  orthographic size: 7.5
   m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
@@ -573,6 +573,7 @@ MonoBehaviour:
   tongueLength: 7
   retractAccelFactor: 1.25
   grappleDamp: 1
+  friction: 1
   originAdjustment: {x: 0, y: 0.11, z: 0}
   objectResidualSpeed: 0.5
   buttonSpeedReduction: 0.8
@@ -732,6 +733,7 @@ MonoBehaviour:
   knockback: 20
   stun: 25
   knockbacknormalization: 0.5
+  friction: 1
 --- !u!1 &2705515589997795902
 GameObject:
   m_ObjectHideFlags: 0
@@ -811,7 +813,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7777778, y: 1}
+    m_SensorSize: {x: 1.7785589, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -937,6 +939,7 @@ MonoBehaviour:
   knockback: 40
   stun: 0
   knockbacknormalization: 0.5
+  friction: 1
 --- !u!1 &2705515590991708971
 GameObject:
   m_ObjectHideFlags: 0
@@ -1066,6 +1069,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05eea6b2524fbe049ad11e1d2687e55c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  respawnPoint: {x: 0, y: 0, z: 0}
   maximumSpeed: 6.75
   minimumSpeed: 0.5
   acceleration: 1
@@ -1274,7 +1278,7 @@ MonoBehaviour:
   - {x: 0.23082781, y: -0.98944426, z: 0}
   m_ShapePathHash: 236791949
   m_Mesh: {fileID: 0}
-  m_InstanceId: -6032
+  m_InstanceId: 1082134
 --- !u!1 &2705515591012369535
 GameObject:
   m_ObjectHideFlags: 0

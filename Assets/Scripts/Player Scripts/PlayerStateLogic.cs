@@ -202,7 +202,7 @@ public class PlayerTongueState : PlayerState {
         buffer = factory.Idle();
         tongue = config.tongue.GetComponent<TongueController>();
         Vector3 direction = InputManager.Instance.Aim;
-        config.SlowDown(config.Deacceleration);
+        config.SlowDown(tongue.Friction);
         config.RotateSprite(direction);
 
         if (!tongue.HoldingObject) {
@@ -380,7 +380,7 @@ public class PlayerStaffState : PlayerState
 
     public override void UpdateState()
     {
-        config.SlowDown(config.Deacceleration);
+        config.SlowDown(staff.Friction);
         NewPoint();
         CheckSwitchStates();
     }
@@ -452,7 +452,7 @@ public class PlayerKickState : PlayerState
     public override void EnterState()
     {
         config.grounded = true;
-        config.SlowDown(config.Deacceleration*3);
+        config.SlowDown(kick.Friction);
         Vector3 direction = InputManager.Instance.Aim;
         kick = config.kick.GetComponent<Attack>();
         config.kick.SetActive(true);
