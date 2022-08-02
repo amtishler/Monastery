@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private GameObject[] checkpoints;
+    [SerializeField] public GameObject[] checkpoints;
     private GameObject debug;
     private bool debugActive;
     //GameManager.Instance.whatever

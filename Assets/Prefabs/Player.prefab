@@ -280,7 +280,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 2705515589997795899}
-  boxSize: {x: 0.1, y: 0.1}
+  bufferPlayerHeight: 0
+  bufferPlayerWidth: 0
+  enemies: {fileID: 0}
+  isCutscene: 1
+  activated: 0
+  maxColliderSize: {x: 20, y: 10}
 --- !u!1 &2705515589199267929
 GameObject:
   m_ObjectHideFlags: 0
@@ -346,7 +351,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 10.0625
+  orthographic size: 8.4375
   m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
@@ -565,16 +570,17 @@ MonoBehaviour:
   tongueBody: {fileID: 2705515589059232779}
   aimAssistRadius: 0.25
   timeToExtend: 0.3
-  tongueLength: 6.8
-  retractAccelFactor: 0.72
+  tongueLength: 7
+  retractAccelFactor: 1.25
   grappleDamp: 1
   originAdjustment: {x: 0, y: 0.11, z: 0}
   objectResidualSpeed: 0.5
   buttonSpeedReduction: 0.8
   spitknockback: 25
-  pullAccelFactor: 0.75
-  inputForceMag: 1.5
-  flyingMaxSpeed: 25
+  pullAccelFactor: 0.4
+  inputMaxSpeed: 0.76
+  inputAccel: 10
+  flyingMaxSpeed: 30
   flyingDeaccel: 0.4
   heldObject: {fileID: 0}
 --- !u!50 &2705515589280278583
@@ -693,7 +699,7 @@ BoxCollider2D:
   m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -805,7 +811,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7779503, y: 1}
+    m_SensorSize: {x: 1.7777778, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -898,7 +904,7 @@ BoxCollider2D:
   m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -1060,8 +1066,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05eea6b2524fbe049ad11e1d2687e55c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
-  maximumSpeed: 6.5
+  maximumSpeed: 6.75
   minimumSpeed: 0.5
   acceleration: 1
   deacceleration: 0.5
@@ -1086,7 +1091,7 @@ MonoBehaviour:
   tongueMaxSpeed: 6
   attackCooldown: 1
   attackDeaccel: 1
-  kickChargeTime: 0.5
+  kickChargeTime: 0.1
   tongue: {fileID: 2705515589280278572}
   staff: {fileID: 2705515589359950222}
   kick: {fileID: 2705515590406865729}
@@ -1269,7 +1274,7 @@ MonoBehaviour:
   - {x: 0.23082781, y: -0.98944426, z: 0}
   m_ShapePathHash: 236791949
   m_Mesh: {fileID: 0}
-  m_InstanceId: -70144
+  m_InstanceId: -6032
 --- !u!1 &2705515591012369535
 GameObject:
   m_ObjectHideFlags: 0
