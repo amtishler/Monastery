@@ -90,63 +90,92 @@ public class PlayerIdleState : PlayerState {
 
 
 // Running
-public class PlayerRunningState : PlayerState {
-
+public class PlayerRunningState : PlayerState
+{
     TongueController tongue;
+    bool goingFast;
 
     public PlayerRunningState(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
-    : base(config, currentContext, stateFactory){
+    : base(config, currentContext, stateFactory)
+    {
         name = "PlayerRun";
     }
 
-    public override void EnterState() {
+    public override void EnterState()
+    {
         config.grounded = true;
         returnPoint = config.resetPosition;
         tongue = config.tongue.GetComponent<TongueController>();
+        goingFast = false;
+        if (config.Speed > config.MaximumSpeed) goingFast = true;
         Move();
     }
     
-    public override void UpdateState() {
+    public override void UpdateState()
+    {
         Move();
         NewPoint();
         CheckSwitchStates();
+        if (config.Speed < config.MaximumSpeed) goingFast = false;
     }
 
-    public override void ExitState() {
-        // config.Speed = 0f;
-        // config.Velocity = Vector3.zero;
+    public override void ExitState()
+    {
         config.resetPosition = returnPoint;
     }
 
-    public override void CheckSwitchStates() {
+    public override void CheckSwitchStates()
+    {
         if ((InputManager.Instance.TonguePressed && tongue.heldObject == null) || (!InputManager.Instance.TongueHeld && tongue.heldObject != null)) SwitchStates(factory.Tongue());
         if (config.Speed == 0) SwitchStates(factory.Idle());
-        else if(tongue.heldObject == null) {
+        else if(tongue.heldObject == null)
+        {
             if (InputManager.Instance.StaffPressed) SwitchStates(factory.Staff());
             else if (InputManager.Instance.KickPressed) SwitchStates(factory.KickCharge());
-        if(!config.grounded) SwitchStates(factory.Falling());
+            if(!config.grounded) SwitchStates(factory.Falling());
         }
     }
 
     // Helper function
-    public void Move() {
-
+    public void Move() 
+    {
         // finding direction
         Vector3 targetDir = InputManager.Instance.Move;
 
-        // moving
-        if (targetDir == Vector3.zero) {
-            config.Speed = config.Speed - config.Deacceleration;
-            if (config.Speed <= config.MinimumSpeed) config.Speed = 0;
-            targetDir = config.Velocity;
-            targetDir.Normalize();
-            config.Velocity = targetDir*config.Speed;
-        } else {
-            if (config.Speed < config.MinimumSpeed) config.Speed = config.MinimumSpeed;
-            config.Speed = config.Speed + config.Acceleration;
-            if (config.Speed > config.MaximumSpeed) config.Speed = config.MaximumSpeed;
-            config.Velocity = targetDir*config.Speed;
+        if (goingFast)
+        {
+            float speed = config.Speed;
+            speed -= config.Deacceleration;
+            config.Velocity = (targetDir*config.Acceleration + config.Velocity).normalized * speed;
         }
+        else
+        {
+            if (targetDir == Vector3.zero)
+            {
+                config.Velocity -= config.Velocity.normalized * config.Deacceleration;
+                if (config.Speed <= config.MinimumSpeed) config.Velocity = Vector3.zero;
+            }
+            else
+            {
+                config.Velocity += targetDir * config.Acceleration;
+                if (config.Speed > config.MaximumSpeed) config.Velocity = config.Velocity.normalized * config.MaximumSpeed;
+            }
+        }
+
+        //// moving
+        //if (targetDir == Vector3.zero)
+        //{
+        //    if (config.Speed <= config.MinimumSpeed) config.Velocity = Vector3.zero;
+        //    else config.Velocity -= config.Velocity.normalized * config.Deacceleration;
+        //}
+        //else
+        //{
+        //    config.Velocity += targetDir * config.Acceleration;
+        //    if (config.Speed > config.MaximumSpeed && !goingFast)
+        //    {
+        //        config.Velocity = config.Velocity.normalized * config.MaximumSpeed;
+        //    };
+        //}
 
         // update sprite
         if (targetDir == Vector3.zero) return;
@@ -190,7 +219,8 @@ public class PlayerTongueState : PlayerState {
 
     public override void ExitState() {}
 
-    public override void CheckSwitchStates() {
+    public override void CheckSwitchStates()
+    {
         if (tongue.IsFinished) {
             SwitchStates(factory.Idle());
             config.tongue.SetActive(false);
@@ -221,6 +251,8 @@ public class PlayerPullingState : PlayerState
     {
         NewPoint();
         tongue.PullPlayer();
+        config.RotateSprite(tongue.Direction);
+        config.playerAnimator.UpdateIdleAnimation();
         CheckSwitchStates();
     }
 
@@ -250,7 +282,6 @@ public class PlayerFlyingState : PlayerState
 {
     TongueController tongue;
     float deaccel;
-    bool justEntered;
 
     public PlayerFlyingState(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
     : base(config, currentContext, stateFactory)
@@ -260,19 +291,16 @@ public class PlayerFlyingState : PlayerState
 
     public override void EnterState()
     {
-        config.grounded = true;
-        justEntered = true;
         tongue = config.tongue.GetComponent<TongueController>();
+        tongue.RemovePlayerInputForce();
         deaccel = tongue.FlyingDeaccel;
     }
 
     public override void UpdateState()
     {
         // Movement updates
-        config.Speed -= deaccel;
-        if (config.IsTouchingWall) { Debug.Log("fuckers");  config.Speed *= 0.25f; }
-        config.Velocity = config.Velocity.normalized*config.Speed;
-        if (InputManager.Instance.Move == Vector3.zero) justEntered = false;
+        config.Velocity -= config.Velocity.normalized*deaccel;
+        if (config.IsTouchingWall) config.Velocity *= 0.25f;
         // Everything else 
         NewPoint();
         if (config.tongue.activeInHierarchy) tongue.UpdateTongue();
@@ -282,23 +310,15 @@ public class PlayerFlyingState : PlayerState
 
     public override void ExitState()
     {
-        config.Speed = 0;
-        config.Velocity = Vector3.zero;
     }
 
     public override void CheckSwitchStates()
     {
-        if (config.Speed < config.MinimumSpeed || InputCancelled())
+        if (config.Speed < config.MinimumSpeed || InputManager.Instance.Move != Vector3.zero)
         {
             if(config.tongue.activeInHierarchy) SwitchStates(factory.Tongue());
-            else SwitchStates(factory.Idle());
+            else SwitchStates(factory.Running());
         }
-    }
-
-    // Helper function
-    bool InputCancelled()
-    {
-        return (InputManager.Instance.Move != Vector3.zero) && !justEntered;
     }
 }
 
@@ -584,7 +604,7 @@ public class PlayerFall : PlayerState
     }
     public override void CheckSwitchStates(){
         if (_fallAnim <= 0) {
-            config.Speed = 0;
+            config.Velocity = Vector3.zero;
             config.Hit(config.fallDamage, 0, Vector3.zero, 0);
             if(config.Health <= 0) {
                 SwitchStates(factory.Dead());

@@ -61,10 +61,8 @@ public class PlayerConfig : CharacterConfig {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("here");
         if (collision.gameObject.layer == 9)
         {
-            Debug.Log("hit wall");
             IsTouchingWall = true;
         }
     }

@@ -13,8 +13,6 @@ public abstract class CharacterConfig : MonoBehaviour
     protected SpriteRenderer spriteRenderer;
     protected StateMachine stateManager;
 
-    [SerializeField] protected float speed = 0f;
-
     [Header("Movement")]
     [SerializeField] protected float maximumSpeed = 6.0f;
     [SerializeField] protected float minimumSpeed = 3.0f;
@@ -54,7 +52,7 @@ public abstract class CharacterConfig : MonoBehaviour
     protected abstract void _Update();
 
     public Vector3 Velocity {get {return rigidBody.velocity;} set {rigidBody.velocity = value;}}
-    public float Speed {get {return speed;} set {speed = value;}}
+    public float Speed {get {return Velocity.magnitude;} }
     public float MaximumSpeed {get {return maximumSpeed;} set {maximumSpeed = value;}}
     public float MinimumSpeed {get {return minimumSpeed;}}
     public float Acceleration {get {return acceleration;}}
@@ -112,11 +110,8 @@ public abstract class CharacterConfig : MonoBehaviour
     // Moves without player input
     public void SlowDown(float dampening)
     {
-        speed = speed - dampening;
-        if (speed <= minimumSpeed) speed = 0;
-        Vector3 targetDir = Velocity;
-        targetDir.Normalize();
-        Velocity = targetDir*speed;
+        Velocity -= Velocity.normalized * dampening;
+        if (Speed <= minimumSpeed) Velocity = Vector3.zero;
     }
 
     public void Hit(float damage, float stundamage, Vector3 knockback, float magnitude)
@@ -152,8 +147,7 @@ public abstract class CharacterConfig : MonoBehaviour
 
     public void ApplyKnockback(Vector3 dir, float mag)
     {
-        speed = mag * knockbackmultiplier;
-        Velocity = dir;
+        Velocity = dir * mag * knockbackmultiplier;
     }
 
     public int GetAngle(Vector3 targetDir) {

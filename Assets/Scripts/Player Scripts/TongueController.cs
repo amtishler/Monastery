@@ -25,23 +25,24 @@ public class TongueController : MonoBehaviour {
     [SerializeField] float buttonSpeedReduction = 0.8f;
     [SerializeField] float spitknockback = 20f;
     [Header("Large Object Interactions")]
-    [SerializeField] float pullAccelFactor = 0.4f;
-    [SerializeField] float inputForceMag = 1f;
+    [SerializeField] float pullAccelFactor = 1f;
+    [SerializeField] float inputMaxSpeed = 5f;
+    [SerializeField] float inputAccel = 10f;
     [SerializeField] float flyingMaxSpeed = 20f;
     [SerializeField] float flyingDeaccel = 0.1f;
 
 
     float deacceleration;
-    float speed;
+    float pullSpeed;
+    bool pullInOppositeDir;
     Vector3 velocity;
     Vector3 direction;
-    Vector3 tongueAxis;
+    Vector3 inputVelocity;
     Vector3 TongueOrigin { get { return config.transform.position + originAdjustment; } }
-    float distTraveled;
-    float lengthReached;
     Vector3 prevPos;
     bool extending;
     bool paused;
+    bool startedSwinging;
 
     //"grabbed" signifies sticking onto a large object
     bool grabbed;
@@ -59,6 +60,9 @@ public class TongueController : MonoBehaviour {
     bool criticalUsed;
 
     // getters & setters
+    public Vector3 Velocity { get { return velocity; } }
+    public float Speed { get { return velocity.magnitude; } }
+    public Vector3 Direction { get { return direction; } }
     public bool Grabbed { get { return grabbed; } }
     public bool HoldingObject { get { return holdingObject; } }
     public float FlyingDeaccel { get { return flyingDeaccel; } }
@@ -75,13 +79,13 @@ public class TongueController : MonoBehaviour {
         {
             if (!InputManager.Instance.TongueHeld)
             {
-                speed = deacceleration*Time.deltaTime;
                 StopExtending();
                 // retractAccelFactor
                 deacceleration *= retractAccelFactor*buttonSpeedReduction;
-                speed = deacceleration*Time.deltaTime;
+                //speed = deacceleration*Time.deltaTime;
+                velocity = direction * deacceleration * Time.deltaTime;
             }
-            if (speed <= 0)
+            if (Vector3.Dot(velocity, direction) <= 0)
             {
                 StopExtending();
                 deacceleration *= retractAccelFactor;
@@ -99,17 +103,17 @@ public class TongueController : MonoBehaviour {
         };
         */
 
-        velocity = direction*speed;
-        speed -= deacceleration*Time.deltaTime;
+        //velocity = direction*speed;
+        //speed -= deacceleration*Time.deltaTime;
+        velocity -= deacceleration * Time.deltaTime * direction;
 
-        Vector3 nextPos = transform.position + velocity*Time.deltaTime;
+        //Vector3 nextPos = transform.position + velocity*Time.deltaTime;
 
 
         bool shouldUpdate = true;
 
         if (!grabbed && !grabUsed)
         {
-            //CheckCollision(transform.position, nextPos);
             CheckCollision();
             if (grabUsed)
             {
@@ -118,10 +122,8 @@ public class TongueController : MonoBehaviour {
             }
         }
 
-        // if (distTraveled <= 0) player.ReturnTongue();
-        if (shouldUpdate) transform.position = nextPos;
+        if (shouldUpdate) transform.position += velocity * Time.deltaTime;
         ResizeTongueBody();
-        distTraveled += (transform.position - prevPos).magnitude;
         prevPos = transform.position;
         if (!IsFinished) IsFinished = CheckIfFinished();
     }
@@ -130,23 +132,64 @@ public class TongueController : MonoBehaviour {
     // Moves the player towards the tongue's end (used when grappling)
     public void PullPlayer()
     {
-        // player Velocity
-        config.Speed += deacceleration*pullAccelFactor*Time.deltaTime;
-        if (config.Speed > flyingMaxSpeed) config.Speed = flyingMaxSpeed;
+        float extraSpeed = deacceleration * pullAccelFactor * Time.deltaTime;
+        pullSpeed += extraSpeed;
+        float newSpeed = config.Speed + extraSpeed;
 
-        // Applying player input force
-        Vector3 inverseAxis = new(-direction.y, direction.x, 0f);
-        Vector3 inputAdjustment = (Vector3.Dot(InputManager.Instance.Move, inverseAxis) * (inverseAxis.normalized / inverseAxis.magnitude)) * inputForceMag;
+        //// Calculating player input velocity
+        //Vector3 inverseAxis = (new Vector3(-direction.y, direction.x, 0f)).normalized;
+        //Vector3 inputForceDirection = (Vector3.Dot(InputManager.Instance.Move, inverseAxis) * inverseAxis).normalized;
+        //if (!startedSwinging)
+        //{
+        //    inputVelocity = inputForceDirection * inputMaxSpeed;
+        //    startedSwinging = true;
+        //}
+        //else
+        //{
+        //    inputVelocity += inputAccel * Time.deltaTime * inputForceDirection;
+        //    if (inputVelocity.magnitude >= inputMaxSpeed) inputVelocity = inputVelocity.normalized * inputMaxSpeed;
+        //}
 
-        //config.Velocity = (direction.normalized * Mathf.Sqrt(config.Speed) + inputAdjustment).normalized * config.Speed;
-        Vector3 previousAdjustment = (config.Velocity.normalized + direction) * Mathf.Sqrt(config.Speed);
-        config.Velocity = (previousAdjustment + inputAdjustment).normalized * config.Speed;
+        //Vector3 directionAdjust = ( direction) * Mathf.Sqrt(newSpeed);
 
+        //// Calculating the pull force adjustment
+        //config.Velocity = (directionAdjust + inputVelocity).normalized * newSpeed;
+        //if (config.Speed > flyingMaxSpeed) config.Velocity = config.Velocity.normalized * flyingMaxSpeed;
+
+        Vector3 inverseAxis = (new Vector3(-direction.y, direction.x, 0f)).normalized;
+        Vector3 inputDirection = (Vector3.Dot(InputManager.Instance.Move, inverseAxis) * inverseAxis).normalized;
+        Vector3 currentDirection = (Vector3.Dot(config.Velocity, inverseAxis) * inverseAxis).normalized;
+
+
+        if (!startedSwinging)
+        {
+            inputVelocity = inputDirection.normalized * inputMaxSpeed;
+            if (InputManager.Instance.Move != Vector3.zero) startedSwinging = true;
+        }
+        else
+        {
+            float magnitude = inputVelocity.magnitude;
+            float dotProduct = Vector3.Dot(config.Velocity, inputDirection);
+
+            if (dotProduct > 0f)
+            {
+                magnitude += inputAccel * Time.deltaTime;
+                if (magnitude > inputMaxSpeed) magnitude = inputMaxSpeed;
+            }
+            else
+            {
+                inputDirection = -inputDirection;
+                if (dotProduct == 0f) inputDirection = currentDirection;
+                magnitude -= inputAccel * Time.deltaTime;
+            }
+            inputVelocity = inputDirection * magnitude;
+        }
+
+        config.Velocity = (direction + inputVelocity).normalized * newSpeed;
+        if (config.Speed > flyingMaxSpeed) config.Velocity = config.Velocity.normalized * flyingMaxSpeed;
 
         // tongue velocity
         velocity = -config.Velocity;
-        speed = -config.Speed;
-        distTraveled += (transform.position - prevPos).magnitude;
         prevPos = transform.position;
         if (!IsFinished) IsFinished = CheckIfFinished();
 
@@ -208,6 +251,7 @@ public class TongueController : MonoBehaviour {
 
             if(objectType == "Large Object" || (objectType == "Untagged" && hits[0].transform.gameObject.tag == "Large Object")) 
             {
+                Debug.Log("hit large thing");
                 grabbed = true;
                 grabUsed = true;
                 StopExtending();
@@ -217,11 +261,9 @@ public class TongueController : MonoBehaviour {
                 transform.position = hits[0].point;
                 gameObject.transform.SetParent(hits[0].transform);
 
-                // Speed is reset here, but it now will start pulling the player to its location.
-                // We also set the player's speeds to be the same as the tongue's
-                speed = deacceleration*Time.deltaTime;
-                deacceleration = deacceleration*grappleDamp;
-                config.Speed = speed;
+                // Velocity is reset here, but it now will start pulling the player to its location.
+                velocity = deacceleration * Time.deltaTime * direction;
+                deacceleration *= grappleDamp;
             }
 
             if(objectType == "Small Object" || (objectType == "Untagged" && hits[0].transform.gameObject.tag == "Small Object"))
@@ -233,7 +275,7 @@ public class TongueController : MonoBehaviour {
                 if(heldconf != null && !heldconf.grabbable)
                 {
                     heldObject = null;
-                    speed = 0;
+                    velocity = Vector3.zero;
                     StopExtending();
                     return;
                 }
@@ -256,8 +298,8 @@ public class TongueController : MonoBehaviour {
                     heldconf.grabbed = true;
                 }
 
-                //Lose some of the speed when hitting object
-                speed = speed*objectResidualSpeed;
+                //Lose some momentum when hitting object
+                velocity *= objectResidualSpeed;
 
                 //Start timer
                 //criticalTimer = 0;
@@ -288,22 +330,20 @@ public class TongueController : MonoBehaviour {
     {
         // Direction & position of tongue
         direction = InputManager.Instance.Aim;
-
-        // Save axis to base rotatin on
-        tongueAxis = GetAxis(config.GetAngle(direction));
-
+        
         // Internal settings
-        transform.position = TongueOrigin;
-        transform.rotation = Quaternion.identity;
-        speed = 0f;
-        distTraveled = 0f;
-        lengthReached = 0f;
+        transform.SetPositionAndRotation(TongueOrigin, Quaternion.identity);
         prevPos = transform.position;
         extending = true;
         IsFinished = false;
         grabUsed = false;
         deacceleration = 2 * tongueLength / Mathf.Pow(timeToExtend, 2);
-        speed = deacceleration * timeToExtend;
+        velocity = direction * deacceleration * timeToExtend;
+
+        // Specifically for tongue pulling
+        startedSwinging = false;
+        pullSpeed = 0f;
+        inputVelocity = Vector3.zero;
 
         // Tongue bodies
         tongueBody.transform.rotation = Quaternion.identity;
@@ -382,9 +422,13 @@ public class TongueController : MonoBehaviour {
     private void StopExtending()
     {
         extending = false;
-        lengthReached = distTraveled;
         SetEndpoint();
-        distTraveled = 0f;
+    }
+
+    // Removes player's input velocity. Called when we enter flying state.
+    public void RemovePlayerInputForce()
+    {
+        velocity = velocity.magnitude * -direction;
     }
 
 
@@ -405,8 +449,6 @@ public class TongueController : MonoBehaviour {
 
             RaycastHit2D[] hits = Physics2D.LinecastAll(start, end, mask);
             if (hits.Length == 0) return finished;
-            Debug.Log(hits[0].collider.transform.gameObject.tag);
-            Debug.Log(hits.Length);
             if (hits[0].collider.transform.gameObject.CompareTag("Player")) finished = true;
         }
         return finished;

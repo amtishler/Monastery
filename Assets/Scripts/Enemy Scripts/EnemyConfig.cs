@@ -171,10 +171,9 @@ public class EnemyConfig : CharacterConfig {
         if (targetDir == Vector3.zero) {
             SlowDown(deacceleration);
         } else {
-            if (speed < minimumSpeed) speed = minimumSpeed;
-            speed = speed + acceleration;
-            if (speed > maximumSpeed) speed = maximumSpeed;
-            Velocity = targetDir*speed;
+            if (Speed < minimumSpeed) Velocity = Velocity.normalized * minimumSpeed;
+            if (Speed > maximumSpeed) Velocity = Velocity.normalized * maximumSpeed;
+            Velocity += targetDir*acceleration;
         }
 
         // Update sprite TODO

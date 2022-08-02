@@ -127,10 +127,9 @@ public class FlyConfig : CharacterConfig {
         if (targetDir == Vector3.zero) {
             SlowDown(deacceleration);
         } else {
-            if (speed < minimumSpeed) speed = minimumSpeed;
-            speed = speed + acceleration;
-            if (speed > maximumSpeed) speed = maximumSpeed;
-            Velocity = targetDir*speed;
+            if (Speed < minimumSpeed) Velocity = Velocity.normalized*minimumSpeed;
+            Velocity += targetDir*acceleration;
+            if (Speed > maximumSpeed) Velocity = Velocity.normalized*maximumSpeed;
         }
 
         // Update sprite TODO

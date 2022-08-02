@@ -131,7 +131,6 @@ public class EnemyReadyingState : EnemyState {
             if(!stopped)
             {
                 stopped = true;
-                config.Speed = 0;
                 config.Velocity = Vector3.zero;
                 config.attackvector = config.target.transform.position - config.transform.position;
             }
@@ -158,7 +157,6 @@ public class EnemyAttackState : EnemyState {
 
     public override void EnterState() {
         config.Velocity = config.attackvector;
-        config.Speed = config.pouncespeed;
         config.attackhitbox.SetActive(true);
     }
 
@@ -261,7 +259,6 @@ public class EnemyGrabbedState : EnemyState {
     private Rigidbody2D body;
 
     public override void EnterState() {
-        config.Speed = 0;
         config.Velocity = Vector3.zero;
         config.grabbed = true;
         body = config.GetComponent<Rigidbody2D>();
