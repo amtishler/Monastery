@@ -63,6 +63,39 @@ public class FlyAggressiveState : FlyState {
     }
 }
 
+// Hurt
+public class FlyHurtState : FlyState {
+
+    private float deacceleration;
+    private float recoverytimer;
+
+
+    public FlyHurtState(FlyConfig config, FlyStateMachine currentContext, FlyStateFactory stateFactory)
+    : base(config, currentContext, stateFactory){}
+
+    public override void EnterState() {
+        deacceleration = config.RecoveryDeaccel;
+        config.SlowDown(deacceleration);
+    }
+
+    public override void UpdateState()
+    {
+        deacceleration += config.RecoveryDeaccel * Time.deltaTime;
+        config.SlowDown(deacceleration);
+        CheckSwitchStates();
+    }
+
+    public override void ExitState() {}
+
+    public override void CheckSwitchStates(){
+        if(!config.grounded) SwitchStates(factory.Falling());
+        if(config.Speed == 0){
+            if(config.target != null) SwitchStates(factory.Aggressive());
+            else SwitchStates(factory.Idle());
+        }
+    }
+}
+
 public class FlyFallingState : FlyState {
 
     public FlyFallingState(FlyConfig config, FlyStateMachine currentContext, FlyStateFactory stateFactory)

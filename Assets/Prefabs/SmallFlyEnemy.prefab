@@ -831,6 +831,7 @@ MonoBehaviour:
   attackcooldown: 1.5
   isattacking: 0
   oncooldown: 0
+  attackTriggerZone: {fileID: 0}
   target: {fileID: 0}
   attackhitbox: {fileID: 3695426520820561185}
   attackvector: {x: 0, y: 0, z: 0}
@@ -943,9 +944,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerconf: {fileID: 3695426520570289320}
-  damage: 25
+  damage: 10
   knockback: 25
-  stun: 0
+  stun: 50
   knockbacknormalization: 0.5
   knockbackreflected: 0.25
 --- !u!61 &709884257472769269

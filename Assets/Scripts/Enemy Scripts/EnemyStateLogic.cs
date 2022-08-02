@@ -229,6 +229,8 @@ public class EnemyDeadState : EnemyState {
         config.invincible = true;
         config.dead = true;
         config.grabbable = false;
+        body = config.GetComponent<Rigidbody2D>();
+        body.simulated = false;
         selfhitbox = config.GetComponentInChildren<HitboxController>();
         if(selfhitbox != null) selfhitbox.gameObject.SetActive(false);
         deacceleration = config.RecoveryDeaccel;

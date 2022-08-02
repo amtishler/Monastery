@@ -17,8 +17,8 @@ public class FlyStateMachine : StateMachine
     
     public override void ForceHurt()
     {
-        //previousState = currentState;
-        //currentState.SwitchStates(states.Hurt());
+        previousState = currentState;
+        currentState.SwitchStates(states.Hurt());
     }
 
     public override void ForceDead()

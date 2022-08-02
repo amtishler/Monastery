@@ -652,7 +652,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1245101477299156771
 Transform:
   m_ObjectHideFlags: 0
@@ -685,6 +685,7 @@ MonoBehaviour:
   knockback: 25
   stun: 0
   knockbacknormalization: 0.5
+  friction: 0.5
   knockbackreflected: 0.25
 --- !u!61 &3158628753050283766
 BoxCollider2D:
@@ -877,7 +878,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9297143049c4c9f4981371f62891de42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
+  respawnPoint: {x: 0, y: 0, z: 0}
   maximumSpeed: 5
   minimumSpeed: 3
   acceleration: 0.1
@@ -908,6 +909,7 @@ MonoBehaviour:
   attackcooldown: 1.5
   isattacking: 0
   oncooldown: 0
+  attackTriggerZone: {fileID: 0}
   target: {fileID: 0}
   attackhitbox: {fileID: 1245101477299156770}
   attackvector: {x: 0, y: 0, z: 0}
