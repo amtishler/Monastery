@@ -233,7 +233,6 @@ public class TongueController : MonoBehaviour {
 
             if(objectType == "Large Object" || (objectType == "Untagged" && hits[0].transform.gameObject.tag == "Large Object")) 
             {
-                Debug.Log("hit large thing");
                 grabbed = true;
                 grabUsed = true;
                 StopExtending();

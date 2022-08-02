@@ -225,10 +225,7 @@ public class PlayerTongueState : PlayerState {
         if (tongue.heldObject != null) buffer = factory.Running();
     }
 
-    public override void ExitState() 
-    {
-        Debug.Log("exiting tongue");
-    }
+    public override void ExitState() {}
 
     public override void CheckSwitchStates()
     {
@@ -337,12 +334,10 @@ public class PlayerFlyingState : PlayerState
         {
             if (config.tongue.activeInHierarchy)
             {
-                Debug.Log("switching to tongue");
                 SwitchStates(factory.Tongue());
             }
             else
             {
-                Debug.Log("switching to Running");
                 SwitchStates(factory.Running());
             }
         }
