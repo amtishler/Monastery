@@ -447,9 +447,9 @@ public class PlayerKickState : PlayerState
     public override void EnterState()
     {
         config.grounded = true;
-        config.SlowDown(kick.Friction);
         Vector3 direction = InputManager.Instance.Aim;
         kick = config.kick.GetComponent<Attack>();
+        config.SlowDown(kick.Friction);
         config.kick.SetActive(true);
         config.RotateSprite(direction);
         config.playerAnimator.UpdateKickAnimation();
