@@ -126,7 +126,8 @@ public class PlayerRunningState : PlayerState
 
     public override void CheckSwitchStates()
     {
-        if ((InputManager.Instance.TonguePressed && tongue.heldObject == null) || (!InputManager.Instance.TongueHeld && tongue.heldObject != null)) SwitchStates(factory.Tongue());
+        if ((InputManager.Instance.TonguePressed && tongue.heldObject == null) || (!InputManager.Instance.TongueHeld && tongue.heldObject != null))
+            SwitchStates(factory.Tongue());
         if (config.Speed == 0) SwitchStates(factory.Idle());
         else if(tongue.heldObject == null)
         {
@@ -189,6 +190,7 @@ public class PlayerRunningState : PlayerState
 public class PlayerTongueState : PlayerState {
 
     TongueController tongue;
+    State buffer;
 
     public PlayerTongueState(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
     : base(config, currentContext, stateFactory){
@@ -197,10 +199,10 @@ public class PlayerTongueState : PlayerState {
 
     public override void EnterState() {
         config.grounded = true;
-        //config.Velocity = Vector3.zero;
+        buffer = factory.Idle();
         tongue = config.tongue.GetComponent<TongueController>();
         Vector3 direction = InputManager.Instance.Aim;
-        config.SlowDown(config.Deacceleration*2);
+        config.SlowDown(config.Deacceleration);
         config.RotateSprite(direction);
 
         if (!tongue.HoldingObject) {
@@ -211,18 +213,28 @@ public class PlayerTongueState : PlayerState {
 
     public override void UpdateState() {
         NewPoint();
-        config.SlowDown(config.Deacceleration*2);
+        config.SlowDown(config.Deacceleration);
         if(!tongue.HoldingObject) tongue.UpdateTongue();
         else tongue.spitObject();
         CheckSwitchStates();
+
+        // buffering...
+        if (InputManager.Instance.StaffPressed) buffer = factory.Staff();
+        if (InputManager.Instance.KickHeld) buffer = factory.Kick();
+        if (InputManager.Instance.TonguePressed) buffer = factory.Tongue();
+        if (tongue.heldObject != null) buffer = factory.Running();
     }
 
-    public override void ExitState() {}
+    public override void ExitState() 
+    {
+        Debug.Log("exiting tongue");
+    }
 
     public override void CheckSwitchStates()
     {
         if (tongue.IsFinished) {
-            SwitchStates(factory.Idle());
+            tongue.UnGrab();
+            SwitchStates(buffer);
             config.tongue.SetActive(false);
         }
         else if (tongue.Grabbed) SwitchStates(factory.Pulling());
@@ -282,6 +294,7 @@ public class PlayerFlyingState : PlayerState
 {
     TongueController tongue;
     float deaccel;
+    State buffer;
 
     public PlayerFlyingState(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
     : base(config, currentContext, stateFactory)
@@ -306,6 +319,12 @@ public class PlayerFlyingState : PlayerState
         if (config.tongue.activeInHierarchy) tongue.UpdateTongue();
         if (tongue.IsFinished) { config.tongue.SetActive(false); }
         CheckSwitchStates();
+
+        // buffering...
+        if (InputManager.Instance.StaffPressed) buffer = factory.Staff();
+        if (InputManager.Instance.TonguePressed) buffer = factory.Tongue();
+        if (InputManager.Instance.KickHeld) buffer = factory.Kick();
+        if (InputManager.Instance.Move != Vector3.zero) buffer = factory.Running();
     }
 
     public override void ExitState()
@@ -316,9 +335,23 @@ public class PlayerFlyingState : PlayerState
     {
         if (config.Speed < config.MinimumSpeed || InputManager.Instance.Move != Vector3.zero)
         {
-            if(config.tongue.activeInHierarchy) SwitchStates(factory.Tongue());
-            else SwitchStates(factory.Running());
+            if (config.tongue.activeInHierarchy)
+            {
+                Debug.Log("switching to tongue");
+                SwitchStates(factory.Tongue());
+            }
+            else
+            {
+                Debug.Log("switching to Running");
+                SwitchStates(factory.Running());
+            }
         }
+        if (!config.tongue.activeInHierarchy)
+        {
+            if (buffer != null) SwitchStates(buffer);
+            if (config.Speed < config.MinimumSpeed) SwitchStates(factory.Running());
+        }
+        else if (config.Speed < config.MinimumSpeed) SwitchStates(factory.Tongue());
     }
 }
 
@@ -335,7 +368,8 @@ public class PlayerStaffState : PlayerState
     {
         config.grounded = true;
         returnPoint = config.resetPosition;
-        config.Velocity = InputManager.Instance.GetAim()*config.Speed;
+        if (config.Velocity != Vector3.zero)
+            config.Velocity += InputManager.Instance.GetAim() * config.MaximumSpeed;
         config.SlowDown(config.Deacceleration);
         Vector3 direction = InputManager.Instance.Aim;
         config.RotateSprite(direction);

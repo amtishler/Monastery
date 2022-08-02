@@ -92,7 +92,6 @@ public class CameraController : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        Debug.Log("Trigger detected");
         if (other.gameObject.CompareTag("Player") && isCutscene)
         {
             Debug.Log("Player detected");

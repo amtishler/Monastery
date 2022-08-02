@@ -136,26 +136,6 @@ public class TongueController : MonoBehaviour {
         pullSpeed += extraSpeed;
         float newSpeed = config.Speed + extraSpeed;
 
-        //// Calculating player input velocity
-        //Vector3 inverseAxis = (new Vector3(-direction.y, direction.x, 0f)).normalized;
-        //Vector3 inputForceDirection = (Vector3.Dot(InputManager.Instance.Move, inverseAxis) * inverseAxis).normalized;
-        //if (!startedSwinging)
-        //{
-        //    inputVelocity = inputForceDirection * inputMaxSpeed;
-        //    startedSwinging = true;
-        //}
-        //else
-        //{
-        //    inputVelocity += inputAccel * Time.deltaTime * inputForceDirection;
-        //    if (inputVelocity.magnitude >= inputMaxSpeed) inputVelocity = inputVelocity.normalized * inputMaxSpeed;
-        //}
-
-        //Vector3 directionAdjust = ( direction) * Mathf.Sqrt(newSpeed);
-
-        //// Calculating the pull force adjustment
-        //config.Velocity = (directionAdjust + inputVelocity).normalized * newSpeed;
-        //if (config.Speed > flyingMaxSpeed) config.Velocity = config.Velocity.normalized * flyingMaxSpeed;
-
         Vector3 inverseAxis = (new Vector3(-direction.y, direction.x, 0f)).normalized;
         Vector3 inputDirection = (Vector3.Dot(InputManager.Instance.Move, inverseAxis) * inverseAxis).normalized;
         Vector3 currentDirection = (Vector3.Dot(config.Velocity, inverseAxis) * inverseAxis).normalized;
