@@ -12,6 +12,7 @@ public abstract class CharacterConfig : MonoBehaviour
     protected Rigidbody2D rigidBody;
     protected SpriteRenderer spriteRenderer;
     protected StateMachine stateManager;
+    public Vector3 respawnPoint;
 
     [Header("Movement")]
     [SerializeField] protected float maximumSpeed = 6.0f;
@@ -76,6 +77,7 @@ public abstract class CharacterConfig : MonoBehaviour
         directionMap[2] = Vector3.left;
         directionMap[3] = Vector3.down;
         health = maxHealth;
+        respawnPoint = this.gameObject.transform.position;
         grounded = true;
         _Start();
     }
@@ -170,5 +172,16 @@ public abstract class CharacterConfig : MonoBehaviour
     {
         if (character.CompareTag("Player")) Debug.Log("Death");
         else stateManager.ForceDead();
-    }    
+    }
+
+    public void Reset() {
+        if (!this.gameObject.activeInHierarchy) this.gameObject.SetActive(true);
+        health = maxHealth;
+        Stun = 0;
+        Velocity = Vector3.zero;
+        this.gameObject.transform.position = respawnPoint;
+        if (this.gameObject.GetComponent<EnemyConfig>() != null) {
+            this.gameObject.GetComponent<EnemyStateFactory>().Idle().EnterState();
+        }
+    }  
 }

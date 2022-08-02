@@ -490,6 +490,7 @@ public class PlayerDeadState : PlayerState
     }
 
     public override void EnterState(){
+        InputManager.Instance.DeathMap();
         Debug.Log("You are dead :(");
     }
     public override void UpdateState(){
@@ -497,11 +498,19 @@ public class PlayerDeadState : PlayerState
         CheckSwitchStates();
     }
     public override void ExitState(){
+        config.Reset();
+        InputManager.Instance.CombatMap();
+        for (int i = 0; i < GameManager.Instance.checkpoints.Length; ++i) {
+            if (GameManager.Instance.checkpoints[i].GetComponent<Checkpoint>().activeCheckpoint) {
+                foreach (var e in GameManager.Instance.checkpoints[i].GetComponent<Checkpoint>().enemiesToRespawn) {
+                    e.GetComponent<CharacterConfig>().Reset();
+                }
+            }
+        }
     }
     public override void CheckSwitchStates(){
-        InputManager.Instance.DeathMap();
         if (InputManager.Instance.ResetPressed){
-            GameManager.Instance.ReloadScene();
+            SwitchStates(factory.Idle());
         }
     }
 }

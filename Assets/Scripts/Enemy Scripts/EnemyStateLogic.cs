@@ -385,7 +385,7 @@ public class EnemyFallingState : EnemyState
         if (_fallAnim <= 0f) {
             //SwitchStates(factory.Dead());
             config.Hit(config.Health, 0, Vector3.zero, 0);
-            GameObject.Destroy(character.gameObject);
+            character.gameObject.SetActive(false);
         }
     }
 }
