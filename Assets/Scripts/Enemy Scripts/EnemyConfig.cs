@@ -24,6 +24,7 @@ public class EnemyConfig : CharacterConfig {
     public float pounceslowdown = 0.1f;
 
     public float attackcooldown = 5f;
+    public float postattackpause = 1f;
     public bool isattacking;
     public bool oncooldown;
     private bool timerstarted;

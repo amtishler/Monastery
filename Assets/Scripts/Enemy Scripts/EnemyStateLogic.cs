@@ -155,13 +155,41 @@ public class EnemyAttackState : EnemyState {
     public EnemyAttackState(EnemyConfig config, EnemyStateMachine currentContext, EnemyStateFactory stateFactory)
     : base(config, currentContext, stateFactory){}
 
+    private Animator animator;
+    private float pausetimer;
+    private bool timerstarted;
+    private bool doneattacking;
+
     public override void EnterState() {
-        config.Velocity = config.attackvector;
+        pausetimer = 0f;
+        timerstarted = false;
+        doneattacking = false;
+
+        animator = config.GetComponent<Animator>();
+        config.Velocity = config.attackvector.normalized * config.pouncespeed;
         config.attackhitbox.SetActive(true);
     }
 
     public override void UpdateState() {
-        config.SlowDown(config.pounceslowdown);
+
+        if(config.Speed != 0)
+        {
+            config.SlowDown(config.pounceslowdown);
+        }
+        else
+        {
+            if(!timerstarted) timerstarted = true;
+            else
+            {
+                pausetimer += Time.deltaTime;
+            }
+        }
+
+        if(pausetimer > config.postattackpause)
+        {
+            doneattacking = true;
+        }
+        
         CheckSwitchStates();
     }
 
@@ -174,7 +202,7 @@ public class EnemyAttackState : EnemyState {
     public override void CheckSwitchStates() {
         if(!config.grounded) SwitchStates(factory.Falling());
         if(config.grabbed) SwitchStates(factory.Grabbed());
-        else if(config.Speed == 0){
+        else if(doneattacking){
             if(config.target != null) SwitchStates(factory.Aggressive());
             else SwitchStates(factory.Idle());
         }
