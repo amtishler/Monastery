@@ -14,6 +14,13 @@ public class ProjectileObject : InteractableObject
     private float duration = 0f;
     public float gravity;
 
+    private static FMOD.Studio.EventInstance getHitSound = new FMOD.Studio.EventInstance();
+
+    private void Awake()
+    {
+        getHitSound = FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/Features/Rock/Get Hit");
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -49,6 +56,7 @@ public class ProjectileObject : InteractableObject
     public override void OnHit(Vector3 dir, float mag)
     {
         ApplyKnockback(dir, mag);
+        getHitSound.start();
     }
 
     private void OnTriggerStay2D(Collider2D collision)

@@ -7,6 +7,8 @@ public enum AreaAmbience
 {
     none,
     forest1,
+    healthTreeSway,
+    whispering
 
 }
 
@@ -45,6 +47,8 @@ public class AmbienceManager : MonoBehaviour
         _instance = this;
 
         ambienceList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/AreaAmbiences/Forest"));
+        ambienceList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/Features/HealthTree/Sway"));
+        ambienceList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/Features/Whispering tree/Sway"));
 
         currentVolume = 0;
         oldVolume = 0;

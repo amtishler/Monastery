@@ -8,7 +8,9 @@ public enum BirdSFX
     walk,
     attack,
     getHit,
-    die
+    die,
+    stun,
+    aggro
 }
 
 public class BirdEnemySFX : MonoBehaviour
@@ -25,6 +27,9 @@ public class BirdEnemySFX : MonoBehaviour
         sfxList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/BirdEnemy/Attack"));
         sfxList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/BirdEnemy/GetHit"));
         sfxList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/BirdEnemy/Die"));
+        sfxList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/Enemies/Generic/Stun"));
+        sfxList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/Enemies/Landbird/Aggro"));
+
 
 
     }

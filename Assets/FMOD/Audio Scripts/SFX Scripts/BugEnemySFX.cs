@@ -8,7 +8,8 @@ public enum BugSFX
     walk,
     attack,
     getHit,
-    die
+    die,
+    stun
 }
 
 public class BugEnemySFX : MonoBehaviour
@@ -24,6 +25,8 @@ public class BugEnemySFX : MonoBehaviour
         sfxList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/BugEnemy/Attack"));
         sfxList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/BugEnemy/GetHit"));
         sfxList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/BugEnemy/Die"));
+        sfxList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/Enemies/Generic/Stun"));
+        sfxList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/Enemies/Scuttlebug/Aggro"));
 
 
     }

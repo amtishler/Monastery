@@ -124,6 +124,7 @@ GameObject:
   - component: {fileID: 8925109613244872321}
   - component: {fileID: 6354170354062513639}
   - component: {fileID: 685550660730386760}
+  - component: {fileID: 6195645081203006451}
   m_Layer: 7
   m_Name: Whispering Tree
   m_TagString: Large Object
@@ -282,6 +283,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &6195645081203006451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6354170354062513625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87fe3ed093613c648bb7f3da379143a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toPlay: 3
+  boxSize: {x: 32.4, y: 28.17}
 --- !u!1 &8238135662496083576
 GameObject:
   m_ObjectHideFlags: 0
