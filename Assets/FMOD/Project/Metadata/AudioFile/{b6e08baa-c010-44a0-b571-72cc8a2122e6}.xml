@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{b6e08baa-c010-44a0-b571-72cc8a2122e6}">
+		<property name="assetPath">
+			<value>ESM_Cool_UI_Button_10_Game_Click_Switch_UI_Classic.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.27342403628117912</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{c28e1d4f-f9af-4e5f-9cd2-a8a56fd8ed2d}</destination>
+		</relationship>
+	</object>
+</objects>

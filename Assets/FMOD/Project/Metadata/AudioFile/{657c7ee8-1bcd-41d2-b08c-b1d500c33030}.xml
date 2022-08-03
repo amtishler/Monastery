@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{657c7ee8-1bcd-41d2-b08c-b1d500c33030}">
+		<property name="assetPath">
+			<value>ESM_Fantasy_Game_Crafting_UI_Tab_Button_9_Metal_Spell_Cast_Click_Switch_Lever_Latch.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>96</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.27604166666666669</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{c28e1d4f-f9af-4e5f-9cd2-a8a56fd8ed2d}</destination>
+		</relationship>
+	</object>
+</objects>

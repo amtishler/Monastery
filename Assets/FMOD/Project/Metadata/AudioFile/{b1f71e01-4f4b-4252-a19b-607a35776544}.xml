@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{b1f71e01-4f4b-4252-a19b-607a35776544}">
+		<property name="assetPath">
+			<value>ESM_Modern_UI_Sound_Tonal_Classic_Game_Synth_Click.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.5</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{c28e1d4f-f9af-4e5f-9cd2-a8a56fd8ed2d}</destination>
+		</relationship>
+	</object>
+</objects>
