@@ -189,10 +189,9 @@ public abstract class CharacterConfig : MonoBehaviour
         Velocity = Vector3.zero;
         this.gameObject.transform.position = respawnPoint;
 
-        EnemyStateMachine sm = this.gameObject.GetComponent<EnemyStateMachine>();
-        if (sm != null) {
-            sm.currentState = sm.states.Idle();
-            sm.currentState.EnterState();
-        }
+        // EnemyStateMachine sm = this.gameObject.GetComponent<EnemyStateMachine>();
+        // if (sm != null) {
+        //     sm.currentState.SwitchStates(sm.states.Idle());
+        // }
     }  
 }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5861650934737746414}
   - component: {fileID: 5861650934737746408}
   - component: {fileID: 5861650934737746409}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Checkpoint
   m_TagString: Checkpoint
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
@@ -46,7 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 884354c8cb8226a458151c2fdde667ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemiesToRespawn: []
+  objectsToRespawn: []
+  zonesToReset: []
   location: {fileID: 0}
   activeCheckpoint: 0
 --- !u!61 &5861650934737746408
@@ -59,7 +60,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -83,7 +84,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5861650934737746415}
-  m_BodyType: 0
+  m_BodyType: 2
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
