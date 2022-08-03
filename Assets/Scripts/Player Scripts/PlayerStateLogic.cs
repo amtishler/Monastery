@@ -528,7 +528,6 @@ public class PlayerDeadState : PlayerState
     }
     public override void ExitState(){
         config.Reset();
-        InputManager.Instance.CombatMap();
         GameManager.Instance.ResetLevel();
     }
     public override void CheckSwitchStates(){

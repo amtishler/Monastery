@@ -187,11 +187,13 @@ public abstract class CharacterConfig : MonoBehaviour
         health = maxHealth;
         Stun = 0;
         Velocity = Vector3.zero;
+        invincible = false;
+        dead = false;
         this.gameObject.transform.position = respawnPoint;
 
-        // EnemyStateMachine sm = this.gameObject.GetComponent<EnemyStateMachine>();
-        // if (sm != null) {
-        //     sm.currentState.SwitchStates(sm.states.Idle());
-        // }
+        EnemyStateMachine sm = this.gameObject.GetComponent<EnemyStateMachine>();
+        if (sm != null) {
+            sm.currentState.SwitchStates(sm.states.Idle());
+        }
     }  
 }
