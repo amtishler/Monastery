@@ -33,10 +33,6 @@ AnimationClip:
       value: {fileID: 21300000, guid: 70221fabc62fbe9438f506c4a04a7878, type: 3}
     - time: 0.4666667
       value: {fileID: 21300000, guid: 760f7ce02cb5c6b478850be6965ada71, type: 3}
-    - time: 0.5666667
-      value: {fileID: 21300000, guid: 54be2394d485631488acbaab5c89b7a6, type: 3}
-    - time: 0.6500001
-      value: {fileID: 21300000, guid: 54be2394d485631488acbaab5c89b7a6, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -63,14 +59,12 @@ AnimationClip:
     - {fileID: 21300000, guid: 0265a67f4fb298742b2eb74827e18764, type: 3}
     - {fileID: 21300000, guid: 70221fabc62fbe9438f506c4a04a7878, type: 3}
     - {fileID: 21300000, guid: 760f7ce02cb5c6b478850be6965ada71, type: 3}
-    - {fileID: 21300000, guid: 54be2394d485631488acbaab5c89b7a6, type: 3}
-    - {fileID: 21300000, guid: 54be2394d485631488acbaab5c89b7a6, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.66666675
+    m_StopTime: 0.48333338
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -89,11 +83,4 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events:
-  - time: 0.3
-    functionName: PlaySFX
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 2
-    messageOptions: 0
+  m_Events: []
