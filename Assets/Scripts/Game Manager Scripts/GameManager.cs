@@ -62,5 +62,6 @@ public class GameManager : MonoBehaviour
             }
         }
         MusicManager.Instance.HandleTrigger(false, FadeSpeed.normal, Area.Forest, 0, FadeSpeed.normal);
+        InputManager.Instance.CombatMap();
     }
 }

@@ -131,8 +131,10 @@ public class InputManager : MonoBehaviour{
         jump.Update();
         advance.Update();
         skip.Update();
+        reset.Update();
         debug.Update();
         quit.Update();
+        // Debug.Log(ResetPressed);
     }
 
     private void OnControlsChanged() {
