@@ -12,6 +12,7 @@ public class CharacterAnimator : MonoBehaviour
     protected SpriteAnim m_anim = null;
     protected CharacterConfig config;
 
+
     // Start is called before the first frame update
     void Start()
     {

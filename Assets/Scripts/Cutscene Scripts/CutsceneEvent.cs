@@ -13,6 +13,7 @@ public class CutsceneEvent {
     [SerializeField] GameObject mainCharacter;
     [Header("Camera movement (these can be blank)")]
     [SerializeField] GameObject cameraFocus;
+    [SerializeField] bool moveCameraWhilePlaying;
     [SerializeField] float cameraMoveTime = 0.1f;
     [Header("Character Movement")]
     [SerializeField] bool moveCharacter;
@@ -58,17 +59,8 @@ public class CutsceneEvent {
         // Moving Camera
         if (cameraFocus != null)
         {
-            float inTime = cameraMoveTime;
-            if (inTime == 0f) inTime = 0.1f;
-            Vector3 startPos = virtualCamera.gameObject.transform.position;
-            Vector3 endPos = cameraFocus.gameObject.transform.position;
-            endPos = new Vector3(endPos.x, endPos.y, startPos.z);
-
-            for (float t = 0f; t <= 1; t += Time.deltaTime / inTime)
-            {
-                virtualCamera.gameObject.transform.position = Vector3.Lerp(startPos, endPos, Mathf.SmoothStep(0f, inTime, t));
-                yield return null;
-            }
+            if (moveCameraWhilePlaying) cutscene.StartCoroutine(MoveCamera(virtualCamera));
+            else yield return cutscene.StartCoroutine(MoveCamera(virtualCamera));
         }
 
         if (moveCharacter)
@@ -112,6 +104,22 @@ public class CutsceneEvent {
             if (animator != null) animator.UpdateWalkAnimation();
             yield return null;
         }
+        animator.UpdateIdleAnimation();
         yield return null;
+    }
+
+    IEnumerator MoveCamera(CinemachineVirtualCamera virtualCamera)
+    {
+        float inTime = cameraMoveTime;
+        if (inTime == 0f) inTime = 0.1f;
+        Vector3 startPos = virtualCamera.gameObject.transform.position;
+        Vector3 endPos = cameraFocus.transform.position;
+        endPos = new Vector3(endPos.x, endPos.y, startPos.z);
+
+        for (float t = 0f; t <= 1; t += Time.deltaTime / inTime)
+        {
+            virtualCamera.gameObject.transform.position = Vector3.Lerp(startPos, endPos, Mathf.SmoothStep(0f, 1, t));
+            yield return null;
+        }
     }
 }

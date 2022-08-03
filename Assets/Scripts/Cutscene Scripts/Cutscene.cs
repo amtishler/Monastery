@@ -45,6 +45,7 @@ public class Cutscene : MonoBehaviour {
         }
 
         // Ending
+        StopAllCoroutines();
         GetComponentInParent<CameraController>().Finish(config.GetComponentInChildren<CinemachineVirtualCamera>());
         config.GetComponentInParent<PlayerStateMachine>().EndCutscene();
         completed = true;
