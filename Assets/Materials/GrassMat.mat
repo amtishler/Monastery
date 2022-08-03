@@ -39,7 +39,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _Height: 0
-    - _Intensity: 1.111
+    - _Intensity: 0.87
     - _Invert: 0
     - _WindSpeed: 0.54
     m_Colors: []
