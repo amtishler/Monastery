@@ -191,9 +191,10 @@ MonoBehaviour:
   drop: {fileID: 8812492887654432392, guid: ed364ff087b788c4188787960c5ab57a, type: 3}
   maxdrops: 0
   dropused: 0
-  childdrop: {fileID: 0}
   dropy: -2
   dropx: 0
+  xrangetree: 2
+  yrangetree: 3
 --- !u!61 &3748316753382805021
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -300,7 +301,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toPlay: 2
-  boxSize: {x: 22.33, y: 20.54}
+  boxSize: {x: 0, y: 0}
 --- !u!1001 &8962441038853118491
 PrefabInstance:
   m_ObjectHideFlags: 0
