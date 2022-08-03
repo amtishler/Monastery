@@ -9,20 +9,32 @@ public class Tree : InteractableObject
     public int maxdrops;
     public bool dropused;
     private bool hit;
-    public GameObject childdrop;
+    private List<GameObject> childdrop;
 
-    public float dropy = -2;
-    public float dropx = 2; 
+    public float dropy = -2f;
+    public float dropx = 2f; 
+
+    public float xrangetree = 2f;
+    public float yrangetree = 3f;
 
     private Animator animator;
     private int numdropsused;
 
     void Start()
     {
+        childdrop = new List<GameObject>();
         hit = false;
-        dropused = false;
+        dropused = true;
         numdropsused = 0;
         animator = GetComponent<Animator>();
+        for (int i = 0; i < maxdrops; i++)
+        {
+            childdrop.Add(Instantiate(drop) as GameObject);
+            childdrop[i].transform.parent = this.transform;
+            Vector3 childpos = new Vector3(Random.Range(-xrangetree, xrangetree), Random.Range(1.5f-yrangetree, 1.5f+yrangetree), 0);
+            childdrop[i].transform.position = this.transform.position + childpos;
+            childdrop[i].GetComponent<Collider2D>().enabled = false;
+        }
     }
 
     void Update()
@@ -32,24 +44,17 @@ public class Tree : InteractableObject
         {
             hit = false;
         }
-        if(this.transform.childCount == 0 && numdropsused < maxdrops)
-        {
-            dropused = false;
-        }
+        //Not counting wallcollision and shadowprefab
     }
 
     public override void OnHit(Vector3 dir, float mag)
     {
         hit = true;
-        if(!dropused && drop != null)
+        if(childdrop.Count != 0)
         {
-            numdropsused++;
-            dropused = true;
-            childdrop = Instantiate(drop) as GameObject;
-            childdrop.transform.parent = this.transform;
-
-            Vector3 childpos = new Vector3(dropx, dropy, 0);
-            childdrop.transform.position = this.transform.position + childpos;
+            HealthDrop healthDrop = childdrop[0].GetComponent<HealthDrop>();
+            healthDrop.Drop(dropy);
+            childdrop.RemoveAt(0);
         }
     }
 }

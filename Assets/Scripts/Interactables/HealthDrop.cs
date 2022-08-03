@@ -6,6 +6,10 @@ public class HealthDrop : MonoBehaviour
 {
 
     public float healthgain = 10f;
+    public float dropspeed = 0f;
+    public float dropaccel = 0.5f;
+    private bool dropping = false;
+    private float droplevel = 0f;
 
     /*private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -18,8 +22,29 @@ public class HealthDrop : MonoBehaviour
         }
     }*/
 
+    void Update() {
+        if(dropping)
+        {
+            Debug.Log("Droppin");
+            Vector3 poschange = new Vector3(0, -dropspeed * Time.deltaTime, 0);
+            this.transform.position += poschange;
+            dropspeed += dropaccel;
+        }
+        if(this.transform.localPosition.y < droplevel)
+        {
+            dropping = false;
+            this.GetComponent<Collider2D>().enabled = true;
+        }
+    }
+
     public void Eat(PlayerConfig player) {
         player.Heal(healthgain);
         Destroy(this.gameObject);
+    }
+
+    public void Drop(float level)
+    {
+        droplevel = level;
+        dropping = true;
     }
 }
