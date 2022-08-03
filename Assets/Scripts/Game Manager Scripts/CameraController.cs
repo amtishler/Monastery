@@ -136,4 +136,14 @@ public class CameraController : MonoBehaviour
         edgesCreated = true;
         // Debug.Log(cam.transform.position);
     }
+
+    public void ResetZone() {
+        enemies.ResetEnemies();
+        activated = false;
+        edgesCreated = false;
+        foreach (var c in colliders) {
+            Destroy(c.Value.gameObject);
+        }
+        colliders.Clear();
+    }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TutorialMessages : GameManager
+public class TutorialMessages : MonoBehaviour
 {
     public bool tutorial = false;
     [SerializeField] public GameObject[] controller;

@@ -529,13 +529,7 @@ public class PlayerDeadState : PlayerState
     public override void ExitState(){
         config.Reset();
         InputManager.Instance.CombatMap();
-        for (int i = 0; i < GameManager.Instance.checkpoints.Length; ++i) {
-            if (GameManager.Instance.checkpoints[i].GetComponent<Checkpoint>().activeCheckpoint) {
-                foreach (var e in GameManager.Instance.checkpoints[i].GetComponent<Checkpoint>().enemiesToRespawn) {
-                    e.GetComponent<CharacterConfig>().Reset();
-                }
-            }
-        }
+        GameManager.Instance.ResetLevel();
     }
     public override void CheckSwitchStates(){
         if (InputManager.Instance.ResetPressed){

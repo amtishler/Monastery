@@ -41,7 +41,7 @@ public class GroundDetection : MonoBehaviour
             Debug.Log(projectile);
             projectile.gameObject.layer = 0;
             projectile.gameObject.GetComponent<Rigidbody2D>().gravityScale += projectile.gravity;
-            projectile.GetComponentInParent<SpriteRenderer>().sortingLayerName = "Default";
+            projectile.GetComponentInParent<SpriteRenderer>().sortingLayerName = "Background";
             //Debug.Log("Projectile fell");
         }
         //Debug.Log("**Projectile didn't fall**");

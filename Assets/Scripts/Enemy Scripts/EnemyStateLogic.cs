@@ -28,10 +28,21 @@ public abstract class EnemyState : State {
 // Idle
 public class EnemyIdleState : EnemyState {
 
+    private HitboxController selfhitbox;
+    private Rigidbody2D body;
+
     public EnemyIdleState(EnemyConfig config, EnemyStateMachine currentContext, EnemyStateFactory stateFactory)
     : base(config, currentContext, stateFactory){}
 
-    public override void EnterState() {}
+    public override void EnterState() {
+        config.invincible = false;
+        config.dead = false;
+        config.grabbable = false;
+        body = config.GetComponent<Rigidbody2D>();
+        body.simulated = true;
+        selfhitbox = config.GetComponentInChildren<HitboxController>();
+        if(selfhitbox != null) selfhitbox.gameObject.SetActive(true);
+    }
 
     public override void UpdateState() {
         CheckSwitchStates();

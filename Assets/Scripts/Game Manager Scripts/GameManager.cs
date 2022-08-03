@@ -50,4 +50,17 @@ public class GameManager : MonoBehaviour
     public TutorialMessages GetTutorialMessages() {
         return GetComponent<TutorialMessages>();
     }
+
+    public void ResetLevel() {
+        foreach (var c in checkpoints) {
+            Checkpoint cp = c.GetComponent<Checkpoint>();
+            if (cp != null) {
+                if (cp.activeCheckpoint) {
+                    cp.ResetObjects();
+                    cp.ResetZones();
+                }
+            }
+        }
+        MusicManager.Instance.HandleTrigger(false, FadeSpeed.normal, Area.Forest, 0, FadeSpeed.normal);
+    }
 }

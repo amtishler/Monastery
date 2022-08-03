@@ -43,4 +43,10 @@ public class EnemyTracker : MonoBehaviour
             enemy.detectionradius = 6f;
         }
     }
+
+    public void ResetEnemies() {
+        foreach (var e in enemies) {
+            e.GetComponent<CharacterConfig>().Reset();
+        }
+    }
 }

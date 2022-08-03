@@ -7,7 +7,8 @@ using UnityEngine;
 
 public class Checkpoint : MonoBehaviour
 {
-    [SerializeField] public GameObject[] enemiesToRespawn;
+    [SerializeField] public GameObject[] objectsToRespawn;
+    [SerializeField] public GameObject[] zonesToReset;
     public Transform location;
     public bool activeCheckpoint;
     BoxCollider2D box;
@@ -29,6 +30,22 @@ public class Checkpoint : MonoBehaviour
             }
             activeCheckpoint = true;
             player.gameObject.GetComponent<CharacterConfig>().respawnPoint = location.position;
+        }
+    }
+
+    public void ResetZones() {
+        CameraController zone;
+        foreach (var z in zonesToReset) {
+            zone = z.GetComponent<CameraController>();
+            if (zone == null) Debug.LogError("Not A Combat Zone");
+            zone.ResetZone();
+        }
+    }
+
+    public void ResetObjects() {
+        foreach (var o in objectsToRespawn) {
+            if (o.GetComponent<ProjectileObject>() != null) o.GetComponent<ProjectileObject>().ResetPosition();
+            if (o.GetComponent<CharacterConfig>() != null) o.GetComponent<CharacterConfig>().Reset();
         }
     }
 }
