@@ -622,7 +622,7 @@ public class PlayerFall : PlayerState
 
     public override void EnterState(){
         _fallAnim = config.fallingAnimDuration;
-        config.GetComponent<SpriteRenderer>().sortingLayerName = "Default";
+        config.GetComponent<SpriteRenderer>().sortingLayerName = "Background";
         character = config.GetComponent<Rigidbody2D>();
         cam = config.GetComponentInChildren<CinemachineVirtualCamera>();
         offset = new Vector3(0, 0, -10);
