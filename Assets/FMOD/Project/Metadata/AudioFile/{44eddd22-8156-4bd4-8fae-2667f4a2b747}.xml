@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{44eddd22-8156-4bd4-8fae-2667f4a2b747}">
+		<property name="assetPath">
+			<value>ESM_Flesh_Chuck_Drop_3_SingleSplatter_Bone_Flesh_Death_Organic_Raw_Horror_Zombie_Game.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>96</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.49166666666666664</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{c28e1d4f-f9af-4e5f-9cd2-a8a56fd8ed2d}</destination>
+		</relationship>
+	</object>
+</objects>
