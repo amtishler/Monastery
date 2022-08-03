@@ -22,7 +22,7 @@ public class DialogueBox : MonoBehaviour {
 
 
     // Runs a box
-    public IEnumerator Run(string completeText, NewCutscene cutscene) {
+    public IEnumerator Run(string completeText, float scrollSpeed) {
         // Setting up
         TMP_Text textMesh = text.GetComponent<TMP_Text>();
 
@@ -31,7 +31,7 @@ public class DialogueBox : MonoBehaviour {
         textMesh.text = "";
 
         // Running dialogue
-        Coroutine crawl = cutscene.StartCoroutine(TextCrawl(completeText, cutscene) );
+        Coroutine crawl = StartCoroutine(TextCrawl(completeText, scrollSpeed) );
         textCrawling = true;
 
         while (textCrawling) {
@@ -48,11 +48,11 @@ public class DialogueBox : MonoBehaviour {
 
 
     // Helper method to make the text scoll by
-    private IEnumerator TextCrawl(string completeText, NewCutscene cutscene) {
+    private IEnumerator TextCrawl(string completeText, float scrollSpeed) {
         TMP_Text textMesh = text.GetComponent<TMP_Text>();
         foreach(char c in completeText) {
             text.GetComponent<TMP_Text>().text += c;
-            yield return new WaitForSeconds(cutscene.TextScrollSpeed);
+            yield return new WaitForSeconds(scrollSpeed);
         }
         textCrawling = false;
         yield return 0;

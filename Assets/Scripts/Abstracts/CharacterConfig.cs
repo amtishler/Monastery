@@ -103,6 +103,14 @@ public abstract class CharacterConfig : MonoBehaviour
         _Update();
     }
 
+    // Changes sprite to one of the four directions.
+    public void RotateSprite(Vector3 targetDir)
+    {
+        int angle = GetAngle(targetDir);
+        // spriteRenderer.sprite = moveSpriteList[angle];
+        currentdir = angle;
+    }
+
     // Stops weapon. Called from an animation event.
     public void StopWeapon(string name)
     {

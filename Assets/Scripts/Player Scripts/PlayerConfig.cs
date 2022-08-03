@@ -50,15 +50,6 @@ public class PlayerConfig : CharacterConfig {
         IsTouchingWall = false;
     }
 
-
-    // Changes player's sprite to one of the four directions.
-    public void RotateSprite(Vector3 targetDir)
-    {
-        int angle = GetAngle(targetDir);
-        // spriteRenderer.sprite = moveSpriteList[angle];
-        currentdir = angle;
-    }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.layer == 9)

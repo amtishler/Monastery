@@ -1,23 +1,18 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewCutscene : MonoBehaviour {
+public class Cutscene : MonoBehaviour {
 
     // Serialized Fields
-    [SerializeField] float startDelay=1.5f;
-    [SerializeField] float endDelay=1.5f;
     // [SerializeField] Vector2 playerPosition;
-    [SerializeField] float textScrollSpeed;
-    [SerializeField] List<NewDialogue> dialogues = new List<NewDialogue>();
+    [SerializeField] List<CutsceneEvent> cutsceneEvents = new List<CutsceneEvent>();
 
     // Private Fields
     private PlayerConfig config;
     private bool running = false;
     private bool completed = false;
-    
-    // Getters & Setters
-    public float TextScrollSpeed {get {return textScrollSpeed;}}
 
 
     void Awake() {
@@ -26,6 +21,7 @@ public class NewCutscene : MonoBehaviour {
 
 
     void OnTriggerEnter2D(Collider2D other) {
+        if (completed) return;
         if (other.gameObject.CompareTag("Player") && !running) {
             // Beginning
             running = true;
@@ -42,15 +38,16 @@ public class NewCutscene : MonoBehaviour {
 
 
     IEnumerator StartCutscene() {
-        yield return new WaitForSeconds(startDelay);
-        foreach(NewDialogue dialogue in dialogues) {
-            yield return dialogue.Play(this);
+        foreach(CutsceneEvent cutsceneEvent in cutsceneEvents) {
+            yield return new WaitForSeconds(cutsceneEvent.StartDelay);
+            yield return cutsceneEvent.Play(this);
+            yield return new WaitForSeconds(cutsceneEvent.EndDelay);
         }
-        yield return new WaitForSeconds(endDelay);
 
         // Ending
+        GetComponentInParent<CameraController>().Finish(config.GetComponentInChildren<CinemachineVirtualCamera>());
         config.GetComponentInParent<PlayerStateMachine>().EndCutscene();
+        completed = true;
         running=false;
-        gameObject.SetActive(false);
     }
 }

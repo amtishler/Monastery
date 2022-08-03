@@ -93,7 +93,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 5487361610308097379}
-  boxSize: {x: 10, y: 10}
+  bufferPlayerHeight: 0
+  bufferPlayerWidth: 0
+  enemies: {fileID: 0}
+  isCutscene: 1
+  activated: 0
+  maxColliderSize: {x: 20, y: 10}
 --- !u!114 &1604946174173270223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -109,7 +114,7 @@ MonoBehaviour:
   startDelay: 1.5
   endDelay: 1
   textScrollSpeed: 0.05
-  dialogues: []
+  cutsceneEvents: []
 --- !u!61 &5934965468192349459
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -233,7 +238,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7773973, y: 1}
+    m_SensorSize: {x: 1.7785589, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0

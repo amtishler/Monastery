@@ -14,6 +14,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float bufferPlayerWidth;
     [SerializeField] private EnemyTracker enemies;
     public bool isCutscene = true;
+    private bool cutsceneComplete = false;
     private bool edgesCreated = false;
     [SerializeField] private bool activated = false;
     private Vector2 screenSize;
@@ -70,6 +71,7 @@ public class CameraController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (isCutscene && cutsceneComplete) return;
         //Debug.Log("Trigger detected");
         if (other.gameObject.CompareTag("Player"))
         {
@@ -92,18 +94,23 @@ public class CameraController : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Player") && isCutscene)
+        if (other.gameObject.CompareTag("Player"))
         {
             Debug.Log("Player detected");
-            _instance = this;
-            if (CameraSwitcher.ActiveCamera == cam) 
-            {
-                CinemachineVirtualCamera playerCam = other.GetComponentInParent<CinemachineVirtualCamera>();
-                Debug.Log(playerCam != null);
-                CameraSwitcher.SwitchCamera(playerCam);
-                Debug.Log("Camera Switched");
-            }
+            CinemachineVirtualCamera playerCam = other.gameObject.GetComponentInParent<CinemachineVirtualCamera>();
+            Finish(playerCam);
         }
+    }
+
+    public void Finish(CinemachineVirtualCamera playerCam)
+    {
+        _instance = this;
+        if (CameraSwitcher.ActiveCamera == cam)
+        {
+            CameraSwitcher.SwitchCamera(playerCam);
+            Debug.Log("Camera Switched");
+        }
+        cutsceneComplete = true;
     }
 
     private void CreateEdges() {
