@@ -40,7 +40,7 @@ public class ProjectileObject : InteractableObject
         if (this.gameObject.GetComponent<Rigidbody2D>().gravityScale > 0) {
             duration += Time.deltaTime;
             if (duration >= 5f) {
-                Destroy(this.gameObject);
+                this.gameObject.SetActive(false);
                 Debug.Log("Object Destroyed");
             }
         }

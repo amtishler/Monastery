@@ -35,6 +35,7 @@ public class InteractableObject : MonoBehaviour
     }
 
     public void ResetPosition() {
+        if (!this.gameObject.activeInHierarchy) this.gameObject.SetActive(true);
         this.gameObject.transform.position = resetPosition;
     }
 
