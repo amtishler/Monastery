@@ -222,6 +222,7 @@ public class EnemyHurtState : EnemyState {
     public override void EnterState() {
         deacceleration = config.RecoveryDeaccel;
         config.SlowDown(deacceleration);
+        config.SetTarget(GameObject.FindWithTag("Player"));
     }
 
     public override void UpdateState()
