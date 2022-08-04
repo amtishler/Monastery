@@ -382,7 +382,6 @@ public class EnemyProjectileState : EnemyState {
     }
 
     public override void ExitState() {
-        selfhitbox.gameObject.layer = LayerMask.NameToLayer("Enemy Hitbox");
         config.attackhitbox.SetActive(false);
         config.gameObject.GetComponent<Collider2D>().enabled = true;
         config.invincible = false;

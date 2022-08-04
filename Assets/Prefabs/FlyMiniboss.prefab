@@ -108,6 +108,7 @@ MonoBehaviour:
   knockback: 25
   stun: 0
   knockbacknormalization: 0.5
+  friction: 0.5
   knockbackreflected: 0.25
 --- !u!61 &3158628753050283766
 BoxCollider2D:
@@ -157,7 +158,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1245101477447179946
 Transform:
   m_ObjectHideFlags: 0
@@ -346,7 +347,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16edcd392b783934caaeb9f06a5d2707, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
+  respawnPoint: {x: 0, y: 0, z: 0}
   maximumSpeed: 6
   minimumSpeed: 3
   acceleration: 0.1
@@ -370,7 +371,7 @@ MonoBehaviour:
   gravity: 0
   grounded: 0
   target: {fileID: 0}
-  flychild: {fileID: 1245101477447179942}
+  flychild: {fileID: 3695426520570289317, guid: 9020a97300efc6a41970c74967583d66, type: 3}
   maxchildren: 3
   attacking: 0
   nextWaypointDistance: 3

@@ -5,21 +5,21 @@ using UnityEngine;
 public class HitboxController : Attack
 {
     public float knockbackreflected = 0.25f;
-    private void OnTriggerStay2D(Collider2D collision)
+    public float selfdamage = 10f;
+    public float selfstun = 10f;
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        CharacterConfig d = collision.transform.root.GetComponent<CharacterConfig>();
+        CharacterConfig d = collision.transform.GetComponent<CharacterConfig>();
+        //Debug.Log(d);
         if (d != null)
         {
             // put knockback calculations here or something
-            Vector3 knockbackdir = collision.transform.position - playerconf.transform.position;
-            Vector3 facingdir = GetAxis(playerconf.currentdir);
+            Vector3 knockbackdir = collision.transform.position - gameObject.transform.position;
             knockbackdir.Normalize();
-            facingdir.Normalize();
 
-            Vector3 finaldir = (knockbackdir * (1 - knockbacknormalization)) + (facingdir * knockbacknormalization);
-
-            playerconf.ApplyKnockback(finaldir, knockback*knockbackreflected);
-            GameManager.Instance.DamageCharacter(d, damage, stun, finaldir, knockback);
+            GameManager.Instance.DamageCharacter(playerconf, selfdamage, selfstun, -knockbackdir, knockback * knockbackreflected);
+            GameManager.Instance.DamageCharacter(d, damage, stun, knockbackdir, knockback);
         }
     }
 }
