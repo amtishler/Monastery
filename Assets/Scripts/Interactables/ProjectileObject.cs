@@ -65,7 +65,7 @@ public class ProjectileObject : InteractableObject
         if(isProjectile)
         {
             CharacterConfig d = collision.transform.GetComponent<CharacterConfig>();
-            Debug.Log(d);
+            //Debug.Log(d);
             if (d != null)
             {
                 Debug.Log(d);

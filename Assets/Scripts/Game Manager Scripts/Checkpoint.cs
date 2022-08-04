@@ -26,7 +26,7 @@ public class Checkpoint : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D player) {
         if (player.gameObject.CompareTag("Player")) {
             foreach (var c in GameManager.Instance.checkpoints) {
-                c.GetComponent<Checkpoint>().activeCheckpoint = false;
+                if (c.GetComponent<Checkpoint>().activeCheckpoint == true) c.SetActive(false);
             }
             activeCheckpoint = true;
             player.gameObject.GetComponent<CharacterConfig>().respawnPoint = location.position;

@@ -3,7 +3,22 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] public GameObject[] checkpoints;
+    //Layers
+    public int PLAYER_HURTBOX = 3;
+    public int TONGUE_HITBOX = 6;
+    public int OBJECT_HURTBOX = 7;
+    public int CAMERA_HITBOX = 8;
+    public int WALL_COLLISION = 9;
+    public int ATTACK_HITBOX = 10;
+    public int ENEMY_HITBOX = 11;
+    public int SPIT_PROJECTILE_HITBOX = 12;
+    public int PLAYER_WALL_COLLISION = 13;
+    public int ENEMY_WALL_COLLISION = 14;
+    public int COLLECTIBLE_HITBOX = 15;
+    public int BOUNDARY = 17;
+    public int OBJECT_WALL_COLLISION = 18;
+    public GameObject player;
+    public GameObject[] checkpoints;
     private GameObject debug;
     private bool debugActive;
     //GameManager.Instance.whatever
@@ -25,6 +40,7 @@ public class GameManager : MonoBehaviour
         _instance = this;
         Application.targetFrameRate = 144;
         checkpoints = GameObject.FindGameObjectsWithTag("Checkpoint");
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     private void Update()

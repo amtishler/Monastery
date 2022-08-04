@@ -36,6 +36,7 @@ public class InteractableObject : MonoBehaviour
 
     public void ResetPosition() {
         if (!this.gameObject.activeInHierarchy) this.gameObject.SetActive(true);
+        this.gameObject.GetComponentInChildren<BoxCollider2D>().gameObject.layer = GameManager.Instance.OBJECT_WALL_COLLISION;
         this.gameObject.transform.position = resetPosition;
     }
 
