@@ -39,7 +39,7 @@ Material:
     m_Ints: []
     m_Floats:
     - CORNERS_ON: 1
-    - _Active: 1
+    - _Active: 0
     - _OutlineThickness: 1
     - _SampleCorners: 0
     m_Colors:
