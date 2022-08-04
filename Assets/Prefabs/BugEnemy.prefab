@@ -908,10 +908,10 @@ MonoBehaviour:
   pouncespeed: 25
   pounceslowdown: 0.5
   attackcooldown: 1.5
-  postattackpause: 1
+  postattackpause: 0.1
   isattacking: 0
   oncooldown: 0
-  attackTriggerZone: {fileID: 4669913189553106233}
+  attackTriggerZone: {fileID: 0}
   target: {fileID: 0}
   attackhitbox: {fileID: 1245101477299156770}
   attackvector: {x: 0, y: 0, z: 0}
@@ -1037,6 +1037,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AttackTriggerZone
       objectReference: {fileID: 0}
+    - target: {fileID: 4669913189103174918, guid: c495bdf78b219c747a36b450605d8f3a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4669913189103174925, guid: c495bdf78b219c747a36b450605d8f3a, type: 3}
       propertyPath: m_Size.x
       value: 1.2251887
@@ -1055,11 +1059,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c495bdf78b219c747a36b450605d8f3a, type: 3}
---- !u!1 &4669913189553106233 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4669913189103174918, guid: c495bdf78b219c747a36b450605d8f3a, type: 3}
-  m_PrefabInstance: {fileID: 458319935}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4669913189553106236 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4669913189103174915, guid: c495bdf78b219c747a36b450605d8f3a, type: 3}

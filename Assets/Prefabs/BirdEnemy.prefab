@@ -881,7 +881,7 @@ MonoBehaviour:
   respawnPoint: {x: 0, y: 0, z: 0}
   maximumSpeed: 4
   minimumSpeed: 3
-  acceleration: 0.1
+  acceleration: 1
   deacceleration: 0.1
   recoveryDeaccel: 0.5
   maxHealth: 75
@@ -902,11 +902,12 @@ MonoBehaviour:
   collisiondamage: 0
   collisionknockback: 40
   projectileslowdown: 0.3
-  readyingspeed: 1
+  readyingspeed: 0
   attacktimer: 0.5
-  pouncespeed: 5
+  pouncespeed: 15
   pounceslowdown: 0.5
   attackcooldown: 0.5
+  postattackpause: 0.1
   isattacking: 0
   oncooldown: 0
   attackTriggerZone: {fileID: 0}
@@ -914,7 +915,7 @@ MonoBehaviour:
   attackhitbox: {fileID: 3920087273619940040}
   attackvector: {x: 0, y: 0, z: 0}
   nextWaypointDistance: 0.5
-  targetDistance: 3
+  targetDistance: 0.5
   targetDistanceWindow: 0.25
 --- !u!95 &933436670037076591
 Animator:
