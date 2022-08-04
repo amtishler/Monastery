@@ -167,7 +167,7 @@ public class EnemyAttackState : EnemyState {
 
         animator = config.GetComponent<Animator>();
         config.Velocity = config.attackvector.normalized * config.pouncespeed;
-        config.attackhitbox.SetActive(true);
+        //config.attackhitbox.SetActive(true);
     }
 
     public override void UpdateState() {
@@ -195,7 +195,7 @@ public class EnemyAttackState : EnemyState {
 
     public override void ExitState() {
         config.oncooldown = true;
-        config.attackhitbox.SetActive(false);
+        //config.attackhitbox.SetActive(false);
         config.isattacking = false;
     }
 
