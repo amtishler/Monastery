@@ -14,7 +14,7 @@ public class ShadowDepthController : MonoBehaviour
         sR = GetComponent<SpriteRenderer>();
         parentSR = transform.parent.GetComponent<SpriteRenderer>();
         parentSROrder = parentSR.sortingOrder;
-        Debug.Log(parentSR.sortingLayerName);
+        //Debug.Log(parentSR.sortingLayerName);
     }
 
     // Update is called once per frame

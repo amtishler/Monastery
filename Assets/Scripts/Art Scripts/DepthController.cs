@@ -6,6 +6,7 @@ public class DepthController : MonoBehaviour
 {
     GameObject playerGO;
     [SerializeField]
+    GameObject[] characters;
     Vector3 midpoint;
     [SerializeField]
     bool debugMidpoint = false;
@@ -16,6 +17,7 @@ public class DepthController : MonoBehaviour
     {
         sR = GetComponent<SpriteRenderer>();
         playerGO = GameObject.FindGameObjectWithTag("Player");
+        characters = GameObject.FindGameObjectsWithTag("Small Object");
     }
 
     // Update is called once per frame
@@ -26,6 +28,14 @@ public class DepthController : MonoBehaviour
         } else
         {
             sR.sortingLayerName = "Background";
+        }
+        foreach (var c in characters) {
+            if(c.transform.position.y >= transform.position.y + midpoint.y) {
+                c.GetComponent<SpriteRenderer>().sortingLayerName = "Foreground";
+            } else
+            {
+                c.GetComponent<SpriteRenderer>().sortingLayerName = "Background";
+            }
         }
     }
 
