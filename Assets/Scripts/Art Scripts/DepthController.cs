@@ -6,7 +6,6 @@ public class DepthController : MonoBehaviour
 {
     GameObject playerGO;
     [SerializeField]
-    GameObject[] characters;
     Vector3 midpoint;
     [SerializeField]
     bool debugMidpoint = false;
@@ -17,7 +16,6 @@ public class DepthController : MonoBehaviour
     {
         sR = GetComponent<SpriteRenderer>();
         playerGO = GameObject.FindGameObjectWithTag("Player");
-        characters = GameObject.FindGameObjectsWithTag("Small Object");
     }
 
     // Update is called once per frame
@@ -29,14 +27,6 @@ public class DepthController : MonoBehaviour
         {
             sR.sortingLayerName = "Background";
         }
-        foreach (var c in characters) {
-            if(c.transform.position.y >= transform.position.y + midpoint.y) {
-                c.GetComponent<SpriteRenderer>().sortingLayerName = "Foreground";
-            } else
-            {
-                c.GetComponent<SpriteRenderer>().sortingLayerName = "Background";
-            }
-        }
     }
 
     void OnDrawGizmos()
@@ -44,8 +34,8 @@ public class DepthController : MonoBehaviour
         if(debugMidpoint)
         {
             // Draw a yellow sphere at the transform's position
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(transform.position + midpoint, 0.1f);
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawSphere(transform.position + midpoint, 0.1f);
         }
     }
 }

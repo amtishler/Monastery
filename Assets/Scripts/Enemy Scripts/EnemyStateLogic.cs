@@ -422,7 +422,9 @@ public class EnemyFallingState : EnemyState
         _fallAnim -= Time.deltaTime;
         CheckSwitchStates();
     }
-    public override void ExitState(){}
+    public override void ExitState(){
+        config.GetComponent<SpriteRenderer>().sortingLayerName = "Player";
+    }
     public override void CheckSwitchStates(){
         if (_fallAnim <= 0f) {
             //SwitchStates(factory.Dead());
