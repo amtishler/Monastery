@@ -161,13 +161,13 @@ MonoBehaviour:
   deacceleration: 0.5
   knockbackmultiplier: 0.3
   minimumSpeed: 3
-  damage: 30
-  knockback: 30
+  damage: 40
+  knockback: 25
   stun: 40
   knockbackreflected: 0.5
   projectilespeed: 10
   isProjectile: 0
-  gravity: 0
+  gravity: 1
 --- !u!61 &1413247987039871067
 BoxCollider2D:
   m_ObjectHideFlags: 0

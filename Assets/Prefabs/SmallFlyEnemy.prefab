@@ -619,21 +619,21 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.07214702, y: -0.06468346}
+  m_Offset: {x: 0.07214701, y: -0.045972824}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2, y: 2}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.36941594, y: 0.23009713}
+  m_Size: {x: 0.75993806, y: 0.75400543}
   m_EdgeRadius: 0
 --- !u!1 &3695426520570289317
 GameObject:
@@ -742,7 +742,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.07214702, y: -0.06468346}
+  m_Offset: {x: 0.07214701, y: -0.045972824}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -753,7 +753,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.36941594, y: 0.23009713}
+  m_Size: {x: 0.75993806, y: 0.75400543}
   m_EdgeRadius: 0
 --- !u!50 &3695426520570289316
 Rigidbody2D:
@@ -800,15 +800,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9297143049c4c9f4981371f62891de42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
+  respawnPoint: {x: 0, y: 0, z: 0}
   maximumSpeed: 4
   minimumSpeed: 3
   acceleration: 0.1
   deacceleration: 0.1
   recoveryDeaccel: 0.5
-  maxHealth: 75
-  health: 75
-  maxStun: 10
+  maxHealth: 50
+  health: 50
+  maxStun: 35
   stun: 0
   stundecay: 0
   invincibleduration: 0.5
@@ -829,6 +829,7 @@ MonoBehaviour:
   pouncespeed: 10
   pounceslowdown: 0.1
   attackcooldown: 1.5
+  postattackpause: 1
   isattacking: 0
   oncooldown: 0
   attackTriggerZone: {fileID: 0}
@@ -948,6 +949,7 @@ MonoBehaviour:
   knockback: 25
   stun: 50
   knockbacknormalization: 0.5
+  friction: 0.5
   knockbackreflected: 0.25
 --- !u!61 &709884257472769269
 BoxCollider2D:
@@ -962,16 +964,16 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.07214702, y: -0.06468346}
+  m_Offset: {x: 0.07214701, y: -0.045972824}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2, y: 2}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.36941594, y: 0.23009713}
+  m_Size: {x: 0.75993806, y: 0.75400543}
   m_EdgeRadius: 0
