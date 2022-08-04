@@ -330,6 +330,8 @@ public class EnemyStunnedState : EnemyState {
     public override void EnterState() {
         config.grabbable = true;
         config.stunned = true;
+        Renderer renderer = config.GetComponent<Renderer>();
+        renderer.material.SetInt("_Active", 1);
     }
 
     public override void UpdateState() {
@@ -343,6 +345,8 @@ public class EnemyStunnedState : EnemyState {
         config.Stun = 0;
         config.stunned = false;
         config.grabbable = false;
+        Renderer renderer = config.GetComponent<Renderer>();
+        renderer.material.SetInt("_Active", 0);
     }
 
     public override void CheckSwitchStates() {
