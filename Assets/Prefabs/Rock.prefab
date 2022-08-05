@@ -140,7 +140,7 @@ MonoBehaviour:
   deacceleration: 0.5
   knockbackmultiplier: 1
   minimumSpeed: 3
-  damage: 10
+  damage: 35
   knockback: 20
   stun: 25
   knockbackreflected: 0.5

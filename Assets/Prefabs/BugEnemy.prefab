@@ -980,11 +980,11 @@ MonoBehaviour:
   acceleration: 0.1
   deacceleration: 0.1
   recoveryDeaccel: 0.5
-  maxHealth: 125
-  health: 125
+  maxHealth: 140
+  health: 140
   maxStun: 75
   stun: 0
-  stundecay: 0
+  stundecay: 7.5
   invincibleduration: 0.5
   knockbackmultiplier: 1
   invincibletimer: 0
@@ -994,7 +994,7 @@ MonoBehaviour:
   gravity: 1
   grounded: 0
   detectionradius: 6
-  attackradius: 3
+  attackradius: 2
   collisiondamage: 0
   collisionknockback: 40
   projectileslowdown: 0.25

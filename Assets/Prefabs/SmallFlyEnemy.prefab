@@ -93,7 +93,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1196010803
 RectTransform:
   m_ObjectHideFlags: 0
@@ -366,7 +366,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1688687807
 RectTransform:
   m_ObjectHideFlags: 0
@@ -518,7 +518,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2138240102
 RectTransform:
   m_ObjectHideFlags: 0
@@ -806,9 +806,9 @@ MonoBehaviour:
   acceleration: 0.1
   deacceleration: 0.1
   recoveryDeaccel: 0.5
-  maxHealth: 50
-  health: 50
-  maxStun: 35
+  maxHealth: 40
+  health: 40
+  maxStun: 999
   stun: 0
   stundecay: 0
   invincibleduration: 0.5
