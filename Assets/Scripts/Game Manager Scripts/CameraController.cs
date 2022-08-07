@@ -94,9 +94,9 @@ public class CameraController : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") && isCutscene)
         {
-            Debug.Log("Player detected");
+            //Debug.Log("Player detected");
             CinemachineVirtualCamera playerCam = other.gameObject.GetComponentInParent<CinemachineVirtualCamera>();
             Finish(playerCam);
         }
@@ -122,7 +122,7 @@ public class CameraController : MonoBehaviour
         foreach (var c in colliders) {
             c.Value.gameObject.AddComponent<BoxCollider2D>();
             c.Value.parent = this.gameObject.transform;
-            c.Value.gameObject.layer = 9;
+            c.Value.gameObject.layer = GameManager.Instance.WALL_COLLISION;
 
             if (c.Key == "LeftCollider" || c.Key == "RightCollider") c.Value.localScale = new Vector3(bufferPlayerWidth, screenSize.y*2, bufferPlayerWidth);
             else c.Value.localScale = new Vector3(screenSize.x*2, bufferPlayerHeight, bufferPlayerHeight);
@@ -138,12 +138,18 @@ public class CameraController : MonoBehaviour
     }
 
     public void ResetZone() {
-        enemies.ResetEnemies();
-        activated = false;
-        edgesCreated = false;
-        foreach (var c in colliders) {
-            Destroy(c.Value.gameObject);
+        if (!isCutscene) {
+            enemies.ResetEnemies();
+            activated = false;
+            edgesCreated = false;
+            foreach (var c in colliders) {
+                Destroy(c.Value.gameObject);
+            }
+            colliders.Clear();
+            if (CameraSwitcher.ActiveCamera == cam) CameraSwitcher.SwitchCamera(GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<CinemachineVirtualCamera>());
         }
-        colliders.Clear();
+        else {
+            activated = false;
+        }
     }
 }

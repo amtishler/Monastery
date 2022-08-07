@@ -19,6 +19,8 @@ public class ProjectileObject : InteractableObject
     private void Awake()
     {
         getHitSound = FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/Features/Rock/Get Hit");
+        obj = this.gameObject;
+        resetPosition = obj.transform.position;
     }
 
     // Start is called before the first frame update

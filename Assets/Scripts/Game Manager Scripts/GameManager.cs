@@ -70,10 +70,11 @@ public class GameManager : MonoBehaviour
     public void ResetLevel() {
         foreach (var c in checkpoints) {
             Checkpoint cp = c.GetComponent<Checkpoint>();
-            if (cp != null) {
+            if (cp.gameObject.activeInHierarchy) {
                 if (cp.activeCheckpoint) {
                     cp.ResetObjects();
                     cp.ResetZones();
+                    break;
                 }
             }
         }

@@ -11,6 +11,7 @@ public class Checkpoint : MonoBehaviour
     [SerializeField] public GameObject[] zonesToReset;
     public Transform location;
     public bool activeCheckpoint;
+    private bool oldCheckpoint;
     BoxCollider2D box;
     Rigidbody2D rig;
 
@@ -21,14 +22,21 @@ public class Checkpoint : MonoBehaviour
         box.isTrigger = true;
         rig.isKinematic = true;
         location = this.gameObject.transform;
+        oldCheckpoint = false;
     }
 
     private void OnTriggerEnter2D(Collider2D player) {
         if (player.gameObject.CompareTag("Player")) {
             foreach (var c in GameManager.Instance.checkpoints) {
-                if (c.GetComponent<Checkpoint>().activeCheckpoint == true) c.SetActive(false);
+                Checkpoint cp = c.GetComponent<Checkpoint>();
+                if (cp.activeCheckpoint == true) {
+                    cp.activeCheckpoint = false;
+                    cp.gameObject.SetActive(false);
+                    break;
+                }
             }
             activeCheckpoint = true;
+            box.enabled = false;
             player.gameObject.GetComponent<CharacterConfig>().respawnPoint = location.position;
         }
     }

@@ -8,17 +8,18 @@ public class InteractableObject : MonoBehaviour
     public float deacceleration = 0.5f;
     public float knockbackmultiplier = 1.0f;
     public float minimumSpeed = 3.0f;
-    private Vector3 resetPosition;
+
+    //Set these in child scripts
+    public Vector3 resetPosition;
+    [System.NonSerialized] public GameObject obj;
+    
+    //////////////////////////////////
 
     protected Rigidbody2D rigidBody;
 
     protected float speed;
     protected Vector3 velocity;
     public Vector3 Velocity {get {return rigidBody.velocity;} set {rigidBody.velocity = value;}}
-
-    private void Awake() {
-        resetPosition = this.gameObject.transform.position;
-    }
 
     public void SlowDown(float dampening) {
         speed = speed - dampening;
@@ -35,9 +36,14 @@ public class InteractableObject : MonoBehaviour
     }
 
     public void ResetPosition() {
-        if (!this.gameObject.activeInHierarchy) this.gameObject.SetActive(true);
-        this.gameObject.GetComponentInChildren<BoxCollider2D>().gameObject.layer = GameManager.Instance.OBJECT_WALL_COLLISION;
-        this.gameObject.transform.position = resetPosition;
+        if (!obj.activeInHierarchy) obj.SetActive(true);
+        obj.GetComponent<SpriteRenderer>().sortingLayerName = "Interactable Objects";
+        obj.transform.position = resetPosition;
+        Debug.Log(resetPosition);
+        Collider2D[] colliders = obj.GetComponentsInChildren<Collider2D>();
+        foreach (var c in colliders) {
+            if (!c.gameObject.activeInHierarchy) c.gameObject.SetActive(true);
+        }
     }
 
     public virtual void OnHit(Vector3 dir, float mag){}
