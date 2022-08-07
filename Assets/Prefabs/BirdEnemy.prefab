@@ -776,7 +776,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.035007, y: -0.035007}
+  m_Offset: {x: -0.14990234, y: -0.035007}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -787,7 +787,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.53005505, y: 0.74009895}
+  m_Size: {x: 0.7007446, y: 0.74009895}
   m_EdgeRadius: 0
 --- !u!114 &1554150277
 MonoBehaviour:
@@ -993,15 +993,15 @@ MonoBehaviour:
   gravity: 1
   grounded: 0
   detectionradius: 6
-  attackradius: 1
+  attackradius: 0.75
   collisiondamage: 0
   collisionknockback: 40
   projectileslowdown: 0.3
-  readyingspeed: 0
-  attacktimer: 0.5
-  pouncespeed: 15
-  pounceslowdown: 0.5
-  attackcooldown: 0.5
+  readyingspeed: 0.5
+  attacktimer: 1
+  pouncespeed: 5
+  pounceslowdown: 0.1
+  attackcooldown: 1
   postattackpause: 0
   isattacking: 0
   oncooldown: 0
@@ -1010,7 +1010,7 @@ MonoBehaviour:
   attackhitbox: {fileID: 2004785032}
   attackvector: {x: 0, y: 0, z: 0}
   nextWaypointDistance: 0.5
-  targetDistance: 0.5
+  targetDistance: 0.75
   targetDistanceWindow: 0.25
 --- !u!95 &933436670037076591
 Animator:
