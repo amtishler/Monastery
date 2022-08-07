@@ -7,10 +7,13 @@ public class FlyConfig : CharacterConfig {
     
     public GameObject target;
     public GameObject flychild;
+    public GameObject spit;
     public int maxchildren = 3;
     private int numchildren = 0;
     public bool attacking;
     private Animator animator;
+
+    public List<float> spitangles;
 
     [Header("Pathfinding Values")]
     //Pathfinding vars
@@ -26,12 +29,12 @@ public class FlyConfig : CharacterConfig {
     protected override void _Start() {
         seeker = GetComponent<Seeker>();
         animator = GetComponent<Animator>();
-        //target = GameObject.FindWithTag("Player");
+        target = GameObject.FindWithTag("Player");
         grabbable = false;
         attacking = true;
         pathendpoint = target.transform.position;
         InvokeRepeating("UpdatePath", 0f, .25f);
-        InvokeRepeating("SpawnChild", 5f, 5f);
+        InvokeRepeating("PlaySpit", 5f, 2f);
         return;
     }
 
@@ -50,13 +53,41 @@ public class FlyConfig : CharacterConfig {
     {
         if(attacking && numchildren < maxchildren)
         {
-            numchildren++;
             animator.Play("LayEgg");
-            GameObject newfly = Instantiate(flychild);
-            newfly.transform.position = this.transform.position;
-            EnemyConfig flyconf = newfly.GetComponent<EnemyConfig>();
-            flyconf.SetTarget(target);
         }
+    }
+
+    void PlaySpit()
+    {
+        if(attacking)
+        {
+            animator.Play("Spit");
+        }
+    }
+
+    void Spit()
+    {
+        foreach(float angle in spitangles){
+        GameObject spitchild = Instantiate(spit);
+        spitchild.transform.position = this.transform.position;
+        Spitball spitconf = spitchild.GetComponent<Spitball>();
+
+        Vector3 dirtotarget = target.transform.position - this.transform.position;
+
+        spitconf.targetdir = Quaternion.Euler(0, 0, angle) * dirtotarget;
+
+        float rot_z = Mathf.Atan2(spitconf.targetdir.y, spitconf.targetdir.x) * Mathf.Rad2Deg;
+        spitconf.transform.rotation = Quaternion.Euler(0f, 0f, rot_z + 180);
+        }
+    }
+
+    void CreateChild()
+    {
+        numchildren++;
+        GameObject newfly = Instantiate(flychild);
+        newfly.transform.position = this.transform.position;
+        EnemyConfig flyconf = newfly.GetComponent<EnemyConfig>();
+        flyconf.SetTarget(target);
     }
 
     void OnPathComplete(Path p)
