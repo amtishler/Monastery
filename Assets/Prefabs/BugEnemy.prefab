@@ -1000,6 +1000,7 @@ MonoBehaviour:
   projectileslowdown: 0.25
   readyingspeed: 1
   attacktimer: 0.5
+  animationstart: 0.2
   pouncespeed: 25
   pounceslowdown: 0.5
   attackcooldown: 1.5

@@ -105,6 +105,7 @@ public class EnemyReadyingState : EnemyState {
     private float oldspeed;
     private float timer;
     private bool stopped;
+    private Animator animator;
 
     public EnemyReadyingState(EnemyConfig config, EnemyStateMachine currentContext, EnemyStateFactory stateFactory)
     : base(config, currentContext, stateFactory){}
@@ -112,7 +113,7 @@ public class EnemyReadyingState : EnemyState {
     public override void EnterState() {
         timer = 0;
         stopped = false;
-        config.isattacking = true;
+        animator = config.GetComponent<Animator>();
         if(config.target == null) SwitchStates(factory.Idle());
         oldspeed = config.MaximumSpeed;
         config.MaximumSpeed = config.readyingspeed;
@@ -124,6 +125,11 @@ public class EnemyReadyingState : EnemyState {
         if(timer < (config.attacktimer / 2f))
         {
             config.Move(config.target);
+        }
+        else if(!config.isattacking && timer > config.animationstart)
+        {
+            animator.Play("Attack");
+            config.isattacking = true;
         }
         else
         {
@@ -164,7 +170,7 @@ public class EnemyAttackState : EnemyState {
         pausetimer = 0f;
         timerstarted = false;
         doneattacking = false;
-
+        config.isattacking = false;
         animator = config.GetComponent<Animator>();
         config.Velocity = config.attackvector.normalized * config.pouncespeed;
         //config.attackhitbox.SetActive(true);
@@ -196,7 +202,6 @@ public class EnemyAttackState : EnemyState {
     public override void ExitState() {
         config.oncooldown = true;
         //config.attackhitbox.SetActive(false);
-        config.isattacking = false;
     }
 
     public override void CheckSwitchStates() {

@@ -19,6 +19,8 @@ public class EnemyConfig : CharacterConfig {
     //Time spent stalking (before attacking)
     public float attacktimer = 1f;
 
+    public float animationstart = 0.8f;
+
     //Pouncing speed;
     public float pouncespeed = 10f;
     public float pounceslowdown = 0.1f;
