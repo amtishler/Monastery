@@ -6,7 +6,7 @@ using Pathfinding;
 public class FlyConfig : CharacterConfig {
     
     public GameObject target;
-    public GameObject flychild;
+    public GameObject egg;
     public GameObject spit;
     public int maxchildren = 3;
     private int numchildren = 0;
@@ -26,6 +26,8 @@ public class FlyConfig : CharacterConfig {
     public float targetDistanceWindow = 0.5f;
     private Vector3 pathendpoint;
 
+    private bool lay;
+
     protected override void _Start() {
         seeker = GetComponent<Seeker>();
         animator = GetComponent<Animator>();
@@ -33,8 +35,9 @@ public class FlyConfig : CharacterConfig {
         grabbable = false;
         attacking = true;
         pathendpoint = target.transform.position;
+        lay = false;
         InvokeRepeating("UpdatePath", 0f, .25f);
-        InvokeRepeating("PlaySpit", 5f, 2f);
+        InvokeRepeating("Attack", 5f, 2f);
         return;
     }
 
@@ -49,19 +52,37 @@ public class FlyConfig : CharacterConfig {
         if (seeker.IsDone() && target != null) seeker.StartPath(this.transform.position, pathendpoint, OnPathComplete);
     }
 
-    void SpawnChild()
+    public void SpawnChild()
     {
-        if(attacking && numchildren < maxchildren)
+        if(attacking && !stunned && numchildren < maxchildren)
         {
             animator.Play("LayEgg");
         }
     }
 
-    void PlaySpit()
+    public void PlaySpit()
     {
-        if(attacking)
+        if(attacking && !stunned )
         {
             animator.Play("Spit");
+        }
+    }
+
+    protected override void _Hit()
+    {
+        animator.Play("GetHit");
+    }
+
+    void Attack()
+    {
+        if(lay)
+        {
+            SpawnChild();
+            lay = false;
+        }
+        else{
+            PlaySpit();
+            lay = true;
         }
     }
 
@@ -73,6 +94,7 @@ public class FlyConfig : CharacterConfig {
         Spitball spitconf = spitchild.GetComponent<Spitball>();
 
         Vector3 dirtotarget = target.transform.position - this.transform.position;
+        dirtotarget.Normalize();
 
         spitconf.targetdir = Quaternion.Euler(0, 0, angle) * dirtotarget;
 
@@ -84,10 +106,9 @@ public class FlyConfig : CharacterConfig {
     void CreateChild()
     {
         numchildren++;
-        GameObject newfly = Instantiate(flychild);
-        newfly.transform.position = this.transform.position;
-        EnemyConfig flyconf = newfly.GetComponent<EnemyConfig>();
-        flyconf.SetTarget(target);
+        GameObject newfly = Instantiate(egg);
+        Vector3 offset = new Vector3(0, -2, 0);
+        newfly.transform.position = this.transform.position + offset;
     }
 
     void OnPathComplete(Path p)

@@ -8,7 +8,7 @@ public class ProjectileObject : InteractableObject
     public float damage, knockback, stun;
     public float knockbackreflected = 0.5f;
 
-
+    public float flightspeedmult = 2f;
     public float projectilespeed = 10.0f;
     public bool isProjectile;
     private float duration = 0f;
@@ -27,7 +27,10 @@ public class ProjectileObject : InteractableObject
     void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
+        _Start();
     }
+
+    protected virtual void _Start(){}
 
     // Update is called once per frame
     void Update()
@@ -53,13 +56,19 @@ public class ProjectileObject : InteractableObject
                 Debug.Log("Object Destroyed");
             }
         }
+
+        _Update();
     }
+
+    protected virtual void _Update(){}
 
     public override void OnHit(Vector3 dir, float mag)
     {
-        ApplyKnockback(dir, mag);
+        ApplyKnockback(dir, mag * flightspeedmult);
         getHitSound.start();
     }
+
+    protected virtual void _OnHit(){}
 
     private void OnTriggerStay2D(Collider2D collision)
     {
@@ -77,6 +86,8 @@ public class ProjectileObject : InteractableObject
 
                 ApplyKnockback(-knockbackdir, knockback * knockbackreflected);
                 GameManager.Instance.DamageCharacter(d, damage, stun, knockbackdir, knockback);
+
+                _OnHit();
             }
         }
     }

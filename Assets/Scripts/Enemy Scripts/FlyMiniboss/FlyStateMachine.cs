@@ -28,6 +28,6 @@ public class FlyStateMachine : StateMachine
 
     public override void ForceStunned()
     {
-        //currentState.SwitchStates(states.Stunned());
+        currentState.SwitchStates(states.Stunned());
     }
 }

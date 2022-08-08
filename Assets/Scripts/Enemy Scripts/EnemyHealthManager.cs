@@ -14,23 +14,23 @@ public class EnemyHealthManager : MonoBehaviour {
     [Header("Variables")]
     [SerializeField] float healthBarSpeed;
     [SerializeField] float damageBarSpeed;
-    private EnemyConfig config;
-    private RectTransform healthBar;
-    private RectTransform damageBar;
-    private RectTransform stunBar;
-    private RectTransform stunFull;
-    private float currentHealth;
-    private float currentDamage;
-    private float enemyHealth;
+    protected CharacterConfig config;
+    protected RectTransform healthBar;
+    protected RectTransform damageBar;
+    protected RectTransform stunBar;
+    protected RectTransform stunFull;
+    protected float currentHealth;
+    protected float currentDamage;
+    protected float enemyHealth;
 
-    private float enemyStun;
+    protected float enemyStun;
 
-    private Quaternion upright;
+    protected Quaternion upright;
 
     // Start is called before the first frame update
     void Start() {
         //Debug.Log(transform==null);
-        config = this.transform.parent.GetComponent<EnemyConfig>();
+        config = this.transform.parent.GetComponent<CharacterConfig>();
         healthBar = this.transform.Find("HealthBar").GetComponent<RectTransform>();
         damageBar = this.transform.Find("DamageBar").GetComponent<RectTransform>();
         stunBar = this.transform.Find("StunBar").GetComponent<RectTransform>();

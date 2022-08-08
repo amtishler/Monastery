@@ -29,4 +29,8 @@ public class FlyStateFactory : StateFactory
         return new FlyHurtState(config, currentContext, this);
     }
 
+    public State Stunned() {
+        return new FlyStunnedState(config, currentContext, this);
+    }
+
 }

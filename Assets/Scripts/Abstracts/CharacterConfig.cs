@@ -152,7 +152,12 @@ public abstract class CharacterConfig : MonoBehaviour
                 stateManager.ForceStunned();
             }
         }
+
+        _Hit();
+
     }
+
+    protected virtual void _Hit(){}
 
     public void ApplyKnockback(Vector3 dir, float mag)
     {
@@ -189,4 +194,8 @@ public abstract class CharacterConfig : MonoBehaviour
         invincible = false;
         dead = false;
     }  
+
+    public void Kill(){
+        Destroy(this.gameObject);
+    }
 }

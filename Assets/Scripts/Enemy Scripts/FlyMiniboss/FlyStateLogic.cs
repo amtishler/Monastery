@@ -96,6 +96,36 @@ public class FlyHurtState : FlyState {
     }
 }
 
+// Stunned
+public class FlyStunnedState : FlyState {
+
+    public FlyStunnedState(FlyConfig config, FlyStateMachine currentContext, FlyStateFactory stateFactory)
+    : base(config, currentContext, stateFactory){}
+
+    public override void EnterState() {
+        config.stunned = true;
+        Renderer renderer = config.GetComponent<Renderer>();
+        renderer.material.SetInt("_Active", 1);
+    }
+
+    public override void UpdateState() {
+        if(config.Speed > 0){
+            config.SlowDown(config.RecoveryDeaccel);
+        }
+        CheckSwitchStates();
+    }
+
+    public override void ExitState() {
+        config.Stun = 0;
+        config.stunned = false;
+        Renderer renderer = config.GetComponent<Renderer>();
+        renderer.material.SetInt("_Active", 0);
+    }
+
+    public override void CheckSwitchStates() {
+    }
+}
+
 public class FlyFallingState : FlyState {
 
     public FlyFallingState(FlyConfig config, FlyStateMachine currentContext, FlyStateFactory stateFactory)
