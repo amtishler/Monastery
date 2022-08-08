@@ -56,6 +56,7 @@ public class EnemyConfig : CharacterConfig {
     protected override void _Start() {
         seeker = GetComponent<Seeker>();
         animator = GetComponent<Animator>();
+        respawnPoint = this.gameObject.transform.position;
 
         if(attackTriggerZone != null)
         {
@@ -189,6 +190,16 @@ public class EnemyConfig : CharacterConfig {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, detectionradius);
         Gizmos.DrawWireSphere(transform.position, attackradius);
+    }
+
+    public override void Reset()
+    {
+        base.Reset();
+        this.gameObject.transform.position = respawnPoint;
+        EnemyStateMachine sm = this.gameObject.GetComponent<EnemyStateMachine>();
+        if (sm != null) {
+            sm.currentState.SwitchStates(sm.states.Idle());
+        }
     }
 
 

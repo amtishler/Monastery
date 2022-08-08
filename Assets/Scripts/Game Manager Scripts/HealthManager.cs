@@ -52,7 +52,7 @@ public class HealthManager : MonoBehaviour {
         // Scaling health bar
         if (currentHealth < playerHealth) {
             currentHealth = currentHealth + healthBarSpeed*Time.deltaTime;
-            Debug.Log(currentHealth);
+            //Debug.Log(currentHealth);
             if (currentHealth > playerHealth) currentHealth = playerHealth;
         } else if (currentHealth > playerHealth) {
             currentHealth = currentHealth - healthBarSpeed*Time.deltaTime;

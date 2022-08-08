@@ -12,7 +12,7 @@ public class InteractableObject : MonoBehaviour
     //Set these in child scripts
     public Vector3 resetPosition;
     [System.NonSerialized] public GameObject obj;
-    
+
     //////////////////////////////////
 
     protected Rigidbody2D rigidBody;
@@ -39,10 +39,9 @@ public class InteractableObject : MonoBehaviour
         if (!obj.activeInHierarchy) obj.SetActive(true);
         obj.GetComponent<SpriteRenderer>().sortingLayerName = "Interactable Objects";
         obj.transform.position = resetPosition;
-        Debug.Log(resetPosition);
         Collider2D[] colliders = obj.GetComponentsInChildren<Collider2D>();
         foreach (var c in colliders) {
-            if (!c.gameObject.activeInHierarchy) c.gameObject.SetActive(true);
+            if (!c.enabled) c.enabled = true;
         }
     }
 

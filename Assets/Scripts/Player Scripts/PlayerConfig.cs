@@ -41,6 +41,7 @@ public class PlayerConfig : CharacterConfig {
     {   
         mainCamera = Camera.main;
         playerAnimator = GetComponent<PlayerAnimator>();
+        respawnPoint = this.gameObject.transform.position;
     }
 
     // Update method - just to handle cooldowns.
@@ -55,6 +56,20 @@ public class PlayerConfig : CharacterConfig {
         if (collision.gameObject.layer == 9)
         {
             IsTouchingWall = true;
+        }
+    }
+
+    public override void Reset()
+    {
+        base.Reset();
+        this.gameObject.transform.position = respawnPoint;
+    }
+
+    public void ResetCollision() {
+        Collider2D[] colliders = this.gameObject.GetComponentsInChildren<Collider2D>();
+        foreach (Collider2D c in colliders) {
+            Debug.Log(c);
+            if (!c.enabled) c.enabled = true;
         }
     }
 }

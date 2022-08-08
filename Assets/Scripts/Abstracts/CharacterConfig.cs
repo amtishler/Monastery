@@ -77,7 +77,6 @@ public abstract class CharacterConfig : MonoBehaviour
         directionMap[2] = Vector3.left;
         directionMap[3] = Vector3.down;
         health = maxHealth;
-        respawnPoint = this.gameObject.transform.position;
         grounded = true;
         _Start();
     }
@@ -182,18 +181,12 @@ public abstract class CharacterConfig : MonoBehaviour
         else stateManager.ForceDead();
     }
 
-    public void Reset() {
+    public virtual void Reset() {
         if (!this.gameObject.activeInHierarchy) this.gameObject.SetActive(true);
         health = maxHealth;
         Stun = 0;
         Velocity = Vector3.zero;
         invincible = false;
         dead = false;
-        this.gameObject.transform.position = respawnPoint;
-
-        EnemyStateMachine sm = this.gameObject.GetComponent<EnemyStateMachine>();
-        if (sm != null) {
-            sm.currentState.SwitchStates(sm.states.Idle());
-        }
     }  
 }

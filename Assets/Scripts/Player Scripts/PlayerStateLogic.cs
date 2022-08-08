@@ -630,6 +630,7 @@ public class PlayerFall : PlayerState
     }
     public override void ExitState(){
         config.GetComponent<SpriteRenderer>().sortingLayerName = "Player";
+        config.ResetCollision();
         character.gravityScale = 0f;
         cam.GetComponent<CinemachineCameraOffset>().m_Offset = Vector3.zero;
     }
