@@ -13,6 +13,7 @@ public class TongueController : MonoBehaviour {
     [SerializeField] float aimAssistRadius = 0.25f;
     [SerializeField] float timeToExtend = 0.5f;
     [SerializeField] float tongueLength = 8f;
+    [SerializeField] float rayCastBuffer = 0.1f;
     [SerializeField] float retractAccelFactor = 1f;
     [SerializeField] float grappleDamp = 1f;
     [SerializeField] float friction = 0.5f;
@@ -34,8 +35,7 @@ public class TongueController : MonoBehaviour {
 
 
     float deacceleration;
-    float pullSpeed;
-    bool pullInOppositeDir;
+    float currentRayCastBuffer;
     Vector3 velocity;
     Vector3 direction;
     Vector3 inputVelocity;
@@ -43,7 +43,6 @@ public class TongueController : MonoBehaviour {
     Vector3 prevPos;
     bool extending;
     bool paused;
-    bool startedSwinging;
 
     //"grabbed" signifies sticking onto a large object
     bool grabbed;
@@ -105,18 +104,13 @@ public class TongueController : MonoBehaviour {
         };
         */
 
-        //velocity = direction*speed;
-        //speed -= deacceleration*Time.deltaTime;
         velocity -= deacceleration * Time.deltaTime * direction;
-
-        //Vector3 nextPos = transform.position + velocity*Time.deltaTime;
-
-
+        Vector3 nextPos = transform.position + velocity * Time.deltaTime;
         bool shouldUpdate = true;
 
         if (!grabbed && !grabUsed)
         {
-            CheckCollision();
+            CheckCollision(nextPos, transform.position);
             if (grabUsed)
             {
                 prevPos = transform.position;
@@ -124,10 +118,11 @@ public class TongueController : MonoBehaviour {
             }
         }
 
-        if (shouldUpdate) transform.position += velocity * Time.deltaTime;
+        if (shouldUpdate) transform.position = nextPos;
         ResizeTongueBody();
-        prevPos = transform.position;
         if (!IsFinished) IsFinished = CheckIfFinished();
+        prevPos = transform.position;
+        currentRayCastBuffer += Time.deltaTime;
     }
 
 
@@ -135,7 +130,6 @@ public class TongueController : MonoBehaviour {
     public void PullPlayer()
     {
         float extraSpeed = deacceleration * pullAccelFactor * Time.deltaTime;
-        pullSpeed += extraSpeed;
         float newSpeed = config.Speed + extraSpeed;
 
         Vector3 inverseAxis = (new Vector3(-direction.y, direction.x, 0f)).normalized;
@@ -143,29 +137,21 @@ public class TongueController : MonoBehaviour {
         Vector3 currentDirection = (Vector3.Dot(config.Velocity, inverseAxis) * inverseAxis).normalized;
 
 
-        if (!startedSwinging)
+        float magnitude = inputVelocity.magnitude;
+        float dotProduct = Vector3.Dot(config.Velocity, inputDirection);
+
+        if (dotProduct > 0f)
         {
-            inputVelocity = inputDirection.normalized * inputMaxSpeed;
-            if (InputManager.Instance.Move != Vector3.zero) startedSwinging = true;
+            magnitude += inputAccel * Time.deltaTime;
+            if (magnitude > inputMaxSpeed) magnitude = inputMaxSpeed;
         }
         else
         {
-            float magnitude = inputVelocity.magnitude;
-            float dotProduct = Vector3.Dot(config.Velocity, inputDirection);
-
-            if (dotProduct > 0f)
-            {
-                magnitude += inputAccel * Time.deltaTime;
-                if (magnitude > inputMaxSpeed) magnitude = inputMaxSpeed;
-            }
-            else
-            {
-                inputDirection = -inputDirection;
-                if (dotProduct == 0f) inputDirection = currentDirection;
-                magnitude -= inputAccel * Time.deltaTime;
-            }
-            inputVelocity = inputDirection * magnitude;
+            inputDirection = -inputDirection;
+            if (dotProduct == 0f) inputDirection = currentDirection;
+            magnitude -= inputAccel * Time.deltaTime;
         }
+        inputVelocity = inputDirection * magnitude;
 
         config.Velocity = (direction + inputVelocity).normalized * newSpeed;
         if (config.Speed > flyingMaxSpeed) config.Velocity = config.Velocity.normalized * flyingMaxSpeed;
@@ -213,18 +199,18 @@ public class TongueController : MonoBehaviour {
 
 
     // Checks to see if the tongue hits something
-    private void CheckCollision()
+    private void CheckCollision(Vector3 nextPos, Vector3 prevPos)
     {
-        Vector3 start = transform.position;
-        Vector3 end = start + velocity*Time.deltaTime;
+        // Buffer Checking
+        if (currentRayCastBuffer < rayCastBuffer) return;
+
 
         LayerMask mask = LayerMask.GetMask("Object Hurtbox") | LayerMask.GetMask("Collectible Hitbox");
+        RaycastHit2D[] hits = Physics2D.CircleCastAll(prevPos, aimAssistRadius, direction, 0f, layerMask: mask);
 
-        RaycastHit2D[] hits = Physics2D.CircleCastAll(start, aimAssistRadius, direction, 0f, layerMask: mask);
-
-        if (hits.Length == 0)
+        if (hits.Length == 0 || currentRayCastBuffer < rayCastBuffer)
         {
-            hits = Physics2D.LinecastAll(start, end, mask);
+            hits = Physics2D.LinecastAll(prevPos, nextPos, mask);
         }
 
         if (hits.Length != 0)
@@ -315,6 +301,7 @@ public class TongueController : MonoBehaviour {
         // Internal settings
         transform.SetPositionAndRotation(TongueOrigin, Quaternion.identity);
         prevPos = transform.position;
+        currentRayCastBuffer = 0f;
         extending = true;
         IsFinished = false;
         grabUsed = false;
@@ -322,8 +309,6 @@ public class TongueController : MonoBehaviour {
         velocity = direction * deacceleration * timeToExtend;
 
         // Specifically for tongue pulling
-        startedSwinging = false;
-        pullSpeed = 0f;
         inputVelocity = Vector3.zero;
 
         // Tongue bodies
@@ -416,10 +401,6 @@ public class TongueController : MonoBehaviour {
     // Checks if tongue is finished
     public bool CheckIfFinished()
     {
-        //bool finished = false;
-        //if (!extending) finished = (config.transform.position - transform.position).magnitude - distTraveled < 0;
-        //return finished;
-
         bool finished = false;
 
         if (!extending)
