@@ -54,6 +54,7 @@ public class Checkpoint : MonoBehaviour
         foreach (var o in objectsToRespawn) {
             if (o.GetComponent<ProjectileObject>() != null) o.GetComponent<ProjectileObject>().ResetPosition();
             if (o.GetComponent<CharacterConfig>() != null) o.GetComponent<CharacterConfig>().Reset();
+            if (o.GetComponent<Tree>() != null) o.GetComponent<Tree>().ResetTree();
         }
     }
 }

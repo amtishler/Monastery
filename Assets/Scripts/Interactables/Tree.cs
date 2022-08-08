@@ -57,4 +57,27 @@ public class Tree : InteractableObject
             childdrop.RemoveAt(0);
         }
     }
+
+    public void ResetTree() {
+        foreach (var h in childdrop) {
+            Destroy(h.gameObject);
+        }
+        childdrop.Clear();
+
+        foreach (var h in GameObject.FindGameObjectsWithTag("Small Object")) {
+            if (h.GetComponent<HealthDrop>() != null) Destroy(h);
+        }
+
+        hit = false;
+        dropused = true;
+        numdropsused = 0;
+        for (int i = 0; i < maxdrops; i++)
+        {
+            childdrop.Add(Instantiate(drop) as GameObject);
+            childdrop[i].transform.parent = this.transform;
+            Vector3 childpos = new Vector3(Random.Range(-xrangetree, xrangetree), Random.Range(1.5f-yrangetree, 1.5f+yrangetree), 0);
+            childdrop[i].transform.position = this.transform.position + childpos;
+            childdrop[i].GetComponent<Collider2D>().enabled = false;
+        }
+    }
 }
