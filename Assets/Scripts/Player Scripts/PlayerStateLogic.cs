@@ -268,6 +268,8 @@ public class PlayerPullingState : PlayerState
     public override void ExitState()
     {
         tongue.UnGrab();
+        if (config.grounded) config.ResetCollision();
+        
     }
 
     public override void CheckSwitchStates()
@@ -276,6 +278,7 @@ public class PlayerPullingState : PlayerState
         {
             config.tongue.SetActive(false);
             config.Velocity = Vector3.zero;
+            config.ResetCollision();
             SwitchStates(factory.Idle());
         }
         if (!InputManager.Instance.TongueHeld)
@@ -326,6 +329,7 @@ public class PlayerFlyingState : PlayerState
 
     public override void ExitState()
     {
+        if (config.grounded) config.ResetCollision();
     }
 
     public override void CheckSwitchStates()
@@ -338,12 +342,14 @@ public class PlayerFlyingState : PlayerState
             }
             else
             {
-                SwitchStates(factory.Running());
+                if (!config.grounded) SwitchStates(factory.Falling());
+                else SwitchStates(factory.Running());
             }
         }
         if (!config.tongue.activeInHierarchy)
         {
             if (buffer != null) SwitchStates(buffer);
+            if (!config.grounded) SwitchStates(factory.Falling());
             if (config.Speed < config.MinimumSpeed) SwitchStates(factory.Running());
         }
         else if (config.Speed < config.MinimumSpeed) SwitchStates(factory.Tongue());

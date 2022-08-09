@@ -66,9 +66,9 @@ public class PlayerConfig : CharacterConfig {
     }
 
     public void ResetCollision() {
+        Debug.Log("Reset Colliders");
         Collider2D[] colliders = this.gameObject.GetComponentsInChildren<Collider2D>();
         foreach (Collider2D c in colliders) {
-            Debug.Log(c);
             if (!c.enabled) c.enabled = true;
         }
     }
