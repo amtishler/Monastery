@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{e110636f-cbdb-49a0-848c-2a599174addd}">
+		<property name="assetPath">
+			<value>Frog Sounds/Frog Vocal 1.aif</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.5</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{c28e1d4f-f9af-4e5f-9cd2-a8a56fd8ed2d}</destination>
+		</relationship>
+	</object>
+</objects>
