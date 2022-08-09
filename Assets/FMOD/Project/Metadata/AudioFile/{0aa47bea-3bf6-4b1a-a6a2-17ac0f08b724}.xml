@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="AudioFile" id="{0aa47bea-3bf6-4b1a-a6a2-17ac0f08b724}">
 		<property name="assetPath">
-			<value>ESM_Destruction_5_Tonal_Classic_Game_Synth_Click.wav</value>
+			<value>UI SOUNDS/ESM_Destruction_5_Tonal_Classic_Game_Synth_Click.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>44.0999985</value>

@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="AudioFile" id="{44ece049-4297-4f25-8506-da9e967989c5}">
 		<property name="assetPath">
-			<value>ESM_Tab_Select_2_Organic_Click_Raw_Game.wav</value>
+			<value>UI SOUNDS/ESM_Tab_Select_2_Organic_Click_Raw_Game.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>44.0999985</value>

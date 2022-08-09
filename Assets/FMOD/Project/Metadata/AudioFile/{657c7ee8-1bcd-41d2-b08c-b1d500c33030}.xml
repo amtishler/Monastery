@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="AudioFile" id="{657c7ee8-1bcd-41d2-b08c-b1d500c33030}">
 		<property name="assetPath">
-			<value>ESM_Fantasy_Game_Crafting_UI_Tab_Button_9_Metal_Spell_Cast_Click_Switch_Lever_Latch.wav</value>
+			<value>UI SOUNDS/ESM_Fantasy_Game_Crafting_UI_Tab_Button_9_Metal_Spell_Cast_Click_Switch_Lever_Latch.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>96</value>

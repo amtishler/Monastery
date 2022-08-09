@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="AudioFile" id="{37cd1381-0772-40be-ada1-83bdd65d8519}">
 		<property name="assetPath">
-			<value>ESM_Magic_Game_Protection_Ward_Buff_Fantasy_Spell_Cast_Conjure_Craft_Mobile_App_Special_Click.wav</value>
+			<value>UI SOUNDS/ESM_Magic_Game_Protection_Ward_Buff_Fantasy_Spell_Cast_Conjure_Craft_Mobile_App_Special_Click.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>96</value>

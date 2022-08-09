@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="AudioFile" id="{1c972e45-f7b1-482a-8853-34a6bd8c6d7e}">
 		<property name="assetPath">
-			<value>ESM_FG_FX_one_shot_user_interface_organic_generic_select_3_click_pop_short_option.wav</value>
+			<value>UI SOUNDS/ESM_FG_FX_one_shot_user_interface_organic_generic_select_3_click_pop_short_option.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>96</value>

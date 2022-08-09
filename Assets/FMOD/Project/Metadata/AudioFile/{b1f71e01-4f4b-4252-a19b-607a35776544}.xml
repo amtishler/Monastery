@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="AudioFile" id="{b1f71e01-4f4b-4252-a19b-607a35776544}">
 		<property name="assetPath">
-			<value>ESM_Modern_UI_Sound_Tonal_Classic_Game_Synth_Click.wav</value>
+			<value>UI SOUNDS/ESM_Modern_UI_Sound_Tonal_Classic_Game_Synth_Click.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>44.0999985</value>
