@@ -227,6 +227,10 @@ PrefabInstance:
       propertyPath: m_DynamicOccludee
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7710343849247354527, guid: 4314edfd256715d4caf9492bc4b5ac70, type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4314edfd256715d4caf9492bc4b5ac70, type: 3}
 --- !u!4 &1748725452798107620 stripped
@@ -291,6 +295,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7710343849247354527, guid: cfa4c5267e187f443b114984b41b1099, type: 3}
       propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7710343849247354527, guid: cfa4c5267e187f443b114984b41b1099, type: 3}
+      propertyPath: m_LightProbeUsage
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -366,7 +374,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2809454133997639463, guid: 827e72ce5147469469ccfaadcddd274a, type: 3}
   m_PrefabInstance: {fileID: 8444139912048299380}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8642975335203363579
+--- !u!114 &6860135482218497764
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
