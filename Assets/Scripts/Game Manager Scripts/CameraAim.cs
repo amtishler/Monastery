@@ -53,13 +53,13 @@ public class CameraAim : MonoBehaviour
         Vector2 playerVec = new Vector2(player.transform.localPosition.x, player.transform.localPosition.y);
         Vector3 direction = rightStick - playerVec;
         // Debug.Log(direction);
-        direction.Normalize();
+        // direction.Normalize();
         direction *= influence;
         direction.x -= 0.5f;
         direction.z = -10f;
         debugVec = direction;
         // prevPos = direction;
-        //Debug.Log(direction);
+        // Debug.Log(direction);
         return direction;
     }
 

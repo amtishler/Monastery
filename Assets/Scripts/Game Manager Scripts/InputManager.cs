@@ -225,6 +225,10 @@ public class InputManager : MonoBehaviour{
         playerInput.SwitchCurrentActionMap("Cutscene");
     }
 
+    public void TelescopeMap() {
+        playerInput.SwitchCurrentActionMap("Telescope");
+    }
+
     public void DeathMap() {
         playerInput.SwitchCurrentActionMap("Death");
     }

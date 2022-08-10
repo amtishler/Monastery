@@ -15,9 +15,12 @@ public class PlayerConfig : CharacterConfig {
     [SerializeField] float attackCooldown = 1.0f;
     [SerializeField] float attackDeaccel = 1.0f;
     [SerializeField] float kickChargeTime = 0.5f;
-    [SerializeField] public GameObject tongue;
-    [SerializeField] public GameObject staff;
-    [SerializeField] public GameObject kick;
+    public GameObject tongue;
+    public GameObject staff;
+    public GameObject kick;
+
+    public bool inTelescopeRange = false;
+
 
     // Private fields
     private Camera mainCamera;
