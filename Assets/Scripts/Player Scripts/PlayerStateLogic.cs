@@ -85,6 +85,7 @@ public class PlayerIdleState : PlayerState {
             if (InputManager.Instance.StaffPressed) SwitchStates(factory.Staff());
             else if (InputManager.Instance.KickPressed) SwitchStates(factory.KickCharge());
         }
+        if (InputManager.Instance.InteractPressed && config.inTelescopeRange) SwitchStates(factory.MapOpen());
     }
 }
 
@@ -129,6 +130,7 @@ public class PlayerRunningState : PlayerState
         if ((InputManager.Instance.TonguePressed && tongue.heldObject == null) || (!InputManager.Instance.TongueHeld && tongue.heldObject != null))
             SwitchStates(factory.Tongue());
         if (config.Speed == 0) SwitchStates(factory.Idle());
+        if (InputManager.Instance.InteractPressed && config.inTelescopeRange) SwitchStates(factory.MapOpen());
         else if(tongue.heldObject == null)
         {
             if (InputManager.Instance.StaffPressed) SwitchStates(factory.Staff());
@@ -547,6 +549,7 @@ public class PlayerDeadState : PlayerState
 // Map open (or menu)
 public class PlayerMapOpenState : PlayerState
 {
+    private GameObject telescopeImage;
     public PlayerMapOpenState(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
     : base(config, currentContext, stateFactory){
         name = "PlayerMapOpen";
@@ -554,13 +557,24 @@ public class PlayerMapOpenState : PlayerState
 
     public override void EnterState(){
         config.grounded = true;
+        config.invincible = true;
+        telescopeImage = GameManager.Instance.telescopeImage.gameObject;
+        Debug.Log(telescopeImage);
+        telescopeImage.SetActive(true);
+        InputManager.Instance.TelescopeMap();
     }
     public override void UpdateState()
     {
         CheckSwitchStates();
     }
-    public override void ExitState(){}
-    public override void CheckSwitchStates(){}
+    public override void ExitState(){
+        config.invincible = true;
+        telescopeImage.SetActive(false);
+        InputManager.Instance.CombatMap();
+    }
+    public override void CheckSwitchStates(){
+        if (InputManager.Instance.LeavePressed) SwitchStates(factory.Idle());
+    }
 }
 
 
@@ -612,6 +626,7 @@ public class PlayerFall : PlayerState
 {
     private float _fallAnim;
     private Rigidbody2D character;
+    private BoxCollider2D hurtbox;
     private CinemachineVirtualCamera cam;
     private Vector3 offset;
     public PlayerFall(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
@@ -622,11 +637,17 @@ public class PlayerFall : PlayerState
     public override void EnterState(){
         _fallAnim = config.fallingAnimDuration;
         config.GetComponent<SpriteRenderer>().sortingLayerName = "Background";
+
         character = config.GetComponent<Rigidbody2D>();
+        character.gravityScale += config.gravity;
+
+        hurtbox = config.gameObject.GetComponent<BoxCollider2D>();
+        hurtbox.enabled = false;
+
         cam = config.GetComponentInChildren<CinemachineVirtualCamera>();
+
         offset = new Vector3(0, 0, -10);
         config.SlowDown(config.Deacceleration);
-        character.gravityScale += config.gravity;
     }
     public override void UpdateState(){
         _fallAnim -= Time.deltaTime;
@@ -637,7 +658,9 @@ public class PlayerFall : PlayerState
     public override void ExitState(){
         config.GetComponent<SpriteRenderer>().sortingLayerName = "Player";
         config.ResetCollision();
+
         character.gravityScale = 0f;
+        hurtbox.enabled = true;
         cam.GetComponent<CinemachineCameraOffset>().m_Offset = Vector3.zero;
     }
     public override void CheckSwitchStates(){

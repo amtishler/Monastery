@@ -62,6 +62,8 @@ public class InputManager : MonoBehaviour{
     private Button reset;
     // ??
     private Button debug;
+    private Button leave;
+    private Button interact;
 
     private Button quit;
 
@@ -85,6 +87,11 @@ public class InputManager : MonoBehaviour{
 
     public bool DebugPressed {get {return debug.Pressed;}}
     public bool DebugHeld {get {return debug.Held;}}
+
+    public bool LeavePressed {get {return leave.Pressed;}}
+    public bool LeaveHeld {get {return leave.Held;}}
+    public bool InteractPressed {get {return interact.Pressed;}}
+    public bool InteractHeld {get {return interact.Held;}}
 
     public bool QuitPressed {get {return quit.Pressed;}}
     public bool QuitHeld {get {return quit.Held;}}
@@ -112,6 +119,8 @@ public class InputManager : MonoBehaviour{
         jump = new Button();
         reset = new Button();
         debug = new Button();
+        leave = new Button();
+        interact = new Button();
         quit = new Button();
         advance = new Button();
         skip = new Button();
@@ -133,6 +142,8 @@ public class InputManager : MonoBehaviour{
         skip.Update();
         reset.Update();
         debug.Update();
+        leave.Update();
+        interact.Update();
         quit.Update();
         // Debug.Log(ResetPressed);
     }
@@ -191,6 +202,16 @@ public class InputManager : MonoBehaviour{
 
     private void OnDebug(InputValue value) {
         debug.SetValue(value.isPressed);
+        //inputText = "Turning on debug";
+    }
+
+    private void OnLeave(InputValue value) {
+        leave.SetValue(value.isPressed);
+        //inputText = "Turning on debug";
+    }
+
+    private void OnInteract(InputValue value) {
+        interact.SetValue(value.isPressed);
         //inputText = "Turning on debug";
     }
 

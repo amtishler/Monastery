@@ -1,22 +1,24 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public Image telescopeImage;
     //Layers
-    public int PLAYER_HURTBOX = 3;
-    public int TONGUE_HITBOX = 6;
-    public int OBJECT_HURTBOX = 7;
-    public int CAMERA_HITBOX = 8;
-    public int WALL_COLLISION = 9;
-    public int ATTACK_HITBOX = 10;
-    public int ENEMY_HITBOX = 11;
-    public int SPIT_PROJECTILE_HITBOX = 12;
-    public int PLAYER_WALL_COLLISION = 13;
-    public int ENEMY_WALL_COLLISION = 14;
-    public int COLLECTIBLE_HITBOX = 15;
-    public int BOUNDARY = 17;
-    public int OBJECT_WALL_COLLISION = 18;
+    [System.NonSerialized] public int PLAYER_HURTBOX = 3;
+    [System.NonSerialized] public int TONGUE_HITBOX = 6;
+    [System.NonSerialized] public int OBJECT_HURTBOX = 7;
+    [System.NonSerialized] public int CAMERA_HITBOX = 8;
+    [System.NonSerialized] public int WALL_COLLISION = 9;
+    [System.NonSerialized] public int ATTACK_HITBOX = 10;
+    [System.NonSerialized] public int ENEMY_HITBOX = 11;
+    [System.NonSerialized] public int SPIT_PROJECTILE_HITBOX = 12;
+    [System.NonSerialized] public int PLAYER_WALL_COLLISION = 13;
+    [System.NonSerialized] public int ENEMY_WALL_COLLISION = 14;
+    [System.NonSerialized] public int COLLECTIBLE_HITBOX = 15;
+    [System.NonSerialized] public int BOUNDARY = 17;
+    [System.NonSerialized] public int OBJECT_WALL_COLLISION = 18;
     public GameObject player;
     public GameObject[] checkpoints;
     private GameObject debug;
@@ -41,6 +43,8 @@ public class GameManager : MonoBehaviour
         Application.targetFrameRate = 144;
         checkpoints = GameObject.FindGameObjectsWithTag("Checkpoint");
         player = GameObject.FindGameObjectWithTag("Player");
+        telescopeImage = GetComponentInChildren<Image>();
+        telescopeImage.gameObject.SetActive(false);
     }
 
     private void Update()
