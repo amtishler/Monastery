@@ -652,7 +652,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1245101477299156771
 Transform:
   m_ObjectHideFlags: 0
@@ -680,7 +680,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21fad027881467e4eae7fa29dbc9eb61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerconf: {fileID: 0}
+  playerconf: {fileID: 951995103}
   damage: 25
   knockback: 25
   stun: 0
@@ -727,13 +727,12 @@ GameObject:
   - component: {fileID: 1245101477447179941}
   - component: {fileID: 1245101477447179940}
   - component: {fileID: 1245101477447179943}
-  - component: {fileID: 1208284323}
   - component: {fileID: 951995109}
   - component: {fileID: 951995102}
   - component: {fileID: 951995103}
   m_Layer: 7
   m_Name: FlyMiniboss
-  m_TagString: Small Object
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -843,7 +842,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1245101477447179942}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -856,34 +855,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &1208284323
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1245101477447179942}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 1
-  drawGizmos: 1
-  detailedGizmos: 0
-  startEndModifier:
-    addPoints: 0
-    exactStartPoint: 3
-    exactEndPoint: 3
-    useRaycasting: 0
-    mask:
-      serializedVersion: 2
-      m_Bits: 4294967295
-    useGraphRaycasting: 0
-  traversableTags: -1
-  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-  graphMask:
-    value: -1
 --- !u!95 &951995109
 Animator:
   serializedVersion: 4
@@ -929,18 +900,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respawnPoint: {x: 0, y: 0, z: 0}
-  maximumSpeed: 6
-  minimumSpeed: 3
-  acceleration: 0.1
-  deacceleration: 0.1
+  maximumSpeed: 5
+  minimumSpeed: 0.5
+  acceleration: 3
+  deacceleration: 2
   recoveryDeaccel: 0.5
-  maxHealth: 100
-  health: 100
-  maxStun: 50
+  maxHealth: 500
+  health: 500
+  maxStun: 100
   stun: 0
-  stundecay: 0
+  stundecay: 1
   invincibleduration: 2
-  knockbackmultiplier: 1
+  knockbackmultiplier: 0.1
   invincibletimer: 0
   fallDamage: 0
   moveSpriteList:
@@ -954,17 +925,22 @@ MonoBehaviour:
   target: {fileID: 0}
   egg: {fileID: 1255485712359938537, guid: b9040dc08b262254981b445aa4f94a60, type: 3}
   spit: {fileID: 6671724977852611563, guid: a65748dc1650d2b42a0675e86e301c66, type: 3}
-  maxchildren: 3
+  waypointobject: {fileID: 0}
+  waypoints: []
+  currentisland: 0
+  islandwait: 3
+  stoppingspeed: 2
+  retreatingspeed: 8
+  islandspawncount: 2
   attacking: 0
+  retreating: 0
   spitangles:
   - -10
   - -5
   - 0
   - 5
   - 10
-  nextWaypointDistance: 3
-  targetDistance: 8
-  targetDistanceWindow: 1
+  nextWaypointDistance: 2
 --- !u!1001 &1146490651961946790
 PrefabInstance:
   m_ObjectHideFlags: 0

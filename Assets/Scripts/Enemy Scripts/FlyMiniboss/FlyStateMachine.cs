@@ -23,7 +23,7 @@ public class FlyStateMachine : StateMachine
 
     public override void ForceDead()
     {
-        //currentState.SwitchStates(states.Dead());
+        currentState.SwitchStates(states.Dead());
     }
 
     public override void ForceStunned()

@@ -8,36 +8,50 @@ public class FlyConfig : CharacterConfig {
     public GameObject target;
     public GameObject egg;
     public GameObject spit;
-    public int maxchildren = 3;
-    private int numchildren = 0;
+
+    public GameObject waypointobject;
+    public List<GameObject> waypoints = new List<GameObject>();
+    public int currentisland = 0;
+    private int islandstraversed;
+
+    public float islandwait = 2f;
+    public float stoppingspeed = 2f;
+    public float retreatingspeed = 8f;
+
+    //Spawn egg every x islands;
+    public int islandspawncount;
+
     public bool attacking;
+    public bool retreating;
+
     private Animator animator;
 
     public List<float> spitangles;
 
-    [Header("Pathfinding Values")]
-    //Pathfinding vars
-    public float nextWaypointDistance = 0.5f;
-    private Path path;
-    private int currentWaypoint = 0;
-    private bool reachedEndOfPath = false;
-    private Seeker seeker;
-    public float targetDistance = 3f;
-    public float targetDistanceWindow = 0.5f;
-    private Vector3 pathendpoint;
+    private bool stopping;
+    private bool spawning;
+    private float timer;
+    private float originalspeed;
 
-    private bool lay;
+    public float nextWaypointDistance;
 
     protected override void _Start() {
-        seeker = GetComponent<Seeker>();
+
+
+        //Populate waypoints
+        foreach(Transform child in waypointobject.transform)
+        {
+            waypoints.Add(child.gameObject);
+        }
+
+        islandstraversed = 0;
+        originalspeed = maximumSpeed;
         animator = GetComponent<Animator>();
         target = GameObject.FindWithTag("Player");
         grabbable = false;
         attacking = true;
-        pathendpoint = target.transform.position;
-        lay = false;
-        InvokeRepeating("UpdatePath", 0f, .25f);
-        InvokeRepeating("Attack", 5f, 2f);
+        retreating = false;
+        InvokeRepeating("PlaySpit", 2f, 3f);
         return;
     }
 
@@ -47,14 +61,9 @@ public class FlyConfig : CharacterConfig {
         spriteRenderer.sortingLayerName = "Player";
     }
 
-    void UpdatePath()
-    {
-        if (seeker.IsDone() && target != null) seeker.StartPath(this.transform.position, pathendpoint, OnPathComplete);
-    }
-
     public void SpawnChild()
     {
-        if(attacking && !stunned && numchildren < maxchildren)
+        if(attacking && !stunned)
         {
             animator.Play("LayEgg");
         }
@@ -62,7 +71,7 @@ public class FlyConfig : CharacterConfig {
 
     public void PlaySpit()
     {
-        if(attacking && !stunned )
+        if(attacking && !stunned && !spawning)
         {
             animator.Play("Spit");
         }
@@ -70,110 +79,83 @@ public class FlyConfig : CharacterConfig {
 
     protected override void _Hit()
     {
+        stopping = false;
+        spawning = false;
+        Retreat();
         animator.Play("GetHit");
     }
 
-    void Attack()
+    void Retreat()
     {
-        if(lay)
-        {
-            SpawnChild();
-            lay = false;
-        }
-        else{
-            PlaySpit();
-            lay = true;
+        maximumSpeed = retreatingspeed;
+        currentisland += (int)waypoints.Count / 2;
+        if(currentisland > waypoints.Count - 1){
+            currentisland -= (waypoints.Count - 1);
         }
     }
 
     void Spit()
     {
         foreach(float angle in spitangles){
-        GameObject spitchild = Instantiate(spit);
-        spitchild.transform.position = this.transform.position;
-        Spitball spitconf = spitchild.GetComponent<Spitball>();
+            GameObject spitchild = Instantiate(spit);
+            spitchild.transform.position = this.transform.position;
+            Spitball spitconf = spitchild.GetComponent<Spitball>();
 
-        Vector3 dirtotarget = target.transform.position - this.transform.position;
-        dirtotarget.Normalize();
+            Vector3 dirtotarget = target.transform.position - this.transform.position;
+            dirtotarget.Normalize();
 
-        spitconf.targetdir = Quaternion.Euler(0, 0, angle) * dirtotarget;
+            spitconf.targetdir = Quaternion.Euler(0, 0, angle) * dirtotarget;
 
-        float rot_z = Mathf.Atan2(spitconf.targetdir.y, spitconf.targetdir.x) * Mathf.Rad2Deg;
-        spitconf.transform.rotation = Quaternion.Euler(0f, 0f, rot_z + 180);
+            float rot_z = Mathf.Atan2(spitconf.targetdir.y, spitconf.targetdir.x) * Mathf.Rad2Deg;
+            spitconf.transform.rotation = Quaternion.Euler(0f, 0f, rot_z + 180);
         }
     }
 
     void CreateChild()
     {
-        numchildren++;
         GameObject newfly = Instantiate(egg);
         Vector3 offset = new Vector3(0, -2, 0);
         newfly.transform.position = this.transform.position + offset;
     }
 
-    void OnPathComplete(Path p)
-    {
-        if(!p.error)
-        {
-            path = p;
-            currentWaypoint = 0;
-        }
-    }
 
     protected override void _Update() {
 
         animator.SetFloat("Speed", Speed);
         animator.SetBool("Stunned", stunned);
-    }
+        animator.SetBool("Dead", dead);
 
-    public void Move(GameObject target)
-    {
-        float distance = Vector3.Distance(this.transform.position, target.transform.position);
-        if(distance < targetDistance - targetDistanceWindow)
+        if(stopping)
         {
-            pathendpoint = this.transform.position + (this.transform.position - target.transform.position);
-            MoveTowards();
-        }
-        else if(distance > targetDistance + targetDistanceWindow)
-        {
-            pathendpoint = target.transform.position;
-            MoveTowards();
-        }
-        else{
-            Vector3 totarget = target.transform.position - this.transform.position;
-            totarget.Normalize();
-            Vector3 perptarget = Quaternion.AngleAxis(90, Vector3.forward) * totarget;
-            pathendpoint = this.transform.position + (perptarget * 10);
-            MoveTowards();
+            timer += Time.deltaTime;
+            if(timer > islandwait){
+                stopping = false;
+                spawning = false;
+                currentisland++;
+                if(currentisland > waypoints.Count - 1){
+                    currentisland = 0;
+                }
+                maximumSpeed = originalspeed;
+            }
         }
     }
 
-    public void MoveTowards()
+    public void Move()
     {
-
-        if(path == null)
-        {
-            return;
-        }
-        if(currentWaypoint >= path.vectorPath.Count)
-        {
-            reachedEndOfPath = true;
-            SlowDown(deacceleration);
-            return;
-        }
-        else
-        {
-            reachedEndOfPath = false;
-        }
-
-        Vector3 targetDir = path.vectorPath[currentWaypoint] - this.transform.position;
+        Vector3 targetDir = waypoints[currentisland].transform.position - this.transform.position;
         targetDir.Normalize();
+        float distance = Vector3.Distance(this.transform.position, waypoints[currentisland].transform.position);
 
-        float distance = Vector3.Distance(this.transform.position, path.vectorPath[currentWaypoint]);
-
-        if(distance < nextWaypointDistance)
+        if(distance < nextWaypointDistance && !stopping)
         {
-            currentWaypoint++;
+            timer = 0;
+            if(islandstraversed % islandspawncount == 0){
+                SpawnChild();
+                spawning = true;
+            }
+            islandstraversed++;
+            maximumSpeed = stoppingspeed;
+            stopping = true;
         }
 
         if (targetDir == Vector3.zero) {

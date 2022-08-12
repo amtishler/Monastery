@@ -171,7 +171,7 @@ MonoBehaviour:
   isProjectile: 0
   gravity: 0
   fly: {fileID: 3695426520570289317, guid: 9020a97300efc6a41970c74967583d66, type: 3}
-  hatchtime: 3
+  hatchtime: 5
 --- !u!1 &8137328954447450615
 GameObject:
   m_ObjectHideFlags: 0

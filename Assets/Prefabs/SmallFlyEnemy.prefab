@@ -948,7 +948,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerconf: {fileID: 3695426520570289320}
   damage: 10
-  knockback: 25
+  knockback: 10
   stun: 50
   knockbacknormalization: 0.5
   friction: 0.5

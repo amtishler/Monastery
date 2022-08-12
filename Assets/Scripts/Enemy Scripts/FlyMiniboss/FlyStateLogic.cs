@@ -40,8 +40,7 @@ public class FlyIdleState : FlyState {
     public override void ExitState() {}
 
     public override void CheckSwitchStates() {
-        if(!config.grounded) SwitchStates(factory.Falling());
-        else if(config.attacking) SwitchStates(factory.Aggressive());
+        if(config.attacking) SwitchStates(factory.Aggressive());
     }
 
 }
@@ -54,7 +53,7 @@ public class FlyAggressiveState : FlyState {
     public override void EnterState() {}
 
     public override void UpdateState() {
-        config.Move(config.target);
+        config.Move();
     }
 
     public override void ExitState() {}
@@ -88,7 +87,6 @@ public class FlyHurtState : FlyState {
     public override void ExitState() {}
 
     public override void CheckSwitchStates(){
-        if(!config.grounded) SwitchStates(factory.Falling());
         if(config.Speed == 0){
             if(config.target != null) SwitchStates(factory.Aggressive());
             else SwitchStates(factory.Idle());
@@ -126,19 +124,41 @@ public class FlyStunnedState : FlyState {
     }
 }
 
-public class FlyFallingState : FlyState {
+// Dead
+public class FlyDeadState : FlyState {
 
-    public FlyFallingState(FlyConfig config, FlyStateMachine currentContext, FlyStateFactory stateFactory)
+    public FlyDeadState(FlyConfig config, FlyStateMachine currentContext, FlyStateFactory stateFactory)
     : base(config, currentContext, stateFactory){}
 
-    public override void EnterState() {}
+    private Rigidbody2D body;
+
+    public override void EnterState() {
+        config.attacking = false;
+        config.invincible = true;
+        config.dead = true;
+        config.grabbable = false;
+        body = config.GetComponent<Rigidbody2D>();
+        body.simulated = false;
+    }
 
     public override void UpdateState() {
+        if(config.Speed > 0){
+            config.SlowDown(config.RecoveryDeaccel);
+        }
+        CheckSwitchStates();
     }
 
-    public override void ExitState() {}
+    public override void ExitState() {
+        config.invincible = false;
+        config.dead = false;
+        body = config.GetComponent<Rigidbody2D>();
+        body.simulated = true;
+    }
 
     public override void CheckSwitchStates() {
+        if (InputManager.Instance.ResetPressed) {
+            SwitchStates(factory.Idle());
+            config.Reset();
+        }
     }
-
 }

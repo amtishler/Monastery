@@ -21,9 +21,6 @@ public class FlyStateFactory : StateFactory
         return new FlyAggressiveState(config, currentContext, this);
     }
 
-    public State Falling() {
-        return new FlyFallingState(config, currentContext, this);
-    }
 
     public State Hurt() {
         return new FlyHurtState(config, currentContext, this);
@@ -31,6 +28,10 @@ public class FlyStateFactory : StateFactory
 
     public State Stunned() {
         return new FlyStunnedState(config, currentContext, this);
+    }
+
+    public State Dead() {
+        return new FlyDeadState(config, currentContext, this);
     }
 
 }
