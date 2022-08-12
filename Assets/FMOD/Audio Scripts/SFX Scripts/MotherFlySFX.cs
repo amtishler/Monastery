@@ -16,12 +16,15 @@ public enum FlyMinibossSFX
 public class MotherFlySFX : MonoBehaviour
 {
     // THE ORDER FOR THIS NEEDS TO MATCH ^ (see awake)
-    private static List<FMOD.Studio.EventInstance> sfxList = new List<FMOD.Studio.EventInstance>();
+    private List<FMOD.Studio.EventInstance> sfxList = new List<FMOD.Studio.EventInstance>();
 
+    private static PlayerConfig pConfig;
 
     // Start is called before the first frame update
     void Awake()
     {
+        pConfig = GameObject.FindObjectOfType<PlayerConfig>();
+
         sfxList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/Enemies/Fly Miniboss/Die"));
         sfxList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/Enemies/Fly Miniboss/Fly (deep buzz)"));
         sfxList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/Enemies/Fly Miniboss/Get Hit"));
@@ -33,6 +36,16 @@ public class MotherFlySFX : MonoBehaviour
 
     public void PlaySFX(FlyMinibossSFX toPlay)
     {
+        float dist = Vector3.Distance(pConfig.transform.position, transform.position);
+        float volumeMod = ((18 - dist) / 18) + .1f;
+
+        if (volumeMod <= 0)
+        {
+            return;
+        }
+
+        sfxList[(int)toPlay].setParameterByName("MasterVol", volumeMod);
+
         sfxList[(int)toPlay].start();
     }
 

@@ -16,17 +16,19 @@ public enum BirdSFX
 public class BirdEnemySFX : MonoBehaviour
 {
     // THE ORDER FOR THIS NEEDS TO MATCH ^ (see awake)
-    private static List<FMOD.Studio.EventInstance> sfxList = new List<FMOD.Studio.EventInstance>();
+    private List<FMOD.Studio.EventInstance> sfxList = new List<FMOD.Studio.EventInstance>();
 
-
+    private static PlayerConfig pConfig;
 
     private void Awake()
     {
-        sfxList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/BirdEnemy/Idle"));
-        sfxList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/BirdEnemy/Walk"));
-        sfxList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/BirdEnemy/Attack"));
-        sfxList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/BirdEnemy/GetHit"));
-        sfxList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/BirdEnemy/Die"));
+        pConfig = GameObject.FindObjectOfType<PlayerConfig>();
+
+        sfxList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/Enemies/Landbird/Idle"));
+        sfxList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/Enemies/Landbird/Footsteps"));
+        sfxList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/Enemies/Landbird/Attack"));
+        sfxList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/Enemies/Landbird/GetHit"));
+        sfxList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/Enemies/Landbird/Die"));
         sfxList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/Enemies/Generic/Stun"));
         sfxList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/Enemies/Landbird/Aggro"));
 
@@ -37,6 +39,16 @@ public class BirdEnemySFX : MonoBehaviour
 
     public void PlaySFX(BirdSFX toPlay)
     {
+        float dist = Vector3.Distance(pConfig.transform.position, transform.position);
+        float volumeMod = ((18 - dist) / 18) + .1f;
+
+        if (volumeMod <= 0)
+        {
+            return;
+        }
+
+        sfxList[(int)toPlay].setParameterByName("MasterVol", volumeMod);
+
         sfxList[(int)toPlay].start();
     }
 

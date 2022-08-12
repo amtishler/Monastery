@@ -593,7 +593,7 @@ GameObject:
   - component: {fileID: 3671414473632535515}
   - component: {fileID: 603963028218082037}
   - component: {fileID: 2572682597713918419}
-  - component: {fileID: 6464695704729335748}
+  - component: {fileID: 3461957839601284220}
   m_Layer: 7
   m_Name: SmallFly(No Collision)
   m_TagString: Small Object
@@ -753,6 +753,7 @@ MonoBehaviour:
   maxStun: 999
   stun: 0
   stundecay: 0
+  faststundecay: 100
   stundamagemultiplier: 1
   invincibleduration: 0.5
   knockbackmultiplier: 1
@@ -831,7 +832,7 @@ MonoBehaviour:
   tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   graphMask:
     value: -1
---- !u!114 &6464695704729335748
+--- !u!114 &3461957839601284220
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -840,7 +841,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3671414473632535510}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58868f832d1bddf48a32c64b21f38b5a, type: 3}
+  m_Script: {fileID: 11500000, guid: b665bde88a98de04e804b06024ca6d4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &3671414474422565458
