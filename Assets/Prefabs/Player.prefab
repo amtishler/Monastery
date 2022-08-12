@@ -316,7 +316,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2705515589199267929}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.50000143, y: 0, z: -10}
+  m_LocalPosition: {x: -0.5, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -351,7 +351,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 10.90625
+  orthographic size: 8.546875
   m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
@@ -571,6 +571,7 @@ MonoBehaviour:
   aimAssistRadius: 0.25
   timeToExtend: 0.3
   tongueLength: 7
+  rayCastBuffer: 0.1
   retractAccelFactor: 1.25
   grappleDamp: 1
   friction: 1
@@ -1099,6 +1100,7 @@ MonoBehaviour:
   tongue: {fileID: 2705515589280278572}
   staff: {fileID: 2705515589359950222}
   kick: {fileID: 2705515590406865729}
+  inTelescopeRange: 0
   playerAnimator: {fileID: 3225320141677246804}
   resetPosition: {x: 0, y: 0, z: 0}
 --- !u!50 &1519048127
@@ -1238,10 +1240,10 @@ MonoBehaviour:
   - {fileID: 7400000, guid: f5cf29cca437a7e4cad7bd3711ff3b2c, type: 2}
   - {fileID: 7400000, guid: 9b602ce5eaf3d8a468965a81f78baf7d, type: 2}
   jumpChargeAnimations:
-  - {fileID: 7400000, guid: 34fa8b3957f4f134bbf3fbd74d160643, type: 2}
-  - {fileID: 7400000, guid: 83029975a27efd3468d2b34fb2308408, type: 2}
-  - {fileID: 7400000, guid: 93737fc9e882d69458068ec871560799, type: 2}
-  - {fileID: 7400000, guid: ed657e63b064f184592ee23841a34999, type: 2}
+  - {fileID: 7400000, guid: de78b3a23d374f0408a82150d9877547, type: 2}
+  - {fileID: 7400000, guid: d7380658e049ca3408d953b1f585b0b6, type: 2}
+  - {fileID: 7400000, guid: ab8af4ed5133d2d468286624fb6a9d5c, type: 2}
+  - {fileID: 7400000, guid: a24f754641b78604f8c90803ad5fa686, type: 2}
   jumpAnimations:
   - {fileID: 7400000, guid: 59af4d05930b7e04c916c6bcec738d38, type: 2}
   - {fileID: 7400000, guid: 827708deaf6930d4c9caa05783c8de74, type: 2}
@@ -1278,7 +1280,7 @@ MonoBehaviour:
   - {x: 0.23082781, y: -0.98944426, z: 0}
   m_ShapePathHash: 236791949
   m_Mesh: {fileID: 0}
-  m_InstanceId: 99460
+  m_InstanceId: 325584
 --- !u!1 &2705515591012369535
 GameObject:
   m_ObjectHideFlags: 0
