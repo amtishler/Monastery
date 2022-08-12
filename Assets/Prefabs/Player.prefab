@@ -1082,6 +1082,8 @@ MonoBehaviour:
   maxStun: 50
   stun: 0
   stundecay: 0
+  faststundecay: 100
+  stundamagemultiplier: 1
   invincibleduration: 0.25
   knockbackmultiplier: 1
   invincibletimer: 0
@@ -1281,7 +1283,7 @@ MonoBehaviour:
   - {x: 0.23082781, y: -0.98944426, z: 0}
   m_ShapePathHash: 236791949
   m_Mesh: {fileID: 0}
-  m_InstanceId: 479398
+  m_InstanceId: 1221740
 --- !u!1 &2705515591012369535
 GameObject:
   m_ObjectHideFlags: 0
@@ -1338,7 +1340,7 @@ GameObject:
   - component: {fileID: 7824260709343394152}
   - component: {fileID: 169338012855623648}
   m_Layer: 18
-  m_Name: velocityEmitter
+  m_Name: VelocityEmitter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
