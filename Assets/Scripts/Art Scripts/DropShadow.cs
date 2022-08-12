@@ -9,6 +9,7 @@ public class DropShadow : MonoBehaviour
     public Vector3 offset;
     public GameObject original;
     public GameObject grid;
+    public GameObject plantsGO;
 
     GameObject shadowGO;
 
@@ -19,6 +20,7 @@ public class DropShadow : MonoBehaviour
         shadowGO.transform.position = shadowGO.transform.position + offset;
         shadowGO.GetComponent<TilemapRenderer>().material = shadowMat;
         shadowGO.name = original.name + "_shadow";
+        plantsGO.SetActive(true);
     }
 
     // Update is called once per frame
