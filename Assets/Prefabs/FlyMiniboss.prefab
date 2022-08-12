@@ -908,9 +908,11 @@ MonoBehaviour:
   recoveryDeaccel: 0.5
   maxHealth: 500
   health: 500
-  maxStun: 100
+  maxStun: 50
   stun: 0
   stundecay: 1
+  faststundecay: 10
+  stundamagemultiplier: 3
   invincibleduration: 2
   knockbackmultiplier: 0.1
   invincibletimer: 0
@@ -923,15 +925,18 @@ MonoBehaviour:
   fallingAnimDuration: 0
   gravity: 0
   grounded: 0
+  stunned: 0
   target: {fileID: 0}
   egg: {fileID: 1255485712359938537, guid: b9040dc08b262254981b445aa4f94a60, type: 3}
   spit: {fileID: 6671724977852611563, guid: a65748dc1650d2b42a0675e86e301c66, type: 3}
+  attackTriggerZone: {fileID: 0}
   waypointobject: {fileID: 0}
   waypoints: []
   currentisland: 0
   islandwait: 3
   stoppingspeed: 2
   retreatingspeed: 8
+  retreatdistance: 3
   islandspawncount: 2
   attacking: 0
   retreating: 0

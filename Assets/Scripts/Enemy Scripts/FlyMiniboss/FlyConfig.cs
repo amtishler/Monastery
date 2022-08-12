@@ -8,6 +8,8 @@ public class FlyConfig : CharacterConfig {
     public GameObject target;
     public GameObject egg;
     public GameObject spit;
+    public GameObject attackTriggerZone;
+    private EnemyAttackZone aggroZone; 
 
     public GameObject waypointobject;
     public List<GameObject> waypoints = new List<GameObject>();
@@ -48,9 +50,15 @@ public class FlyConfig : CharacterConfig {
         islandstraversed = 0;
         originalspeed = maximumSpeed;
         animator = GetComponent<Animator>();
-        target = GameObject.FindWithTag("Player");
+       if(attackTriggerZone != null)
+        {
+            aggroZone = attackTriggerZone.GetComponent<EnemyAttackZone>();
+        }
+
+        //target = GameObject.FindWithTag("Player");
         grabbable = false;
-        attacking = true;
+        //attacking = true;
+        attacking = false;
         retreating = false;
         InvokeRepeating("PlaySpit", 2f, 3f);
         return;
@@ -124,11 +132,22 @@ public class FlyConfig : CharacterConfig {
     }
 
 
+    public void SetTarget(GameObject objtarget)
+    {
+        attacking = true;
+        target = objtarget;
+    }
+
     protected override void _Update() {
 
         animator.SetFloat("Speed", Speed);
         animator.SetBool("Stunned", stunned);
         animator.SetBool("Dead", dead);
+
+        if(attackTriggerZone != null && target == null && aggroZone.playerentered)
+        {
+            SetTarget(aggroZone.playergameobj);
+        }
 
         if(stopping)
         {

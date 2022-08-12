@@ -27,6 +27,8 @@ public abstract class CharacterConfig : MonoBehaviour
     [SerializeField] protected float maxStun = 50f;
     [SerializeField] protected float stun = 0f;
     [SerializeField] protected float stundecay = 0f;
+    [SerializeField] protected float faststundecay = 100f;
+    [SerializeField] protected float stundamagemultiplier = 1f;
     [SerializeField] protected float invincibleduration = 2f;
     [SerializeField] protected float knockbackmultiplier = 1f;
     [SerializeField] protected float invincibletimer;
@@ -92,10 +94,17 @@ public abstract class CharacterConfig : MonoBehaviour
             }
         }
 
-        if(stun > 0 && stun != maxStun){
+        if(stun > 0 && stun != maxStun && !stunned){
             stun -= stundecay * Time.deltaTime;
             if(stun < 0){
                 stun = 0;
+            }
+        }else if(stunned)
+        {
+            stun -= faststundecay * Time.deltaTime;
+            if(stun < 0){
+                stun = 0;
+                stunned = false;
             }
         }
 
@@ -128,8 +137,12 @@ public abstract class CharacterConfig : MonoBehaviour
         if(!invincible)
         {
             ApplyKnockback(knockback, magnitude);
-            health -= damage;
-            stun += stundamage;
+            if(stunned){
+                health -= damage * stundamagemultiplier;
+            }else{
+                health -= damage;
+                stun += stundamage;
+            }
 
             if(health <= 0)
             {
@@ -139,7 +152,7 @@ public abstract class CharacterConfig : MonoBehaviour
                 invincible = true;
                 dead = true;
             }
-            else{
+            else if(!stunned){
                 stateManager.ForceHurt();
                 invincible = true;
                 InvincibleTimer = 0;

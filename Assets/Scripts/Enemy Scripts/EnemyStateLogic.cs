@@ -357,6 +357,10 @@ public class EnemyStunnedState : EnemyState {
     public override void CheckSwitchStates() {
         if(!config.grounded) SwitchStates(factory.Falling());
         if(config.grabbed) SwitchStates(factory.Grabbed());
+        else if(!config.stunned){
+            if(config.target != null) SwitchStates(factory.Aggressive());
+            else SwitchStates(factory.Idle());
+        }
     }
 }
 

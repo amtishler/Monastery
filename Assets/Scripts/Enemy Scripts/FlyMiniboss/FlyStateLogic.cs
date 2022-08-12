@@ -121,6 +121,10 @@ public class FlyStunnedState : FlyState {
     }
 
     public override void CheckSwitchStates() {
+        if(!config.stunned){
+            if(config.target != null) SwitchStates(factory.Aggressive());
+            else SwitchStates(factory.Idle());
+        }
     }
 }
 
