@@ -215,9 +215,22 @@ public class TongueController : MonoBehaviour {
 
         if (hits.Length != 0)
         {
-            string objectType = hits[0].collider.transform.gameObject.tag;
 
-            if(objectType == "Large Object" || (objectType == "Untagged" && hits[0].transform.gameObject.tag == "Large Object")) 
+            string objectType = hits[0].collider.transform.gameObject.tag;
+            int objnum = 0;
+
+            for(int i = 0; i < hits.Length; i++)
+            {
+                string temptype = hits[i].collider.transform.gameObject.tag;
+                if(temptype == "Large Object" || temptype == "Small Object")
+                {
+                    objectType = temptype;
+                    objnum = i;
+                    break;
+                }
+            }
+
+            if(objectType == "Large Object" || (objectType == "Untagged" && hits[objnum].transform.gameObject.tag == "Large Object")) 
             {
                 grabbed = true;
                 grabUsed = true;
@@ -225,17 +238,17 @@ public class TongueController : MonoBehaviour {
                 SetEndpoint();
 
                 // Set to be child of object it is grabbed to so it moves with it
-                transform.position = hits[0].point;
-                gameObject.transform.SetParent(hits[0].transform);
+                transform.position = hits[objnum].point;
+                gameObject.transform.SetParent(hits[objnum].transform);
 
                 // Velocity is reset here, but it now will start pulling the player to its location.
                 velocity = deacceleration * Time.deltaTime * direction;
                 deacceleration *= grappleDamp;
             }
 
-            if(objectType == "Small Object" || (objectType == "Untagged" && hits[0].transform.gameObject.tag == "Small Object"))
+            if(objectType == "Small Object" || (objectType == "Untagged" && hits[objnum].transform.gameObject.tag == "Small Object"))
             {
-                heldObject = hits[0].collider.transform.gameObject;
+                heldObject = hits[objnum].collider.transform.gameObject;
                 heldconf = heldObject.transform.GetComponentInParent<CharacterConfig>();
                 grabUsed = true;
 

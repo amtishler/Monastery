@@ -151,10 +151,8 @@ public abstract class CharacterConfig : MonoBehaviour
                 stunned = true;
                 stateManager.ForceStunned();
             }
+            _Hit();
         }
-
-        _Hit();
-
     }
 
     protected virtual void _Hit(){}

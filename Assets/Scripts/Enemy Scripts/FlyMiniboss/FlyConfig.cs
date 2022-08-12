@@ -17,6 +17,7 @@ public class FlyConfig : CharacterConfig {
     public float islandwait = 2f;
     public float stoppingspeed = 2f;
     public float retreatingspeed = 8f;
+    public float retreatdistance = 3f;
 
     //Spawn egg every x islands;
     public int islandspawncount;
@@ -81,7 +82,11 @@ public class FlyConfig : CharacterConfig {
     {
         stopping = false;
         spawning = false;
-        Retreat();
+        float distance = Vector3.Distance(this.transform.position, target.transform.position);
+        if(distance < retreatdistance){
+            Retreat();
+        }
+        
         animator.Play("GetHit");
     }
 
