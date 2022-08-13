@@ -13,7 +13,7 @@ public class TongueController : MonoBehaviour {
     [SerializeField] float aimAssistRadius = 0.25f;
     [SerializeField] float timeToExtend = 0.5f;
     [SerializeField] float tongueLength = 8f;
-    [SerializeField] float rayCastBuffer = 0.1f;
+    [SerializeField] float timeBeforeCollisions = 0.1f;
     [SerializeField] float retractAccelFactor = 1f;
     [SerializeField] float grappleDamp = 1f;
     [SerializeField] float friction = 0.5f;
@@ -202,13 +202,13 @@ public class TongueController : MonoBehaviour {
     private void CheckCollision(Vector3 nextPos, Vector3 prevPos)
     {
         // Buffer Checking
-        if (currentRayCastBuffer < rayCastBuffer) return;
+        if (currentRayCastBuffer < timeBeforeCollisions) return;
 
 
         LayerMask mask = LayerMask.GetMask("Object Hurtbox") | LayerMask.GetMask("Collectible Hitbox");
         RaycastHit2D[] hits = Physics2D.CircleCastAll(prevPos, aimAssistRadius, direction, 0f, layerMask: mask);
 
-        if (hits.Length == 0 || currentRayCastBuffer < rayCastBuffer)
+        if (hits.Length == 0 || currentRayCastBuffer < timeBeforeCollisions)
         {
             hits = Physics2D.LinecastAll(prevPos, nextPos, mask);
         }
