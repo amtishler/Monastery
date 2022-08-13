@@ -438,13 +438,8 @@ public class PlayerKickChargeState : PlayerState {
     }
 
     public override void CheckSwitchStates() {
-        if (InputManager.Instance.Move != Vector3.zero) SwitchStates(factory.Running());
         if (InputManager.Instance.TonguePressed) SwitchStates(factory.Tongue());
-        if (InputManager.Instance.StaffPressed) SwitchStates(factory.Staff());
-        if (InputManager.Instance.KickPressed)
-        {
-            if (chargeTime > config.KickChargeTime) SwitchStates(factory.Kick());
-        }
+        if (!InputManager.Instance.KickHeld && chargeTime > config.KickChargeTime) SwitchStates(factory.Kick());
         if (!config.grounded) SwitchStates(factory.Falling());
     }
 }
