@@ -577,7 +577,7 @@ public class PlayerMapOpenState : PlayerState
     public override void ExitState(){
         
         telescopeImage.SetActive(false);
-        hurtbox.enabled = false;
+        hurtbox.enabled = true;
         InputManager.Instance.CombatMap();
     }
     public override void CheckSwitchStates(){

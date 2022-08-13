@@ -5,6 +5,11 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public Image telescopeImage;
+
+    private RectTransform imageSize;
+
+    private float width;
+    private float height;
     //Layers
     [System.NonSerialized] public int PLAYER_HURTBOX = 3;
     [System.NonSerialized] public int TONGUE_HITBOX = 6;
@@ -44,6 +49,9 @@ public class GameManager : MonoBehaviour
         checkpoints = GameObject.FindGameObjectsWithTag("Checkpoint");
         player = GameObject.FindGameObjectWithTag("Player");
         telescopeImage = GetComponentInChildren<Image>();
+        imageSize = telescopeImage.GetComponent<RectTransform>();
+        imageSize.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, Screen.width);
+        imageSize.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, Screen.height);
         telescopeImage.gameObject.SetActive(false);
     }
 
