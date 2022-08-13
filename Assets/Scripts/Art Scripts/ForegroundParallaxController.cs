@@ -16,7 +16,7 @@ public class ForegroundParallaxController : MonoBehaviour
     {
         Vector3 bounds = tile.GetComponent<SpriteRenderer>().bounds.size;
         tileSize = new Vector2(bounds.x, bounds.y);
-        Debug.Log("tile size " + tileSize);
+        //Debug.Log("tile size " + tileSize);
 
         tileParent.transform.position = Vector3.zero;
         for(int x = -1; x <= 1; x++) {
