@@ -68,6 +68,11 @@ public class ProjectileObject : InteractableObject
         getHitSound.start();
     }
 
+    public override void OnSpit(Vector3 dir, float mag)
+    {
+        ApplyKnockback(dir, mag * flightspeedmult);
+    }
+
     protected virtual void _OnHit(){}
 
     private void OnTriggerStay2D(Collider2D collision)

@@ -190,7 +190,7 @@ public class TongueController : MonoBehaviour {
         InteractableObject inanimateobj = heldObject.transform.root.GetComponent<InteractableObject>();
         if(inanimateobj != null)
         {
-            inanimateobj.OnHit(direction, spitknockback);
+            inanimateobj.OnSpit(direction, spitknockback);
         }
 
         heldObject = null;

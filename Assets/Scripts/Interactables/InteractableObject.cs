@@ -46,4 +46,6 @@ public class InteractableObject : MonoBehaviour
     }
 
     public virtual void OnHit(Vector3 dir, float mag){}
+
+    public virtual void OnSpit(Vector3 dir, float mag){}
 }

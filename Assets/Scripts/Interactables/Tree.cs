@@ -14,7 +14,6 @@ public class Tree : InteractableObject
     public float dropy = -2f;
     public float dropx = 2f; 
 
-    public float xrangetree = 2f;
     public float yrangetree = 3f;
 
     private Animator animator;
@@ -31,7 +30,7 @@ public class Tree : InteractableObject
         {
             childdrop.Add(Instantiate(drop) as GameObject);
             childdrop[i].transform.parent = this.transform;
-            Vector3 childpos = new Vector3(Random.Range(-xrangetree, xrangetree), Random.Range(1.5f-yrangetree, 1.5f+yrangetree), 0);
+            Vector3 childpos = new Vector3(Random.Range(2*i - 3, 2*i - 1), Random.Range(1.5f-yrangetree, 1.5f+yrangetree), 0);
             childdrop[i].transform.position = this.transform.position + childpos;
             childdrop[i].GetComponent<Collider2D>().enabled = false;
         }
@@ -75,7 +74,7 @@ public class Tree : InteractableObject
         {
             childdrop.Add(Instantiate(drop) as GameObject);
             childdrop[i].transform.parent = this.transform;
-            Vector3 childpos = new Vector3(Random.Range(-xrangetree, xrangetree), Random.Range(1.5f-yrangetree, 1.5f+yrangetree), 0);
+            Vector3 childpos = new Vector3(Random.Range(2*i - 3, 2*i - 1), Random.Range(1.5f-yrangetree, 1.5f+yrangetree), 0);
             childdrop[i].transform.position = this.transform.position + childpos;
             childdrop[i].GetComponent<Collider2D>().enabled = false;
         }

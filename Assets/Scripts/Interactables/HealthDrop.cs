@@ -25,7 +25,6 @@ public class HealthDrop : MonoBehaviour
     void Update() {
         if(dropping)
         {
-            Debug.Log("Droppin");
             Vector3 poschange = new Vector3(0, -dropspeed * Time.deltaTime, 0);
             this.transform.position += poschange;
             dropspeed += dropaccel;
