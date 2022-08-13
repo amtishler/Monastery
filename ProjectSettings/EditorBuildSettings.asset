@@ -5,6 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 07a96a8d087f14847a59e34aa23957f7
+  - enabled: 1
+    path: Assets/Scenes/Tutorial.unity
+    guid: fadec204f050b0446a6e1d17b0d2aeba
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
@@ -17,8 +23,5 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/EnemyTests/EnemyTestSceneOld.unity
     guid: 6883714ff5830fa47965f6ac48fe21d2
-  - enabled: 1
-    path: Assets/Scenes/Tutorial.unity
-    guid: fadec204f050b0446a6e1d17b0d2aeba
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 5c096992297e48e4e812b6b24d90a4c0, type: 2}
