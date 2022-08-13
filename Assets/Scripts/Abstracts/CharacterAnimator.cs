@@ -31,6 +31,11 @@ public class CharacterAnimator : MonoBehaviour
 
     // Public Methods to change states
 
+    public void UpdateSingleAnimation(AnimationClip animation)
+    {
+        m_anim.Play(animation);
+    }
+
     public void UpdateIdleAnimation()
     {
         UpdateAnimation(idleAnimations);

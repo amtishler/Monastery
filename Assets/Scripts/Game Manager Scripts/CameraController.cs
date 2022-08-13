@@ -71,24 +71,30 @@ public class CameraController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (isCutscene && cutsceneComplete) return;
+        if (isCutscene) return;
         //Debug.Log("Trigger detected");
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Player detected");
-            _instance = this;
-            activated = true;
-            if (CameraSwitcher.ActiveCamera != cam) 
-            {
-                CameraSwitcher.SwitchCamera(cam);
-                Debug.Log("Camera Switched");
-            }
-            if (!isCutscene && !edgesCreated) {
-                CreateEdges();
-                enemies.ActivateEnemies();
-                musicVariantToReturnTo = MusicManager.Instance.getCurrentVariant();
-                MusicManager.Instance.HandleTrigger(false, FadeSpeed.normal, Area.Forest, 4, FadeSpeed.normal);
-            }
+            ActivateCamera();
+        }
+    }
+
+    public void ActivateCamera()
+    {
+        Debug.Log("Player detected");
+        _instance = this;
+        activated = true;
+        if (CameraSwitcher.ActiveCamera != cam)
+        {
+            CameraSwitcher.SwitchCamera(cam);
+            Debug.Log("Camera Switched");
+        }
+        if (!isCutscene && !edgesCreated)
+        {
+            CreateEdges();
+            enemies.ActivateEnemies();
+            musicVariantToReturnTo = MusicManager.Instance.getCurrentVariant();
+            MusicManager.Instance.HandleTrigger(false, FadeSpeed.normal, Area.Forest, 4, FadeSpeed.normal);
         }
     }
 

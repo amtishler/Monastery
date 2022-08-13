@@ -604,18 +604,26 @@ public class PlayerTeleportingState : PlayerState
 // Cutscene / upgrade
 public class PlayerCutsceneState : PlayerState
 {
+
+    TongueController tongue;
+
     public PlayerCutsceneState(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
     : base(config, currentContext, stateFactory){
         name = "PlayerCutscene";
     }
 
     public override void EnterState(){
+        tongue = config.tongue.GetComponent<TongueController>();
         config.grounded = true;
         config.playerAnimator.UpdateIdleAnimation();
         InputManager.Instance.CutsceneMap();
         config.Velocity = Vector3.zero;
     }
     public override void UpdateState() {
+        if (tongue.enabled)
+        {
+            tongue.UpdateTongue();
+        }
         CheckSwitchStates();
     }
     public override void ExitState(){

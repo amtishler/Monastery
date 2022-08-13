@@ -257,7 +257,10 @@ public class EnemyDeadState : EnemyState {
     private Rigidbody2D body;
 
     public EnemyDeadState(EnemyConfig config, EnemyStateMachine currentContext, EnemyStateFactory stateFactory)
-    : base(config, currentContext, stateFactory){}
+    : base(config, currentContext, stateFactory)
+    {
+        name = "EnemyDead";
+    }
 
     public override void EnterState() {
         config.invincible = true;
@@ -269,6 +272,10 @@ public class EnemyDeadState : EnemyState {
         if(selfhitbox != null) selfhitbox.gameObject.SetActive(false);
         deacceleration = config.RecoveryDeaccel;
         config.SlowDown(deacceleration);
+        
+        //Killing enemies
+        Cutscene cutscene = config.GetComponentInParent<Cutscene>();
+        if (cutscene != null) cutscene.EnemyDead();
     }
 
     public override void UpdateState()
@@ -282,6 +289,7 @@ public class EnemyDeadState : EnemyState {
     }
 
     public override void ExitState() {
+        Debug.Log("exiting");
         config.invincible = false;
         config.dead = false;
         body = config.GetComponent<Rigidbody2D>();
@@ -292,6 +300,7 @@ public class EnemyDeadState : EnemyState {
 
     public override void CheckSwitchStates(){
         if (InputManager.Instance.ResetPressed) {
+            Debug.Log("reset pressed");
             SwitchStates(factory.Idle());
             config.Reset();
         }

@@ -146,7 +146,7 @@ public class InputManager : MonoBehaviour{
         leave.Update();
         interact.Update();
         quit.Update();
-        // Debug.Log(ResetPressed);
+        //Debug.Log(ResetPressed);
     }
 
     private void OnControlsChanged() {

@@ -22,6 +22,7 @@ public class EnemyStateMachine : StateMachine
 
     public override void ForceDead()
     {
+        if (currentState.name == "EnemyDead") return;
         currentState.SwitchStates(states.Dead());
     }
 

@@ -7,37 +7,55 @@ public class Cutscene : MonoBehaviour {
 
     // Serialized Fields
     // [SerializeField] Vector2 playerPosition;
+    [SerializeField] Trigger trigger;
+    [SerializeField] List<GameObject> enemies;
     [SerializeField] List<CutsceneEvent> cutsceneEvents = new List<CutsceneEvent>();
 
     // Private Fields
+    enum Trigger
+    {
+        enterZone = 0,
+        defeatEnemies = 1
+    }
     private PlayerConfig config;
     private bool running = false;
     private bool completed = false;
+    private int enemiesLeft;
 
 
     void Awake() {
         config = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerConfig>();
+        enemiesLeft = enemies.Count;
+        foreach (GameObject enemy in enemies)
+        {
+            enemy.transform.parent = transform;
+        }
     }
 
-
+    
+    // Starts cutscene if enter zone
     void OnTriggerEnter2D(Collider2D other) {
-        if (completed) return;
+        if (completed || trigger != 0) return;
         if (other.gameObject.CompareTag("Player") && !running) {
-            // Beginning
-            running = true;
-            config.GetComponentInParent<PlayerStateMachine>().BeginCutscene();
-            StartCoroutine(MovePlayer());
             StartCoroutine(StartCutscene());
         }
     }
 
 
-    IEnumerator MovePlayer() {
-        yield return 0;
+    // Starts cutscene when all enemies die
+    public void EnemyDead()
+    {
+        if (completed) return;
+        enemiesLeft -= 1;
+        Debug.Log("dead");
+        if (enemiesLeft == 0) StartCoroutine(StartCutscene());
     }
 
 
     IEnumerator StartCutscene() {
+        running = true;
+        config.GetComponentInParent<PlayerStateMachine>().BeginCutscene();
+        GetComponent<CameraController>().ActivateCamera();
         foreach(CutsceneEvent cutsceneEvent in cutsceneEvents) {
             yield return new WaitForSeconds(cutsceneEvent.StartDelay);
             yield return cutsceneEvent.Play(this);

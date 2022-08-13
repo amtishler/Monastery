@@ -16,11 +16,13 @@ public class PlayerStateMachine : StateMachine
 
     public override void ForceHurt()
     {
+        // sound effect
         currentState.SwitchStates(states.Hurt());
     }
 
     public override void ForceDead()
     {
+        // sound effect
         currentState.SwitchStates(states.Dead());
     }
 

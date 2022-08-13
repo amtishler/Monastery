@@ -15,12 +15,15 @@ public class CutsceneEvent {
     [SerializeField] GameObject cameraFocus;
     [SerializeField] bool moveCameraWhilePlaying;
     [SerializeField] float cameraMoveTime = 0.1f;
-    [Header("Character Movement")]
+    [Header("Character Movement (these can be blank)")]
     [SerializeField] bool moveCharacter;
     [SerializeField] bool speakWhileMoving;
     [SerializeField] float moveTime = 0.1f;
     [SerializeField] GameObject destination;
-    [Header("Dialogue Boxes")]
+    [Header("Animate Character (these can be blank)")]
+    [SerializeField] GameObject rotateToLookAt;
+    [SerializeField] AnimationClip animationToPlay;
+    [Header("Dialogue Boxes (again, can be blank)")]
     [SerializeField] bool displayTextBox = true;
     enum myEnum {
         topLeft,
@@ -68,6 +71,10 @@ public class CutsceneEvent {
             if (speakWhileMoving) cutscene.StartCoroutine(MoveCharacter());
             else yield return cutscene.StartCoroutine(MoveCharacter());
         }
+
+        if (rotateToLookAt != null) LookAt();
+
+        if (animationToPlay != null) Animate();
 
         GameObject ob = GameObject.Instantiate(Resources.Load("DialogueBox")) as GameObject;
         RectTransform obTransform = ob.GetComponent<RectTransform>();
@@ -121,5 +128,22 @@ public class CutsceneEvent {
             virtualCamera.gameObject.transform.position = Vector3.Lerp(startPos, endPos, Mathf.SmoothStep(0f, 1, t));
             yield return null;
         }
+    }
+
+    void LookAt()
+    {
+        CharacterConfig config = mainCharacter.GetComponent<CharacterConfig>();
+        CharacterAnimator animator = mainCharacter.GetComponent<CharacterAnimator>();
+        if (config == null || animator == null) return;
+        config.RotateSprite(rotateToLookAt.transform.position - mainCharacter.transform.position);
+        animator.UpdateIdleAnimation();
+        
+    }
+
+    void Animate()
+    {
+        CharacterAnimator animator = mainCharacter.GetComponent<CharacterAnimator>();
+        if (animator == null) return;
+        animator.UpdateSingleAnimation(animationToPlay);
     }
 }
