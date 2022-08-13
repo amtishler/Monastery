@@ -18,7 +18,7 @@ public class HealthTreeSFX : MonoBehaviour
 
     private void Awake()
     {
-        sfxList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/HealthTree/GetHit"));
+        sfxList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/Features/HealthTree/GetHit"));
     }
 
 

@@ -11,6 +11,8 @@ public class HealthDrop : MonoBehaviour
     private bool dropping = false;
     private float droplevel = 0f;
 
+private static FMOD.Studio.EventInstance dropSound = new FMOD.Studio.EventInstance();
+
     /*private void OnTriggerEnter2D(Collider2D collision)
     {
         CharacterConfig d = collision.transform.GetComponent<PlayerConfig>();
@@ -22,6 +24,11 @@ public class HealthDrop : MonoBehaviour
         }
     }*/
 
+    private void Start()
+    {
+        dropSound = FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/Features/Health Fruit/Hit Ground");
+    }
+
     void Update() {
         if(dropping)
         {
@@ -29,9 +36,10 @@ public class HealthDrop : MonoBehaviour
             this.transform.position += poschange;
             dropspeed += dropaccel;
         }
-        if(this.transform.localPosition.y < droplevel)
+        if(dropping && this.transform.localPosition.y < droplevel)
         {
             dropping = false;
+            dropSound.start();
             this.GetComponent<Collider2D>().enabled = true;
         }
     }
