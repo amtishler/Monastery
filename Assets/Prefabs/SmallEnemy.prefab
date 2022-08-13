@@ -116,7 +116,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -135,7 +135,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1791665367
-  m_SortingLayer: 1
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 1c02df577cef2114f87643cbf8608cef, type: 3}
   m_Color: {r: 0.16580634, g: 0.509434, b: 0.215312, a: 1}
@@ -219,8 +219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9297143049c4c9f4981371f62891de42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectIdentity: 3
-  speed: 0
+  respawnPoint: {x: 0, y: 0, z: 0}
   maximumSpeed: 4
   minimumSpeed: 3
   acceleration: 0.1
@@ -228,29 +227,44 @@ MonoBehaviour:
   recoveryDeaccel: 0.5
   maxHealth: 100
   health: 100
+  maxStun: 50
+  stun: 0
+  stundecay: 0
+  faststundecay: 100
+  stundamagemultiplier: 1
   invincibleduration: 0.5
   knockbackmultiplier: 1
+  invincibletimer: 0
+  fallDamage: 0
   moveSpriteList:
   - {fileID: 21300000, guid: 75cd55c0fc79ec64f9b6fb545d8eebbf, type: 3}
   - {fileID: 21300000, guid: 09ca06a018005f84a93ef7cce0e5c9b9, type: 3}
   - {fileID: 0}
   - {fileID: 0}
-  invincible: 0
-  invincibletimer: 0
-  stunned: 0
-  grabbed: 0
-  dead: 0
-  currentdir: 0
-  directionMap:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
+  fallingAnimDuration: 0
+  gravity: 0
+  grounded: 0
   detectionradius: 5
+  attackradius: 4
   collisiondamage: 0
   collisionknockback: 40
   projectileslowdown: 0.25
+  readyingspeed: 1
+  attacktimer: 1
+  animationstart: 0.8
+  pouncespeed: 10
+  pounceslowdown: 0.1
+  attackcooldown: 5
+  postattackpause: 1
+  isattacking: 0
+  oncooldown: 0
+  attackTriggerZone: {fileID: 0}
   target: {fileID: 0}
+  attackhitbox: {fileID: 0}
+  attackvector: {x: 0, y: 0, z: 0}
+  nextWaypointDistance: 0.5
+  targetDistance: 3
+  targetDistanceWindow: 0.5
 --- !u!1 &4220657007340243129
 GameObject:
   m_ObjectHideFlags: 0
@@ -299,9 +313,12 @@ MonoBehaviour:
   playerconf: {fileID: 4220657007158370608}
   damage: 20
   knockback: 15
+  stun: 0
   knockbacknormalization: 0.5
-  identity: 0
+  friction: 0.5
   knockbackreflected: 0.25
+  selfdamage: 10
+  selfstun: 10
 --- !u!61 &8649202318979798941
 BoxCollider2D:
   m_ObjectHideFlags: 0

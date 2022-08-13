@@ -9,6 +9,7 @@ public class DepthController : MonoBehaviour
     Vector3 midpoint;
     [SerializeField]
     bool debugMidpoint = false;
+    public bool affectChildren = false;
 
     SpriteRenderer sR;
     // Start is called before the first frame update
@@ -26,6 +27,13 @@ public class DepthController : MonoBehaviour
         } else
         {
             sR.sortingLayerName = "Background";
+        }
+
+        if(affectChildren == true) {
+            foreach (Transform child in transform) {
+                child.GetComponent<SpriteRenderer>().sortingLayerName = sR.sortingLayerName;
+                child.GetComponent<SpriteRenderer>().sortingOrder = sR.sortingOrder - 1;
+            }
         }
     }
 
