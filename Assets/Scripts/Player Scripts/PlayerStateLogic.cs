@@ -550,6 +550,7 @@ public class PlayerDeadState : PlayerState
 public class PlayerMapOpenState : PlayerState
 {
     private GameObject telescopeImage;
+    private BoxCollider2D hurtbox;
     public PlayerMapOpenState(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
     : base(config, currentContext, stateFactory){
         name = "PlayerMapOpen";
@@ -557,7 +558,8 @@ public class PlayerMapOpenState : PlayerState
 
     public override void EnterState(){
         config.grounded = true;
-        config.invincible = true;
+        hurtbox = config.gameObject.GetComponent<BoxCollider2D>();
+        hurtbox.enabled = false;
         telescopeImage = GameManager.Instance.telescopeImage.gameObject;
         Debug.Log(telescopeImage);
         telescopeImage.SetActive(true);
@@ -568,8 +570,9 @@ public class PlayerMapOpenState : PlayerState
         CheckSwitchStates();
     }
     public override void ExitState(){
-        config.invincible = true;
+        
         telescopeImage.SetActive(false);
+        hurtbox.enabled = false;
         InputManager.Instance.CombatMap();
     }
     public override void CheckSwitchStates(){
