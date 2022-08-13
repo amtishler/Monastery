@@ -92,6 +92,11 @@ public class EnemyConfig : CharacterConfig {
         }
     }
 
+    protected override void _Hit()
+    {
+        animator.Play("GetHit");
+    }
+
     protected override void _Update() {
 
         if(attackTriggerZone != null && target == null && aggroZone.playerentered)
@@ -119,6 +124,8 @@ public class EnemyConfig : CharacterConfig {
         animator.SetBool("Stunned", stunned);
         animator.SetBool("Dead", dead);
     }
+
+
 
     public void SetTarget(GameObject objtarget)
     {
