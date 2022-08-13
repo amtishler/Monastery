@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6927939904441879017}
   - component: {fileID: 5368226097246940843}
   - component: {fileID: 5180436861953576628}
+  - component: {fileID: 7836523366400489239}
   m_Layer: 7
   m_Name: StunFrame
   m_TagString: Untagged
@@ -35,7 +36,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 0.3499999, y: 0.00000035762787}
+  m_AnchoredPosition: {x: 0.33333325, y: -0.19999997}
   m_SizeDelta: {x: 5.3, y: 0.9}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &5368226097246940843
@@ -76,6 +77,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7836523366400489239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2093685315259114992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24e7c4ec703e7e5458ba263ff36f1035, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableSnapping: 1
+  snapX: 1
+  snapY: 1
+  gridSize: {x: 1, y: 1}
 --- !u!1 &5653999446551556633
 GameObject:
   m_ObjectHideFlags: 0
@@ -87,6 +104,7 @@ GameObject:
   - component: {fileID: 4047989620797833219}
   - component: {fileID: 2038693090224220218}
   - component: {fileID: 4246042896935250242}
+  - component: {fileID: 7352011243089481599}
   m_Layer: 7
   m_Name: StunBar
   m_TagString: Untagged
@@ -111,7 +129,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 0.3499999, y: 0.00000035762787}
+  m_AnchoredPosition: {x: 0.33333325, y: -0.19999997}
   m_SizeDelta: {x: 5, y: 0.9}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &2038693090224220218
@@ -152,6 +170,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7352011243089481599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5653999446551556633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24e7c4ec703e7e5458ba263ff36f1035, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableSnapping: 1
+  snapX: 1
+  snapY: 1
+  gridSize: {x: 1, y: 1}
 --- !u!1 &6378582720386318090
 GameObject:
   m_ObjectHideFlags: 0
@@ -163,6 +197,7 @@ GameObject:
   - component: {fileID: 1036781560201261397}
   - component: {fileID: 1096297815370256782}
   - component: {fileID: 7512844986225265393}
+  - component: {fileID: 759128066734232286}
   m_Layer: 7
   m_Name: DamageBar
   m_TagString: Untagged
@@ -187,8 +222,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 0.5, y: 0.00000035762787}
-  m_SizeDelta: {x: 5, y: 0.6}
+  m_AnchoredPosition: {x: 0.33333325, y: -0.19999997}
+  m_SizeDelta: {x: 5.15, y: 0.6}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &1096297815370256782
 CanvasRenderer:
@@ -228,6 +263,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &759128066734232286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6378582720386318090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24e7c4ec703e7e5458ba263ff36f1035, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableSnapping: 1
+  snapX: 1
+  snapY: 1
+  gridSize: {x: 1, y: 1}
 --- !u!1 &6453301757204043952
 GameObject:
   m_ObjectHideFlags: 0
@@ -239,6 +290,7 @@ GameObject:
   - component: {fileID: 5258911399594770848}
   - component: {fileID: 4243974218742982501}
   - component: {fileID: 1387043201205371895}
+  - component: {fileID: 2354566592349855420}
   m_Layer: 7
   m_Name: HealthFrame
   m_TagString: Untagged
@@ -263,8 +315,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 0.5, y: 0.00000035762787}
-  m_SizeDelta: {x: 5, y: 0.6}
+  m_AnchoredPosition: {x: 0.33333325, y: -0.19999997}
+  m_SizeDelta: {x: 5.15, y: 0.6}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &4243974218742982501
 CanvasRenderer:
@@ -304,6 +356,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2354566592349855420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6453301757204043952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24e7c4ec703e7e5458ba263ff36f1035, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableSnapping: 1
+  snapX: 1
+  snapY: 1
+  gridSize: {x: 1, y: 1}
 --- !u!1 &7440076510707292288
 GameObject:
   m_ObjectHideFlags: 0
@@ -315,6 +383,7 @@ GameObject:
   - component: {fileID: 1122095117868117081}
   - component: {fileID: 7795566312812070111}
   - component: {fileID: 6843494449477934611}
+  - component: {fileID: 6794677719251278834}
   m_Layer: 7
   m_Name: StunFull
   m_TagString: Untagged
@@ -339,7 +408,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 0.3499999, y: 0.00000035762787}
+  m_AnchoredPosition: {x: 0.33333325, y: -0.19999997}
   m_SizeDelta: {x: 5.3, y: 0.9}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &7795566312812070111
@@ -380,6 +449,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6794677719251278834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7440076510707292288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24e7c4ec703e7e5458ba263ff36f1035, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableSnapping: 1
+  snapX: 1
+  snapY: 1
+  gridSize: {x: 0.03125, y: 0.03125}
 --- !u!1 &7594114872968803586
 GameObject:
   m_ObjectHideFlags: 0
@@ -514,6 +599,7 @@ GameObject:
   - component: {fileID: 1862892636169637043}
   - component: {fileID: 1851150293839841651}
   - component: {fileID: 2425684586181210965}
+  - component: {fileID: 216689750714994893}
   m_Layer: 7
   m_Name: HealthBar
   m_TagString: Untagged
@@ -538,8 +624,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 0.5, y: 0.00000035762787}
-  m_SizeDelta: {x: 5, y: 0.6}
+  m_AnchoredPosition: {x: 0.33333325, y: -0.19999997}
+  m_SizeDelta: {x: 5.15, y: 0.6}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &1851150293839841651
 CanvasRenderer:
@@ -579,3 +665,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &216689750714994893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7615361917464526282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24e7c4ec703e7e5458ba263ff36f1035, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableSnapping: 1
+  snapX: 1
+  snapY: 1
+  gridSize: {x: 1, y: 1}

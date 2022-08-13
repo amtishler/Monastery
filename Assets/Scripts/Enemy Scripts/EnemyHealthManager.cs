@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class EnemyHealthManager : MonoBehaviour {
 
-    const float HEALTH_WIDTH = 5f;
+    const float HEALTH_WIDTH = 5.15f;
     const float HEALTH_HEIGHT = .6f;
 
-    const float STUN_WIDTH = 5f;
+    const float STUN_WIDTH = 5.30f;
     const float STUN_HEIGHT = .9f;
 
     const float FULL_STUN_WIDTH = 5.3f;
