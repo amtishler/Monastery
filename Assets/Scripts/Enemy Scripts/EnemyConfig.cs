@@ -11,6 +11,8 @@ public class EnemyConfig : CharacterConfig {
     public float collisionknockback = 10f;
     public float projectileslowdown = 0.1f;
 
+    public bool canFall = true;
+
 
     [Header("Attacking Values")]
     //Stalking speed (Getting ready to attack)

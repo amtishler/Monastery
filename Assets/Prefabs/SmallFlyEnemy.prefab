@@ -42,7 +42,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.07214701, y: -0.045972824}
@@ -250,6 +250,7 @@ MonoBehaviour:
   collisiondamage: 0
   collisionknockback: 40
   projectileslowdown: 0.25
+  canFall: 1
   readyingspeed: 1
   attacktimer: 0.5
   animationstart: 0.8
