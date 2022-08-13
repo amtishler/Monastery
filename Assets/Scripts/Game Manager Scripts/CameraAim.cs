@@ -27,7 +27,7 @@ public class CameraAim : MonoBehaviour
             if (!InputManager.Instance.UsingController()) { 
                 cam.transform.localPosition = GetMouseInfluence();
             } else {
-                cam.transform.localPosition = GetStickInfluence();
+                cam.transform.localPosition = Vector3.Lerp(cam.transform.localPosition, GetStickInfluence(), 0.05f);
             }
         }
     }
@@ -49,9 +49,7 @@ public class CameraAim : MonoBehaviour
 
     //TO DO: Implement stick deadzones/sensitivity
     private Vector3 GetStickInfluence() {
-        Vector2 rightStick = gamepad.rightStick.ReadValue();
-        Vector2 playerVec = new Vector2(player.transform.localPosition.x, player.transform.localPosition.y);
-        Vector3 direction = rightStick - playerVec;
+        Vector3 direction = InputManager.Instance.Aim;
         // Debug.Log(direction);
         // direction.Normalize();
         direction *= influence;

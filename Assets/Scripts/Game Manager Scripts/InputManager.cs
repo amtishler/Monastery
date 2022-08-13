@@ -43,6 +43,7 @@ public class InputManager : MonoBehaviour{
 
     private PlayerInput playerInput;
     private bool usingController = false;
+    private Vector3 internalDirection;
 
     // Used for tutorial messages
     private TutorialMessages messages;
@@ -151,6 +152,7 @@ public class InputManager : MonoBehaviour{
     private void OnControlsChanged() {
         usingController = !usingController;
         if (tutorialActive) ChangeMessages();
+        Debug.Log(usingController);
     }
 
     private void OnMove(InputValue value) {
@@ -160,7 +162,9 @@ public class InputManager : MonoBehaviour{
     }
 
     private void OnAim(InputValue value) {
-        aim = value.Get<Vector3>();
+        Vector3 newAim = value.Get<Vector3>();
+        if (newAim == Vector3.zero) return;
+        aim = newAim;
         aim.Normalize();
         //inputText = "Aiming";
     }
@@ -229,13 +233,15 @@ public class InputManager : MonoBehaviour{
         return direction;
     }
 
-    public Vector3 GetAim() {
+    private Vector3 GetAim() {
         Vector3 direction;
         if (usingController) direction = aim;
         else direction = GetMouseDirection();
         if (direction == Vector3.zero) direction = move;
         if (direction == Vector3.zero) direction = config.directionMap[config.currentdir];
         return direction;
+        if (usingController) return aim;
+        return GetMouseDirection();
     }
 
     public void CombatMap() {

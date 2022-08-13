@@ -372,7 +372,7 @@ public class PlayerStaffState : PlayerState
         config.grounded = true;
         returnPoint = config.resetPosition;
         if (config.Velocity != Vector3.zero)
-            config.Velocity += InputManager.Instance.GetAim() * config.MaximumSpeed;
+            config.Velocity += InputManager.Instance.Aim * config.MaximumSpeed;
         config.SlowDown(config.Deacceleration);
         Vector3 direction = InputManager.Instance.Aim;
         config.RotateSprite(direction);
@@ -406,6 +406,7 @@ public class PlayerKickChargeState : PlayerState {
 
     float totalChargeTime;
     float chargeTime;
+    bool justEntered;
 
     public PlayerKickChargeState(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
     : base(config, currentContext, stateFactory){
@@ -417,6 +418,7 @@ public class PlayerKickChargeState : PlayerState {
         config.SlowDown(config.Deacceleration*2.5f);
         totalChargeTime = config.KickChargeTime;
         chargeTime = 0f;
+        justEntered = true;
     }
 
     public override void UpdateState() {
@@ -436,11 +438,14 @@ public class PlayerKickChargeState : PlayerState {
     }
 
     public override void CheckSwitchStates() {
-        if (!InputManager.Instance.KickHeld) {
-            if (chargeTime <config.KickChargeTime) SwitchStates(factory.Idle());
-            else SwitchStates(factory.Kick());
+        if (InputManager.Instance.Move != Vector3.zero) SwitchStates(factory.Running());
+        if (InputManager.Instance.TonguePressed) SwitchStates(factory.Tongue());
+        if (InputManager.Instance.StaffPressed) SwitchStates(factory.Staff());
+        if (InputManager.Instance.KickPressed)
+        {
+            if (chargeTime > config.KickChargeTime) SwitchStates(factory.Kick());
         }
-        if(!config.grounded) SwitchStates(factory.Falling());
+        if (!config.grounded) SwitchStates(factory.Falling());
     }
 }
 
