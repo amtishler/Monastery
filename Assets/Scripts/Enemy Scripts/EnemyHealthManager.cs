@@ -5,15 +5,21 @@ using UnityEngine.UI;
 
 public class EnemyHealthManager : MonoBehaviour {
 
-    const float HEALTH_WIDTH = 2.380001f;
-    const float HEALTH_HEIGHT = 0.5f;
+    const float HEALTH_WIDTH = 5f;
+    const float HEALTH_HEIGHT = .6f;
 
-    const float STUN_WIDTH = 2.330002f;
-    const float STUN_HEIGHT = 0.5f;
+    const float STUN_WIDTH = 5f;
+    const float STUN_HEIGHT = .9f;
+
+    const float FULL_STUN_WIDTH = 5.3f;
 
     [Header("Variables")]
     [SerializeField] float healthBarSpeed;
     [SerializeField] float damageBarSpeed;
+
+    public Sprite normalimg;
+    public Sprite stunnedimg;
+
     protected CharacterConfig config;
     protected RectTransform healthBar;
     protected RectTransform damageBar;
@@ -22,6 +28,8 @@ public class EnemyHealthManager : MonoBehaviour {
     protected float currentHealth;
     protected float currentDamage;
     protected float enemyHealth;
+
+    protected Image stunBarImage;
 
     protected float enemyStun;
 
@@ -36,10 +44,19 @@ public class EnemyHealthManager : MonoBehaviour {
         stunBar = this.transform.Find("StunBar").GetComponent<RectTransform>();
         stunFull = this.transform.Find("StunFull").GetComponent<RectTransform>();
         upright = transform.rotation;
+
+        stunBarImage = this.transform.Find("StunBar").GetComponent<Image>();
     }
 
     // Update is called once per frame
     void Update() {
+
+        if(config.stunned){
+            stunBarImage.sprite = stunnedimg;
+        }else{
+            stunBarImage.sprite = normalimg;
+        }
+
         enemyHealth = (config.Health / config.MaxHealth)*HEALTH_WIDTH;
         enemyStun = (config.Stun / config.MaxStun)*STUN_WIDTH;
 
@@ -62,7 +79,7 @@ public class EnemyHealthManager : MonoBehaviour {
 
         if(enemyStun == STUN_WIDTH)
         {
-            stunFull.sizeDelta = new Vector2(STUN_WIDTH, STUN_HEIGHT);
+            stunFull.sizeDelta = new Vector2(FULL_STUN_WIDTH, STUN_HEIGHT);
         }
         else
         {
