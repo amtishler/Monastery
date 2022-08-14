@@ -158,7 +158,7 @@ public abstract class CharacterConfig : MonoBehaviour
                 InvincibleTimer = 0;
             }
 
-            if(stun >= maxStun)
+            if(stun >= maxStun && !dead)
             {
                 stun = maxStun;
                 stunned = true;
