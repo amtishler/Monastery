@@ -637,7 +637,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 8.4375
+  orthographic size: 10.203125
   m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
@@ -766,7 +766,7 @@ MonoBehaviour:
   m_AssetsPPU: 32
   m_RefResolutionX: 960
   m_RefResolutionY: 540
-  m_CropFrame: 0
+  m_CropFrame: 4
   m_GridSnapping: 2
   m_UpscaleRT: 0
   m_PixelSnapping: 0
@@ -1572,7 +1572,7 @@ MonoBehaviour:
   - {x: 0.23082781, y: -0.98944426, z: 0}
   m_ShapePathHash: 236791949
   m_Mesh: {fileID: 0}
-  m_InstanceId: -171304
+  m_InstanceId: 5575620
 --- !u!1 &2705515591012369535
 GameObject:
   m_ObjectHideFlags: 0
