@@ -408,7 +408,7 @@ MonoBehaviour:
   maxStun: 50
   stun: 0
   stundecay: 7.5
-  faststundecay: 100
+  faststundecay: 10
   stundamagemultiplier: 1
   invincibleduration: 0.5
   knockbackmultiplier: 1
@@ -423,6 +423,7 @@ MonoBehaviour:
   collisiondamage: 0
   collisionknockback: 40
   projectileslowdown: 0.3
+  canFall: 1
   readyingspeed: 0.5
   attacktimer: 1
   animationstart: 0.8
