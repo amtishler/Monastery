@@ -20,6 +20,8 @@ public class FlyConfig : CharacterConfig {
     public float stoppingspeed = 2f;
     public float retreatingspeed = 8f;
     public float retreatdistance = 3f;
+    public int hitstoretreat = 2;
+    private int hitstaken = 0;
 
     //Spawn egg every x islands;
     public int islandspawncount;
@@ -40,6 +42,7 @@ public class FlyConfig : CharacterConfig {
 
     protected override void _Start() {
 
+        hitstaken = 0;
 
         //Populate waypoints
         foreach(Transform child in waypointobject.transform)
@@ -91,7 +94,8 @@ public class FlyConfig : CharacterConfig {
         stopping = false;
         spawning = false;
         float distance = Vector3.Distance(this.transform.position, target.transform.position);
-        if(distance < retreatdistance){
+        hitstaken++;
+        if(distance < retreatdistance && hitstaken >= hitstoretreat){
             Retreat();
         }
         
@@ -153,6 +157,7 @@ public class FlyConfig : CharacterConfig {
         {
             timer += Time.deltaTime;
             if(timer > islandwait){
+                hitstaken = 0;
                 stopping = false;
                 spawning = false;
                 currentisland++;
