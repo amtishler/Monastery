@@ -36,7 +36,7 @@ public class GroundDetection : MonoBehaviour
         ProjectileObject projectile = hitbox.gameObject.GetComponentInParent<ProjectileObject>();
         if (character != null && !character.grabbed) {
             character.grounded = false;
-            hitbox.enabled = false;
+            //hitbox.enabled = false;
             Debug.Log("Not Grounded");
         } else if (projectile != null && projectile.isProjectile) {
             Debug.Log(projectile);

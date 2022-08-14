@@ -306,6 +306,7 @@ public class PlayerFlyingState : PlayerState
 
     public override void EnterState()
     {
+        config.grounded = true;
         tongue = config.tongue.GetComponent<TongueController>();
         tongue.RemovePlayerInputForce();
         deaccel = tongue.FlyingDeaccel;
@@ -638,6 +639,7 @@ public class PlayerFall : PlayerState
     private float _fallAnim;
     private Rigidbody2D character;
     private BoxCollider2D hurtbox;
+    private WallCollider wallCollider;
     private CinemachineVirtualCamera cam;
     private Vector3 offset;
     public PlayerFall(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
@@ -654,6 +656,8 @@ public class PlayerFall : PlayerState
 
         hurtbox = config.gameObject.GetComponent<BoxCollider2D>();
         hurtbox.enabled = false;
+        wallCollider = config.gameObject.GetComponentInChildren<WallCollider>();
+        wallCollider.BeginFalling();
 
         cam = config.GetComponentInChildren<CinemachineVirtualCamera>();
 
@@ -672,6 +676,7 @@ public class PlayerFall : PlayerState
 
         character.gravityScale = 0f;
         hurtbox.enabled = true;
+        wallCollider.StopFalling();
         cam.GetComponent<CinemachineCameraOffset>().m_Offset = Vector3.zero;
     }
     public override void CheckSwitchStates(){

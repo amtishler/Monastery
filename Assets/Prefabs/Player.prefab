@@ -296,6 +296,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6096255073717030472}
   - component: {fileID: 7396534363900026033}
+  - component: {fileID: 1306107646344871151}
   m_Layer: 13
   m_Name: CollisionDetection
   m_TagString: Untagged
@@ -344,6 +345,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.8203599, y: 0.36456388}
   m_EdgeRadius: 0
+--- !u!114 &1306107646344871151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2002277777110678984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887d8c27ab6436a4ea80ec529f110b08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2705515589028961524
 GameObject:
   m_ObjectHideFlags: 0
@@ -602,7 +615,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2705515589199267929}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.5, y: 0, z: -10}
+  m_LocalPosition: {x: -0.50000143, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -630,14 +643,14 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0
-    width: 1
-    height: 1
+    y: 0.36177474
+    width: 0.3297003
+    height: 0.34844282
   near clip plane: 0.1
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 10.203125
+  orthographic size: 8.4375
   m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
@@ -866,7 +879,7 @@ MonoBehaviour:
   buttonSpeedReduction: 0.8
   spitknockback: 25
   pullAccelFactor: 0.6
-  inputMaxSpeed: 0.6
+  inputMaxSpeed: 3
   inputAccel: 10
   flyingMaxSpeed: 30
   flyingDeaccel: 0.4
@@ -1100,7 +1113,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7777778, y: 1}
+    m_SensorSize: {x: 1.7777779, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1572,7 +1585,7 @@ MonoBehaviour:
   - {x: 0.23082781, y: -0.98944426, z: 0}
   m_ShapePathHash: 236791949
   m_Mesh: {fileID: 0}
-  m_InstanceId: 5575620
+  m_InstanceId: 1567152
 --- !u!1 &2705515591012369535
 GameObject:
   m_ObjectHideFlags: 0
