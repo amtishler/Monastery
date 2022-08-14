@@ -602,7 +602,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2705515589199267929}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.50000143, y: 0, z: -10}
+  m_LocalPosition: {x: -0.5, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -637,7 +637,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 8.6875
+  orthographic size: 8.4375
   m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
@@ -1100,7 +1100,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.0233462, y: 1}
+    m_SensorSize: {x: 1.7777778, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1541,10 +1541,10 @@ MonoBehaviour:
   - {fileID: 7400000, guid: 2b4b5326ca5e359499b1d6e2b27b7fec, type: 2}
   - {fileID: 7400000, guid: f2450f7ce9184a04381afc93fbee801e, type: 2}
   spitAnimations:
-  - {fileID: 7400000, guid: d9466e12e3560a84084a4b830f9cf511, type: 2}
-  - {fileID: 7400000, guid: 4ad8dba40cf1c364ea3379378e0279e7, type: 2}
-  - {fileID: 7400000, guid: 8c9d63abaa26ee34ebada60d7875a1f6, type: 2}
-  - {fileID: 7400000, guid: 80d8e3ab1c94a0a46afdd8736c62b845, type: 2}
+  - {fileID: 7400000, guid: 617061eddcb58bc4686dda6853fb4fe5, type: 2}
+  - {fileID: 7400000, guid: de0012b49aa9f0d4f8c24046ff7a2ed9, type: 2}
+  - {fileID: 7400000, guid: c7e8938b04c474d409f9343461b4f947, type: 2}
+  - {fileID: 7400000, guid: 6c6ec359240e82e418e525478e1bad6c, type: 2}
 --- !u!114 &7043027076150938885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1571,7 +1571,7 @@ MonoBehaviour:
   - {x: 0.23082781, y: -0.98944426, z: 0}
   m_ShapePathHash: 236791949
   m_Mesh: {fileID: 0}
-  m_InstanceId: 2538994
+  m_InstanceId: 3757466
 --- !u!1 &2705515591012369535
 GameObject:
   m_ObjectHideFlags: 0
