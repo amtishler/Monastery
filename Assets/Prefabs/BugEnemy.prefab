@@ -420,7 +420,7 @@ MonoBehaviour:
   gravity: 1
   grounded: 0
   detectionradius: 6
-  attackradius: 2
+  attackradius: 4
   collisiondamage: 0
   collisionknockback: 40
   projectileslowdown: 0.25
@@ -428,19 +428,20 @@ MonoBehaviour:
   readyingspeed: 1
   attacktimer: 0.5
   animationstart: 0.2
-  pouncespeed: 25
-  pounceslowdown: 0.5
+  pouncespeed: 20
+  pounceslowdown: 0.6
   attackcooldown: 1.5
   postattackpause: 0.1
   isattacking: 0
   oncooldown: 0
   attackTriggerZone: {fileID: 0}
+  tracker: {fileID: 0}
   target: {fileID: 0}
   attackhitbox: {fileID: 1339719565}
   attackvector: {x: 0, y: 0, z: 0}
   nextWaypointDistance: 0.5
-  targetDistance: 3
-  targetDistanceWindow: 0.25
+  targetDistance: 4.5
+  targetDistanceWindow: 0.1
 --- !u!95 &3158628754461147013
 Animator:
   serializedVersion: 4
