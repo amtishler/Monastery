@@ -166,11 +166,12 @@ MonoBehaviour:
   knockback: 0
   stun: 50
   knockbackreflected: 0.5
+  knockbackthreshold: 0
   flightspeedmult: 1.5
   projectilespeed: 10
   isProjectile: 0
   gravity: 0
-  fly: {fileID: 3671414473632535510, guid: 76594b83c0370a44f94182e9f9445397, type: 3}
+  fly: {fileID: 1031639998839676761, guid: 8a72436eed03c3e4eb07f1c4b2858182, type: 3}
   hatchtime: 5
 --- !u!1 &8137328954447450615
 GameObject:
