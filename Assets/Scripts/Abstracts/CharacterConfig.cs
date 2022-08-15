@@ -147,6 +147,7 @@ public abstract class CharacterConfig : MonoBehaviour
             if(health <= 0)
             {
                 health = 0;
+                stun = 0;
                 stateManager.ForceDead();
                 Death(this.gameObject);
                 invincible = true;

@@ -223,6 +223,10 @@ public class EnemyConfig : CharacterConfig {
         }
     }
 
+    void stopAttacking()
+    {
+        isattacking = false;
+    }
 
     public void RotateSprite(Vector3 targetDir) {
         if(target != null){
