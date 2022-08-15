@@ -621,9 +621,10 @@ public class PlayerCutsceneState : PlayerState
         config.Velocity = Vector3.zero;
     }
     public override void UpdateState() {
-        if (tongue.enabled)
+        if (!tongue.CheckIfFinished() && config.tongue.activeInHierarchy)
         {
             tongue.UpdateTongue();
+            if (tongue.CheckIfFinished()) config.tongue.SetActive(false);
         }
         CheckSwitchStates();
     }
