@@ -12,6 +12,7 @@ public class LocalAmbience : MonoBehaviour
         river,
         wind,
         whisperingTree,
+        healthTree
         // Reminder to always at the end of the list, so we don't mess up serialization
     }
 
@@ -48,6 +49,7 @@ public class LocalAmbience : MonoBehaviour
         localAmbiences.Add(FMODUnity.RuntimeManager.CreateInstance("event:/LocalAmbiences/River"));
         localAmbiences.Add(FMODUnity.RuntimeManager.CreateInstance("event:/LocalAmbiences/HowlingWind"));
         localAmbiences.Add(FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/Features/Whispering tree/Sway"));
+        localAmbiences.Add(FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/Features/HealthTree/Sway"));
 
         currentVolume = 0;
 
@@ -72,7 +74,7 @@ public class LocalAmbience : MonoBehaviour
                 currentVolume = 0;
 
             currentLocalAmbience.setParameterByName("MasterVol", currentVolume);
-            Debug.Log(currentVolume);
+            //Debug.Log(currentVolume);
         }
     }
 

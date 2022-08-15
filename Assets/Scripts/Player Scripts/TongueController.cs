@@ -71,6 +71,13 @@ public class TongueController : MonoBehaviour {
     public bool IsFinished { get; protected set; }
     //public float PlayerMoveSpeed {get {return playerMoveSpeed;}}
 
+    private PlayerSFX playerSFX;
+
+    private void Awake()
+    {
+        playerSFX = GameObject.FindObjectOfType<PlayerSFX>();
+    }
+
 
     // Updates the tongue (called by state update)
     public void UpdateTongue()
@@ -170,8 +177,10 @@ public class TongueController : MonoBehaviour {
     // Spits an object out
     public void spitObject()
     {
+        playerSFX.PlaySFX(PlayerFX.tongueHit);
+
         //Should have object to spit
-        if(!holdingObject || heldObject == null)
+        if (!holdingObject || heldObject == null)
         {
             return;
         }
@@ -308,6 +317,8 @@ public class TongueController : MonoBehaviour {
     // Enable method, called every time the tongue is enabled.
     public void OnEnable()
     {
+        playerSFX.PlaySFX(PlayerFX.tongueOut);
+
         // Direction & position of tongue
         direction = InputManager.Instance.Aim;
         

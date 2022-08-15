@@ -96,7 +96,6 @@ GameObject:
   - component: {fileID: 1726679214105800059}
   - component: {fileID: 204411920}
   - component: {fileID: 7731001045064619590}
-  - component: {fileID: 425701906794310774}
   m_Layer: 7
   m_Name: HealthTree
   m_TagString: Large Object
@@ -118,6 +117,7 @@ Transform:
   m_Children:
   - {fileID: 6162952089002568034}
   - {fileID: 7089748070190676329}
+  - {fileID: 2199174946760828326}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -289,20 +289,91 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e31bf3482e814a42a455942b588ed7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &425701906794310774
+--- !u!1 &3826368703377982758
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2199174946760828326}
+  - component: {fileID: 2568413093090385860}
+  - component: {fileID: 7258135450603881975}
+  - component: {fileID: 7324240143391652184}
+  m_Layer: 8
+  m_Name: Ambience Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2199174946760828326
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3826368703377982758}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3748316753382805023}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2568413093090385860
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3748316753382805027}
+  m_GameObject: {fileID: 3826368703377982758}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87fe3ed093613c648bb7f3da379143a5, type: 3}
+  m_Script: {fileID: 11500000, guid: 01661a58ecbb4e44c9bc12cc4a53898a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toPlay: 2
-  boxSize: {x: 1.61, y: 3.99}
+  radius: 32.36
+  ambienceName: 3
+--- !u!50 &7258135450603881975
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3826368703377982758}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!58 &7324240143391652184
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3826368703377982758}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1001 &8962441038853118491
 PrefabInstance:
   m_ObjectHideFlags: 0

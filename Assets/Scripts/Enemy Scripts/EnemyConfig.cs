@@ -98,6 +98,9 @@ public class EnemyConfig : CharacterConfig {
     protected override void _Hit()
     {
         animator.Play("GetHit");
+
+        Attack.playerSFX.PlaySFX(PlayerFX.genericOnHit);
+        Attack.playerSFX.PlaySFX(PlayerFX.genericWound);
     }
 
     protected override void _Update() {

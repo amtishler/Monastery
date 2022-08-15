@@ -31,7 +31,6 @@ public class AmbienceCollider : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("hi");
 
         if (other.gameObject.CompareTag("Player"))
         {

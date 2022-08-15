@@ -13,7 +13,10 @@ public enum PlayerFX
     staffSwing,
     swallow,
     tongueHit,
-    tongueOut
+    tongueOut,
+    genericOnHit,
+    genericWound,
+    genericDie
 }
 
 public class PlayerSFX : MonoBehaviour
@@ -35,13 +38,18 @@ public class PlayerSFX : MonoBehaviour
         sfxList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/Player/Swallow"));
         sfxList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/Player/Tongue Hit"));
         sfxList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/Player/Tongue Out"));
+        sfxList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/Enemies/Generic/Impact"));
+        sfxList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/Enemies/Generic/Wound"));
+        sfxList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/Enemies/Generic/Kill"));
     }
 
 
     public void PlaySFX(PlayerFX toPlay)
     {
+        sfxList[(int)toPlay].setParameterByName("MasterVol", 1);
         sfxList[(int)toPlay].start();
-    }
 
+        Debug.Log("triggerd");
+    }
 
 }
