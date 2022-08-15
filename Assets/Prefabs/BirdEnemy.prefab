@@ -404,7 +404,7 @@ MonoBehaviour:
   deacceleration: 0.1
   recoveryDeaccel: 0.5
   maxHealth: 100
-  health: 75
+  health: 100
   maxStun: 50
   stun: 0
   stundecay: 7.5
@@ -434,6 +434,7 @@ MonoBehaviour:
   isattacking: 0
   oncooldown: 0
   attackTriggerZone: {fileID: 0}
+  tracker: {fileID: 0}
   target: {fileID: 0}
   attackhitbox: {fileID: 2004785032}
   attackvector: {x: 0, y: 0, z: 0}

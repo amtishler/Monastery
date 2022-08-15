@@ -45,7 +45,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.03781128, y: -0.084500074}
+  m_Offset: {x: -0.03265381, y: -0.09486389}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -56,7 +56,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.8535156, y: 2.8435998}
+  m_Size: {x: 1.7810059, y: 2.6156006}
   m_EdgeRadius: 0
 --- !u!1 &1413247987039871068
 GameObject:
@@ -166,7 +166,7 @@ MonoBehaviour:
   knockback: 25
   stun: 40
   knockbackreflected: 0.5
-  knockbackthreshold: 40
+  knockbackthreshold: 20
   flightspeedmult: 2
   projectilespeed: 10
   isProjectile: 0
@@ -184,7 +184,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.048797607, y: -0.07051355}
+  m_Offset: {x: -0.028076172, y: -0.07051349}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -195,7 +195,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.8451538, y: 2.8419437}
+  m_Size: {x: 1.8865967, y: 2.8419437}
   m_EdgeRadius: 0
 --- !u!50 &1413247987039871064
 Rigidbody2D:
@@ -210,7 +210,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 5000
-  m_LinearDrag: 0
+  m_LinearDrag: 50
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: 301911efe34cf9845833f2a2769c7055, type: 2}
