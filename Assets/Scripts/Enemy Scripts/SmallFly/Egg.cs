@@ -11,14 +11,29 @@ public class Egg : ProjectileObject
     public float hatchtime;
     private float timer;
 
+    private bool latch;
+    private bool dieonhatch;
+
     protected override void _Start()
     {
+        dieonhatch = false;
+        latch = false;
         animator = GetComponent<Animator>();
         timer = 0f;
     }
 
     protected override void _Update()
     {
+        if(isProjectile && !latch)
+        {
+            latch = true;
+        }
+        if(!isProjectile && latch && !dieonhatch)
+        {
+            dieonhatch = true;
+        }
+
+
         timer += Time.deltaTime;
         if(timer > hatchtime && !isProjectile && this.gameObject.activeSelf){
             rigidBody.simulated = false;
@@ -33,10 +48,15 @@ public class Egg : ProjectileObject
 
     public void Hatch()
     {
+        GameObject player = GameObject.FindWithTag("Player");
         GameObject newfly = Instantiate(fly);
-        newfly.transform.position = this.transform.position;
-        EnemyConfig flyconf = newfly.GetComponent<EnemyConfig>();
-        flyconf.SetTarget(GameObject.FindWithTag("Player"));
+        if(!dieonhatch){
+            newfly.transform.position = this.transform.position;
+            EnemyConfig flyconf = newfly.GetComponent<EnemyConfig>();
+            flyconf.SetTarget(player);
+        }else{
+            Destroy(newfly);
+        }
         Destroy(this.gameObject);
     }
 }
