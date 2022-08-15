@@ -20,6 +20,8 @@ public class MotherFlySFX : MonoBehaviour
 
     private static PlayerConfig pConfig;
 
+    public MusicCollider mc;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -49,5 +51,11 @@ public class MotherFlySFX : MonoBehaviour
         sfxList[(int)toPlay].start();
     }
 
+    public void StopCombatMusic()
+    {
+        mc.gameObject.SetActive(false);
+
+        MusicManager.Instance.HandleTrigger(false, FadeSpeed.normal, Area.Forest, 3, FadeSpeed.normal);
+    }
 
 }

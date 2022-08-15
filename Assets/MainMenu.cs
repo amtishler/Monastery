@@ -33,6 +33,7 @@ public class MainMenu : MonoBehaviour, IPointerEnterHandler
         
     }
 
+
     // private void Update() {
     //     highlightIcon.gameObject.transform.position = new Vector2(highlightIcon.gameObject.transform.position.x, EventSystem.current.IsPointerOverGameObject;
     // }
