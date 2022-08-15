@@ -161,10 +161,13 @@ MonoBehaviour:
   deacceleration: 0.5
   knockbackmultiplier: 0.3
   minimumSpeed: 3
+  resetPosition: {x: 0, y: 0, z: 0}
   damage: 40
   knockback: 25
   stun: 40
   knockbackreflected: 0.5
+  knockbackthreshold: 40
+  flightspeedmult: 2
   projectilespeed: 10
   isProjectile: 0
   gravity: 1

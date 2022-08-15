@@ -8,6 +8,7 @@ public class ProjectileObject : InteractableObject
     public float damage, knockback, stun;
     public float knockbackreflected = 0.5f;
 
+    public float knockbackthreshold = 0f;
     public float flightspeedmult = 2f;
     public float projectilespeed = 10.0f;
     public bool isProjectile;
@@ -64,7 +65,9 @@ public class ProjectileObject : InteractableObject
 
     public override void OnHit(Vector3 dir, float mag)
     {
-        ApplyKnockback(dir, mag * flightspeedmult);
+        if(mag >= knockbackthreshold){
+            ApplyKnockback(dir, mag * flightspeedmult);
+        }
         getHitSound.start();
     }
 
