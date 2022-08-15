@@ -7,14 +7,13 @@ using Cinemachine;
 
 public class CameraController : MonoBehaviour
 {
+    private enum Type {cutscene=1, combat=2};
     private static CameraController _instance;
     [SerializeField] private CinemachineVirtualCamera cam;
     [SerializeField] private System.Collections.Generic.Dictionary<string, Transform> colliders;
     [SerializeField] private float bufferPlayerHeight;
     [SerializeField] private float bufferPlayerWidth;
-    [SerializeField] private EnemyTracker enemies;
-    public bool isCutscene = true;
-    private bool cutsceneComplete = false;
+    [SerializeField] private bool notPartOfStory;
     private bool edgesCreated = false;
     [SerializeField] private bool activated = false;
     private Vector2 screenSize;
@@ -43,7 +42,6 @@ public class CameraController : MonoBehaviour
     {
         box = GetComponent<BoxCollider2D>();
         rig = GetComponent<Rigidbody2D>();
-        enemies = GetComponent<EnemyTracker>();
         box.isTrigger = true;
         rig.isKinematic = true;
         screenSize.x = Vector2.Distance (Camera.main.ScreenToWorldPoint(new Vector2(0,0)),Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, 0))) * 0.5f;
@@ -51,32 +49,11 @@ public class CameraController : MonoBehaviour
         colliders = new System.Collections.Generic.Dictionary<string, Transform>();
     }
 
-    private void Update() {
-        if (!isCutscene && activated) {
-            if (!enemies.enemiesDefeated) enemies.CheckTimer();
-            else
-            {
-                Debug.Log(this.gameObject);
-                this.gameObject.SetActive(false);
-                MusicManager.Instance.HandleTrigger(false, FadeSpeed.normal, Area.Forest, musicVariantToReturnTo, FadeSpeed.normal);
-            }
-        }
-    }
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(transform.position, maxColliderSize);
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (isCutscene) return;
-        //Debug.Log("Trigger detected");
-        if (other.gameObject.CompareTag("Player"))
-        {
-            ActivateCamera();
-        }
     }
 
     public void ActivateCamera()
@@ -89,18 +66,40 @@ public class CameraController : MonoBehaviour
             CameraSwitcher.SwitchCamera(cam);
             Debug.Log("Camera Switched");
         }
-        if (!isCutscene && !edgesCreated)
+    }
+
+    public void FightingMusic()
+    {
+        CreateEdges();
+        musicVariantToReturnTo = MusicManager.Instance.getCurrentVariant();
+        MusicManager.Instance.HandleTrigger(false, FadeSpeed.normal, Area.Forest, 4, FadeSpeed.normal);
+    }
+
+    public void DeactivateCamera(CinemachineVirtualCamera cam)
+    {
+        _instance = this;
+        if (CameraSwitcher.ActiveCamera == cam)
         {
-            CreateEdges();
-            enemies.ActivateEnemies();
-            musicVariantToReturnTo = MusicManager.Instance.getCurrentVariant();
-            MusicManager.Instance.HandleTrigger(false, FadeSpeed.normal, Area.Forest, 4, FadeSpeed.normal);
+            CameraSwitcher.SwitchCamera(cam);
+            Debug.Log("Camera Switched");
+        }
+        this.gameObject.SetActive(false);
+        MusicManager.Instance.HandleTrigger(false, FadeSpeed.normal, Area.Forest, musicVariantToReturnTo, FadeSpeed.normal);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (!notPartOfStory) return;
+        //Debug.Log("Trigger detected");
+        if (other.gameObject.CompareTag("Player"))
+        {
+            ActivateCamera();
         }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Player") && isCutscene)
+        if (other.gameObject.CompareTag("Player") && notPartOfStory)
         {
             //Debug.Log("Player detected");
             CinemachineVirtualCamera playerCam = other.gameObject.GetComponentInParent<CinemachineVirtualCamera>();
@@ -116,7 +115,6 @@ public class CameraController : MonoBehaviour
             CameraSwitcher.SwitchCamera(playerCam);
             Debug.Log("Camera Switched");
         }
-        cutsceneComplete = true;
     }
 
     private void CreateEdges() {
@@ -144,9 +142,8 @@ public class CameraController : MonoBehaviour
     }
 
     public void ResetZone() {
-        if (!isCutscene) {
+        if (TryGetComponent<EnemyTracker>(out var enemies)) {
             enemies.ResetEnemies();
-            activated = false;
             edgesCreated = false;
             foreach (var c in colliders) {
                 Destroy(c.Value.gameObject);
@@ -154,8 +151,6 @@ public class CameraController : MonoBehaviour
             colliders.Clear();
             if (CameraSwitcher.ActiveCamera == cam) CameraSwitcher.SwitchCamera(GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<CinemachineVirtualCamera>());
         }
-        else {
-            activated = false;
-        }
+        activated = false;
     }
 }

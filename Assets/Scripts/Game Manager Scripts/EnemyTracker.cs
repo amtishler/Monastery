@@ -1,42 +1,34 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyTracker : MonoBehaviour
+public class EnemyTracker : StoryEvent
 {
     [SerializeField] private GameObject[] enemies;
-    [SerializeField] private float enemyCheck = 1f;
-    public bool enemiesDefeated = false;
+    private int enemiesLeft;
+    public bool EnemiesDefeated { get { return enemiesLeft <= 0; } }
 
-    private void Awake() {
-        GetComponent<CameraController>().isCutscene = false;
+    protected override void _Awake() {
+        enemiesLeft = enemies.Length;
         foreach (var e in enemies) {
             EnemyConfig enemy = e.GetComponent<EnemyConfig>();
+            enemy.RegisterTracker(this);
             if (enemy == null) Debug.LogError("Not a character");
             enemy.detectionradius = 0f;
         }
     }
 
-    private void CheckEnemies() {
-        int count = 0;
-        foreach (var e in enemies) {
-            CharacterConfig enemy = e.GetComponent<CharacterConfig>();
-            if (enemy == null) Debug.LogError("Not a character");
-            else if (!enemy.dead) break;
-            ++count;
-        }
-        if (count == enemies.Length) enemiesDefeated = true;
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (enemiesLeft <= 0 && previousEvent != null) return;
+        if (other.gameObject.CompareTag("Player")) BeginStoryEvent();
+        Debug.Log("here");
     }
 
-    public void CheckTimer() {
-        --enemyCheck;
-        if (enemyCheck <= 0f) {
-            CheckEnemies();
-            if(!enemiesDefeated) enemyCheck = 1f;
-        }
-    }
-
-    public void ActivateEnemies() {
+    public override void BeginStoryEvent() {
+        cameraController.ActivateCamera();
+        cameraController.FightingMusic();
         foreach (var e in enemies) {
             EnemyConfig enemy = e.GetComponent<EnemyConfig>();
             if (enemy == null) Debug.LogError("Not a character");
@@ -44,7 +36,21 @@ public class EnemyTracker : MonoBehaviour
         }
     }
 
+    public void DecreaseEnemies()
+    {
+        enemiesLeft--;
+        Debug.Log(enemiesLeft);
+        if (EnemiesDefeated)
+        {
+            CinemachineVirtualCamera cam = FindObjectOfType<PlayerConfig>().gameObject.GetComponent<CinemachineVirtualCamera>();
+            Debug.Log("false");
+            if (nextEvent != null) { Debug.Log("beginning next"); nextEvent.BeginStoryEvent(); }
+            GetComponent<CameraController>().DeactivateCamera(cam);
+        }
+    }
+
     public void ResetEnemies() {
+        enemiesLeft = enemies.Length;
         foreach (var e in enemies) {
             e.GetComponent<CharacterConfig>().Reset();
         }

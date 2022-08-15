@@ -35,7 +35,8 @@ public class EnemyConfig : CharacterConfig {
     private float cooldowntimer;
 
     public GameObject attackTriggerZone;
-    private EnemyAttackZone aggroZone; 
+    private EnemyAttackZone aggroZone;
+    [SerializeField] private EnemyTracker tracker;
 
     public GameObject target;
     public GameObject attackhitbox;
@@ -128,6 +129,17 @@ public class EnemyConfig : CharacterConfig {
     }
 
 
+    public void RegisterTracker(EnemyTracker tracker)
+    {
+        this.tracker = tracker;
+        Debug.Log(tracker == null);
+    }
+
+    public void KillInTracker()
+    {
+        if (tracker == null) return;
+        tracker.DecreaseEnemies();
+    }
 
     public void SetTarget(GameObject objtarget)
     {

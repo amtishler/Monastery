@@ -3,13 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cutscene : MonoBehaviour {
+public class Cutscene : StoryEvent {
 
     // Serialized Fields
     // [SerializeField] Vector2 playerPosition;
     [SerializeField] Trigger trigger;
-    [SerializeField] List<GameObject> enemies;
     [SerializeField] List<CutsceneEvent> cutsceneEvents = new List<CutsceneEvent>();
+    [SerializeField] GameObject combatEventTrigger;
 
     // Private Fields
     enum Trigger
@@ -20,35 +20,28 @@ public class Cutscene : MonoBehaviour {
     private PlayerConfig config;
     private bool running = false;
     private bool completed = false;
-    private int enemiesLeft;
 
 
-    void Awake() {
+    protected override void _Awake()
+    {
         config = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerConfig>();
-        enemiesLeft = enemies.Count;
-        foreach (GameObject enemy in enemies)
-        {
-            enemy.transform.parent = transform;
-        }
     }
 
     
     // Starts cutscene if enter zone
-    void OnTriggerEnter2D(Collider2D other) {
-        if (completed || trigger != 0) return;
-        if (other.gameObject.CompareTag("Player") && !running) {
-            StartCoroutine(StartCutscene());
-        }
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (running || completed || previousEvent != null) return;
+        if (other.gameObject.CompareTag("Player") && !running)
+            BeginStoryEvent();
     }
 
-
-    // Starts cutscene when all enemies die
-    public void EnemyDead()
+    
+    // For when enemies die
+    public override void BeginStoryEvent()
     {
-        if (completed) return;
-        enemiesLeft -= 1;
-        Debug.Log("dead");
-        if (enemiesLeft == 0) StartCoroutine(StartCutscene());
+        cameraController.ActivateCamera();
+        StartCoroutine(StartCutscene());
     }
 
 
@@ -68,5 +61,6 @@ public class Cutscene : MonoBehaviour {
         config.GetComponentInParent<PlayerStateMachine>().EndCutscene();
         completed = true;
         running=false;
+        if (nextEvent != null) nextEvent.BeginStoryEvent();
     }
 }
