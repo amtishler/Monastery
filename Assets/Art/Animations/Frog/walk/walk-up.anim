@@ -20,15 +20,23 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
+      value: {fileID: 21300000, guid: 50e75fe6b49bb004baa99effbdd3ae8f, type: 3}
+    - time: 0.1
       value: {fileID: 21300000, guid: f1900bc5cfdb5e44fa5b7dad2bbd1060, type: 3}
-    - time: 0.13333334
+    - time: 0.2
       value: {fileID: 21300000, guid: e2b694de54646e245af0176157ce9e07, type: 3}
-    - time: 0.26666668
+    - time: 0.3
       value: {fileID: 21300000, guid: 1213638a7be109c4fab6faf9a00d5a75, type: 3}
     - time: 0.4
       value: {fileID: 21300000, guid: eb8bf574964dbdb4da89b082cdbc36eb, type: 3}
-    - time: 0.53333336
-      value: {fileID: 21300000, guid: f1900bc5cfdb5e44fa5b7dad2bbd1060, type: 3}
+    - time: 0.5
+      value: {fileID: 21300000, guid: 81c07b112b5f9ae4dbfe24df2132739d, type: 3}
+    - time: 0.6
+      value: {fileID: 21300000, guid: 41f5caad86bf9374eb728c3b103f63d4, type: 3}
+    - time: 0.70000005
+      value: {fileID: 21300000, guid: 1bd7ec4c801cb0f41b8e0fe0030fb835, type: 3}
+    - time: 0.7833334
+      value: {fileID: 21300000, guid: 1bd7ec4c801cb0f41b8e0fe0030fb835, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -48,17 +56,21 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
+    - {fileID: 21300000, guid: 50e75fe6b49bb004baa99effbdd3ae8f, type: 3}
     - {fileID: 21300000, guid: f1900bc5cfdb5e44fa5b7dad2bbd1060, type: 3}
     - {fileID: 21300000, guid: e2b694de54646e245af0176157ce9e07, type: 3}
     - {fileID: 21300000, guid: 1213638a7be109c4fab6faf9a00d5a75, type: 3}
     - {fileID: 21300000, guid: eb8bf574964dbdb4da89b082cdbc36eb, type: 3}
-    - {fileID: 21300000, guid: f1900bc5cfdb5e44fa5b7dad2bbd1060, type: 3}
+    - {fileID: 21300000, guid: 81c07b112b5f9ae4dbfe24df2132739d, type: 3}
+    - {fileID: 21300000, guid: 41f5caad86bf9374eb728c3b103f63d4, type: 3}
+    - {fileID: 21300000, guid: 1bd7ec4c801cb0f41b8e0fe0030fb835, type: 3}
+    - {fileID: 21300000, guid: 1bd7ec4c801cb0f41b8e0fe0030fb835, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.55
+    m_StopTime: 0.8000001
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -78,14 +90,14 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.13333334
+  - time: 0.1
     functionName: PlaySFX
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 2
     messageOptions: 0
-  - time: 0.4
+  - time: 0.5
     functionName: PlaySFX
     data: 
     objectReferenceParameter: {fileID: 0}
