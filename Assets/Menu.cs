@@ -59,6 +59,7 @@ public class Menu : MonoBehaviour, IPointerEnterHandler
         foreach (var b in buttons) {
             if (b != backButton) b.transform.position = new Vector2(Screen.width/xTextPos, b.transform.position.y);
         }
+        EventSystem.current.firstSelectedGameObject = buttons[0].gameObject;
         EventSystem.current.SetSelectedGameObject(buttons[0].gameObject);
         if (highlightIcon != null) highlightIcon.gameObject.transform.position = new Vector2(buttons[0].transform.position.x - buttons[0].image.rectTransform.sizeDelta.x/1.5f, buttons[0].transform.position.y);
     }

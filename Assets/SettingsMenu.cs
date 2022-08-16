@@ -41,6 +41,8 @@ float volume;
 
     // Function to change volume
     public void SetVolume(float _volume) {
+        //The ApplySettings() method will actually change them, this just stores the changes
+        
         volume = _volume;
     }
 
