@@ -58,7 +58,6 @@ public class CameraController : MonoBehaviour
 
     public void ActivateCamera()
     {
-        Debug.Log("Player detected");
         _instance = this;
         activated = true;
         if (CameraSwitcher.ActiveCamera != cam)

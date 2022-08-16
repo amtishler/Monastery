@@ -64,6 +64,7 @@ public class PlayerIdleState : PlayerState {
     }
 
     public override void EnterState() {
+        Debug.Log("idle");
         config.grounded = true;
         tongue = config.tongue.GetComponent<TongueController>();
         config.playerAnimator.UpdateIdleAnimation();
@@ -552,6 +553,7 @@ public class PlayerMapOpenState : PlayerState
 {
     private GameObject telescopeImage;
     private BoxCollider2D hurtbox;
+    private Telescope telescope;
     public PlayerMapOpenState(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
     : base(config, currentContext, stateFactory){
         name = "PlayerMapOpen";
@@ -565,19 +567,26 @@ public class PlayerMapOpenState : PlayerState
         Debug.Log(telescopeImage);
         telescopeImage.SetActive(true);
         InputManager.Instance.TelescopeMap();
+
+        // Remember, if we continue this project, this function will only check one single telescope.
+        telescope = GameObject.FindObjectOfType<Telescope>();
     }
     public override void UpdateState()
     {
         CheckSwitchStates();
     }
-    public override void ExitState(){
-        
+    public override void ExitState()
+    {
         telescopeImage.SetActive(false);
         hurtbox.enabled = true;
         InputManager.Instance.CombatMap();
     }
     public override void CheckSwitchStates(){
-        if (InputManager.Instance.LeavePressed) SwitchStates(factory.Idle());
+        if (InputManager.Instance.LeavePressed)
+        {
+            SwitchStates(factory.Idle());
+            if (telescope != null) telescope.EndStoryEvent();
+        }
     }
 }
 

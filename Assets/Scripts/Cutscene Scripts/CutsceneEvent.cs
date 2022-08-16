@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 [System.Serializable]
 public class CutsceneEvent {
@@ -25,6 +26,7 @@ public class CutsceneEvent {
     [SerializeField] AnimationClip animationToPlay;
     [Header("Dialogue Boxes (again, can be blank)")]
     [SerializeField] bool displayTextBox = true;
+    [SerializeField] bool italicizeText;
     enum myEnum {
         topLeft,
         topRight,
@@ -84,6 +86,13 @@ public class CutsceneEvent {
 
         obTransform.position = mainCharacter.transform.position;
         ob.transform.SetParent(mainCharacter.transform);
+
+        // Italicizing
+        if (italicizeText)
+        {
+            TMP_Text tmpText = ob.GetComponentInChildren<TMP_Text>();
+            tmpText.fontStyle = FontStyles.Italic;
+        }
 
         foreach(string text in textBoxes) {
             yield return cutscene.StartCoroutine(ob.GetComponent<DialogueBox>().Run(text, textScrollSpeed));

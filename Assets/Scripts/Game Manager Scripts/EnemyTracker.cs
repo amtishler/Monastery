@@ -42,10 +42,12 @@ public class EnemyTracker : StoryEvent
         Debug.Log(enemiesLeft);
         if (EnemiesDefeated)
         {
+            Debug.Log("MINIBOSSDOWN");
             CinemachineVirtualCamera cam = FindObjectOfType<PlayerConfig>().gameObject.GetComponent<CinemachineVirtualCamera>();
             Debug.Log("false");
             if (nextEvent != null) { Debug.Log("beginning next"); nextEvent.BeginStoryEvent(); }
             GetComponent<CameraController>().DeactivateCamera(cam);
+            gameObject.SetActive(false);
         }
     }
 
