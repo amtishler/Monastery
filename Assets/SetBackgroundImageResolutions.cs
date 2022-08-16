@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SetImageResolutions : MonoBehaviour
+public class SetBackgroundImageResolutions : MonoBehaviour
 {
     private Image[] images;
 
     private void Awake() {
         images = GetComponentsInChildren<Image>();
         foreach (var i in images) {
-            i.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, Screen.width);
-            i.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, Screen.height);
+            i.rectTransform.sizeDelta = new Vector2(Screen.width, Screen.height);
+            i.rectTransform.position = new Vector2(Screen.width/2, Screen.height/2);
         }
     }
 }

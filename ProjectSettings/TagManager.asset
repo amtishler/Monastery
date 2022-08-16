@@ -10,6 +10,7 @@ TagManager:
   - Gamepad
   - Debug
   - Checkpoint
+  - Event
   layers:
   - Default
   - TransparentFX
