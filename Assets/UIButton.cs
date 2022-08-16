@@ -20,4 +20,14 @@ public class UIButton : MonoBehaviour
         UISFXManager.Instance.PlayMenuSFX(UISFX.selectOption);
     }
 
+    public void PlayEnterSubmenu()
+    {
+        UISFXManager.Instance.PlayMenuSFX(UISFX.enterSubMenu);
+    }
+
+    public void PlayExitSubmenu()
+    {
+        UISFXManager.Instance.PlayMenuSFX(UISFX.escapeSubMenu);
+    }
+
 }

@@ -11,7 +11,8 @@ public enum UISFX
     releaseSlider,
     escapeSubMenu,
     escapeMenu,
-    exitGame
+    exitGame,
+    enterSubMenu
 }
 
 public class UISFXManager : MonoBehaviour
@@ -39,7 +40,7 @@ public class UISFXManager : MonoBehaviour
         sfxList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/UI/Escape Menu/Exit Submenu"));
         sfxList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/UI/Escape Menu/Return to Game"));
         sfxList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/UI/Escape Menu/Return to Game"));
-
+        sfxList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/UI/Escape Menu/Enter Submenu"));
     }
 
 
