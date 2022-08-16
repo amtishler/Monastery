@@ -6,11 +6,18 @@ using UnityEngine.EventSystems;
 public class DeviceChange : MonoBehaviour
 {
     public bool usingController;
-    public GameObject lastButtonHighlighted;
     public void OnControlsChanged() {
         usingController = !usingController;
-        // Debug.Log(usingController);
-        if (usingController && lastButtonHighlighted.gameObject.activeInHierarchy) lastButtonHighlighted.GetComponentInParent<UnityEngine.UI.Button>().Select();
+        if (usingController) EventSystem.current.firstSelectedGameObject.GetComponent<UnityEngine.UI.Selectable>().Select();
         else EventSystem.current.SetSelectedGameObject(null);
     }
+
+    //Add sound for controller
+    // public void OnNavigate() {
+
+    // }
+
+    // public void OnSubmit() {
+
+    // }
 }

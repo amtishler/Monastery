@@ -46,29 +46,27 @@ public class Menu : MonoBehaviour, IPointerEnterHandler
     private void Awake()
     {
         mmm = GameObject.FindObjectOfType<MainMenuMusic>();
-        overlay = GameObject.Find("FadeOverlay").GetComponent<Image>();
+        if (GameObject.Find("FadeOverlay")) overlay = GameObject.Find("FadeOverlay").GetComponent<Image>();
 
-        loadingText.gameObject.SetActive(false);
-        overlay.gameObject.SetActive(false);
+        if (loadingText != null) loadingText.gameObject.SetActive(false);
+        if (overlay != null) overlay.gameObject.SetActive(false);
     }
 
     private void Start() {
         if (change == null) change = GameObject.FindGameObjectWithTag("Event").GetComponent<DeviceChange>();
         buttons = GetComponentsInChildren<UnityEngine.UI.Button>();
-        change.lastButtonHighlighted = buttons[0].gameObject;
-        Debug.Log(change.lastButtonHighlighted);
         if (backButton != null) backButton.transform.position = new Vector2(Screen.width - backButton.image.rectTransform.sizeDelta.x/2 - backButtonCornerBuffer, backButton.image.rectTransform.sizeDelta.y + backButtonCornerBuffer);
         foreach (var b in buttons) {
             if (b != backButton) b.transform.position = new Vector2(Screen.width/xTextPos, b.transform.position.y);
-
         }
         EventSystem.current.SetSelectedGameObject(buttons[0].gameObject);
-        highlightIcon.gameObject.transform.position = new Vector2(buttons[0].transform.position.x - buttons[0].image.rectTransform.sizeDelta.x/1.5f, buttons[0].transform.position.y);
+        if (highlightIcon != null) highlightIcon.gameObject.transform.position = new Vector2(buttons[0].transform.position.x - buttons[0].image.rectTransform.sizeDelta.x/1.5f, buttons[0].transform.position.y);
     }
 
     private void Update() {
-        if (change.usingController && EventSystem.current.currentSelectedGameObject != null) highlightIcon.gameObject.transform.position = new Vector2(highlightIcon.transform.position.x, EventSystem.current.currentSelectedGameObject.transform.position.y);
-
+        if (change.usingController && EventSystem.current.currentSelectedGameObject != null && highlightIcon != null) {
+            highlightIcon.gameObject.transform.position = new Vector2(highlightIcon.transform.position.x, EventSystem.current.currentSelectedGameObject.transform.position.y);
+        }
         if (fading)
         {
             overlayAlpha += .25f * Time.deltaTime;
@@ -83,9 +81,15 @@ public class Menu : MonoBehaviour, IPointerEnterHandler
 
     public void OnPointerEnter(PointerEventData eventData){
         EventSystem.current.SetSelectedGameObject(eventData.pointerEnter);
-        highlightIcon.gameObject.transform.position = new Vector2(highlightIcon.transform.position.x, eventData.pointerEnter.transform.position.y);
-        change.lastButtonHighlighted = eventData.pointerEnter;
-        // Debug.Log(EventSystem.current);
-        // Debug.Log(eventData.pointerEnter);
+        if (highlightIcon != null) highlightIcon.gameObject.transform.position = new Vector2(highlightIcon.transform.position.x, eventData.pointerEnter.transform.position.y);
+    }
+
+    public void ResetButtons() {
+        foreach (var b in buttons) {
+            if (b != backButton) b.transform.position = new Vector2(Screen.width/xTextPos, b.transform.position.y);
+        }
+        EventSystem.current.SetSelectedGameObject(buttons[0].gameObject);
+        EventSystem.current.firstSelectedGameObject = buttons[0].gameObject;
+        if (highlightIcon != null) highlightIcon.gameObject.transform.position = new Vector2(buttons[0].transform.position.x - buttons[0].image.rectTransform.sizeDelta.x/1.5f, buttons[0].transform.position.y);
     }
 }
