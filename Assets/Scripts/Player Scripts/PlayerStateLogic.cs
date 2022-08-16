@@ -65,7 +65,7 @@ public class PlayerIdleState : PlayerState {
 
     public override void EnterState() {
         Debug.Log("idle");
-        config.grounded = true;
+        // config.grounded = true;
         tongue = config.tongue.GetComponent<TongueController>();
         config.playerAnimator.UpdateIdleAnimation();
     }
@@ -79,7 +79,7 @@ public class PlayerIdleState : PlayerState {
     public override void ExitState() {}
 
     public override void CheckSwitchStates() {
-        // if(!config.grounded) SwitchStates(factory.Falling());
+        if(!config.grounded) SwitchStates(factory.Falling());
         if ((InputManager.Instance.TonguePressed && tongue.heldObject == null) || (!InputManager.Instance.TongueHeld && tongue.heldObject != null)) SwitchStates(factory.Tongue());
         if (InputManager.Instance.Move != Vector3.zero) SwitchStates(factory.Running());
         else if(tongue.heldObject == null) {
@@ -271,8 +271,7 @@ public class PlayerPullingState : PlayerState
     public override void ExitState()
     {
         tongue.UnGrab();
-        if (config.grounded) config.ResetCollision();
-        
+        if (config.grounded) config.ResetCollision();       
     }
 
     public override void CheckSwitchStates()
@@ -281,8 +280,8 @@ public class PlayerPullingState : PlayerState
         {
             config.tongue.SetActive(false);
             config.Velocity = Vector3.zero;
-            config.ResetCollision();
-            SwitchStates(factory.Idle());
+            if (!config.grounded) SwitchStates(factory.Falling());
+            else SwitchStates(factory.Idle());
         }
         if (!InputManager.Instance.TongueHeld)
         {
@@ -307,7 +306,6 @@ public class PlayerFlyingState : PlayerState
 
     public override void EnterState()
     {
-        config.grounded = true;
         tongue = config.tongue.GetComponent<TongueController>();
         tongue.RemovePlayerInputForce();
         deaccel = tongue.FlyingDeaccel;
