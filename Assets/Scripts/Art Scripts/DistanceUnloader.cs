@@ -13,7 +13,7 @@ public class DistanceUnloader : MonoBehaviour
     void Start()
     {
         sR = GetComponent<SpriteRenderer>();
-        player = GameObject.Find("Player");
+        player = GameObject.Find("MainCamera");
     }
 
     // Update is called once per frame

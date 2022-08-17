@@ -6,6 +6,11 @@
    <property name="Wall" type="bool" value="true"/>
   </properties>
  </tile>
+ <tile id="7">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="32" height="32"/>
+  </objectgroup>
+ </tile>
  <tile id="9">
   <objectgroup draworder="index" id="2">
    <object id="3" x="30.25" y="7.25">
@@ -30,6 +35,11 @@
    <property name="Wall" type="bool" value="true"/>
   </properties>
  </tile>
+ <tile id="15">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="32" height="32"/>
+  </objectgroup>
+ </tile>
  <tile id="17" probability="0.5">
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="32" height="32"/>
@@ -49,6 +59,11 @@
   <properties>
    <property name="Wall" type="bool" value="true"/>
   </properties>
+ </tile>
+ <tile id="23">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="32" height="32"/>
+  </objectgroup>
  </tile>
  <tile id="25">
   <objectgroup draworder="index" id="2">
