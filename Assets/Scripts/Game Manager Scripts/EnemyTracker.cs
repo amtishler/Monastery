@@ -23,7 +23,7 @@ public class EnemyTracker : StoryEvent
     {
         if (enemiesLeft <= 0 && previousEvent != null) return;
         if (other.gameObject.CompareTag("Player")) BeginStoryEvent();
-        Debug.Log("here");
+        // Debug.Log("here");
     }
 
     public override void BeginStoryEvent() {

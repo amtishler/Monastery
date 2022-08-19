@@ -10,6 +10,7 @@ public class CameraAim : MonoBehaviour
     private Gamepad gamepad;
 
     private Vector3 debugVec;
+    private bool gamePaused;
 
     [SerializeField] private float influence;
     [SerializeField] private GameObject player;
@@ -23,7 +24,9 @@ public class CameraAim : MonoBehaviour
         //Debug.DrawLine(Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()), player.transform.position, Color.blue);
         //Debug.DrawLine(gamepad.rightStick.ReadValue(), player.transform.position, Color.yellow);
         // Debug.Log(player.transform.localPosition);
-        if (cam.Priority == 10) {
+        if(Time.timeScale == 0) gamePaused = true;
+        else gamePaused = false;
+        if (cam.Priority == 10 && !gamePaused) {
             if (!InputManager.Instance.UsingController()) { 
                 cam.transform.localPosition = GetMouseInfluence();
             } else {

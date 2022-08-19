@@ -66,7 +66,7 @@ public class InputManager : MonoBehaviour{
     private Button debug;
     private Button leave;
     private Button interact;
-
+    private Button pause;
     private Button quit;
 
     // Getters & Setters
@@ -94,7 +94,8 @@ public class InputManager : MonoBehaviour{
     public bool LeaveHeld {get {return leave.Held;}}
     public bool InteractPressed {get {return interact.Pressed;}}
     public bool InteractHeld {get {return interact.Held;}}
-
+    public bool PausePressed {get {return pause.Pressed;}}
+    public bool PauseHeld {get {return pause.Held;}}
     public bool QuitPressed {get {return quit.Pressed;}}
     public bool QuitHeld {get {return quit.Held;}}
     
@@ -104,14 +105,19 @@ public class InputManager : MonoBehaviour{
 
     // On Start
     private void Awake() {
-        if (InputSystem.GetDevice<Gamepad>() != null) usingController = true;
-        else usingController = false;
-
         messages = GameManager.Instance.GetTutorialMessages();
         tutorialActive = messages.tutorial;
         
         config = GameObject.FindObjectOfType<PlayerConfig>();
         playerInput = GetComponentInParent<PlayerInput>();
+
+        if (playerInput.currentControlScheme == "Gamepad") {
+            usingController = true;
+            playerInput.SwitchCurrentControlScheme(InputSystem.GetDevice<Gamepad>());
+        }else { 
+            usingController = false;
+            playerInput.SwitchCurrentControlScheme(InputSystem.GetDevice<Keyboard>());
+        }
 
         move = Vector3.zero;
         aim = Vector3.zero;
@@ -123,6 +129,7 @@ public class InputManager : MonoBehaviour{
         debug = new Button();
         leave = new Button();
         interact = new Button();
+        pause = new Button();
         quit = new Button();
         advance = new Button();
         skip = new Button();
@@ -147,6 +154,7 @@ public class InputManager : MonoBehaviour{
         leave.Update();
         interact.Update();
         quit.Update();
+        pause.Update();
         //Debug.Log(ResetPressed);
     }
 
@@ -220,8 +228,13 @@ public class InputManager : MonoBehaviour{
         //inputText = "Turning on debug";
     }
 
-        private void OnQuit(InputValue value) {
+    private void OnQuit(InputValue value) {
         quit.SetValue(value.isPressed);
+        //inputText = "Quit app";
+    }
+
+    private void OnPause(InputValue value) {
+        pause.SetValue(value.isPressed);
         //inputText = "Quit app";
     }
 
@@ -248,18 +261,27 @@ public class InputManager : MonoBehaviour{
 
     public void CombatMap() {
         playerInput.SwitchCurrentActionMap("Combat");
+        Debug.Log("Switching to Combat Map");
     }
 
     public void CutsceneMap() {
         playerInput.SwitchCurrentActionMap("Cutscene");
+        Debug.Log("Switching to Cutscene Map");
     }
 
     public void TelescopeMap() {
         playerInput.SwitchCurrentActionMap("Telescope");
+        Debug.Log("Switching to Telescope Map");
     }
 
     public void DeathMap() {
         playerInput.SwitchCurrentActionMap("Death");
+        Debug.Log("Switching to Death Map");
+    }
+
+    public void PauseMap() {
+        playerInput.SwitchCurrentActionMap("Pause");
+        Debug.Log("Switching to Pause Map");
     }
 
     private void ChangeMessages() {

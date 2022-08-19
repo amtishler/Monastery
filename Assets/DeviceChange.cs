@@ -6,8 +6,9 @@ using UnityEngine.EventSystems;
 public class DeviceChange : MonoBehaviour
 {
     public bool usingController;
+
     public void OnControlsChanged() {
-        usingController = !usingController;
+        usingController = InputManager.Instance.UsingController();
         if (usingController) EventSystem.current.firstSelectedGameObject.GetComponent<UnityEngine.UI.Selectable>().Select();
         else EventSystem.current.SetSelectedGameObject(null);
     }

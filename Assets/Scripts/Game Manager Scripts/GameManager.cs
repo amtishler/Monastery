@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
 
     private RectTransform imageSize;
 
+    private GameObject settings;
+
     private float width;
     private float height;
     //Layers
@@ -53,14 +55,29 @@ public class GameManager : MonoBehaviour
         imageSize.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, Screen.width);
         imageSize.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, Screen.height);
         telescopeImage.gameObject.SetActive(false);
+
+        settings = GetComponentInChildren<Menu>().gameObject;
+        settings.SetActive(false);
     }
 
     private void Update()
     {
-        if(InputManager.Instance.QuitPressed) {
-            Application.Quit();
-            Debug.Log("Quit");
-        }
+        // if (InputManager.Instance.QuitPressed) {
+        //     Application.Quit();
+        //     Debug.Log("Quit");
+        // }
+        if (InputManager.Instance.PausePressed && !settings.activeInHierarchy) {
+            Debug.Log("Pause");
+            settings.SetActive(true);
+            InputManager.Instance.PauseMap();
+            Time.timeScale = 0;
+        } 
+        // else if (InputManager.Instance.PausePressed && settings.activeInHierarchy) {
+        //     Debug.Log("Unpause");
+        //     settings.SetActive(false);
+        //     InputManager.Instance.CombatMap();
+        //     Time.timeScale = 1;
+        // }
     }
 
     public void DamageCharacter(CharacterConfig character, float damage, float stun, Vector3 knockbackdir, float knockbackmag)

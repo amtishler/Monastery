@@ -15,6 +15,7 @@ public class Menu : MonoBehaviour, IPointerEnterHandler
     [SerializeField] private float xTextPos = 0;
     [SerializeField] private Image highlightIcon;
     [SerializeField] private DeviceChange change;
+    
 
     private float backButtonCornerBuffer = 20f;
 
@@ -82,6 +83,7 @@ public class Menu : MonoBehaviour, IPointerEnterHandler
 
     public void OnPointerEnter(PointerEventData eventData){
         EventSystem.current.SetSelectedGameObject(eventData.pointerEnter);
+        Debug.Log(eventData);
         if (highlightIcon != null) highlightIcon.gameObject.transform.position = new Vector2(highlightIcon.transform.position.x, eventData.pointerEnter.transform.position.y);
     }
 
@@ -92,5 +94,15 @@ public class Menu : MonoBehaviour, IPointerEnterHandler
         EventSystem.current.SetSelectedGameObject(buttons[0].gameObject);
         EventSystem.current.firstSelectedGameObject = buttons[0].gameObject;
         if (highlightIcon != null) highlightIcon.gameObject.transform.position = new Vector2(buttons[0].transform.position.x - buttons[0].image.rectTransform.sizeDelta.x/1.5f, buttons[0].transform.position.y);
+    }
+
+    public void ReturnToMenu() {
+        SceneManager.LoadScene(0);
+    }
+
+    public void ResumeGame() {
+        Debug.Log("Unpause");
+        InputManager.Instance.CombatMap();
+        Time.timeScale = 1;
     }
 }
