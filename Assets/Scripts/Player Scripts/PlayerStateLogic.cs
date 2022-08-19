@@ -65,7 +65,7 @@ public class PlayerIdleState : PlayerState {
 
     public override void EnterState() {
         Debug.Log("idle");
-        // config.grounded = true;
+        //config.grounded = true;
         tongue = config.tongue.GetComponent<TongueController>();
         config.playerAnimator.UpdateIdleAnimation();
     }
@@ -319,7 +319,7 @@ public class PlayerFlyingState : PlayerState
         // Everything else 
         NewPoint();
         if (config.tongue.activeInHierarchy) tongue.UpdateTongue();
-        if (tongue.IsFinished) { config.tongue.SetActive(false); }
+        if (tongue.IsFinished) config.tongue.SetActive(false);
         CheckSwitchStates();
 
         // buffering...
@@ -345,16 +345,11 @@ public class PlayerFlyingState : PlayerState
             else
             {
                 if (!config.grounded) SwitchStates(factory.Falling());
+                else if (buffer != null) SwitchStates(buffer);
                 else SwitchStates(factory.Running());
             }
         }
-        if (!config.tongue.activeInHierarchy)
-        {
-            if (buffer != null) SwitchStates(buffer);
-            if (!config.grounded) SwitchStates(factory.Falling());
-            if (config.Speed < config.MinimumSpeed) SwitchStates(factory.Running());
-        }
-        else if (config.Speed < config.MinimumSpeed) SwitchStates(factory.Tongue());
+        else if (!config.tongue.activeInHierarchy && config.grounded && buffer != null) SwitchStates(buffer);
     }
 }
 
@@ -656,6 +651,7 @@ public class PlayerFall : PlayerState
     }
 
     public override void EnterState(){
+        Debug.Log("hey ;)");
         _fallAnim = config.fallingAnimDuration;
         config.GetComponent<SpriteRenderer>().sortingLayerName = "Background";
 
@@ -680,6 +676,7 @@ public class PlayerFall : PlayerState
     }
     public override void ExitState(){
         config.GetComponent<SpriteRenderer>().sortingLayerName = "Player";
+        Debug.Log("exiting fall");
         config.ResetCollision();
 
         character.gravityScale = 0f;

@@ -64,8 +64,11 @@ public class PlayerConfig : CharacterConfig {
 
     public override void Reset()
     {
-        base.Reset();
         this.gameObject.transform.position = respawnPoint;
+        base.Reset();
+        Debug.Log("RESETTING");
+        GetComponent<SpriteRenderer>().sortingLayerName = "Player";
+        grounded = true;
     }
 
     public void ResetCollision() {
