@@ -125,7 +125,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.14, y: -0.22}
+  m_Offset: {x: 0.1026001, y: -0.15268707}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -136,7 +136,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.7, y: 3.01}
+  m_Size: {x: 2.2489014, y: 2.127365}
   m_EdgeRadius: 0
 --- !u!1 &1245101477447179942
 GameObject:
@@ -245,7 +245,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.21289062, y: 0.13}
+  m_Offset: {x: -0.17425537, y: -0.38167787}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -256,7 +256,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.76, y: 3.79}
+  m_Size: {x: 2.9649658, y: 2.6966443}
   m_EdgeRadius: 0
 --- !u!50 &1245101477447179943
 Rigidbody2D:
@@ -329,14 +329,14 @@ MonoBehaviour:
   acceleration: 3
   deacceleration: 2
   recoveryDeaccel: 0.5
-  maxHealth: 500
-  health: 500
-  maxStun: 50
+  maxHealth: 750
+  health: 750
+  maxStun: 250
   stun: 0
   stundecay: 1
-  faststundecay: 10
-  stundamagemultiplier: 10
-  invincibleduration: 2
+  faststundecay: 75
+  stundamagemultiplier: 1.5
+  invincibleduration: 0.1
   knockbackmultiplier: 0.1
   invincibletimer: 0
   fallDamage: 0
@@ -355,18 +355,18 @@ MonoBehaviour:
   waypointobject: {fileID: 0}
   waypoints: []
   currentisland: 0
-  islandwait: 3
+  islandwait: 3.5
   stoppingspeed: 2
-  retreatingspeed: 8
+  retreatingspeed: 12
   retreatdistance: 3
-  hitstoretreat: 2
+  hitstoretreat: 3
   islandspawncount: 2
   attacking: 0
   retreating: 0
   spitangles:
-  - -10
+  - -20
   - 0
-  - 10
+  - 20
   nextWaypointDistance: 2
 --- !u!114 &6067455552901711165
 MonoBehaviour:
