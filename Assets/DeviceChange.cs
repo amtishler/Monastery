@@ -5,12 +5,12 @@ using UnityEngine.EventSystems;
 
 public class DeviceChange : MonoBehaviour
 {
-    public bool usingController;
+    public bool usingController = false;
 
     public void OnControlsChanged() {
         usingController = !usingController;
         if (usingController) EventSystem.current.firstSelectedGameObject.GetComponent<UnityEngine.UI.Selectable>().Select();
-        else EventSystem.current.SetSelectedGameObject(null);
+        // else EventSystem.current.SetSelectedGameObject(null);
     }
 
     //Add sound for controller

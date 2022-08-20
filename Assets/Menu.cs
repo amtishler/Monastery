@@ -66,7 +66,7 @@ public class Menu : MonoBehaviour, IPointerEnterHandler
     }
 
     private void Update() {
-        if (change.usingController && EventSystem.current.currentSelectedGameObject != null && highlightIcon != null) {
+        if (EventSystem.current.currentSelectedGameObject != null && highlightIcon != null) {
             highlightIcon.gameObject.transform.position = new Vector2(highlightIcon.transform.position.x, EventSystem.current.currentSelectedGameObject.transform.position.y);
             Debug.Log("HERE 1");
         }
