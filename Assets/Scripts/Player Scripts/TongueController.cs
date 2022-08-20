@@ -374,6 +374,7 @@ public class TongueController : MonoBehaviour {
             if(holdinghealth != null)
             {
                 holdinghealth.Eat(config);
+                playerSFX.PlaySFX(PlayerFX.eatFruit);
                 holdingObject = false;
             }
             else

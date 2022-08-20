@@ -5,7 +5,7 @@
 			<value>Die</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>0</value>
 		</property>
 		<relationship name="folder">
 			<destination>{7aaefdbb-468f-4bd5-8119-9041ca821805}</destination>
@@ -90,8 +90,9 @@
 	<object class="MixerBusPanner" id="{3edecb04-aab0-4184-8f0a-61c7e5b7dec3}" />
 	<object class="MultiSound" id="{07b89365-0d0e-4273-a4c4-dc9a2242c351}">
 		<property name="length">
-			<value>0.1120894909688015</value>
+			<value>0.3046875</value>
 		</property>
+		<property name="name" />
 		<property name="pitch">
 			<value>-5</value>
 		</property>
@@ -102,7 +103,6 @@
 			<destination>{e578862b-3773-4960-9dc2-4d81ecf61539}</destination>
 		</relationship>
 		<relationship name="sounds">
-			<destination>{00e60da8-6ca4-4938-880f-164dc8bbb099}</destination>
 			<destination>{3e5280f8-72d2-471e-9312-1de717f006d5}</destination>
 		</relationship>
 	</object>
@@ -136,17 +136,6 @@
 			<destination>{cec6a6cd-c4fe-4f0d-b707-e0c76f80ec6f}</destination>
 		</relationship>
 	</object>
-	<object class="SingleSound" id="{00e60da8-6ca4-4938-880f-164dc8bbb099}">
-		<property name="volume">
-			<value>-8</value>
-		</property>
-		<property name="pitch">
-			<value>9.5</value>
-		</property>
-		<relationship name="audioFile">
-			<destination>{2159be16-d189-435d-b595-db5eb262a10b}</destination>
-		</relationship>
-	</object>
 	<object class="SingleSound" id="{3e5280f8-72d2-471e-9312-1de717f006d5}">
 		<property name="startOffset">
 			<value>4</value>
@@ -175,12 +164,12 @@
 			<value>1</value>
 		</property>
 		<property name="curveShape">
-			<value>-0.760267437</value>
+			<value>0.00769636035</value>
 		</property>
 	</object>
 	<object class="AutomationPoint" id="{cec6a6cd-c4fe-4f0d-b707-e0c76f80ec6f}">
 		<property name="position">
-			<value>0.1120894909688015</value>
+			<value>0.3046875</value>
 		</property>
 		<property name="value">
 			<value>0</value>

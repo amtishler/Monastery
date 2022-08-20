@@ -68,6 +68,7 @@ public class Menu : MonoBehaviour, IPointerEnterHandler
     private void Update() {
         if (change.usingController && EventSystem.current.currentSelectedGameObject != null && highlightIcon != null) {
             highlightIcon.gameObject.transform.position = new Vector2(highlightIcon.transform.position.x, EventSystem.current.currentSelectedGameObject.transform.position.y);
+            Debug.Log("HERE 1");
         }
         if (fading)
         {
@@ -84,7 +85,11 @@ public class Menu : MonoBehaviour, IPointerEnterHandler
     public void OnPointerEnter(PointerEventData eventData){
         EventSystem.current.SetSelectedGameObject(eventData.pointerEnter);
         Debug.Log(eventData);
-        if (highlightIcon != null) highlightIcon.gameObject.transform.position = new Vector2(highlightIcon.transform.position.x, eventData.pointerEnter.transform.position.y);
+        if (highlightIcon != null)
+        {
+            highlightIcon.gameObject.transform.position = new Vector2(highlightIcon.transform.position.x, eventData.pointerEnter.transform.position.y);
+            Debug.Log("HERE 2");
+        }
     }
 
     public void ResetButtons() {
@@ -93,7 +98,11 @@ public class Menu : MonoBehaviour, IPointerEnterHandler
         }
         EventSystem.current.SetSelectedGameObject(buttons[0].gameObject);
         EventSystem.current.firstSelectedGameObject = buttons[0].gameObject;
-        if (highlightIcon != null) highlightIcon.gameObject.transform.position = new Vector2(buttons[0].transform.position.x - buttons[0].image.rectTransform.sizeDelta.x/1.5f, buttons[0].transform.position.y);
+        if (highlightIcon != null)
+        {
+            highlightIcon.gameObject.transform.position = new Vector2(buttons[0].transform.position.x - buttons[0].image.rectTransform.sizeDelta.x / 1.5f, buttons[0].transform.position.y);
+            Debug.Log("HERE 3");
+        }
     }
 
     public void ReturnToMenu() {

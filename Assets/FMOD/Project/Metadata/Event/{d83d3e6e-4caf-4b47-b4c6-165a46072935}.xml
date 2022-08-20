@@ -102,6 +102,7 @@
 		<property name="length">
 			<value>3.3185729166666667</value>
 		</property>
+		<property name="name" />
 		<property name="pitch">
 			<value>4.5</value>
 		</property>

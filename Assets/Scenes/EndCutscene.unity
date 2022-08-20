@@ -603,7 +603,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4becc11ee77f0b34e9d52e431ea95d89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicEvent: event:/Music/End Cutscene Music
+  musicEvent: event:/Music/EndMusic
   fadeOut: 0
 --- !u!4 &721835933
 Transform:

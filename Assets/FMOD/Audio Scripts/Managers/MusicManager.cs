@@ -149,6 +149,7 @@ public class MusicManager : MonoBehaviour
         debugTexts[2] = currentVariantVolume.ToString();
         debugTexts[3] = oldVariantVolume.ToString();
 
+        Debug.Log(debugTexts[2]);
 
     }
 
