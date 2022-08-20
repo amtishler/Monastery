@@ -8,7 +8,7 @@ using TMPro;
 
 
 
-public class Menu : MonoBehaviour, IPointerEnterHandler
+public class Menu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private UnityEngine.UI.Button[] buttons;
     [SerializeField] private UnityEngine.UI.Button backButton;
@@ -90,6 +90,11 @@ public class Menu : MonoBehaviour, IPointerEnterHandler
             highlightIcon.gameObject.transform.position = new Vector2(highlightIcon.transform.position.x, eventData.pointerEnter.transform.position.y);
             Debug.Log("HERE 2");
         }
+    }
+
+    public void OnPointerExit(PointerEventData eventData) {
+        UnityEngine.UI.Button selectedButton = eventData.pointerEnter.gameObject.GetComponentInParent<UnityEngine.UI.Button>();
+        if (selectedButton != null) selectedButton.Select();
     }
 
     public void ResetButtons() {

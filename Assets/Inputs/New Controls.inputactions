@@ -1062,7 +1062,7 @@
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard&Mouse",
+                    "groups": "Keyboard&Mouse;Keyboard & Mouse",
                     "action": "Click",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -1102,6 +1102,17 @@
                 },
                 {
                     "name": "",
+                    "id": "807f21b9-26e2-4488-aed3-ca3db9428a2a",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "428435ce-99a5-4f9a-adce-0475d9ecc5ec",
                     "path": "<Mouse>/scroll",
                     "interactions": "",
@@ -1128,7 +1139,7 @@
                     "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard&Mouse",
+                    "groups": "Keyboard&Mouse;Keyboard & Mouse",
                     "action": "RightClick",
                     "isComposite": false,
                     "isPartOfComposite": false

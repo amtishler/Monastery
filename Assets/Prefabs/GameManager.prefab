@@ -705,7 +705,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2287,6 +2287,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1540783641167505646, guid: 8218221aeb386324b8b8f486eb1a2a4f, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1540783641578094604, guid: 8218221aeb386324b8b8f486eb1a2a4f, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -2329,6 +2333,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9044877692189135280}
     m_Modifications:
+    - target: {fileID: 8424158587558477231, guid: f95851ed0bbaa024e820524f6dc34c55, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8424158587841662302, guid: f95851ed0bbaa024e820524f6dc34c55, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8424158587859935089, guid: f95851ed0bbaa024e820524f6dc34c55, type: 3}
       propertyPath: m_IsActive
       value: 1
