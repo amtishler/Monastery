@@ -99,16 +99,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a632ac0871dac964f8f7f381e35d96d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 0}
   worldBounds:
     serializedVersion: 2
-    x: -42.61
-    y: -62.7
-    width: 263.6
-    height: 199.8
-  clouds: {fileID: 3779420985193264235}
-  moveSpeed: 5
+    x: -50
+    y: -70
+    width: 880
+    height: 310
+  clouds: {fileID: 0}
+  moveSpeed: 1
   depthMultiplier: 1
+  defaultCam: {fileID: 0}
 --- !u!95 &3779420986276364771
 Animator:
   serializedVersion: 4
@@ -190,11 +190,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 52d35150c9b92464ab992f5378bfb8a1, type: 3}
---- !u!1 &3779420985193264235 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2145606132792301350, guid: 52d35150c9b92464ab992f5378bfb8a1, type: 3}
-  m_PrefabInstance: {fileID: 3005460284227052365}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3779420985193264238 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2145606132792301347, guid: 52d35150c9b92464ab992f5378bfb8a1, type: 3}
