@@ -219,6 +219,7 @@ public class EnemyConfig : CharacterConfig {
     public override void Reset()
     {
         base.Reset();
+        target = null;
         this.gameObject.transform.position = respawnPoint;
         EnemyStateMachine sm = this.gameObject.GetComponent<EnemyStateMachine>();
         if (sm != null) {
