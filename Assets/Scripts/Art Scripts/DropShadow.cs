@@ -19,6 +19,7 @@ public class DropShadow : MonoBehaviour
         shadowGO.transform.SetParent(grid.transform, false);
         shadowGO.transform.position = shadowGO.transform.position + offset;
         shadowGO.GetComponent<TilemapRenderer>().material = shadowMat;
+        shadowGO.GetComponent<TilemapRenderer>().sortingOrder = original.GetComponent<TilemapRenderer>().sortingOrder - 1;
         shadowGO.name = original.name + "_shadow";
         plantsGO.SetActive(true);
     }
