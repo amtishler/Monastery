@@ -285,6 +285,7 @@ public class PlayerPullingState : PlayerState
         }
         if (!InputManager.Instance.TongueHeld)
         {
+            if (config.grounded) SwitchStates(factory.Falling());
             SwitchStates(factory.Flying());
         }
     }
