@@ -33,6 +33,8 @@ public class AmbienceManager : MonoBehaviour
     [SerializeField]
     private float fadeInRate;
 
+    bool noCurrentEvent = true;
+
 
     private static AmbienceManager _instance;
     public static AmbienceManager Instance //Singleton Stuff
@@ -45,6 +47,7 @@ public class AmbienceManager : MonoBehaviour
 
     private void Awake()
     {
+
         _instance = this;
 
         ambienceList.Add(FMODUnity.RuntimeManager.CreateInstance("event:/AreaAmbiences/Forest"));
@@ -54,6 +57,12 @@ public class AmbienceManager : MonoBehaviour
 
         currentVolume = 0;
         oldVolume = 0;
+    }
+
+    private void Start()
+    {
+        DontDestroyOnLoad(this.gameObject);
+
     }
 
     private void Update()
@@ -70,9 +79,10 @@ public class AmbienceManager : MonoBehaviour
                 oldVolume -= fadeOutRate * Time.deltaTime;
                 oldEvent.setParameterByName("MasterVol", oldVolume);
                 continueFading = true;
+                Debug.Log(oldVolume);
             }
 
-            if (currentVolume < 1 && currentAreaAmbience != AreaAmbience.none)
+            if (currentVolume < 1 && currentAreaAmbience != AreaAmbience.none && !noCurrentEvent)
             {
                 currentVolume += fadeInRate * Time.deltaTime;
                 currentEvent.setParameterByName("MasterVol", currentVolume);
@@ -104,6 +114,8 @@ public class AmbienceManager : MonoBehaviour
             oldEvent = currentEvent;
             oldVolume = currentVolume;
 
+            oldEvent.setParameterByName("MasterVol", oldVolume);
+
             currentAreaAmbience = AreaAmbience.none;
             currentEvent = new FMOD.Studio.EventInstance();
             currentVolume = 0;
@@ -111,6 +123,8 @@ public class AmbienceManager : MonoBehaviour
 
         else
         {
+            noCurrentEvent = false;
+
             transitioning = true;
 
             oldAreaAmbience = currentAreaAmbience;
@@ -135,6 +149,10 @@ public class AmbienceManager : MonoBehaviour
 
     }
 
+    public void StopAmbience()
+    {
+        HandleTrigger(AreaAmbience.none);
+    }
 
 
 }

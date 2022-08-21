@@ -238,6 +238,11 @@ public class InputManager : MonoBehaviour{
         //inputText = "Quit app";
     }
 
+    private void OnHardReset(InputValue value)
+    {
+        config.Reset();
+    }
+
     // Helper functions if needed
     public Vector3 GetMouseDirection() {
         Vector3 mouse = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());

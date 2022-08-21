@@ -368,7 +368,6 @@ GameObject:
   - component: {fileID: 39500446}
   - component: {fileID: 39500445}
   - component: {fileID: 39500449}
-  - component: {fileID: 39500450}
   m_Layer: 5
   m_Name: Credits
   m_TagString: Untagged
@@ -477,6 +476,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 39500449}
+        m_TargetAssemblyTypeName: UIButton, Assembly-CSharp
+        m_MethodName: PlaySelect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &39500446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -527,51 +538,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60e7d76de09f48947b0e068e21707298, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &39500450
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 39500443}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1126391056}
-          m_TargetAssemblyTypeName: UIButton, Assembly-CSharp
-          m_MethodName: PlayMouseOver
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 4
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1126391056}
-          m_TargetAssemblyTypeName: UIButton, Assembly-CSharp
-          m_MethodName: PlaySelect
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!1 &96185236
 GameObject:
   m_ObjectHideFlags: 0
@@ -661,7 +627,6 @@ GameObject:
   - component: {fileID: 102983391}
   - component: {fileID: 102983390}
   - component: {fileID: 102983394}
-  - component: {fileID: 102983395}
   m_Layer: 5
   m_Name: Quit
   m_TagString: Untagged
@@ -746,6 +711,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 102983394}
+        m_TargetAssemblyTypeName: UIButton, Assembly-CSharp
+        m_MethodName: PlaySelect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &102983391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -796,51 +773,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60e7d76de09f48947b0e068e21707298, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &102983395
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 102983388}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1126391056}
-          m_TargetAssemblyTypeName: UIButton, Assembly-CSharp
-          m_MethodName: PlayMouseOver
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 4
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1126391056}
-          m_TargetAssemblyTypeName: UIButton, Assembly-CSharp
-          m_MethodName: PlaySelect
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!1 &120318904
 GameObject:
   m_ObjectHideFlags: 0
@@ -1598,7 +1530,6 @@ GameObject:
   - component: {fileID: 313136890}
   - component: {fileID: 313136889}
   - component: {fileID: 313136893}
-  - component: {fileID: 313136894}
   m_Layer: 5
   m_Name: Settings
   m_TagString: Untagged
@@ -1707,6 +1638,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 313136893}
+        m_TargetAssemblyTypeName: UIButton, Assembly-CSharp
+        m_MethodName: PlaySelect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &313136890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1757,51 +1700,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60e7d76de09f48947b0e068e21707298, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &313136894
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 313136887}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1126391056}
-          m_TargetAssemblyTypeName: UIButton, Assembly-CSharp
-          m_MethodName: PlayMouseOver
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 4
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1126391056}
-          m_TargetAssemblyTypeName: UIButton, Assembly-CSharp
-          m_MethodName: PlayEnterSubmenu
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!1 &313377227
 GameObject:
   m_ObjectHideFlags: 0
@@ -1852,6 +1750,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b98356404ed0d0a439d2ee31ea2fe38f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  volumeSlider: {fileID: 0}
   buttons: []
   backButton: {fileID: 0}
   xTextPos: 6
@@ -2717,6 +2616,18 @@ MonoBehaviour:
       - m_Target: {fileID: 313136889}
         m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
         m_MethodName: Select
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 313377229}
+        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
+        m_MethodName: ResetButtons
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3884,7 +3795,6 @@ GameObject:
   - component: {fileID: 1126391054}
   - component: {fileID: 1126391053}
   - component: {fileID: 1126391056}
-  - component: {fileID: 1126391057}
   m_Layer: 5
   m_Name: NewGame
   m_TagString: Untagged
@@ -3969,6 +3879,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1126391056}
+        m_TargetAssemblyTypeName: UIButton, Assembly-CSharp
+        m_MethodName: PlayEnterMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1126391054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4019,51 +3941,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60e7d76de09f48947b0e068e21707298, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1126391057
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1126391051}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1126391056}
-          m_TargetAssemblyTypeName: UIButton, Assembly-CSharp
-          m_MethodName: PlayMouseOver
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 4
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1126391056}
-          m_TargetAssemblyTypeName: UIButton, Assembly-CSharp
-          m_MethodName: PlaySelect
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!1 &1131869921
 GameObject:
   m_ObjectHideFlags: 0
@@ -5678,6 +5555,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b98356404ed0d0a439d2ee31ea2fe38f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  volumeSlider: {fileID: 0}
   buttons: []
   backButton: {fileID: 272815199}
   xTextPos: 1

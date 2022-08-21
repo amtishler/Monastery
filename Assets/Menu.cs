@@ -10,6 +10,16 @@ using TMPro;
 
 public class Menu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    private FMOD.Studio.EventInstance mouseOver;
+    private FMOD.Studio.EventInstance select;
+
+    public Slider volumeSlider;
+    FMOD.Studio.Bus masterBus;
+
+    [Range(-80f, 10f)]
+    private float busVolume;
+
+
     [SerializeField] private UnityEngine.UI.Button[] buttons;
     [SerializeField] private UnityEngine.UI.Button backButton;
     [SerializeField] private float xTextPos = 0;
@@ -24,6 +34,8 @@ public class Menu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     Image overlay;
     public TextMeshProUGUI loadingText;
     float overlayAlpha = 0f;
+
+    private Vector2 oldPointerPos = new Vector2();
 
     public void PlayGame() {
         Debug.Log("Play");
@@ -51,6 +63,11 @@ public class Menu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         if (loadingText != null) loadingText.gameObject.SetActive(false);
         if (overlay != null) overlay.gameObject.SetActive(false);
+
+        mouseOver = FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/UI/Escape Menu/Hover Over");
+        select = FMODUnity.RuntimeManager.CreateInstance("event:/TriggeredSFX/UI/Escape Menu/Select");
+
+        masterBus = FMODUnity.RuntimeManager.GetBus("bus:/");
     }
 
     private void Start() {
@@ -67,8 +84,27 @@ public class Menu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     private void Update() {
         if (EventSystem.current.currentSelectedGameObject != null && highlightIcon != null) {
-            highlightIcon.gameObject.transform.position = new Vector2(highlightIcon.transform.position.x, EventSystem.current.currentSelectedGameObject.transform.position.y);
-            Debug.Log("HERE 1");
+
+            Vector2 toComp = new Vector2(highlightIcon.transform.position.x, EventSystem.current.currentSelectedGameObject.transform.position.y);
+            if (oldPointerPos != toComp)
+            {
+                highlightIcon.gameObject.transform.position = new Vector2(highlightIcon.transform.position.x, EventSystem.current.currentSelectedGameObject.transform.position.y);
+                mouseOver.start();
+                oldPointerPos = toComp;
+            }
+            
+            
+            /*Vector3 original = highlightIcon.gameObject.transform.position;
+            Vector2 updated = new Vector2(original.x, original.y);
+            Vector2 toComp = new Vector2(highlightIcon.transform.position.x, EventSystem.current.currentSelectedGameObject.transform.position.y);
+
+            if (updated != toComp)
+            {
+                highlightIcon.gameObject.transform.position = new Vector2(highlightIcon.transform.position.x, EventSystem.current.currentSelectedGameObject.transform.position.y);
+                Debug.Log("YES GOOD");
+            }*/
+
+            //Debug.Log("HERE 1");
         }
         if (fading)
         {
@@ -118,5 +154,12 @@ public class Menu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         Debug.Log("Unpause");
         InputManager.Instance.CombatMap();
         Time.timeScale = 1;
+    }
+
+    public void SetVolume()
+    {
+        float val = Mathf.Pow(10.0f, volumeSlider.value / 20.0f);
+        masterBus.setVolume(val);
+        Debug.Log("Updated vol: " + volumeSlider.value);
     }
 }

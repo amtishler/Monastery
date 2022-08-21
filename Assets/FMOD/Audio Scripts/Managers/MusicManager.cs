@@ -148,9 +148,6 @@ public class MusicManager : MonoBehaviour
         debugTexts[1] = currentVariant.ToString();
         debugTexts[2] = currentVariantVolume.ToString();
         debugTexts[3] = oldVariantVolume.ToString();
-
-        Debug.Log(debugTexts[2]);
-
     }
 
     public void HandleTrigger(bool stopMusic, FadeSpeed masterFadeRate, Area area, int variantIndex, FadeSpeed variantFadeRate)
