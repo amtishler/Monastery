@@ -12,8 +12,8 @@ public class SetMenuPosition : MonoBehaviour
     [SerializeField] private float menuY = 0f;
 
     [Header("Number Divides ScreenSize")]
-    [SerializeField] private float menuPosX = 0f;
-    [SerializeField] private float menuPosY = 0f;
+    [SerializeField] private float menuPosX = 1f;
+    [SerializeField] private float menuPosY = 1f;
     [SerializeField] public bool debug = false;
 
     private void Awake() {
