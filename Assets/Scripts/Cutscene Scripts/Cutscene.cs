@@ -24,7 +24,7 @@ public class Cutscene : StoryEvent {
 
     protected override void _Awake()
     {
-        config = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerConfig>();
+        config = GameObject.FindObjectOfType<PlayerConfig>();
     }
 
     
