@@ -41,11 +41,16 @@ public class Cutscene : StoryEvent {
     public override void BeginStoryEvent()
     {
         cameraController.ActivateCamera();
+        Debug.Log("activated camera");
+        Debug.LogError("Activated Camera (error)");
+
         StartCoroutine(StartCutscene());
     }
 
 
     IEnumerator StartCutscene() {
+        Debug.Log("started cutscene");
+        Debug.LogError("Started Cutscene (error)");
         running = true;
         config.GetComponentInParent<PlayerStateMachine>().BeginCutscene();
         GetComponent<CameraController>().ActivateCamera();
