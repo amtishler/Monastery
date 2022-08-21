@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FlyStateMachine : StateMachine
 {
-    FlyStateFactory states;
+    public FlyStateFactory states;
     FlyConfig config;
     void Start()
     {
