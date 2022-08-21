@@ -329,8 +329,8 @@ MonoBehaviour:
   acceleration: 3
   deacceleration: 2
   recoveryDeaccel: 0.5
-  maxHealth: 750
-  health: 750
+  maxHealth: 1250
+  health: 1250
   maxStun: 250
   stun: 0
   stundecay: 1
@@ -364,9 +364,9 @@ MonoBehaviour:
   attacking: 0
   retreating: 0
   spitangles:
-  - -20
+  - -25
   - 0
-  - 20
+  - 25
   nextWaypointDistance: 2
 --- !u!114 &6067455552901711165
 MonoBehaviour:
@@ -489,6 +489,10 @@ PrefabInstance:
     - target: {fileID: 1862892636169637043, guid: b4ef2b226abbd934081374648179806d, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -0.8533341
+      objectReference: {fileID: 0}
+    - target: {fileID: 3330137312886182326, guid: b4ef2b226abbd934081374648179806d, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4047989620797833219, guid: b4ef2b226abbd934081374648179806d, type: 3}
       propertyPath: m_AnchoredPosition.x
