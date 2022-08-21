@@ -66,6 +66,6 @@ public class PlayerStateFactory : StateFactory
     }
     public State Falling()
     {
-        return new PlayerFall(config, context, this);
+        return new PlayerFallState(config, context, this);
     }
 }

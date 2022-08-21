@@ -127,11 +127,7 @@ public class TongueController : MonoBehaviour {
 
         if (shouldUpdate) transform.position = nextPos;
         ResizeTongueBody();
-        if (!IsFinished)
-        {
-            IsFinished = CheckIfFinished();
-            if (IsFinished) config.Velocity = Vector3.zero;
-        }
+        if (!IsFinished) IsFinished = CheckIfFinished();
         prevPos = transform.position;
         currentRayCastBuffer += Time.deltaTime;
     }

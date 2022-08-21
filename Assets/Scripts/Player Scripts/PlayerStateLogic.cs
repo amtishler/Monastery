@@ -283,10 +283,10 @@ public class PlayerPullingState : PlayerState
             if (!config.grounded) SwitchStates(factory.Falling());
             else SwitchStates(factory.Idle());
         }
-        if (!InputManager.Instance.TongueHeld)
+        else if (!InputManager.Instance.TongueHeld)
         {
-            if (!config.grounded) SwitchStates(factory.Falling());
-            SwitchStates(factory.Flying());
+            if (!config.grounded && config.Speed < config.MinimumSpeed)  SwitchStates(factory.Falling());
+            else SwitchStates(factory.Flying());
         }
     }
 }
@@ -316,7 +316,7 @@ public class PlayerFlyingState : PlayerState
     {
         // Movement updates
         config.Velocity -= config.Velocity.normalized*deaccel;
-        if (config.IsTouchingWall) config.Velocity *= 0.25f;
+        if (config.IsTouchingWall)  config.Velocity *= 0.25f;
         // Everything else 
         NewPoint();
         if (config.tongue.activeInHierarchy) tongue.UpdateTongue();
@@ -341,17 +341,12 @@ public class PlayerFlyingState : PlayerState
         if (!config.grounded) SwitchStates(factory.Falling());
         if (config.Speed < config.MinimumSpeed || InputManager.Instance.Move != Vector3.zero)
         {
-            if (config.tongue.activeInHierarchy)
-            {
-                SwitchStates(factory.Tongue());
-            }
-            else
-            {
-                if (buffer != null) SwitchStates(buffer);
-                else SwitchStates(factory.Running());
-            }
+            if (!config.grounded) SwitchStates(factory.Falling());
+            else if (config.tongue.activeInHierarchy) SwitchStates(factory.Tongue());
+            else if (buffer != null) SwitchStates(buffer);
+            else SwitchStates(factory.Running());
         }
-        else if (!config.tongue.activeInHierarchy && config.grounded && buffer != null) SwitchStates(buffer);
+        else if (!config.tongue.activeInHierarchy && config.grounded && buffer != null) { Debug.Log("buffer from fly (2nd block)"); SwitchStates(buffer); }
     }
 }
 
@@ -639,7 +634,7 @@ public class PlayerCutsceneState : PlayerState
 }
 
 // Falling
-public class PlayerFall : PlayerState
+public class PlayerFallState : PlayerState
 {
     private float _fallAnim;
     private Rigidbody2D character;
@@ -647,7 +642,7 @@ public class PlayerFall : PlayerState
     private WallCollider wallCollider;
     private CinemachineVirtualCamera cam;
     private Vector3 offset;
-    public PlayerFall(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
+    public PlayerFallState(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
     : base(config, currentContext, stateFactory){
         name = "PlayerFall";
     }
@@ -671,6 +666,7 @@ public class PlayerFall : PlayerState
         config.SlowDown(config.Deacceleration);
     }
     public override void UpdateState(){
+        Debug.Log("updatefalll");
         _fallAnim -= Time.deltaTime;
         offset.y += Time.deltaTime*config.gravity*2;
         cam.GetComponent<CinemachineCameraOffset>().m_Offset = offset;
