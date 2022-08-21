@@ -285,7 +285,7 @@ public class PlayerPullingState : PlayerState
         }
         if (!InputManager.Instance.TongueHeld)
         {
-            if (config.grounded) SwitchStates(factory.Falling());
+            if (!config.grounded) SwitchStates(factory.Falling());
             SwitchStates(factory.Flying());
         }
     }
@@ -328,6 +328,7 @@ public class PlayerFlyingState : PlayerState
         if (InputManager.Instance.TonguePressed) buffer = factory.Tongue();
         if (InputManager.Instance.KickHeld) buffer = factory.KickCharge();
         if (InputManager.Instance.Move != Vector3.zero) buffer = factory.Running();
+        if (!config.grounded) buffer = factory.Falling();
     }
 
     public override void ExitState()
@@ -337,6 +338,7 @@ public class PlayerFlyingState : PlayerState
 
     public override void CheckSwitchStates()
     {
+        if (!config.grounded) SwitchStates(factory.Falling());
         if (config.Speed < config.MinimumSpeed || InputManager.Instance.Move != Vector3.zero)
         {
             if (config.tongue.activeInHierarchy)
@@ -345,8 +347,7 @@ public class PlayerFlyingState : PlayerState
             }
             else
             {
-                if (!config.grounded) SwitchStates(factory.Falling());
-                else if (buffer != null) SwitchStates(buffer);
+                if (buffer != null) SwitchStates(buffer);
                 else SwitchStates(factory.Running());
             }
         }
