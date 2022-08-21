@@ -262,7 +262,7 @@ public class PlayerPullingState : PlayerState
     public override void UpdateState()
     {
         NewPoint();
-        tongue.PullPlayer();
+        if (!tongue.IsFinished) tongue.PullPlayer();
         config.RotateSprite(tongue.Direction);
         config.playerAnimator.UpdateIdleAnimation();
         CheckSwitchStates();
