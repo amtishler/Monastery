@@ -66,13 +66,13 @@ public class PlayerConfig : CharacterConfig {
     {
         this.gameObject.transform.position = respawnPoint;
         base.Reset();
-        Debug.Log("RESETTING");
+        // Debug.Log("RESETTING");
         GetComponent<SpriteRenderer>().sortingLayerName = "Player";
         grounded = true;
     }
 
     public void ResetCollision() {
-        Debug.Log("Reset Colliders");
+        // Debug.Log("Reset Colliders");
         Collider2D[] colliders = this.gameObject.GetComponentsInChildren<Collider2D>();
         foreach (Collider2D c in colliders) {
             if (!c.enabled) c.enabled = true;

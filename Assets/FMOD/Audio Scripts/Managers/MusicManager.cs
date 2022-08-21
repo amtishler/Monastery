@@ -181,7 +181,7 @@ public class MusicManager : MonoBehaviour
     {
         // This function fades out the MASTER VOLUME of an event, leaving the individual tracks alone
 
-        Debug.Log("Fading out");
+        // Debug.Log("Fading out");
 
         areaTransitioning = true;
 
@@ -202,7 +202,7 @@ public class MusicManager : MonoBehaviour
     private void BeginFadeToNewArea(MusicTrigger trigger)
     {
 
-        Debug.Log("Fading to new area: " + trigger.area.ToString());
+        // Debug.Log("Fading to new area: " + trigger.area.ToString());
 
         // Will only be executed if areas are different. No need for verification
 
@@ -240,7 +240,7 @@ public class MusicManager : MonoBehaviour
 
     private void BeginFadeToVariant(MusicTrigger trigger)
     {
-        Debug.Log("Fading in variant " + trigger.variant + " and fading out variant " + currentVariant);
+        // Debug.Log("Fading in variant " + trigger.variant + " and fading out variant " + currentVariant);
 
         // Reassign Variables
         variantTransitioning = true;

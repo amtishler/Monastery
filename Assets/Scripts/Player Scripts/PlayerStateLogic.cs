@@ -65,7 +65,7 @@ public class PlayerIdleState : PlayerState {
 
     public override void EnterState() {
         Debug.Log("idle");
-        //config.grounded = true;
+        config.grounded = true;
         tongue = config.tongue.GetComponent<TongueController>();
         config.playerAnimator.UpdateIdleAnimation();
     }
@@ -225,7 +225,8 @@ public class PlayerTongueState : PlayerState {
         if (InputManager.Instance.StaffPressed) buffer = factory.Staff();
         if (InputManager.Instance.KickHeld) buffer = factory.KickCharge();
         if (InputManager.Instance.TonguePressed) buffer = factory.Tongue();
-        if (tongue.heldObject != null) buffer = factory.Running();
+        if (tongue.heldObject != null && config.grounded) buffer = factory.Running();
+        if (!config.grounded) buffer = factory.Falling();
     }
 
     public override void ExitState() {}
@@ -328,7 +329,6 @@ public class PlayerFlyingState : PlayerState
         if (InputManager.Instance.TonguePressed) buffer = factory.Tongue();
         if (InputManager.Instance.KickHeld) buffer = factory.KickCharge();
         if (InputManager.Instance.Move != Vector3.zero) buffer = factory.Running();
-        if (!config.grounded) buffer = factory.Falling();
     }
 
     public override void ExitState()
