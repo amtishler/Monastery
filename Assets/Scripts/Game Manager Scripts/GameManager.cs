@@ -103,7 +103,7 @@ public class GameManager : MonoBehaviour
                 if (cp.activeCheckpoint) {
                     cp.ResetObjects();
                     cp.ResetZones();
-                    break;
+                    return;
                 }
             }
         }
