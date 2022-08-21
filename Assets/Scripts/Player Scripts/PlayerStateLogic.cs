@@ -638,8 +638,8 @@ public class PlayerFallState : PlayerState
 {
     private float _fallAnim;
     private Rigidbody2D character;
-    private BoxCollider2D hurtbox;
-    private WallCollider wallCollider;
+    private Collider2D[] colliders;
+    // private WallCollider wallCollider;
     private CinemachineVirtualCamera cam;
     private Vector3 offset;
     public PlayerFallState(PlayerConfig config, StateMachine currentContext, PlayerStateFactory stateFactory)
@@ -655,10 +655,11 @@ public class PlayerFallState : PlayerState
         character = config.GetComponent<Rigidbody2D>();
         character.gravityScale += config.gravity;
 
-        hurtbox = config.gameObject.GetComponent<BoxCollider2D>();
-        hurtbox.enabled = false;
-        wallCollider = config.gameObject.GetComponentInChildren<WallCollider>();
-        wallCollider.BeginFalling();
+        colliders = config.gameObject.GetComponentsInChildren<Collider2D>();
+        foreach (var c in colliders) c.enabled = false;
+        
+        // wallCollider = config.gameObject.GetComponentInChildren<WallCollider>();
+        // wallCollider.BeginFalling();
 
         cam = config.GetComponentInChildren<CinemachineVirtualCamera>();
 
@@ -678,8 +679,8 @@ public class PlayerFallState : PlayerState
         config.ResetCollision();
 
         character.gravityScale = 0f;
-        hurtbox.enabled = true;
-        wallCollider.StopFalling();
+        foreach (var c in colliders) c.enabled = true;
+        // wallCollider.StopFalling();
         cam.GetComponent<CinemachineCameraOffset>().m_Offset = Vector3.zero;
     }
     public override void CheckSwitchStates(){
