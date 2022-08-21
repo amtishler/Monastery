@@ -43,6 +43,7 @@ public class FlyConfig : CharacterConfig {
     protected override void _Start() {
 
         hitstaken = 0;
+        respawnPoint = this.gameObject.transform.position;
 
         //Populate waypoints
         foreach(Transform child in waypointobject.transform)
@@ -100,6 +101,25 @@ public class FlyConfig : CharacterConfig {
         }
         
         animator.Play("GetHit");
+    }
+
+    public override void Reset()
+    {
+        base.Reset();
+
+        //Fly Specific
+        islandstraversed = 0;
+        target = null;
+        attacking = false;
+        retreating = false;
+        hitstaken = 0;
+
+
+        this.gameObject.transform.position = respawnPoint;
+        FlyStateMachine sm = this.gameObject.GetComponent<FlyStateMachine>();
+        if (sm != null) {
+            sm.currentState.SwitchStates(sm.states.Idle());
+        }
     }
 
     void Retreat()
