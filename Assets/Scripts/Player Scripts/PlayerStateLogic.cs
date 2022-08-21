@@ -648,7 +648,7 @@ public class PlayerFallState : PlayerState
     }
 
     public override void EnterState(){
-        Debug.Log("hey ;)");
+        // Debug.Log("hey ;)");
         _fallAnim = config.fallingAnimDuration;
         config.GetComponent<SpriteRenderer>().sortingLayerName = "Background";
 
@@ -666,7 +666,7 @@ public class PlayerFallState : PlayerState
         config.SlowDown(config.Deacceleration);
     }
     public override void UpdateState(){
-        Debug.Log("updatefalll");
+        // Debug.Log("updatefalll");
         _fallAnim -= Time.deltaTime;
         offset.y += Time.deltaTime*config.gravity*2;
         cam.GetComponent<CinemachineCameraOffset>().m_Offset = offset;
@@ -674,7 +674,7 @@ public class PlayerFallState : PlayerState
     }
     public override void ExitState(){
         config.GetComponent<SpriteRenderer>().sortingLayerName = "Player";
-        Debug.Log("exiting fall");
+        // Debug.Log("exiting fall");
         config.ResetCollision();
 
         character.gravityScale = 0f;

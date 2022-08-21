@@ -97,6 +97,8 @@ public class GameManager : MonoBehaviour
     }
 
     public void ResetLevel() {
+        MusicManager.Instance.HandleTrigger(false, FadeSpeed.normal, Area.Forest, 0, FadeSpeed.normal);
+        InputManager.Instance.CombatMap();
         foreach (var c in checkpoints) {
             Checkpoint cp = c.GetComponent<Checkpoint>();
             if (cp.gameObject.activeInHierarchy) {
@@ -107,7 +109,5 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        MusicManager.Instance.HandleTrigger(false, FadeSpeed.normal, Area.Forest, 0, FadeSpeed.normal);
-        InputManager.Instance.CombatMap();
     }
 }
