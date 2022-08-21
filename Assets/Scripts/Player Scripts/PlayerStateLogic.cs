@@ -504,8 +504,8 @@ public class PlayerHurtState : PlayerState
         config.resetPosition = returnPoint;
     }
     public override void CheckSwitchStates(){
-        if(config.Speed == 0) SwitchStates(factory.Idle());
         if(!config.grounded) SwitchStates(factory.Falling());
+        else if(config.Speed == 0) SwitchStates(factory.Idle());
     }
 }
 
