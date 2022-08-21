@@ -38,6 +38,7 @@ public class EnemyTracker : StoryEvent
 
     public void DecreaseEnemies()
     {
+        Debug.Log("we're decreasing");
         enemiesLeft--;
         Debug.Log(enemiesLeft);
         if (EnemiesDefeated)

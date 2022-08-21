@@ -40,6 +40,7 @@ public class Cutscene : StoryEvent {
     // For when enemies die
     public override void BeginStoryEvent()
     {
+        if (completed) return;
         cameraController.ActivateCamera();
         Debug.Log("activated camera");
         Debug.LogError("Activated Camera (error)");
