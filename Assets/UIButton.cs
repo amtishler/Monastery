@@ -39,4 +39,8 @@ public class UIButton : MonoBehaviour
         UISFXManager.Instance.PlayMenuSFX(UISFX.enterMenu);
     }
 
+    public void PlayReleaseSlider()
+    {
+        UISFXManager.Instance.PlayMenuSFX(UISFX.releaseSlider);
+    }
 }

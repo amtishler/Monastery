@@ -99,7 +99,7 @@ public class AmbienceManager : MonoBehaviour
 
     public void HandleTrigger(AreaAmbience areaAmbience)
     {
-        Debug.Log("trigger");
+        //Debug.Log("trigger");
 
         if (areaAmbience == currentAreaAmbience)
         {

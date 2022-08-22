@@ -34,7 +34,7 @@ public class AmbienceCollider : MonoBehaviour
 
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Ambience Trigger");
+            //Debug.Log("Ambience Trigger");
 
             AmbienceManager.Instance.HandleTrigger(toPlay);
         }

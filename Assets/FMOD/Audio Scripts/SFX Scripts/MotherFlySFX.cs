@@ -38,15 +38,21 @@ public class MotherFlySFX : MonoBehaviour
 
     public void PlaySFX(FlyMinibossSFX toPlay)
     {
-        float dist = Vector3.Distance(pConfig.transform.position, transform.position);
-        float volumeMod = ((18 - dist) / 18) + .1f;
+        sfxList[(int)toPlay].setParameterByName("MasterVol", 1);
 
-        if (volumeMod <= 0)
+        if (toPlay == FlyMinibossSFX.fly)
         {
-            return;
-        }
+            float dist = Vector3.Distance(pConfig.transform.position, transform.position);
+            float volumeMod = ((32 - dist) / 32) + .2f;
 
-        sfxList[(int)toPlay].setParameterByName("MasterVol", volumeMod);
+            if (volumeMod <= 0)
+            {
+                return;
+            }
+
+            sfxList[(int)toPlay].setParameterByName("MasterVol", volumeMod);
+        }
+        
 
         sfxList[(int)toPlay].start();
     }

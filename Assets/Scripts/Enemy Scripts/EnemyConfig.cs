@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
 
-public class EnemyConfig : KillableConfig
-{
+public class EnemyConfig : CharacterConfig {
 
     public float detectionradius = 10f;
     public float attackradius = 4f;
@@ -37,6 +36,7 @@ public class EnemyConfig : KillableConfig
 
     public GameObject attackTriggerZone;
     private EnemyAttackZone aggroZone;
+    [SerializeField] private EnemyTracker tracker;
 
     public GameObject target;
     public GameObject attackhitbox;
@@ -129,6 +129,19 @@ public class EnemyConfig : KillableConfig
         animator.SetBool("Attacking", isattacking);
         animator.SetBool("Stunned", stunned);
         animator.SetBool("Dead", dead);
+    }
+
+
+    public void RegisterTracker(EnemyTracker tracker)
+    {
+        this.tracker = tracker;
+        //Debug.Log(tracker == null);
+    }
+
+    public void KillInTracker()
+    {
+        if (tracker == null) return;
+        tracker.DecreaseEnemies();
     }
 
     public void SetTarget(GameObject objtarget)

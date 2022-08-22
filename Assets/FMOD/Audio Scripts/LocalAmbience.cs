@@ -89,7 +89,7 @@ public class LocalAmbience : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Local Ambience On");
+            //Debug.Log("Local Ambience On");
 
             currentLocalAmbience = localAmbiences[(int)ambienceName];
             currentLocalAmbience.start();
@@ -101,7 +101,7 @@ public class LocalAmbience : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Local Ambience Off");
+            //Debug.Log("Local Ambience Off");
 
             currentLocalAmbience.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
             currentVolume = 0;
