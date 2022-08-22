@@ -338,7 +338,6 @@ public class PlayerFlyingState : PlayerState
 
     public override void CheckSwitchStates()
     {
-        if (!config.grounded) SwitchStates(factory.Falling());
         if (config.Speed < config.MinimumSpeed || InputManager.Instance.Move != Vector3.zero)
         {
             if (!config.grounded) SwitchStates(factory.Falling());
