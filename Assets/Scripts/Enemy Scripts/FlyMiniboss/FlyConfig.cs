@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
 
-public class FlyConfig : CharacterConfig {
+public class FlyConfig : KillableConfig {
     
     public GameObject target;
     public GameObject egg;

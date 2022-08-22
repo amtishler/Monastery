@@ -12,10 +12,11 @@ public class EnemyTracker : StoryEvent
     protected override void _Awake() {
         enemiesLeft = enemies.Length;
         foreach (var e in enemies) {
-            EnemyConfig enemy = e.GetComponent<EnemyConfig>();
+            KillableConfig enemy = e.GetComponent<KillableConfig>();
             enemy.RegisterTracker(this);
             if (enemy == null) Debug.LogError("Not a character");
-            enemy.detectionradius = 0f;
+            EnemyConfig normalEnemy = e.GetComponent<EnemyConfig>();
+            normalEnemy.detectionradius = 0f;
         }
     }
 
