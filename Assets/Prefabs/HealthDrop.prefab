@@ -114,6 +114,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7145abbe33edda845ab03e9e6d64b24c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthgain: 10
+  healthgain: 25
   dropspeed: 0
   dropaccel: 0.5
