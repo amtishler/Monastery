@@ -13,7 +13,9 @@ public class EnemyTracker : StoryEvent
         enemiesLeft = enemies.Length;
         foreach (var e in enemies) {
             EnemyConfig enemy = e.GetComponent<EnemyConfig>();
+            FlyConfig fly = e.GetComponent<FlyConfig>();
             enemy.RegisterTracker(this);
+            fly.RegisterTracker(this);
             if (enemy == null) Debug.LogError("Not a character");
             enemy.detectionradius = 0f;
         }

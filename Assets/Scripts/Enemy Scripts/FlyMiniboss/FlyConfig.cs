@@ -9,7 +9,8 @@ public class FlyConfig : CharacterConfig {
     public GameObject egg;
     public GameObject spit;
     public GameObject attackTriggerZone;
-    private EnemyAttackZone aggroZone; 
+    private EnemyAttackZone aggroZone;
+    private EnemyTracker tracker;
 
     public GameObject waypointobject;
     public List<GameObject> waypoints = new List<GameObject>();
@@ -100,6 +101,17 @@ public class FlyConfig : CharacterConfig {
         }
         
         animator.Play("GetHit");
+    }
+
+    public void RegisterTracker(EnemyTracker tracker)
+    {
+        this.tracker = tracker;
+    }
+
+    public void KillInTracker()
+    {
+        if (tracker == null) return;
+        tracker.DecreaseEnemies();
     }
 
     public override void Reset()

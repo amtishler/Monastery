@@ -143,6 +143,8 @@ public class FlyDeadState : FlyState {
         config.grabbable = false;
         body = config.GetComponent<Rigidbody2D>();
         body.simulated = false;
+
+        config.KillInTracker();
     }
 
     public override void UpdateState() {
