@@ -124,6 +124,7 @@ public class FlyConfig : CharacterConfig {
         attacking = false;
         retreating = false;
         hitstaken = 0;
+        CancelInvoke();
 
 
         this.gameObject.transform.position = respawnPoint;
