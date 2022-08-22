@@ -64,7 +64,6 @@ public class FlyConfig : CharacterConfig {
         //attacking = true;
         attacking = false;
         retreating = false;
-        InvokeRepeating("PlaySpit", 2f, 3f);
         return;
     }
 
@@ -160,6 +159,7 @@ public class FlyConfig : CharacterConfig {
     {
         attacking = true;
         target = objtarget;
+        InvokeRepeating("PlaySpit", 1f, 3f);
     }
 
     protected override void _Update() {
