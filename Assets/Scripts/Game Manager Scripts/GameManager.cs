@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     [System.NonSerialized] public int BOUNDARY = 17;
     [System.NonSerialized] public int OBJECT_WALL_COLLISION = 18;
     public GameObject player;
-    public GameObject[] checkpoints;
+    public Checkpoint[] checkpoints;
     private GameObject debug;
     private bool debugActive;
     //GameManager.Instance.whatever
@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
     {
         _instance = this;
         Application.targetFrameRate = 144;
-        checkpoints = GameObject.FindGameObjectsWithTag("Checkpoint");
+        checkpoints = GameObject.FindObjectsOfType<Checkpoint>();
         player = GameObject.FindGameObjectWithTag("Player");
         telescopeImage = GetComponentInChildren<Image>();
         imageSize = telescopeImage.GetComponent<RectTransform>();
@@ -100,11 +100,10 @@ public class GameManager : MonoBehaviour
         MusicManager.Instance.HandleTrigger(false, FadeSpeed.normal, Area.Forest, 0, FadeSpeed.normal);
         InputManager.Instance.CombatMap();
         foreach (var c in checkpoints) {
-            Checkpoint cp = c.GetComponent<Checkpoint>();
-            if (cp.gameObject.activeInHierarchy) {
-                if (cp.activeCheckpoint) {
-                    cp.ResetObjects();
-                    cp.ResetZones();
+            if (c.gameObject.activeInHierarchy) {
+                if (c.activeCheckpoint) {
+                    c.ResetObjects();
+                    c.ResetZones();
                     return;
                 }
             }

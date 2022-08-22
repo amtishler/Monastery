@@ -105,6 +105,7 @@ public class PlayerRunningState : PlayerState
 
     public override void EnterState()
     {
+        Debug.Log("running");
         config.grounded = true;
         returnPoint = config.resetPosition;
         tongue = config.tongue.GetComponent<TongueController>();
@@ -201,6 +202,7 @@ public class PlayerTongueState : PlayerState {
     }
 
     public override void EnterState() {
+        Debug.Log("tongue");
         config.grounded = true;
         buffer = factory.Idle();
         tongue = config.tongue.GetComponent<TongueController>();
@@ -256,6 +258,7 @@ public class PlayerPullingState : PlayerState
 
     public override void EnterState()
     {
+        Debug.Log("pulling");
         config.grounded = true;
         tongue = config.tongue.GetComponent<TongueController>();
     }
@@ -308,6 +311,7 @@ public class PlayerFlyingState : PlayerState
 
     public override void EnterState()
     {
+        Debug.Log("flying");
         tongue = config.tongue.GetComponent<TongueController>();
         tongue.RemovePlayerInputForce();
         deaccel = tongue.FlyingDeaccel;
@@ -360,6 +364,7 @@ public class PlayerStaffState : PlayerState
 
     public override void EnterState()
     {
+        Debug.Log("staff");
         config.grounded = true;
         returnPoint = config.resetPosition;
         if (config.Velocity != Vector3.zero)
@@ -405,6 +410,7 @@ public class PlayerKickChargeState : PlayerState {
     }
 
     public override void EnterState() {
+        Debug.Log("kick charge");
         config.grounded = true;
         config.SlowDown(config.Deacceleration*2.5f);
         totalChargeTime = config.KickChargeTime;
@@ -445,6 +451,7 @@ public class PlayerKickState : PlayerState
 
     public override void EnterState()
     {
+        Debug.Log("kick");
         config.grounded = true;
         Vector3 direction = InputManager.Instance.Aim;
         kick = config.kick.GetComponent<Attack>();
@@ -487,6 +494,7 @@ public class PlayerHurtState : PlayerState
     }
 
     public override void EnterState(){
+        Debug.Log("hurt");
         config.grounded = true;
         returnPoint = config.resetPosition;
         tongue = config.tongue.GetComponent<TongueController>();
@@ -549,6 +557,7 @@ public class PlayerMapOpenState : PlayerState
     }
 
     public override void EnterState(){
+        Debug.Log("map open");
         config.grounded = true;
         hurtbox = config.gameObject.GetComponent<BoxCollider2D>();
         hurtbox.enabled = false;
@@ -612,6 +621,7 @@ public class PlayerCutsceneState : PlayerState
     }
 
     public override void EnterState(){
+        Debug.Log("cutscene");
         tongue = config.tongue.GetComponent<TongueController>();
         config.grounded = true;
         config.playerAnimator.UpdateIdleAnimation();
@@ -647,7 +657,7 @@ public class PlayerFallState : PlayerState
     }
 
     public override void EnterState(){
-        // Debug.Log("hey ;)");
+        Debug.Log("falling");
         _fallAnim = config.fallingAnimDuration;
         config.GetComponent<SpriteRenderer>().sortingLayerName = "Background";
 

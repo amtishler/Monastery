@@ -148,7 +148,7 @@ public class CameraController : MonoBehaviour
                 Destroy(c.Value.gameObject);
             }
             colliders.Clear();
-            if (CameraSwitcher.ActiveCamera == cam) CameraSwitcher.SwitchCamera(GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<CinemachineVirtualCamera>());
+            if (CameraSwitcher.ActiveCamera == cam) CameraSwitcher.SwitchCamera(GameObject.FindObjectOfType<PlayerConfig>().gameObject.GetComponentInChildren<CinemachineVirtualCamera>());
         }
         activated = false;
     }
