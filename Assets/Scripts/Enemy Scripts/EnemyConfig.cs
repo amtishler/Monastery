@@ -135,7 +135,7 @@ public class EnemyConfig : CharacterConfig {
     public void RegisterTracker(EnemyTracker tracker)
     {
         this.tracker = tracker;
-        Debug.Log(tracker == null);
+        //Debug.Log(tracker == null);
     }
 
     public void KillInTracker()

@@ -161,7 +161,7 @@ public class InputManager : MonoBehaviour{
     private void OnControlsChanged() {
         usingController = !usingController;
         if (tutorialActive) ChangeMessages();
-        Debug.Log(usingController);
+        //Debug.Log(usingController);
     }
 
     private void OnMove(InputValue value) {
@@ -235,6 +235,7 @@ public class InputManager : MonoBehaviour{
 
     private void OnPause(InputValue value) {
         pause.SetValue(value.isPressed);
+        UISFXManager.Instance.PlayMenuSFX(UISFX.enterMenu);
         //inputText = "Quit app";
     }
 
@@ -256,7 +257,7 @@ public class InputManager : MonoBehaviour{
         Vector3 direction;
         if (usingController) direction = aim;
         else direction = GetMouseDirection();
-        Debug.Log(direction);
+        //Debug.Log(direction);
         if (direction == Vector3.zero) direction = move;
         if (direction != Vector3.zero) staticDir = direction;
         else direction = staticDir;

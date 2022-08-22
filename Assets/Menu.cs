@@ -120,11 +120,11 @@ public class Menu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerEnter(PointerEventData eventData){
         EventSystem.current.SetSelectedGameObject(eventData.pointerEnter);
-        Debug.Log(eventData);
+        //Debug.Log(eventData);
         if (highlightIcon != null)
         {
             highlightIcon.gameObject.transform.position = new Vector2(highlightIcon.transform.position.x, eventData.pointerEnter.transform.position.y);
-            Debug.Log("HERE 2");
+            //Debug.Log("HERE 2");
         }
     }
 

@@ -27,6 +27,7 @@
 		</relationship>
 		<relationship name="groupTracks">
 			<destination>{0598e554-d66d-473e-8091-834b0e4d9b0d}</destination>
+			<destination>{f66c374d-1a1c-48c4-b7a2-c757a48bc79c}</destination>
 		</relationship>
 		<relationship name="timeline">
 			<destination>{e0075f65-45ab-4b72-afad-0811cc3b070f}</destination>
@@ -69,9 +70,18 @@
 			<destination>{50572c56-f404-4b95-84e2-db675286ef77}</destination>
 		</relationship>
 	</object>
+	<object class="GroupTrack" id="{f66c374d-1a1c-48c4-b7a2-c757a48bc79c}">
+		<relationship name="modules">
+			<destination>{7ff6f153-165b-4410-9b98-7a98c3912864}</destination>
+		</relationship>
+		<relationship name="mixerGroup">
+			<destination>{443e281f-7c27-4846-a546-591c06f58d08}</destination>
+		</relationship>
+	</object>
 	<object class="Timeline" id="{e0075f65-45ab-4b72-afad-0811cc3b070f}">
 		<relationship name="modules">
 			<destination>{2535f602-f9ff-4a21-aedb-2de031ceb735}</destination>
+			<destination>{7ff6f153-165b-4410-9b98-7a98c3912864}</destination>
 		</relationship>
 	</object>
 	<object class="EventMixerMaster" id="{de6236ef-a5bd-4ba1-b02a-14b06f5ec946}">
@@ -128,10 +138,34 @@
 			<destination>{de6236ef-a5bd-4ba1-b02a-14b06f5ec946}</destination>
 		</relationship>
 	</object>
+	<object class="SingleSound" id="{7ff6f153-165b-4410-9b98-7a98c3912864}">
+		<property name="length">
+			<value>1.6605416666666666</value>
+		</property>
+		<relationship name="audioFile">
+			<destination>{b76d4ada-b023-450f-941b-77e20c2f30d8}</destination>
+		</relationship>
+	</object>
+	<object class="EventMixerGroup" id="{443e281f-7c27-4846-a546-591c06f58d08}">
+		<property name="name">
+			<value>Audio 2</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{2351c906-cf51-4f33-8456-69d07ce6d18b}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{af29f665-b989-4166-a6a5-98f3d3ca1c62}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{de6236ef-a5bd-4ba1-b02a-14b06f5ec946}</destination>
+		</relationship>
+	</object>
 	<object class="MixerBusEffectChain" id="{afd29793-8e3b-40c1-a36d-27463fc34767}">
 		<relationship name="effects">
 			<destination>{61b99ac1-0676-49e0-a100-174a5fefc11e}</destination>
 			<destination>{7e85841f-3502-4923-9913-46f5169e374e}</destination>
+			<destination>{44c5a486-0c7f-4c9d-8504-5b145a1972b5}</destination>
+			<destination>{d01ea33c-97f8-4baa-b955-97f5e5a8518e}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{66784576-1cb5-44d2-955a-97299be17418}" />
@@ -169,11 +203,30 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{71d63b4c-5e52-4354-820d-449aa5822439}" />
+	<object class="MixerBusEffectChain" id="{2351c906-cf51-4f33-8456-69d07ce6d18b}">
+		<relationship name="effects">
+			<destination>{a840742f-62c6-4fb0-93ae-93ffdcf2e54e}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{af29f665-b989-4166-a6a5-98f3d3ca1c62}" />
 	<object class="MixerBusFader" id="{61b99ac1-0676-49e0-a100-174a5fefc11e}" />
 	<object class="GainEffect" id="{7e85841f-3502-4923-9913-46f5169e374e}">
 		<relationship name="automators">
 			<destination>{a9c42993-d98b-47ab-8002-907b5702d021}</destination>
 		</relationship>
+	</object>
+	<object class="SFXReverbEffect" id="{44c5a486-0c7f-4c9d-8504-5b145a1972b5}">
+		<property name="HFReference">
+			<value>4200</value>
+		</property>
+		<property name="wetLevel">
+			<value>-10</value>
+		</property>
+	</object>
+	<object class="ThreeEQEffect" id="{d01ea33c-97f8-4baa-b955-97f5e5a8518e}">
+		<property name="highGain">
+			<value>-2.5</value>
+		</property>
 	</object>
 	<object class="AutomationPoint" id="{99e71c9b-6ed7-475e-8244-734c1cdfa088}">
 		<property name="position">
@@ -195,6 +248,7 @@
 		</property>
 	</object>
 	<object class="MixerBusFader" id="{233863b0-f878-400d-8981-5ff9d90de437}" />
+	<object class="MixerBusFader" id="{a840742f-62c6-4fb0-93ae-93ffdcf2e54e}" />
 	<object class="Automator" id="{a9c42993-d98b-47ab-8002-907b5702d021}">
 		<property name="nameOfPropertyBeingAutomated">
 			<value>gain</value>

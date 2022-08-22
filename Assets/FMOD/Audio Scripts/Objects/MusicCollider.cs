@@ -32,7 +32,7 @@ public class MusicCollider : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Music Trigger");
+            //Debug.Log("Music Trigger");
 
             MusicManager.Instance.HandleTrigger(trigger);
         }
