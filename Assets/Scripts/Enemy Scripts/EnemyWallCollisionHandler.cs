@@ -18,7 +18,7 @@ public class EnemyWallCollisionHandler : MonoBehaviour
         Vector3 knockbackdir = collision.transform.position - gameObject.transform.position;
         knockbackdir.Normalize();
 
-        if(hitbox.layer == LayerMask.NameToLayer("Spit Projectile Hitbox"))
+        if(hitbox.layer == LayerMask.NameToLayer("Spit Projectile Hitbox") && hitbox.activeSelf)
         {
             GameManager.Instance.DamageCharacter(this.gameObject.GetComponentInParent<CharacterConfig>(), hitboxsettings.selfdamage, hitboxsettings.selfstun, knockbackdir, wallknockback);
         }
